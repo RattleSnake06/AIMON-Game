@@ -45,6 +45,16 @@ const Input = {
       for (const b of BUTTONS) this.down[b] = false;
     });
     this.initTouch();
+    // Clicking or tapping the screen focuses the game and counts as A.
+    const screen = document.getElementById('screen');
+    if (screen) {
+      screen.tabIndex = 0;
+      screen.addEventListener('pointerdown', () => {
+        screen.focus();
+        this.gesture();
+        if (!this.textMode) this.hit.a = true;
+      });
+    }
   },
 
   gesture() {

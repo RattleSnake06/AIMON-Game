@@ -1,4 +1,6 @@
 :root {
+  color-scheme: dark;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
   --bg: #1c1c28;
   --bezel: #3a3a5c;
   --bezel-hi: #50507a;
@@ -30,7 +32,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+  padding-inline: 16px;
 }
 
 #screen-wrap {

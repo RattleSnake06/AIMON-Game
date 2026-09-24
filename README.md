@@ -26,8 +26,13 @@ No build step and no dependencies. Either:
 | START | Enter |
 | Sound on/off | M |
 
-On phones and tablets an on-screen D-pad with A/B/START/SELECT appears. The
-game saves to the browser's local storage (START → SAVE).
+On phones and tablets an on-screen D-pad with A/B/START/SELECT appears.
+Clicking or tapping the game screen also works as A. The game saves to the
+browser's local storage (START → SAVE).
+
+To get the whole game as one self-contained HTML file (for sharing or
+hosting anywhere), run `python3 tools/bundle.py`. It writes
+`dist/aimon.html`.
 
 ## What's in it
 
@@ -83,6 +88,7 @@ js/data/              species, moves, types, items, trainers, maps, music,
 js/game/              overworld, dialog, menus, battle, story events, screens
 assets/sprites/       battle sprites and party icons (generated)
 tools/make_sprites.py converts the design sheets into sprites
+tools/bundle.py       inlines everything into dist/aimon.html
 ```
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
