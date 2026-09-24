@@ -6,6 +6,8 @@ const ITEMS = {
     desc: 'A ball for catching wild AIMON.' },
   greatball: { name: 'GREAT BALL', pocket: 'balls', price: 600, ball: 1.5,
     desc: 'A better ball with a higher catch rate.' },
+  rarecandy: { name: 'RARE CANDY', pocket: 'items', candy: true, infinite: true, field: true,
+    desc: 'Raises one AIMON\'s level by 1 instantly. (Test build: it never runs out.)' },
   potion: { name: 'POTION', pocket: 'items', price: 300, heal: 20,
     desc: 'Restores the HP of one AIMON by 20 points.' },
   superpotion: { name: 'SUPER POTION', pocket: 'items', price: 700, heal: 50,

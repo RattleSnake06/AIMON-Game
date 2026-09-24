@@ -123,11 +123,11 @@ Object.assign(MAPS, {
     encounters: {
       rate: 0.1,
       table: [
-        { species: 'wraithling', min: 14, max: 17, weight: 40 },
-        { species: 'leafgrub', min: 14, max: 16, weight: 20 },
-        { species: 'bambuck', min: 14, max: 16, weight: 15 },
-        { species: 'nibblit', min: 14, max: 16, weight: 15 },
-        { species: 'ruffang', min: 15, max: 17, weight: 10 },
+        { species: 'wraithling', min: 13, max: 16, weight: 40 },
+        { species: 'leafgrub', min: 13, max: 15, weight: 20 },
+        { species: 'bambuck', min: 13, max: 15, weight: 15 },
+        { species: 'nibblit', min: 13, max: 15, weight: 15 },
+        { species: 'ruffang', min: 14, max: 16, weight: 10 },
       ],
     },
     glows: [
@@ -493,20 +493,20 @@ Object.assign(MAPS, {
     encounters: {
       rate: 0.1,
       table: [
-        { species: 'tidepup', min: 18, max: 21, weight: 25 },
-        { species: 'skydrift', min: 18, max: 21, weight: 20 },
-        { species: 'goskie', min: 18, max: 20, weight: 20 },
-        { species: 'dapplekit', min: 18, max: 21, weight: 15 },
-        { species: 'ruffang', min: 19, max: 21, weight: 10 },
-        { species: 'flambramble', min: 19, max: 21, weight: 10 },
+        { species: 'tidepup', min: 17, max: 20, weight: 25 },
+        { species: 'skydrift', min: 17, max: 20, weight: 20 },
+        { species: 'goskie', min: 17, max: 19, weight: 20 },
+        { species: 'dapplekit', min: 17, max: 20, weight: 15 },
+        { species: 'ruffang', min: 18, max: 20, weight: 10 },
+        { species: 'flambramble', min: 18, max: 20, weight: 10 },
       ],
     },
     fishing: {
       table: [
-        { species: 'reefwhirl', min: 17, max: 21, weight: 35 },
-        { species: 'tidepup', min: 17, max: 21, weight: 30 },
-        { species: 'goskie', min: 17, max: 20, weight: 20 },
-        { species: 'skydrift', min: 18, max: 21, weight: 15 },
+        { species: 'reefwhirl', min: 16, max: 20, weight: 35 },
+        { species: 'tidepup', min: 16, max: 20, weight: 30 },
+        { species: 'goskie', min: 16, max: 19, weight: 20 },
+        { species: 'skydrift', min: 17, max: 20, weight: 15 },
       ],
     },
     signs: [
@@ -591,9 +591,9 @@ Object.assign(MAPS, {
     ],
     fishing: {
       table: [
-        { species: 'reefwhirl', min: 20, max: 24, weight: 40 },
-        { species: 'skydrift', min: 20, max: 24, weight: 35 },
-        { species: 'tidepup', min: 20, max: 23, weight: 25 },
+        { species: 'reefwhirl', min: 19, max: 23, weight: 40 },
+        { species: 'skydrift', min: 19, max: 23, weight: 35 },
+        { species: 'tidepup', min: 19, max: 22, weight: 25 },
       ],
     },
     npcs: [

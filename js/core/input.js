@@ -49,10 +49,14 @@ const Input = {
     const screen = document.getElementById('screen');
     if (screen) {
       screen.tabIndex = 0;
-      screen.addEventListener('pointerdown', () => {
+      screen.addEventListener('pointerdown', (e) => {
         screen.focus();
         this.gesture();
-        if (!this.textMode) this.hit.a = true;
+        if (this.textMode) return;
+        this.hit.a = true;
+        // Where the screen was tapped, in game pixels (for touch buttons).
+        const r = screen.getBoundingClientRect();
+        this.tapHit = { x: (e.clientX - r.left) * SCREEN_W / r.width, y: (e.clientY - r.top) * SCREEN_H / r.height };
       });
     }
   },
@@ -88,6 +92,8 @@ const Input = {
   },
 
   update() {
+    this.tap = this.tapHit || null;
+    this.tapHit = null;
     for (const b of BUTTONS) {
       this.now[b] = this.hit[b];
       this.hit[b] = false;
@@ -106,6 +112,8 @@ const Input = {
 
   // Swallow presses so the next screen doesn't react to the same one.
   clear() {
+    this.tap = null;
+    this.tapHit = null;
     for (const b of BUTTONS) {
       this.now[b] = false;
       this.hit[b] = false;

@@ -220,7 +220,7 @@ const BattleArt = {
 const BattleFX = {
   // Where a side's sprite is centred on screen.
   center(b, side) {
-    return side === b.e ? [176, 44] : [68, 84];
+    return side === b.e ? [176, 40] : [68, 84];
   },
 
   add(b, part) {

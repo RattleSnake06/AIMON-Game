@@ -3,7 +3,7 @@
 
 const WINDOW_STYLES = {
   field: { outer: '#384058', rim: '#e8f0f8', rim2: '#88a0c8', bg: '#f8f8f8', text: '#404048', shadow: '#d0d0c8' },
-  battle: { outer: '#201818', rim: '#e07850', rim2: '#983828', bg: '#28405a', text: '#f8f8f8', shadow: '#586878' },
+  battle: { outer: '#303038', rim: '#98a0a8', rim2: '#606870', bg: '#f8f8f8', text: '#404048', shadow: '#d0d0d8' },
   dark: { outer: '#101820', rim: '#708098', rim2: '#384858', bg: '#203040', text: '#f8f8f8', shadow: '#485868' },
   sign: { outer: '#403020', rim: '#d8b078', rim2: '#a07848', bg: '#f8f0d8', text: '#404048', shadow: '#d8d0b8' },
 };
@@ -43,7 +43,7 @@ const UI = {
   moreArrow(g, x, y, style = 'field') {
     const s = WINDOW_STYLES[style] || WINDOW_STYLES.field;
     const bob = Math.floor(Game.frame / 8) % 4;
-    Font.draw(g, '▼', x, y - 3 + (bob === 1 || bob === 2 ? 1 : 0), style === 'battle' ? '#f8d030' : '#e05038', s.shadow);
+    Font.draw(g, '▼', x, y - 3 + (bob === 1 || bob === 2 ? 1 : 0), '#e05038', s.shadow);
   },
 
   hpColor(frac) {

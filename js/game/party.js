@@ -7,7 +7,7 @@ class PartyScreen {
     this.opaque = true;
     this.opts = opts;
     this.mode = opts.mode || 'field';
-    this.index = opts.mode === 'forced' ? State.party.findIndex((m) => !m.fainted) : 0;
+    this.index = opts.mode === 'forced' ? State.party.findIndex((m) => !m.fainted) : Math.min(opts.index || 0, State.party.length - 1);
     if (this.index < 0) this.index = 0;
     this.choice = null;
     this.swapFrom = -1;

@@ -4,6 +4,9 @@
 
 const STRUGGLE = { name: 'STRUGGLE', type: 'normal', cat: 'physical', power: 50, acc: 0, pp: 1, fx: 'hit', recoil: 0.25 };
 
+// A little more EXP than the GBA formula, to keep the level curve gentle.
+const EXP_BOOST = 1.2;
+
 function stageMult(s) { return s >= 0 ? (2 + s) / 2 : 2 / (2 - s); }
 function accMult(s) { return s >= 0 ? (3 + s) / 3 : 3 / (3 - s); }
 
@@ -108,7 +111,7 @@ class Battle {
 
   *showHud(s) {
     s.hud = true;
-    yield* BattleFX.tween(10, (t) => { s.hudX = (1 - t) * (s.isPlayer ? 120 : -120); });
+    yield* BattleFX.tween(10, (t) => { s.hudX = (1 - t) * (s.isPlayer ? 160 : -140); });
     s.hudX = 0;
   }
 
@@ -117,8 +120,8 @@ class Battle {
     State.markSeen(e.mon.species);
     yield* this.msg(`${this.trainerTitle} sent out ${e.mon.name}!`, 'hold');
     Sound.sfx('ballThrow');
-    this.ball = { x: 176, y: 20, angle: 0 };
-    yield* BattleFX.tween(12, (t) => { this.ball.y = 20 + t * 48; this.ball.angle = t * 6; });
+    this.ball = { x: 176, y: 16, angle: 0 };
+    yield* BattleFX.tween(12, (t) => { this.ball.y = 16 + t * 48; this.ball.angle = t * 6; });
     yield* this.popOut(e);
     yield* this.showHud(e);
   }
@@ -164,16 +167,17 @@ class Battle {
 
   // ---- choosing ------------------------------------------------------------
   *chooseAction() {
+    let slide = true;
     for (;;) {
-      const box = Dialog.open('battle');
-      box.show(`What will\n${this.p.mon.name} do?`, { noWait: true, hold: true });
-      yield () => box.finished;
+      Dialog.close();
       this.bob = true;
-      const i = yield* Menu.choose({
-        items: ['FIGHT', 'BAG', 'AIMON', 'RUN'], cols: 2, x: 120, y: 112, w: 120, h: 48, colW: 56,
-        cancel: null, index: this.lastAction,
-      });
+      const panel = new CommandPanel(this, this.lastAction, slide);
+      Game.push(panel);
+      yield () => panel.result !== null;
+      Game.remove(panel);
       this.bob = false;
+      slide = true;
+      const i = panel.result;
       this.lastAction = i;
       if (i === 0) {
         const usable = this.p.mon.moves.some((m) => m.pp > 0);
@@ -183,6 +187,7 @@ class Battle {
         }
         const slot = yield* this.chooseMove();
         if (slot >= 0) return { type: 'move', slot };
+        slide = false;
       } else if (i === 1) {
         const r = yield* Bag.open({ battle: true, wild: this.wild, active: this.pi });
         if (r) return { type: 'item', ...r };
@@ -201,39 +206,14 @@ class Battle {
 
   *chooseMove() {
     const mon = this.p.mon;
-    const items = mon.moves.map((m) => ({ label: MOVES[m.id].name, disabled: m.pp <= 0 }));
-    while (items.length < 4) items.push({ label: '-', disabled: true });
-    const menu = new ChoiceMenu({
-      items, cols: 2, x: 0, y: 112, w: 160, h: 48, colW: 72, cancel: -1,
-      index: Math.min(this.lastMove, mon.moves.length - 1),
-    });
-    const baseDraw = menu.draw.bind(menu);
-    menu.draw = (g) => {
-      baseDraw(g);
-      UI.window(g, 160, 112, 80, 48);
-      const m = mon.moves[menu.index];
-      if (!m) return;
-      const mv = MOVES[m.id];
-      Font.draw(g, 'PP', 168, 120, '#404048', '#d0d0c8');
-      const low = m.pp === 0 ? '#e03030' : m.pp <= mv.pp / 4 ? '#e07818' : '#404048';
-      Font.drawRight(g, `${m.pp}/${mv.pp}`, 230, 120, low, '#d0d0c8');
-      UI.typeBadge(g, 176, 134, mv.type);
-    };
-    // Disabled entries: allow the cursor on them but refuse A for empty PP.
-    const origUpdate = menu.update.bind(menu);
-    menu.update = () => {
-      if (Input.pressed('a') && mon.moves[menu.index] && mon.moves[menu.index].pp <= 0) {
-        Input.now.a = false;
-        Co.start(this.msg('There\'s no PP left for this move!'));
-        return;
-      }
-      origUpdate();
-    };
-    Game.push(menu);
-    yield () => menu.result !== null;
-    Game.remove(menu);
-    if (menu.result >= 0) this.lastMove = menu.result;
-    return menu.result;
+    const panel = new MovePanel(this, Math.min(this.lastMove, mon.moves.length - 1));
+    this.bob = true;
+    Game.push(panel);
+    yield () => panel.result !== null;
+    Game.remove(panel);
+    this.bob = false;
+    if (panel.result >= 0) this.lastMove = panel.result;
+    return panel.result;
   }
 
   enemyAction() {
@@ -550,7 +530,7 @@ class Battle {
     yield* this.msg(`${this.nameOf(e)} fainted!`);
     // Experience for everyone who fought it.
     const sp = e.mon.sp;
-    const base = Math.floor((sp.baseExp * e.mon.level / 7) * (this.wild ? 1 : 1.5));
+    const base = Math.floor((sp.baseExp * e.mon.level / 7) * (this.wild ? 1 : 1.5) * EXP_BOOST);
     const alive = [...this.participants].filter((i) => State.party[i] && !State.party[i].fainted);
     const each = Math.max(1, Math.floor(base / Math.max(1, alive.length)));
     for (const i of alive) yield* this.giveExp(i, each);
@@ -694,7 +674,7 @@ class Battle {
     this.ball = { x: 40, y: 100, angle: 0 };
     yield* BattleFX.tween(24, (t) => {
       this.ball.x = 40 + t * 136;
-      this.ball.y = 100 - t * 60 - Math.sin(t * Math.PI) * 30;
+      this.ball.y = 100 - t * 64 - Math.sin(t * Math.PI) * 30;
       this.ball.angle = t * 12;
     });
     this.ball.angle = 0;
@@ -702,7 +682,7 @@ class Battle {
     yield* BattleFX.tween(14, (t) => { e.white = 1; e.scale = 1 - t; });
     e.vis = false;
     e.hud = false;
-    yield* BattleFX.tween(12, (t) => { this.ball.y = 40 + t * 28 - Math.sin(t * Math.PI) * 8; });
+    yield* BattleFX.tween(12, (t) => { this.ball.y = 36 + t * 28 - Math.sin(t * Math.PI) * 8; });
     Sound.sfx('ballClick');
     yield 20;
 
@@ -789,14 +769,14 @@ class Battle {
     const pOff = Math.round((1 - slide) * 240);
     const ep = BattleArt.platform(this.bgKind, 60, 13);
     const pp = BattleArt.platform(this.bgKind, 72, 16);
-    g.drawImage(ep, 116 + eOff, 60);
+    g.drawImage(ep, 116 + eOff, 56);
     g.drawImage(pp, -8 + pOff, 96);
 
     if (this.trainerX !== null) {
       const img = TrainerArt.get(this.tr.sprite);
-      g.drawImage(img, 148 + eOff + this.trainerX, 8);
+      g.drawImage(img, 148 + eOff + this.trainerX, 4);
     }
-    this.drawMon(g, this.e, 144 + eOff, 10, 74);
+    this.drawMon(g, this.e, 144 + eOff, 6, 70);
     if (this.playerTrainerX !== null) {
       g.drawImage(TrainerArt.get(this.playerThrow ? 'playerThrow' : 'playerBack'), 36 + pOff + this.playerTrainerX, 48);
     }
@@ -832,8 +812,8 @@ class Battle {
       g.fillRect(0, 0, SCREEN_W, 112);
     }
     g.restore();
-    if (this.e.hud) this.drawEnemyHud(g, 8 + this.e.hudX, 14);
-    if (this.p.hud) this.drawPlayerHud(g, 126 + this.p.hudX, 74 + bob);
+    if (this.e.hud) BattleUI.enemyPlate(g, this, this.e.hudX, 10);
+    if (this.p.hud) BattleUI.playerPlate(g, this, SCREEN_W - PLATE_W + this.p.hudX, 70 + bob);
 
     UI.window(g, 2, 112, 236, 46, 'battle');
   }
@@ -864,37 +844,6 @@ class Battle {
       g.globalAlpha = 1;
     }
     g.restore();
-  }
-
-  hudBox(g, x, y, w, h) {
-    g.fillStyle = '#383838';
-    g.fillRect(x + 1, y, w - 2, h);
-    g.fillRect(x, y + 1, w, h - 2);
-    g.fillStyle = '#f8f8d8';
-    g.fillRect(x + 1, y + 1, w - 2, h - 2);
-    g.fillStyle = '#d8d8b0';
-    g.fillRect(x + 1, y + h - 3, w - 2, 2);
-  }
-
-  drawEnemyHud(g, x, y) {
-    const s = this.e;
-    this.hudBox(g, x, y, 104, 30);
-    Font.draw(g, s.mon.name, x + 6, y + 4, '#404040', '#d8d0b0');
-    Font.drawRight(g, `Lv${s.mon.level}`, x + 98, y + 4, '#404040', '#d8d0b0');
-    if (s.mon.status) UI.statusTag(g, x + 5, y + 16, s.mon.status);
-    else if (this.wild && State.d.dex.caught[s.mon.species]) g.drawImage(BattleArt.ballImg(), x + 4, y + 16, 8, 8);
-    UI.hpBar(g, x + 34, y + 17, s.hp / s.mon.stats.hp, 48);
-  }
-
-  drawPlayerHud(g, x, y) {
-    const s = this.p;
-    this.hudBox(g, x, y, 108, 37);
-    Font.draw(g, s.mon.name, x + 10, y + 3, '#404040', '#d8d0b0');
-    Font.drawRight(g, `Lv${s.mon.level}`, x + 102, y + 3, '#404040', '#d8d0b0');
-    if (s.mon.status) UI.statusTag(g, x + 8, y + 13, s.mon.status);
-    UI.hpBar(g, x + 38, y + 14, s.hp / s.mon.stats.hp, 48);
-    Font.drawRight(g, `${Math.ceil(s.hp)}/${U.pad(s.mon.stats.hp, 3)}`, x + 102, y + 21, '#404040', '#d8d0b0');
-    UI.expBar(g, x + 8, y + 31, s.exp, 92);
   }
 }
 

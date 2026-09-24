@@ -63,7 +63,7 @@ class BagScreen {
       else {
         Font.draw(g, ITEMS[id].name, 108, y, '#404048', '#d0d0c8');
         if (ITEMS[id].toggle) Font.drawRight(g, State.d.expShareOn ? 'ON' : 'OFF', 230, y, State.d.expShareOn ? '#3890e0' : '#909098', '#d0d0c8');
-        else if (ITEMS[id].pocket !== 'tms' && ITEMS[id].pocket !== 'key') Font.drawRight(g, `×${State.count(id)}`, 230, y, '#404048', '#d0d0c8');
+        else if (ITEMS[id].pocket !== 'tms' && ITEMS[id].pocket !== 'key') Font.drawRight(g, `×${ITEMS[id].infinite ? '∞' : State.count(id)}`, 230, y, '#404048', '#d0d0c8');
       }
       if (i === this.cursor[this.pocket]) UI.cursor(g, 99, y);
     }
@@ -154,8 +154,9 @@ const Bag = {
         OW.pendingFish = true;
         return null;
       }
-      const k = yield* Menu.choose({ items: it.pocket === 'key' ? ['CANCEL'] : ['USE', 'TOSS', 'CANCEL'], x: 170, y: 58, cancel: it.pocket === 'key' ? 0 : 2 });
-      if (it.pocket === 'key') continue;
+      const choices = it.pocket === 'key' ? ['CANCEL'] : it.infinite ? ['USE', 'CANCEL'] : ['USE', 'TOSS', 'CANCEL'];
+      const k = yield* Menu.choose({ items: choices, x: 170, y: 58, cancel: choices.length - 1 });
+      if (it.pocket === 'key' || (it.infinite && k !== 0)) continue;
       if (k === 0) {
         if (it.ball) {
           yield* scr.say('There\'s nothing to catch here!');
@@ -181,6 +182,16 @@ const Bag = {
           Game.remove(scr);
           OW.pendingEscape = true;
           return null;
+        }
+        if (it.candy) {
+          // The supply is endless, so keep offering it until B.
+          for (let at = 0; ;) {
+            const target = yield* this.pickTarget(scr, id, at);
+            if (target < 0) break;
+            at = target;
+            yield* this.useCandy(scr, State.party[target]);
+          }
+          continue;
         }
         const target = yield* this.pickTarget(scr, id);
         if (target >= 0) {
@@ -230,14 +241,34 @@ const Bag = {
     return ok;
   },
 
+  // RARE CANDY: one level up, with any new moves and a possible evolution.
+  *useCandy(scr, mon) {
+    const before = { ...mon.stats };
+    mon.exp = Mon.expFor(mon.level + 1);
+    const { newMoves } = mon.levelUp();
+    Sound.jingle('levelup');
+    yield* scr.say(`${mon.name} grew to Lv. ${mon.level}!`);
+    yield* StatWindow.show(before, mon.stats);
+    for (const mv of newMoves) yield* learnMoveFlow(mon, mv, 'field');
+    Dialog.close();
+    const evo = mon.sp.evo;
+    if (evo && mon.level >= evo.level && !mon.fainted) {
+      yield* Game.fadeOut(16);
+      yield* Evolution.run(mon, evo.to);
+      Sound.playMusic(OW.music());
+      yield* Game.fadeIn(16);
+    }
+  },
+
   // Choose which AIMON an item is for; checks it would do something.
-  *pickTarget(scr, id) {
+  *pickTarget(scr, id, index = 0) {
     const it = ITEMS[id];
     for (;;) {
-      const i = yield* Party.open({ mode: 'item' });
+      const i = yield* Party.open({ mode: 'item', index });
       if (i < 0) return -1;
       const mon = State.party[i];
-      const useful = it.revive ? mon.fainted
+      const useful = it.candy ? mon.level < MAX_LEVEL
+        : it.revive ? mon.fainted
         : it.cure ? !mon.fainted && it.cure.includes(mon.status)
           : !mon.fainted && mon.hp < mon.stats.hp;
       if (useful) return i;

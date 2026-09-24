@@ -84,7 +84,7 @@ Object.assign(Events, {
     Game.shake = 16;
     yield* say('A shadow stirs in front of the shrine...');
     yield* say('Its eyes flash violet!', { auto: 40 });
-    const res = yield* this.battle({ wild: { species: 'umbrafang', level: 20 } });
+    const res = yield* this.battle({ wild: { species: 'umbrafang', level: 19 } });
     if (res === 'lose') return;
     if (res === 'run') {
       yield* say('The UMBRAFANG is still watching from the shadows...');
@@ -425,7 +425,7 @@ Object.assign(Events, {
     npc.emote = 30;
     yield 30;
     yield* say('The VOLTIMP is panicking! It attacks!');
-    const res = yield* this.battle({ wild: { species: 'voltimp', level: 21 } });
+    const res = yield* this.battle({ wild: { species: 'voltimp', level: 20 } });
     if (res === 'lose') return;
     State.setFlag(`coil_${id}`);
     OW.despawn(npc);

@@ -14,7 +14,7 @@ const State = {
       money: 3000,
       party: [],
       box: [],
-      bag: { potion: 1 },
+      bag: { rarecandy: 1, potion: 1 },
       flags: {},
       dex: { seen: {}, caught: {} },
       map: 'home2f',
@@ -108,6 +108,7 @@ const State = {
     d.box = (d.box || []).map(Mon.fromJSON);
     d.badges = d.badges || {};
     d.repel = d.repel || 0;
+    d.bag = { rarecandy: 1, ...d.bag };   // test build: endless RARE CANDY
     this.d = d;
     return true;
   },

@@ -160,6 +160,13 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - Tile-based movement with walking, running, ledge hops, doors and stairs.
   Towns and routes join up with no loading screen, and a location banner
   shows when you enter an area.
+- **Battle screen in the DS style:** the choices sit on a touch-screen-like
+  panel, with a big red FIGHT button (showing your AIMON's icon), BAG, RUN
+  and AIMON buttons, and a row of party balls for each side. Moves are
+  type-coloured buttons that show the type and PP, with a CANCEL bar
+  underneath. Red corner brackets mark the selection. The HP boxes are dark
+  slanted plates, and messages appear in a white box. The buttons work with
+  the d-pad, or you can click or tap them.
 - Battles use GBA-era formulas: stats and IVs, same-type bonus, type matchups,
   critical hits, accuracy, stat stages, priority moves, draining, recoil and
   flinching. Grass/Water starters get a power boost at low HP
@@ -201,6 +208,13 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 
 **Quality-of-life features**
 
+- **RARE CANDY (test build):** there's one in the ITEMS pocket from the start,
+  and it never runs out (×∞). Each one raises an AIMON's level by 1 straight
+  away, with the stat window, any new moves and evolution. After each use
+  the party list stays open, so you can keep pressing A to level up again.
+  Older saves get one when loaded.
+- **Gentler level curve:** from Route 5 on, trainers, GYM LEADERS and wild
+  AIMON are 1–2 levels lower than before, and battles give 20% more EXP.
 - **EXP. SHARE** (a key item you can switch on or off): AIMON that sat out a
   battle still get half the EXP.
 - **Text speed** (START → OPTION): SLOW, MID or FAST. The setting is kept in
@@ -208,7 +222,7 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - **REPEL** keeps weaker wild AIMON away for 100 steps. **ESCAPE ROPE** takes
   you straight out of the cave.
 - The AIMONDEX shows where each AIMON lives (including fishing spots), and
-  the move menu shows the selected move's type.
+  each move button shows its type and PP.
 - **Fishing:** with the OLD ROD, face any water and press A, or use it from
   the KEY ITEMS pocket. Some AIMON only live underwater.
 - **Move Reminder:** an old sage in Cedarwood teaches AIMON moves they have
@@ -244,7 +258,8 @@ art/                  the design sheets and the VALEMORA region map
 
 Later chapters live in their own files next to the originals: `tiles_ext.js`
 and `tiles_ch3.js` (tiles, buildings and props), `maps_ch3.js` and
-`events_ch3.js`. Evolution is in `evolution.js`.
+`events_ch3.js`. Evolution is in `evolution.js`, and the DS-style battle
+panels and HP plates are in `battle_ui.js`.
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
 `yield* OW.walk(...)`) run by a small coroutine scheduler inside the fixed
