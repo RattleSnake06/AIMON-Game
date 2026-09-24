@@ -24,6 +24,9 @@ const State = {
       frames: 0,
       heal: { map: 'home1f', x: 7, y: 6, dir: 'up' },
       starter: null,
+      badges: {},
+      repel: 0,
+      expShareOn: false,
     };
   },
 
@@ -66,6 +69,8 @@ const State = {
     return { skylavine: 'moltarock', moltarock: 'archepin', archepin: 'skylavine' }[this.d.starter] || 'moltarock';
   },
 
+  badgeCount() { return BADGES.filter((b) => this.d.badges[b.id]).length; },
+
   // --- bag --------------------------------------------------------------------
   count(id) { return this.d.bag[id] || 0; },
   addItem(id, n = 1) { this.d.bag[id] = Math.min(999, this.count(id) + n); },
@@ -101,6 +106,8 @@ const State = {
     if (!d) return false;
     d.party = d.party.map(Mon.fromJSON);
     d.box = (d.box || []).map(Mon.fromJSON);
+    d.badges = d.badges || {};
+    d.repel = d.repel || 0;
     this.d = d;
     return true;
   },

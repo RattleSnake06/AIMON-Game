@@ -69,13 +69,15 @@ class PartyScreen {
       if (i === 0) {
         g.drawImage(icon, r.x + 2, r.y + 4 + bounce);
         Font.draw(g, mon.name, r.x + 36, r.y + 8, txt, sh);
-        Font.draw(g, `Lv${mon.level}`, r.x + 44, r.y + 20, txt, sh);
+        if (mon.status) UI.statusTag(g, r.x + 44, r.y + 21, mon.status);
+        else Font.draw(g, `Lv${mon.level}`, r.x + 44, r.y + 20, txt, sh);
         UI.hpBar(g, r.x + 26, r.y + 36, mon.hp / mon.stats.hp, 48);
         Font.drawRight(g, `${mon.hp}/${mon.stats.hp}`, r.x + r.w - 8, r.y + 44, txt, sh);
       } else {
         g.drawImage(icon, r.x - 2, r.y - 6 + bounce);
         Font.draw(g, mon.name, r.x + 30, r.y + 3, txt, sh);
-        Font.drawRight(g, `Lv${mon.level}`, r.x + r.w - 6, r.y + 3, txt, sh);
+        if (mon.status) UI.statusTag(g, r.x + r.w - 28, r.y + 3, mon.status);
+        else Font.drawRight(g, `Lv${mon.level}`, r.x + r.w - 6, r.y + 3, txt, sh);
         UI.hpBar(g, r.x + 30, r.y + 14, mon.hp / mon.stats.hp, 40);
         Font.drawRight(g, `${mon.hp}/${mon.stats.hp}`, r.x + r.w - 4, r.y + 12, txt, sh);
       }
@@ -223,7 +225,7 @@ const Summary = {
     };
     if (s.page === 0) {
       row('TYPE', undefined, 28);
-      mon.types.forEach((t, i) => UI.typeBadge(g, 188 - i * 42, 26, t));
+      mon.types.forEach((t, i) => UI.typeBadge(g, 180 - i * 50, 26, t));
       row('OT', mon.ot || State.name, 44);
       row('ID No', U.pad(State.d.id, 5, '0'), 58);
       row('ABILITY', mon.sp.ability, 72);
@@ -250,7 +252,7 @@ const Summary = {
           g.fillRect(tx - 2, y - 3, 138, 21);
         }
         UI.typeBadge(g, tx, y, mv.type);
-        Font.draw(g, mv.name, tx + 44, y, ...ink);
+        Font.draw(g, mv.name, tx + 52, y, ...ink);
         Font.drawRight(g, `PP${m.pp}/${mv.pp}`, 228, y + 9, ...ink);
       });
       const cur = mon.moves[s.moveCursor];

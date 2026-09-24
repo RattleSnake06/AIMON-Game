@@ -8,7 +8,47 @@ const BattleArt = {
     if (this.cache[kind]) return this.cache[kind];
     const c = Pix.canvas(SCREEN_W, 112);
     const g = c.getContext('2d');
-    if (kind === 'indoor') {
+    if (kind === 'cave') {
+      const bands = ['#302830', '#383038', '#403840', '#484048', '#50464c'];
+      bands.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 10, 240, 10); });
+      const r = U.seeded(9);
+      for (let i = 0; i < 18; i++) {
+        const x = Math.floor(r() * 240);
+        const w = 6 + Math.floor(r() * 10);
+        const h = 8 + Math.floor(r() * 22);
+        g.fillStyle = '#282028';
+        for (let y = 0; y < h; y++) g.fillRect(x - Math.round(w * (1 - y / h) / 2), y, Math.max(1, Math.round(w * (1 - y / h))), 1);
+      }
+      for (let y = 50; y < 112; y++) {
+        g.fillStyle = ['#5a5058', '#625860', '#6a6068', '#72686e'][Math.min(3, Math.floor((y - 50) / 16))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = '#827880';
+      for (let i = 0; i < 30; i++) g.fillRect(Math.floor(r() * 240), 54 + Math.floor(r() * 56), 2 + Math.floor(r() * 4), 1);
+      // Faint violet glow of distortion crystals.
+      g.fillStyle = 'rgba(160,96,224,0.18)';
+      Pix.ellipse(g, 30, 40, 26, 10, 'rgba(160,96,224,0.18)');
+      Pix.ellipse(g, 210, 30, 20, 8, 'rgba(160,96,224,0.18)');
+    } else if (kind === 'gym') {
+      g.fillStyle = '#b8b0a8';
+      g.fillRect(0, 0, 240, 112);
+      g.fillStyle = '#8c847c';
+      g.fillRect(0, 0, 240, 36);
+      for (let x = 8; x < 240; x += 40) {
+        g.fillStyle = '#a49c94';
+        g.fillRect(x, 0, 16, 36);
+        g.fillStyle = '#c8c0b8';
+        g.fillRect(x + 2, 0, 3, 36);
+      }
+      g.fillStyle = '#6c645c';
+      g.fillRect(0, 36, 240, 3);
+      for (let y = 44; y < 112; y += 12) { g.fillStyle = '#a8a098'; g.fillRect(0, y, 240, 1); }
+      g.fillStyle = '#b84040';
+      g.fillRect(96, 39, 48, 73);
+      g.fillStyle = '#d8b050';
+      g.fillRect(98, 39, 2, 73);
+      g.fillRect(140, 39, 2, 73);
+    } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
       g.fillStyle = '#a8a8c0';
@@ -53,7 +93,11 @@ const BattleArt = {
     if (this.cache[key]) return this.cache[key];
     const c = Pix.canvas(rx * 2 + 2, ry * 2 + 2);
     const g = c.getContext('2d');
-    const [rim, fill, hi] = kind === 'indoor' ? ['#8888a0', '#b0b0c8', '#c8c8dc'] : ['#68a050', '#88c068', '#a8d888'];
+    const [rim, fill, hi] = {
+      indoor: ['#8888a0', '#b0b0c8', '#c8c8dc'],
+      cave: ['#3c343a', '#585058', '#6c6470'],
+      gym: ['#7c746c', '#a0988e', '#bcb4aa'],
+    }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);
     Pix.ellipse(g, rx + 1, ry - 2, rx - 10, ry - 6, hi);
@@ -77,6 +121,16 @@ const BattleArt = {
       note: [['..ooo', '..o.o', '..o..', 'ooo..', 'ooo..'], { o: '#404050' }],
       sparkle: [['.w.', 'www', '.w.'], { w: '#ffffff' }],
       up: [['...w...', '..www..', '.wwwww.', 'www.www', '..www..', '..www..'], { w: '#78b8ff' }],
+      bolt: [['....yy', '...yy.', '..yyy.', '.yyyyy', '...yy.', '..yy..', '.yy...', 'yy....'], { y: '#f8e040' }],
+      spark: [['y.y', '.w.', 'y.y'], { y: '#f8e040', w: '#ffffff' }],
+      zzz: [['zzzz', '..z.', '.z..', 'zzzz'], { z: '#d0d8f8' }],
+      mud: [['.bb.', 'bBbb', 'bbbb', '.bb.'], { b: '#8a6038', B: '#b08050' }],
+      fist: [['.ooo.', 'orrro', 'orrrro', 'orrrro', '.oooo'], { o: '#401818', r: '#e05048' }],
+      claw: [['w...w...w', '.w...w...w', '..w...w...w'], { w: '#ffffff' }],
+      starp: [['..y..', '.yyy.', 'yyyyy', '.yyy.', '.y.y.'], { y: '#f8e878' }],
+      powder: [['.g.', 'ggg', '.g.'], { g: '#e8f068' }],
+      silk: [['wwwwwww'], { w: '#f0f0f0' }],
+      vine: [['..gg', '.gg.', 'gg..', 'g...'], { g: '#48a040' }],
       down: [['..www..', '..www..', 'www.www', '.wwwww.', '..www..', '...w...'], { w: '#f86060' }],
     };
     const [rows, pal] = S[name];
@@ -123,8 +177,8 @@ const BattleFX = {
   },
 
   // Fly a particle image from a to b over `frames` with an optional arc.
-  *fly(b, img, from, to, frames, arc = 0) {
-    const p = this.add(b, { img, x: from[0], y: from[1] });
+  *fly(b, img, from, to, frames, arc = 0, scale = 1) {
+    const p = this.add(b, { img, x: from[0], y: from[1], scale });
     yield* this.tween(frames, (t) => {
       p.x = U.lerp(from[0], to[0], t);
       p.y = U.lerp(from[1], to[1], t) - Math.sin(t * Math.PI) * arc;
@@ -200,6 +254,36 @@ const BattleFX = {
     });
     for (const a of arrows) b.parts.splice(b.parts.indexOf(a), 1);
     side.tint = null;
+  },
+
+  // Short effect when a status triggers or is given.
+  *statusAnim(b, side, status) {
+    const [cx, cy] = this.center(b, side);
+    if (status === 'par') {
+      Sound.sfx('zap');
+      side.tint = '#f8e040';
+      yield* all(this.burst(b, BattleArt.sprite('spark'), [cx, cy], 8, 26, 20),
+        this.tween(20, (t, f) => { side.tintA = f % 4 < 2 ? 0.6 : 0; side.dx = f % 4 < 2 ? 2 : -2; }));
+      side.dx = 0;
+      side.tint = null;
+    } else if (status === 'slp') {
+      const zs = [0, 1, 2].map((i) => this.add(b, { img: BattleArt.sprite('zzz'), x: cx + 10, y: cy - 10, o: i * 10 }));
+      yield* this.tween(36, (t, f) => {
+        for (const z of zs) {
+          const k = U.clamp((f - z.o) / 24, 0, 1);
+          z.x = cx + 8 + k * 14;
+          z.y = cy - 8 - k * 20;
+          z.alpha = k > 0 ? Math.sin(k * Math.PI) : 0;
+        }
+      });
+      for (const z of zs) b.parts.splice(b.parts.indexOf(z), 1);
+    } else if (status === 'brn') {
+      Sound.sfx('fire');
+      side.tint = '#f86030';
+      yield* all(this.burst(b, BattleArt.sprite('flame'), [cx, cy + 10], 4, 14, 22),
+        this.tween(22, (t) => { side.tintA = 0.5 * Math.sin(t * Math.PI); }));
+      side.tint = null;
+    }
   },
 
   // The animation for a move, from user side to target side.
@@ -302,6 +386,78 @@ const BattleFX = {
         Sound.sfx('wind');
         yield* this.burst(b, BattleArt.sprite('smoke'), to, 6, 20, 30);
         break;
+      case 'bolt': {
+        Sound.sfx('zap');
+        b.flash = 0.6;
+        for (let i = 0; i < 3; i++) {
+          const p = this.add(b, { img: BattleArt.sprite('bolt'), x: to[0] + (i - 1) * 10, y: to[1] - 30 });
+          yield* this.tween(4, (t) => { p.y = to[1] - 30 + t * 28; });
+          b.parts.splice(b.parts.indexOf(p), 1);
+        }
+        b.flash = 0;
+        yield* this.burst(b, BattleArt.sprite('spark'), to, 8, 22, 14);
+        break;
+      }
+      case 'mud':
+        Sound.sfx('rock');
+        for (let i = 0; i < 5; i++) {
+          Co.start(this.fly(b, BattleArt.sprite('mud'), from, [to[0] + U.randInt(-10, 10), to[1] + U.randInt(-6, 6)], 14, 16, 2));
+          yield 3;
+        }
+        yield 16;
+        break;
+      case 'quake':
+        Sound.sfx('rumble');
+        yield* this.tween(30, (t, f) => { b.shake = f % 4 < 2 ? 3 : -3; });
+        b.shake = 0;
+        yield* this.impact(b, to, true);
+        break;
+      case 'punch':
+        for (let i = 0; i < 2; i++) {
+          const p = this.add(b, { img: BattleArt.sprite('fist'), x: to[0] + (i ? 10 : -10), y: to[1] + (i ? 4 : -6), scale: 2 });
+          Sound.sfx('hit');
+          yield 5;
+          b.parts.splice(b.parts.indexOf(p), 1);
+          yield* this.impact(b, [to[0] + (i ? 10 : -10), to[1]]);
+        }
+        break;
+      case 'claw': {
+        const p = this.add(b, { img: BattleArt.sprite('claw'), x: to[0], y: to[1] - 12, scale: 2 });
+        yield* this.tween(10, (t) => { p.y = to[1] - 12 + t * 20; });
+        b.parts.splice(b.parts.indexOf(p), 1);
+        yield* this.impact(b, to);
+        break;
+      }
+      case 'stars':
+        Sound.sfx('select');
+        for (let i = 0; i < 5; i++) {
+          Co.start(this.fly(b, BattleArt.sprite('starp'), from, [to[0] + (i - 2) * 6, to[1] + (i % 2) * 6], 16, 18));
+          yield 3;
+        }
+        yield 16;
+        yield* this.impact(b, to);
+        break;
+      case 'vine':
+        Sound.sfx('leaf');
+        for (let i = 0; i < 2; i++) {
+          const p = this.add(b, { img: BattleArt.sprite('vine'), x: to[0] + (i ? 8 : -8), y: to[1], scale: 3 });
+          yield 6;
+          b.parts.splice(b.parts.indexOf(p), 1);
+        }
+        yield* this.impact(b, to);
+        break;
+      case 'powder':
+        Sound.sfx('leaf');
+        yield* this.burst(b, BattleArt.sprite('powder'), [to[0], to[1] - 24], 10, 26, 34);
+        break;
+      case 'string': {
+        const lines = [0, 1, 2].map((i) => this.add(b, { img: BattleArt.sprite('silk'), x: from[0], y: from[1] + i * 4 - 4, scale: 2 }));
+        yield* this.tween(18, (t) => {
+          lines.forEach((l, i) => { l.x = U.lerp(from[0], to[0], t); l.y = U.lerp(from[1], to[1], t) + i * 4 - 4; });
+        });
+        for (const l of lines) b.parts.splice(b.parts.indexOf(l), 1);
+        break;
+      }
       default:
         yield* this.impact(b, to);
     }

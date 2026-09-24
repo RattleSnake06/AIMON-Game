@@ -16,6 +16,8 @@ class Mon {
     this.ot = opts.ot || null;
     this.calcStats();
     this.hp = opts.hp ?? this.stats.hp;
+    this.status = opts.status || null;
+    this.sleep = opts.sleep || 0;
   }
 
   get sp() { return SPECIES[this.species]; }
@@ -74,13 +76,14 @@ class Mon {
 
   heal() {
     this.hp = this.stats.hp;
+    this.status = null;
     for (const m of this.moves) m.pp = MOVES[m.id].pp;
   }
 
   toJSON() {
     return {
       species: this.species, level: this.level, nickname: this.nickname, ivs: this.ivs,
-      exp: this.exp, moves: this.moves, hp: this.hp, ot: this.ot,
+      exp: this.exp, moves: this.moves, hp: this.hp, ot: this.ot, status: this.status, sleep: this.sleep,
     };
   }
 

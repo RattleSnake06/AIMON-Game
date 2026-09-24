@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 """Turn the AIMON design sheets into GBA-style battle sprites.
 
-The design PDFs contain one large sheet per creature, each with a
-Front / Side / Back turnaround on a plain panel. This script cuts those
-views out, keys away the panel background, shrinks them to 64x64,
-reduces them to a 15-colour palette (the GBA sprite limit) and adds a
-dark outline, then writes:
+Two kinds of source:
+  - the design PDFs (starter_mons.pdf, route_1_mons.pdf): one large sheet
+    per creature with a Front / Side / Back turnaround on a plain panel;
+  - the pixel-art sheets in art/sheets/: several creatures per image,
+    each drawn from the side, back and front on a flat mint background.
+
+Each view is cut out, the background keyed away, then it is shrunk to
+64x64, reduced to a 15-colour palette (the GBA sprite limit) and given a
+dark outline. Output:
 
   assets/sprites/<mon>_front.png, <mon>_back.png, <mon>_icon.png
-  js/data/sprite_data.js   (the same PNGs as data URIs, so the game
-                            also runs straight from file://)
+  js/data/sprite_data.js   (every PNG in assets/sprites as a data URI, so
+                            the game also runs straight from file://)
 
 Usage:
   pip install pymupdf pillow numpy
-  python3 tools/make_sprites.py starter_mons.pdf route_1_mons.pdf
+  python3 tools/make_sprites.py                       # pixel-art sheets only
+  python3 tools/make_sprites.py starter_mons.pdf route_1_mons.pdf   # + PDFs
 """
 import base64
 import io
@@ -27,13 +32,22 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# (pdf index, image index on the page) -> which creature sheet it is.
+# Which source image each creature comes from: (pdf index, image index on
+# its page) for the PDFs, or the file name of a pixel-art sheet.
 SHEETS = {
     'skylavine': (0, 2),
     'archepin': (0, 0),
     'moltarock': (0, 1),
     'goskie': (1, 0),
     'mellowcap': (1, 1),
+    'voltvix': 'aimon_sheet_1.webp',
+    'terrapike': 'aimon_sheet_1.webp',
+    'scrapaw': 'aimon_sheet_1.webp',
+    'dapplekit': 'aimon_sheet_1.webp',
+    'nibblit': 'aimon_sheet_2.webp',
+    'ruffang': 'aimon_sheet_2.webp',
+    'leafgrub': 'aimon_sheet_2.webp',
+    'bambuck': 'aimon_sheet_2.webp',
 }
 
 # Crop boxes (in sheet pixels) around each turnaround view, the view used
@@ -61,6 +75,47 @@ VIEWS = {
         'front': dict(box=(300, 688, 518, 922), fit=(58, 56)),
         'back': dict(box=(585, 688, 720, 922), fit=(56, 62)),
         'icon': dict(box=(92, 688, 218, 922), fit=(24, 28)),
+    },
+    # Pixel-art sheets: already crisp, so no extra saturation.
+    'voltvix': {
+        'front': dict(box=(28, 72, 196, 244), fit=(58, 56), sat=1.05, tol=40),
+        'back': dict(box=(232, 56, 372, 240), fit=(56, 62), sat=1.05, tol=40),
+        'icon': dict(box=(432, 72, 500, 176), fit=(24, 28), sat=1.05, tol=40),
+    },
+    'terrapike': {
+        'front': dict(box=(612, 80, 812, 236), fit=(62, 50), sat=1.05, tol=40),
+        'back': dict(box=(852, 48, 980, 236), fit=(54, 60), sat=1.05, tol=40),
+        'icon': dict(box=(1032, 76, 1112, 180), fit=(26, 28), sat=1.05, tol=40),
+    },
+    'scrapaw': {
+        'front': dict(box=(28, 716, 208, 896), fit=(58, 58), sat=1.05, tol=40),
+        'back': dict(box=(224, 712, 360, 900), fit=(52, 62), sat=1.05, tol=40),
+        'icon': dict(box=(424, 720, 504, 844), fit=(24, 28), sat=1.05, tol=40),
+    },
+    'dapplekit': {
+        'front': dict(box=(612, 732, 812, 900), fit=(58, 52), sat=1.05, tol=40),
+        'back': dict(box=(864, 712, 980, 904), fit=(50, 60), sat=1.05, tol=40),
+        'icon': dict(box=(1044, 740, 1120, 844), fit=(24, 28), sat=1.05, tol=40),
+    },
+    'nibblit': {
+        'front': dict(box=(20, 76, 232, 236), fit=(54, 44), sat=1.05, tol=40),
+        'back': dict(box=(288, 232, 384, 380), fit=(46, 54), sat=1.05, tol=40),
+        'icon': dict(box=(484, 92, 556, 180), fit=(24, 26), sat=1.05, tol=40),
+    },
+    'ruffang': {
+        'front': dict(box=(696, 76, 884, 244), fit=(62, 56), sat=1.05, tol=40),
+        'back': dict(box=(944, 240, 1036, 384), fit=(48, 62), sat=1.05, tol=40),
+        'icon': dict(box=(1136, 88, 1208, 188), fit=(24, 28), sat=1.05, tol=40),
+    },
+    'leafgrub': {
+        'front': dict(box=(40, 692, 220, 836), fit=(58, 44), sat=1.05, tol=40),
+        'back': dict(box=(268, 840, 388, 988), fit=(50, 56), sat=1.05, tol=40),
+        'icon': dict(box=(476, 680, 544, 800), fit=(20, 28), sat=1.05, tol=40),
+    },
+    'bambuck': {
+        'front': dict(box=(688, 672, 896, 856), fit=(60, 56), sat=1.05, tol=40),
+        'back': dict(box=(940, 856, 1056, 1008), fit=(52, 60), sat=1.05, tol=40),
+        'icon': dict(box=(1144, 676, 1220, 796), fit=(24, 28), sat=1.05, tol=40),
     },
     'mellowcap': {
         'front': dict(box=(280, 655, 560, 878), fit=(62, 50), sat=1.5),
@@ -208,16 +263,38 @@ def make_sprite(sheet, view, frame):
     return canvas
 
 
+def write_sprite_data(sprite_dir):
+    js = ['// Generated by tools/make_sprites.py from the design sheets. Do not edit.',
+          'window.SPRITE_DATA = {']
+    for name in sorted(os.listdir(sprite_dir)):
+        if not name.endswith('.png'):
+            continue
+        with open(os.path.join(sprite_dir, name), 'rb') as f:
+            uri = 'data:image/png;base64,' + base64.b64encode(f.read()).decode()
+        js.append(f"  {name[:-4]}: '{uri}',")
+    js.append('};')
+    out = os.path.join(ROOT, 'js', 'data', 'sprite_data.js')
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, 'w') as f:
+        f.write('\n'.join(js) + '\n')
+    print('wrote', out)
+
+
 def main():
-    if len(sys.argv) != 3:
+    pdfs = sys.argv[1:]
+    if pdfs and len(pdfs) != 2:
         print(__doc__)
         sys.exit(1)
-    sheets = load_sheets(sys.argv[1:3])
+    pdf_sheets = load_sheets(pdfs) if pdfs else None
     sprite_dir = os.path.join(ROOT, 'assets', 'sprites')
     os.makedirs(sprite_dir, exist_ok=True)
-    uris = {}
-    for mon, (pdf_i, img_i) in SHEETS.items():
-        sheet = sheets[pdf_i][img_i]
+    for mon, src in SHEETS.items():
+        if isinstance(src, tuple):
+            if not pdf_sheets:
+                continue
+            sheet = pdf_sheets[src[0]][src[1]]
+        else:
+            sheet = Image.open(os.path.join(ROOT, 'art', 'sheets', src)).convert('RGB')
         for kind, view in VIEWS[mon].items():
             frame = 32 if kind == 'icon' else 64
             spr = make_sprite(sheet, view, frame)
@@ -225,20 +302,8 @@ def main():
                 spr = spr.transpose(Image.FLIP_LEFT_RIGHT)
             path = os.path.join(sprite_dir, f'{mon}_{kind}.png')
             spr.save(path, optimize=True)
-            buf = io.BytesIO()
-            spr.save(buf, 'PNG', optimize=True)
-            uris[f'{mon}_{kind}'] = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
             print('wrote', path)
-    js = ['// Generated by tools/make_sprites.py from the design sheets. Do not edit.',
-          'window.SPRITE_DATA = {']
-    for k, v in uris.items():
-        js.append(f"  {k}: '{v}',")
-    js.append('};')
-    out = os.path.join(ROOT, 'js', 'data', 'sprite_data.js')
-    os.makedirs(os.path.dirname(out), exist_ok=True)
-    with open(out, 'w') as f:
-        f.write('\n'.join(js) + '\n')
-    print('wrote', out)
+    write_sprite_data(sprite_dir)
 
 
 if __name__ == '__main__':

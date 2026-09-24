@@ -205,4 +205,95 @@ const MUSIC = {
       { wave: 'tri', vol: 0.15, notes: 'C3:8 G2:8 C3:8' },
     ],
   },
+  cave: {
+    bpm: 80,
+    ch: [
+      { wave: 'p12', vol: 0.07, vib: true, notes: 'D5:6 F5:2 E5:8 | D5:4 C5:4 Bb4:8 | G4:6 Bb4:2 A4:8 | C#5:8 E5:8 | D5:6 F5:2 A5:8 | G5:4 F5:4 D5:8 | Bb4:4 D5:4 C#5:4 E5:4 | D5:12 r:4' },
+      { wave: 'p12', vol: 0.03, notes: 'r:3 D5:6 F5:2 E5:8 | D5:4 C5:4 Bb4:8 | G4:6 Bb4:2 A4:8 | C#5:8 E5:8 | D5:6 F5:2 A5:8 | G5:4 F5:4 D5:8 | Bb4:4 D5:4 C#5:4 E5:4 | D5:12 r:1' },
+      { wave: 'tri', vol: 0.16, notes: 'D2:8 A2 | Bb1 F2 | G1 D2 | A1 E2 | D2 A2 | Bb1 F2 | G1 A1 | D2:16' },
+      { wave: 'noise', vol: 0.02, notes: '[r:12 h:4]*8' },
+    ],
+  },
+
+  distortion: {
+    bpm: 162,
+    loopStart: 16,
+    ch: [
+      { wave: 'p25', vol: 0.09, notes:
+        'E5:1 F5 E5 F5 E5 F5 E5 F5 B4:2 r A#4 r |'
+        + ' E5:2 E5 G5 E5 F5:4 E5:2 D5 | C5:2 C5 F5 C5 E5:4 D5:2 C5 | B4:2 E5 G5 B5 A#5:4 G5:2 F5 | E5:8 F5:4 E5 |'
+        + ' G5:2 G5 E5 C5 D5:4 E5:2 G5 | F#5:4 D#5 B4:8 | E5:2 G5 B5 E6 F6:4 E6 | E6:8 B5:4 G5' },
+      { wave: 'p12', vol: 0.045, notes:
+        'r:16 [B4:2 G4:2]*4 [C5:2 A4:2]*4 [B4:2 G4:2]*4 [C5:2 A4:2]*4 [G4:2 E4:2]*4 [F#4:2 D#4:2]*4 [B4:2 G4:2]*2 [C5:2 A4:2]*2 [B4:2 G4:2]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        'E2:2 E2 E2 E2 F2 F2 F2 F2 [E2:2 E3]*4 [F2:2 F3]*4 [E2:2 E3]*4 [F2:2 F3]*4 [C2:2 C3]*4 [B1:2 B2]*4 [E2:2 E3]*2 [F2:2 F3]*2 [E2:2 E3]*4' },
+      { wave: 'noise', vol: 0.05, notes: 'k:2 k k k s:1 s s s s:2 s:1 s ' + DRUM_ROCK },
+    ],
+  },
+
+  gym: {
+    bpm: 124,
+    ch: [
+      { wave: 'p25', vol: 0.09, vib: true, notes:
+        'C5:2 C5 G5:4 E5:2 C5 G4:4 | B4:2 D5 G5:4 F5:2 D5 B4:4 | A4:2 C5 E5:4 A5 G5:2 E5 | F5:6 E5:2 D5:4 C5 |'
+        + ' C5:2 E5 G5:4 C6 B5:2 A5 | G5:6 F5:2 D5:8 | F5:4 A5 G5 B5 | C6:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'E4:8 G4 | D4 G4 | C4 E4 | A4 F4 | E4 G4 | B3 D4 | A4 B4 | E4:16' },
+      { wave: 'tri', vol: 0.15, notes:
+        '[C3:2 G2]*4 [G2:2 D3]*4 [A2:2 E3]*4 [F2:2 C3]*4 [C3:2 G2]*4 [G2:2 D3]*4 [F2:2 C3]*2 [G2:2 D3]*2 C3:4 G2 C3:8' },
+      { wave: 'noise', vol: 0.04, notes: '[k:4 h:2 h:2 s:4 h:2 h:2]*8' },
+    ],
+  },
+
+  leader: {
+    bpm: 168,
+    loopStart: 32,
+    ch: [
+      { wave: 'p25', vol: 0.095, notes:
+        'A5:2 r A5 r G5 A5:6 | E5:2 r E5 r D5 E5:6 |'
+        + ' A5:4 C6:2 B5 A5:4 E5 | F5:4 A5:2 C6 D6:4 C6 | E6:4 D6:2 C6 G5:4 C6 | B5:6 A5:2 G5:8 |'
+        + ' A5:2 B5 C6 E6 D6:4 C6:2 B5 | A5:4 C6 F6 E6:2 D6 | D6:4 F6 E6 G#5 | A5:8 E5:4 A4' },
+      { wave: 'p12', vol: 0.045, notes:
+        'E4:16 B3:16 [E5:2 C5:2]*4 [C5:2 A4:2]*4 [E5:2 G4:2]*4 [D5:2 B4:2]*4 [E5:2 C5:2]*4 [C5:2 A4:2]*4 [A4:2 F4:2]*2 [G#4:2 E4:2]*2 [E5:2 C5:2]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        'A2:2 r A2 r G2 A2:6 E2:2 r E2 r D2 E2:6'
+        + ' [A2:2 A3]*4 [F2:2 F3]*4 [C3:2 C4]*4 [G2:2 G3]*4 [A2:2 A3]*4 [F2:2 F3]*4 [D2:2 D3]*2 [E2:2 E3]*2 [A2:2 A3]*4' },
+      { wave: 'noise', vol: 0.055, notes: '[k:4 s:4]*4 ' + DRUM_ROCK },
+    ],
+  },
+
+  grayhaven: {
+    bpm: 100,
+    ch: [
+      { wave: 'p25', vol: 0.085, vib: true, notes:
+        'D5:4 F5 Bb5:6 A5:2 | G5:6 F5:2 D5:8 | Eb5:4 G5 Bb5 G5 | F5:6 G5:2 A5:8 |'
+        + ' Bb5:4 A5:2 G5 F5:4 D5 | G5:4 Bb4 D5:8 | Eb5:4 C5 F5 A4 | Bb4:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[Bb3:2 D4 F4 D4]*2 [G3:2 Bb3 D4 Bb3]*2 [Eb4:2 G4 Bb4 G4]*2 [F3:2 A3 C4 A3]*2'
+        + ' [Bb3:2 D4 F4 D4]*2 [G3:2 Bb3 D4 Bb3]*2 C4:2 Eb4 G4 Eb4 F3 A3 C4 A3 Bb3:2 D4 F4 D4 Bb3:8' },
+      { wave: 'tri', vol: 0.15, notes: 'Bb2:8 F2 | G2 D2 | Eb2 Bb2 | F2 C3 | Bb2 F2 | G2 D2 | C3 F2 | Bb1:16' },
+      { wave: 'noise', vol: 0.03, notes: '[k:4 h:4 s:4 h:4]*8' },
+    ],
+  },
+
+  route3: {
+    bpm: 128,
+    ch: [
+      { wave: 'p50', vol: 0.075, vib: true, notes:
+        'G5:2 B5 D6:4 B5:2 A5 G5:4 | F#5:2 A5 D6:4 C6:2 B5 A5:4 | E5:2 G5 B5:4 A5:2 G5 E5:4 | C5:4 E5 G5:6 F#5:2 |'
+        + ' G5:2 B5 D6:4 E6 D6:2 B5 | A5:6 B5:2 F#5:8 | E5:4 G5 F#5 A5 | G5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'B4:8 D5 | A4 F#4 | G4 B4 | E4 G4 | B4 D5 | F#4 A4 | E4 F#4 | G4:16' },
+      { wave: 'tri', vol: 0.15, notes:
+        '[G2:2 D3]*4 [D3:2 A2]*4 [E2:2 B2]*4 [C3:2 G2]*4 [G2:2 D3]*4 [D3:2 A2]*4 [C3:2 G2]*2 [D3:2 A2]*2 G2:4 D3 G2:8' },
+      { wave: 'noise', vol: 0.04, notes: '[k:2 h:2 s:2 h:2]*16' },
+    ],
+  },
+
+  badge: {
+    bpm: 140, loop: false,
+    ch: [
+      { wave: 'p50', vol: 0.1, notes: 'C5:2 E5 G5 C6:4 G5:2 C6:2 E6:8 r:2' },
+      { wave: 'p12', vol: 0.05, notes: 'E4:2 G4 C5 E5:4 D5:2 E5:2 G5:8 r:2' },
+      { wave: 'tri', vol: 0.15, notes: 'C3:6 F3:4 G3:4 C3:10' },
+    ],
+  },
 };

@@ -38,7 +38,7 @@ class DialogBox {
     this.autoTimer = 0;
   }
 
-  get speed() { return Input.down.a || Input.down.b ? 3 : 1; }
+  get speed() { return Input.down.a || Input.down.b ? 3 : Dialog.speeds[Dialog.speedIndex]; }
 
   update() {
     if (this.finished) {
@@ -53,6 +53,7 @@ class DialogBox {
       case 'typing': {
         const line = this.lines[this.cur] || '';
         this.chars += this.speed;
+        if (this.chars < line.length) break;
         if (this.chars >= line.length) {
           this.chars = line.length;
           this.lineDone();
@@ -130,7 +131,7 @@ class DialogBox {
     const y0 = 118 - this.scroll;
     for (let i = this.top; i <= this.cur && i < this.lines.length; i++) {
       const full = this.lines[i];
-      const txt = i === this.cur && this.state === 'typing' ? full.slice(0, this.chars) : full;
+      const txt = i === this.cur && this.state === 'typing' ? full.slice(0, Math.floor(this.chars)) : full;
       UI.text(g, txt, TEXT_X, y0 + (i - this.top) * 16, s);
     }
     g.restore();
@@ -143,6 +144,15 @@ class DialogBox {
 
 const Dialog = {
   box: null,
+  speeds: [0.5, 1, 2],
+  speedIndex: (() => {
+    try { return Number(localStorage.getItem('aimon_textspeed') ?? 1) || 0; } catch (e) { return 1; }
+  })(),
+  speedName() { return ['SLOW', 'MID', 'FAST'][this.speedIndex]; },
+  cycleSpeed() {
+    this.speedIndex = (this.speedIndex + 1) % 3;
+    try { localStorage.setItem('aimon_textspeed', String(this.speedIndex)); } catch (e) { /* ignore */ }
+  },
 
   open(style) {
     const top = Game.top();

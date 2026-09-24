@@ -86,10 +86,21 @@ const UI = {
   typeBadge(g, x, y, type) {
     const t = TYPES[type];
     g.fillStyle = Pix.shade(t.color, 0.55);
-    g.fillRect(x, y, 40, 12);
+    g.fillRect(x, y, 48, 12);
     g.fillStyle = t.color;
-    g.fillRect(x + 1, y + 1, 38, 10);
-    Font.drawCenter(g, t.name, x + 20, y + 2, '#f8f8f8', Pix.shade(t.color, 0.6));
+    g.fillRect(x + 1, y + 1, 46, 10);
+    Font.drawCenter(g, t.name, x + 24, y + 2, '#f8f8f8', Pix.shade(t.color, 0.6));
+  },
+
+  // Little PAR / SLP / BRN label.
+  statusTag(g, x, y, status) {
+    const st = STATUS[status];
+    if (!st) return;
+    g.fillStyle = Pix.shade(st.color, 0.55);
+    g.fillRect(x, y, 22, 9);
+    g.fillStyle = st.color;
+    g.fillRect(x + 1, y + 1, 20, 7);
+    Font.drawRaw(g, st.name, x + 2, y + 1, '#f8f8f8');
   },
 
   // Full-screen diagonal stripes used by menu screens.

@@ -2,7 +2,8 @@
 // AIMON MART and the AIMON CENTRE storage PC.
 
 const Shop = {
-  *run() {
+  *run(stock = 'archford') {
+    this.stock = MART_STOCK[stock];
     let q = 'Hi there! Welcome to the AIMON MART. May I help you?';
     for (;;) {
       const k = yield* Dialog.ask(q, ['BUY', 'SELL', 'SEE YA!'], { cancel: 2, x: 2, y: 2 });
@@ -29,7 +30,7 @@ const Shop = {
     Game.push(money);
     let index = 0;
     for (;;) {
-      const items = [...MART_STOCK.map((id) => ({ id, label: ITEMS[id].name })), { label: 'CANCEL' }];
+      const items = [...this.stock.map((id) => ({ id, label: ITEMS[id].name })), { label: 'CANCEL' }];
       const box = Dialog.open('field');
       box.show('What would you like?', { noWait: true, hold: true });
       yield () => box.finished;
@@ -77,7 +78,7 @@ const Shop = {
     const money = this.moneyBox();
     Game.push(money);
     for (;;) {
-      const ids = Object.keys(State.d.bag).filter((id) => State.count(id) > 0);
+      const ids = Object.keys(State.d.bag).filter((id) => State.count(id) > 0 && ITEMS[id].price);
       if (!ids.length) {
         yield* say('You don\'t have anything to sell.');
         break;

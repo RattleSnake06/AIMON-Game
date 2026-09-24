@@ -9,6 +9,7 @@ const Game = {
   fadeA: 0,
   fadeColor: '#000',
   error: null,
+  shake: 0,
 
   push(s) { this.scenes.push(s); },
   remove(s) {
@@ -55,7 +56,13 @@ const Game = {
       g.fillStyle = '#000';
       g.fillRect(0, 0, SCREEN_W, SCREEN_H);
     }
+    g.save();
+    if (this.shake > 0) {
+      this.shake--;
+      g.translate(U.randInt(-2, 2), U.randInt(-1, 1));
+    }
     for (let i = start; i < this.scenes.length; i++) this.scenes[i].draw(g);
+    g.restore();
     if (this.fadeA > 0) {
       g.globalAlpha = this.fadeA;
       g.fillStyle = this.fadeColor;
@@ -148,6 +155,7 @@ const Debug = {
     const spots = {
       willowbrook: ['willowbrook', 11, 10], route1: ['route1', 11, 30], archford: ['archford', 14, 20],
       lab: ['lab', 6, 10], centre: ['centre', 6, 6], mart: ['mart', 3, 6], home: ['home2f', 2, 5],
+      route2: ['route2', 36, 9], cave: ['cave1', 14, 21], route3: ['route3', 2, 11], grayhaven: ['grayhaven', 2, 17],
     };
     const [map, x, y] = spots[where] || spots.willowbrook;
     Object.assign(State.d, { map, x, y, dir: 'down' });

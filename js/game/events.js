@@ -284,7 +284,7 @@ const Events = {
     OW.loadMap(h.map, h.x, h.y, h.dir);
     yield* Game.fadeIn(20);
     yield* say(`{PLAYER} dropped $${lost} in the panic...\f{PLAYER} hurried back to safety!`);
-    if (h.map === 'centre') {
+    if (h.map.startsWith('centre')) {
       yield* say('NURSE: We\'ve restored your AIMON to full health. Please be careful out there!');
     } else {
       yield* say('MOM: Oh, {PLAYER}! You look exhausted. I patched up your AIMON for you.\fDon\'t push yourself too hard, okay?');
@@ -312,7 +312,7 @@ const Events = {
     OW.healBlink = false;
     OW.healBalls = 0;
     State.healParty();
-    State.d.heal = { map: 'centre', x: 6, y: 4, dir: 'up' };
+    State.d.heal = { map: OW.map.id, x: 6, y: 4, dir: 'up' };
     npc.dir = 'down';
     yield* say('Thank you for waiting.\fWe\'ve restored your AIMON to full health.');
     yield* say('We hope to see you again!');
@@ -324,8 +324,8 @@ const Events = {
     yield* Storage.run();
   },
 
-  *martClerk() {
-    yield* Shop.run();
+  *martClerk(npc) {
+    yield* Shop.run(npc.def.stock || 'archford');
   },
 
   *grannyGift(npc) {
@@ -338,7 +338,280 @@ const Events = {
     yield* this.receive('superpotion', 1);
     yield* say('Be good to your AIMON, and they\'ll be good to you.');
   },
+  // -- Chapter 2: TEAM DISTORTION ----------------------------------------------------
+  *kaiWarning() {
+    if (State.flag('kai_news') || !State.flag('got_starter')) return;
+    State.setFlag('kai_news');
+    const p = OW.player;
+    Game.shake = 60;
+    Sound.sfx('rumble');
+    yield 60;
+    yield* say('The ground is shaking...!');
+    const kai = OW.spawnNear({ id: 'kai_news', person: 'rival' }, p);
+    kai.emote = 30;
+    Sound.sfx('exclaim');
+    yield 30;
+    yield* OW.approach(kai, p);
+    const rs = SPECIES[State.rivalStarter()].name;
+    yield* say('KAI: {PLAYER}! There you are...\fDid you feel that? That\'s the third one today.');
+    yield* say('KAI: I went ahead to RIFTSTONE CAVE, past ROUTE 2 to the west. There were people inside... black coats, violet visors.');
+    yield* say('KAI: They called themselves TEAM DISTORTION. They were hauling some huge humming machine deeper into the cave.');
+    yield* say(`KAI: I tried to stop them. Their VOLTVIX knocked out my ${rs} with a single shock.`);
+    yield* say('KAI: Then HOLT showed up. He\'s the GYM LEADER from GRAYHAVEN CITY. He told me to get out... and went in after them. Alone.');
+    yield* say('KAI: That was hours ago. He hasn\'t come back out.');
+    yield* say(`KAI: I have to get my ${rs} to the AIMON CENTRE. You go help HOLT! RIFTSTONE CAVE is at the end of ROUTE 2, west of town.`);
+    yield* say('KAI: And {PLAYER}... be careful. Those people didn\'t look like they were playing around.');
+    yield* OW.walkTo(kai, 7, 20);
+    yield* OW.walk(kai, 'up', 1);
+    Sound.sfx('door');
+    OW.despawn(kai);
+  },
+
+  *holtCaveTalk() {
+    yield* say('HOLT: Kid, stay back! Their VOLTVIX paralyzed my whole team!');
+  },
+
+  *gruntTalk() {
+    yield* this.caveShowdown();
+  },
+
+  *sealInspect() {
+    if (!State.flag('grunt_beaten')) {
+      yield* say('The great stone is thrumming violently. Violet light leaks from its center.');
+      return;
+    }
+    yield* say('An ancient stone disc carved with a ring of symbols.\fA thin crack runs through the violet KEYSTONE at its center. It hums softly, like something breathing.');
+  },
+
+  *resonatorInspect() {
+    if (!State.flag('grunt_beaten')) {
+      yield* say('A humming machine covered in violet coils. Its cables are driven straight into the stone!');
+      return;
+    }
+    yield* say('The machine is scorched and silent. A mark is stamped on its side: a broken wave.\fTEAM DISTORTION...');
+  },
+
+  *caveShowdown() {
+    if (State.flag('grunt_beaten')) return;
+    const p = OW.player;
+    const holt = OW.npc('holt_cave');
+    const grunt = OW.npc('grunt_cave');
+    Sound.sfx('hum');
+    Game.shake = 40;
+    yield 30;
+    // Step into the hollow and look up at the seal, the machine and the standoff.
+    yield* OW.walk(p, 'up', 2);
+    yield* OW.pan(13 - p.x, -1.5, 50);
+    yield* say('A low hum fills the cavern. The great stone ahead is glowing violet...');
+    yield* say('GRUNT: Heh heh... Almost there. Once this KEYSTONE cracks, the CONDUCTOR will finally hear it sing.');
+    yield* say('HOLT: You have no idea what you\'re doing! That stone has held for a thousand years!');
+    grunt.emote = 30;
+    Sound.sfx('exclaim');
+    OW.faceTowards(grunt, p);
+    yield 30;
+    yield* say('GRUNT: Huh? Another kid? First that spiky-haired brat, and now you?');
+    OW.faceTowards(holt, p);
+    yield* say('HOLT: Kid, stay back! That VOLTVIX paralyzed my whole team with one wave!');
+    yield* say('GRUNT: Listen to the old wall, kid. TEAM DISTORTION doesn\'t play nice.');
+    yield* OW.pan(0, 0, 30);
+    yield* OW.approach(grunt, p);
+    yield* say('GRUNT: ...Nah. Actually, I could use a warm-up. Bend. Break. Become!');
+    const res = yield* this.battle({ trainer: 'grunt' });
+    if (res !== 'win') return;
+    State.setFlag('grunt_beaten');
+    yield* say('GRUNT: Tch... Whatever. The RESONATOR already did its job.');
+    yield* say('GRUNT: Can you hear it? The KEYSTONE is humming. The crack is already there, and you can\'t un-crack a stone.');
+    yield* say('GRUNT: The CONDUCTOR will be pleased. ...See you in the new world, kid.');
+    yield* OW.walkTo(grunt, 18, 12);
+    OW.despawn(grunt);
+    Sound.sfx('zap');
+    Game.shake = 24;
+    yield 24;
+    yield* say('The machine sparks... and falls silent.');
+    yield* OW.approach(holt, p);
+    yield* say('HOLT: ...You actually beat him. Thank you, kid.');
+    yield* say('HOLT: I\'m HOLT. I lead the AIMON GYM in GRAYHAVEN CITY.\fAnd you\'re {PLAYER}? KAI told me about you. You\'ve got a steady spine.');
+    holt.dir = 'up';
+    yield* say('HOLT: This stone... My family has watched over it for generations. It\'s a KEYSTONE.');
+    yield* say('HOLT: The old stories say there are eight, one beneath every AIMON GYM. Together, they hold shut something called the RIFT.');
+    yield* say('HOLT: I always thought the RIFT was a bedtime story. But TEAM DISTORTION came down here with a machine built to break the seal.');
+    yield* say('HOLT: The crack is small. It\'ll hold...\ffor now.');
+    OW.faceTowards(holt, p);
+    yield* say('HOLT: Here, let me see to your team. You\'ve earned it.');
+    yield* this.healJingle();
+    yield* say('HOLT: And take this, too.');
+    State.d.expShareOn = true;
+    yield* this.receive('expshare', 1);
+    yield* say('HOLT: With the EXP. SHARE, your whole team learns from every battle. You can switch it on or off from your BAG.');
+    yield* say('HOLT: I closed my GYM to chase these goons. I\'ll open it again for you.');
+    yield* say('HOLT: GRAYHAVEN CITY is east of ARCHFORD, past ROUTE 3. Come and challenge me, {PLAYER}.');
+    yield* say('HOLT: If TEAM DISTORTION is hunting KEYSTONES, you and I are both going to need to get a lot stronger.');
+    yield* OW.walkTo(holt, 4, 15);
+    OW.despawn(holt);
+    State.setFlag('holt_saved');
+    yield 40;
+    Sound.sfx('hum');
+    Game.shake = 16;
+    yield* say('...');
+    yield* say('The stone hums faintly in the dark.\fFor a moment, it almost sounds like a voice.');
+  },
+
+  *rivalRoute3() {
+    if (!State.flag('holt_saved') || State.flag('rival2_done')) return;
+    const p = OW.player;
+    const kai = OW.spawnNear({ id: 'kai_r3', person: 'rival' }, p, 'east');
+    kai.emote = 30;
+    Sound.sfx('exclaim');
+    yield 30;
+    yield* OW.approach(kai, p);
+    const rs = SPECIES[State.rivalStarter()].name;
+    yield* say('KAI: {PLAYER}! I heard everything. You beat TEAM DISTORTION in the cave?!');
+    yield* say(`KAI: My ${rs} is back to full strength, and I caught a GOSKIE on the way. We've been training nonstop.`);
+    yield* say('KAI: Before you take on HOLT... let\'s find out which one of us is really stronger!');
+    const res = yield* this.battle({ trainer: 'rival2' });
+    if (res !== 'win') return;
+    State.setFlag('rival2_done');
+    yield* say('KAI: Argh... You\'re really something, {PLAYER}.');
+    yield* say('KAI: HOLT\'s GYM is just ahead in GRAYHAVEN CITY. ...Don\'t you dare lose to him!');
+    yield* OW.walkTo(kai, Math.max(0, p.x - 8), p.y);
+    OW.despawn(kai);
+  },
+
+  // -- Grayhaven --------------------------------------------------------------------
+  *gymStatue() {
+    const who = State.flag('badge_keystone') ? State.name : '---';
+    yield* say(`GRAYHAVEN CITY AIMON GYM\nLEADER: HOLT\fCERTIFIED TRAINERS:\n${who}`);
+  },
+
+  *guardTalk() {
+    if (!State.flag('badge_keystone')) {
+      yield* say('GUARD: Halt! ROUTE 4 is closed while the city checks the ground for tremor damage.\fOrders from HOLT himself.');
+      return;
+    }
+    yield* say('GUARD: You beat HOLT? Impressive! But ROUTE 4 is still closed, I\'m afraid.');
+    yield* say('...That\'s as far as this adventure goes for now.\fThanks for playing!');
+  },
+
+  *historianTalk() {
+    if (State.flag('badge_keystone')) {
+      yield* say('HISTORIAN: Let me see that BADGE... Yes. That violet sliver is true keystone. Keep it close, young one.');
+      return;
+    }
+    yield* say('HISTORIAN: Ah, a young trainer. Have you heard the old tale of the RIFT?');
+    yield* say('Long ago, before any town was built, the land of VALEMORA split open. The old texts call it the RIFT.');
+    yield* say('Where it touched, rivers ran backward and AIMON fell silent. Everything was... bent out of shape.');
+    yield* say('Eight trainers and their AIMON sealed it with eight great stones, the KEYSTONES. They became the first GYM LEADERS.');
+    yield* say('Every GYM stands over a KEYSTONE. Every BADGE carries a sliver of one. That\'s why a trainer with all eight is trusted with the whole region.');
+    yield* say('Some believe the RIFT was never a disaster at all... that the world beyond it is the "true" one, and ours is the distortion.');
+    yield* say('Nonsense, if you ask me.\f...But lately, I wonder who else has been reading my books.');
+  },
+
+  *repelGift() {
+    if (State.flag('gift_repel')) {
+      yield* say('REPEL keeps weak wild AIMON away. Great for getting through caves in a hurry!');
+      return;
+    }
+    yield* say('Heading back into the caves? Wild AIMON can wear you down fast in there. Here, take these!');
+    State.setFlag('gift_repel');
+    yield* this.receive('repel', 2);
+  },
+
+  *gymGuide() {
+    if (State.flag('badge_keystone')) {
+      yield* say('GUIDE: You did it! That was a textbook GYM battle, champ!');
+      return;
+    }
+    yield* say('GUIDE: Hey there, future champ! Let me give you some advice.');
+    yield* say('GUIDE: HOLT uses NORMAL-type AIMON. They hit hard and never give up, and they have only one weakness: FIGHTING moves!');
+    yield* say('GUIDE: A SCRAPAW from RIFTSTONE CAVE would go a long way here. Good luck!');
+  },
+
+  *holtGym(npc) {
+    if (State.flag('badge_keystone')) {
+      yield* say('HOLT: A shard of the KEYSTONE travels with you now. Carry it well, {PLAYER}.');
+      yield* say('HOLT: Rest up at the AIMON CENTRE. I have a feeling TEAM DISTORTION isn\'t done with us.');
+      return;
+    }
+    yield* say('HOLT: {PLAYER}! You came.');
+    yield* say('HOLT: Down in that cave, you stood your ground when my team couldn\'t. That\'s what the NORMAL type is all about.');
+    yield* say('HOLT: No tricks. Nothing to hide behind. Just the strength to keep standing, no matter what hits you.');
+    yield* say('HOLT: I\'m the foundation this city stands on. Let\'s see if you can shake it!');
+    const res = yield* this.battle({ trainer: 'holt' });
+    if (res !== 'win') return;
+    yield* say('HOLT: ...Ha! Now THAT was a battle! You didn\'t budge an inch.');
+    yield* say('HOLT: As proof of your victory, take the KEYSTONE BADGE!');
+    State.d.badges.keystone = true;
+    State.setFlag('badge_keystone');
+    Sound.jingle('badge');
+    yield* say('{PLAYER} received the KEYSTONE BADGE from HOLT!');
+    yield* BadgeShow.run(0);
+    yield* say('HOLT: See the violet sliver in its center? That\'s a real piece of the KEYSTONE beneath this GYM.');
+    yield* say('HOLT: Every GYM LEADER carries one. It\'s how we recognize each other... and maybe how the stones recognize us.');
+    yield* say('HOLT: Take this TM, too.');
+    yield* this.receive('tm01', 1);
+    yield* say('HOLT: A TM teaches a move to an AIMON. TM01 holds SWIFT, a move that never misses. You can use a TM as many times as you like.');
+    yield* say('HOLT: I\'ve sent word to the other GYM LEADERS about TEAM DISTORTION. If they\'re after all eight KEYSTONES, you\'ll cross paths with them again.');
+    yield* say('HOLT: Get stronger, {PLAYER}. I think this whole region may end up counting on it.');
+  },
+
+  *epilogue() {
+    if (!State.flag('badge_keystone') || State.flag('epilogue_seen')) return;
+    State.setFlag('epilogue_seen');
+    yield* Game.fadeOut(40);
+    Sound.playMusic('cave');
+    const scene = { opaque: true, t: 0 };
+    const shadow = Pix.silhouette(TrainerArt.get('grunt'), '#140c22');
+    const rim = Pix.silhouette(TrainerArt.get('grunt'), '#8850d8');
+    scene.draw = (g) => {
+      g.fillStyle = '#05030a';
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+      const pulse = 0.3 + 0.2 * Math.sin(Game.frame / 20);
+      g.globalAlpha = pulse;
+      Pix.ellipse(g, 120, 70, 60, 34, '#4a2090');
+      // A jagged crack of light behind the figure: the RIFT.
+      g.strokeStyle = '#c090ff';
+      g.lineJoin = 'miter';
+      for (const [w, a] of [[9, 0.25], [3, 1]]) {
+        g.globalAlpha = pulse * a * 1.6;
+        g.lineWidth = w;
+        g.beginPath();
+        RIFT_CRACK.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+        g.stroke();
+      }
+      g.lineWidth = 1;
+      g.globalAlpha = 0.35 + 0.25 * pulse;
+      for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1]]) g.drawImage(rim, 88 + dx, 26 + dy);
+      g.globalAlpha = 1;
+      g.drawImage(shadow, 88, 26);
+      g.fillStyle = '#c080ff';
+      g.fillRect(114, 42, 3, 1);
+      g.fillRect(123, 42, 3, 1);
+    };
+    Game.push(scene);
+    yield* Game.fadeIn(40);
+    const dark = { style: 'dark' };
+    yield* say('Meanwhile, somewhere deep beneath VALEMORA...', dark);
+    yield* say('???: The first KEYSTONE has been touched. Its song has begun.', dark);
+    yield* say('???: And the child who stopped us carries a piece of it now.', dark);
+    yield* say('???: Good. Let the children collect their little BADGES.', dark);
+    yield* say('???: Every seal they visit... shows us the way to the next.', dark);
+    yield* say('TO BE CONTINUED...', dark);
+    yield* Game.fadeOut(40);
+    Game.remove(scene);
+    Sound.playMusic(OW.map.def.music);
+    yield* Game.fadeIn(30);
+  },
+
+  *escapeRope() {
+    const e = OW.map.def.escape;
+    Sound.sfx('flee');
+    yield* say('{PLAYER} used the ESCAPE ROPE!');
+    yield* OW.teleport(e.map, e.x, e.y, e.dir);
+  },
 };
+
+// Zigzag points of the RIFT crack in the epilogue.
+const RIFT_CRACK = [[124, 0], [117, 12], [126, 24], [114, 38], [123, 52], [111, 66], [127, 80], [116, 94], [122, 112]];
 
 // Picture window shown above the text box (e.g. choosing a starter).
 const Popup = {

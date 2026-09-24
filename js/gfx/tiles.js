@@ -82,6 +82,7 @@ const BUILDINGS = {
 
 const Tiles = {
   cache: {},
+  extra: {},
   buildings: {},
 
   def(ch) { return TILE_DEFS[ch] || TILE_DEFS['.']; },
@@ -100,7 +101,7 @@ const Tiles = {
     const cv = Pix.canvas(W * TILE, H * TILE);
     const g = cv.getContext('2d');
     const anims = [];
-    const at = (x, y) => map.tileAt(x, y);
+    const at = (x, y) => map.worldTileAt(x, y);
     for (let y = 0; y < H; y++) {
       for (let x = 0; x < W; x++) {
         const ch = at(x, y);
@@ -174,16 +175,16 @@ const Tiles = {
       case 'fountain':
         this.drawFountain(g, px, py, n);
         break;
-      case 'building': g.drawImage(this.grassImg(0), px, py); break;
+      case 'building': g.drawImage(map.def.cave ? this.caveFloorImg(0) : this.grassImg(0), px, py); break;
       // interior
       case 'void': g.fillStyle = '#000'; g.fillRect(px, py, TILE, TILE); break;
-      case 'wallTop': g.drawImage(this.wallTopImg(), px, py); break;
-      case 'wall': g.drawImage(this.wallImg(), px, py); break;
-      case 'window': g.drawImage(this.wallImg(), px, py); g.drawImage(this.windowImg(), px, py); break;
-      case 'picture': g.drawImage(this.wallImg(), px, py); g.drawImage(this.pictureImg(), px, py); break;
-      case 'clock': g.drawImage(this.wallImg(), px, py); g.drawImage(this.clockImg(), px, py); break;
-      case 'shelfTop': g.drawImage(this.wallTopImg(), px, py); g.drawImage(this.shelfImg(0), px, py); break;
-      case 'shelf': g.drawImage(this.wallImg(), px, py); g.drawImage(this.shelfImg(1), px, py); break;
+      case 'wallTop': g.drawImage(this.wallTopImg(map.def.theme), px, py); break;
+      case 'wall': g.drawImage(this.wallImg(map.def.theme), px, py); break;
+      case 'window': g.drawImage(this.wallImg(map.def.theme), px, py); g.drawImage(this.windowImg(), px, py); break;
+      case 'picture': g.drawImage(this.wallImg(map.def.theme), px, py); g.drawImage(this.pictureImg(), px, py); break;
+      case 'clock': g.drawImage(this.wallImg(map.def.theme), px, py); g.drawImage(this.clockImg(), px, py); break;
+      case 'shelfTop': g.drawImage(this.wallTopImg(map.def.theme), px, py); g.drawImage(this.shelfImg(0), px, py); break;
+      case 'shelf': g.drawImage(this.wallImg(map.def.theme), px, py); g.drawImage(this.shelfImg(1), px, py); break;
       case 'wood': g.drawImage(this.woodImg(), px, py); break;
       case 'tiles': g.drawImage(this.floorTileImg(), px, py); break;
       case 'rug': this.drawRug(g, px, py, n); break;
@@ -207,7 +208,9 @@ const Tiles = {
       case 'machine': this.drawFloor(g, px, py, map); g.drawImage(this.machineImg(hash % 2), px, py); break;
       case 'kitchen': this.drawFloor(g, px, py, map); g.drawImage(this.kitchenImg(x % 2), px, py); break;
       case 'vase': this.drawFloor(g, px, py, map); g.drawImage(this.vaseImg(), px, py); break;
-      default: g.drawImage(this.grassImg(0), px, py);
+      default:
+        if (this.extra[d.name]) this.extra[d.name].call(this, g, px, py, n, x, y, map, hash);
+        else g.drawImage(this.grassImg(0), px, py);
     }
   },
 
@@ -219,7 +222,8 @@ const Tiles = {
   },
 
   drawFloor(g, px, py, map) {
-    g.drawImage(map.floor === '-' ? this.floorTileImg() : this.woodImg(), px, py);
+    const f = map.floor;
+    g.drawImage(f === '-' ? this.floorTileImg() : f === 'd' ? this.gymFloorImg() : this.woodImg(), px, py);
   },
 
   memo(key, fn) {
@@ -590,35 +594,55 @@ const Tiles = {
   // ---------------------------------------------------------------------
   // Interior tiles
 
-  wallTopImg() {
-    return this.memo('wallTop', () => {
+  // Wall colours; the 'stone' theme is used by the GYM.
+  wallColors(theme) {
+    if (theme === 'stone') {
+      return { wall: '#c8c0b8', lo: '#b0a8a0', dk: '#7c746c', rim: '#5c544c', hi: '#d8d0c8', base: '#8c847c', baseDk: '#5c544c' };
+    }
+    return { wall: C.wall, lo: C.wallLo, dk: C.wallDk, rim: '#806048', hi: C.woodHi, base: C.woodLo, baseDk: C.woodDk };
+  },
+
+  wallTopImg(theme) {
+    return this.memo(`wallTop${theme || ''}`, () => {
+      const k = this.wallColors(theme);
       const c = Pix.canvas(16, 16);
       const g = c.getContext('2d');
-      g.fillStyle = C.wall;
+      g.fillStyle = k.wall;
       g.fillRect(0, 0, 16, 16);
-      g.fillStyle = C.wallLo;
-      for (let x = 2; x < 16; x += 8) g.fillRect(x, 0, 2, 16);
-      g.fillStyle = C.wallDk;
+      g.fillStyle = k.lo;
+      if (theme === 'stone') {
+        for (let y = 7; y < 16; y += 5) g.fillRect(0, y, 16, 1);
+        g.fillRect(7, 4, 1, 3); g.fillRect(3, 8, 1, 4); g.fillRect(11, 8, 1, 4); g.fillRect(7, 13, 1, 3);
+      } else {
+        for (let x = 2; x < 16; x += 8) g.fillRect(x, 0, 2, 16);
+      }
+      g.fillStyle = k.dk;
       g.fillRect(0, 0, 16, 3);
-      g.fillStyle = '#806048';
+      g.fillStyle = k.rim;
       g.fillRect(0, 3, 16, 1);
       return c;
     });
   },
 
-  wallImg() {
-    return this.memo('wall', () => {
+  wallImg(theme) {
+    return this.memo(`wall${theme || ''}`, () => {
+      const k = this.wallColors(theme);
       const c = Pix.canvas(16, 16);
       const g = c.getContext('2d');
-      g.fillStyle = C.wall;
+      g.fillStyle = k.wall;
       g.fillRect(0, 0, 16, 16);
-      g.fillStyle = C.wallLo;
-      for (let x = 2; x < 16; x += 8) g.fillRect(x, 0, 2, 11);
-      g.fillStyle = C.woodHi;
+      g.fillStyle = k.lo;
+      if (theme === 'stone') {
+        for (let y = 2; y < 11; y += 5) g.fillRect(0, y, 16, 1);
+        g.fillRect(4, 0, 1, 2); g.fillRect(12, 0, 1, 2); g.fillRect(8, 3, 1, 4); g.fillRect(3, 8, 1, 3); g.fillRect(13, 8, 1, 3);
+      } else {
+        for (let x = 2; x < 16; x += 8) g.fillRect(x, 0, 2, 11);
+      }
+      g.fillStyle = k.hi;
       g.fillRect(0, 11, 16, 1);
-      g.fillStyle = C.woodLo;
+      g.fillStyle = k.base;
       g.fillRect(0, 12, 16, 3);
-      g.fillStyle = C.woodDk;
+      g.fillStyle = k.baseDk;
       g.fillRect(0, 15, 16, 1);
       return c;
     });
@@ -1035,7 +1059,7 @@ const Tiles = {
 
   buildBuildings() {
     for (const [name, spec] of Object.entries(BUILDINGS)) {
-      this.buildings[name] = this.house(spec.w, spec.h, spec);
+      this.buildings[name] = spec.draw ? this[spec.draw](spec) : this.house(spec.w, spec.h, spec);
     }
   },
 

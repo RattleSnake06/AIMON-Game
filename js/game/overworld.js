@@ -23,10 +23,10 @@ const World = {
         let mx = 0;
         let my = 0;
         inner.rows.forEach((row, y) => {
-          const i = row.indexOf('M');
+          const i = row.search(/[Me]/);
           if (i >= 0) { mx = i; my = y; }
         });
-        def.warps.push({ x: dx, y: dy, to: b.to, tx: mx, ty: my, dir: 'up', kind: 'door' });
+        def.warps.push({ x: dx, y: dy, to: b.to, tx: mx, ty: my, dir: 'up', kind: 'door', lock: b.lock });
         inner.warps = inner.warps || [];
         inner.warps.push({ x: mx, y: my, to: id, tx: dx, ty: dy, dir: 'down', kind: 'mat' });
       }
@@ -59,6 +59,18 @@ class GameMap {
     return this.rows[y][x];
   }
 
+  // Like tileAt, but looks into connected maps past the edges (so rivers
+  // and paths auto-tile seamlessly across a map join).
+  worldTileAt(x, y) {
+    if (this.inside(x, y)) return this.rows[y][x];
+    for (const l of this.links()) {
+      const lx = x - l.ox;
+      const ly = y - l.oy;
+      if (l.map.inside(lx, ly)) return l.map.rows[ly][lx];
+    }
+    return this.border;
+  }
+
   render() {
     if (!this.rendered) this.rendered = Tiles.renderMap(this);
     return this.rendered;
@@ -67,7 +79,9 @@ class GameMap {
   warpAt(x, y) { return (this.def.warps || []).find((w) => w.x === x && w.y === y); }
 
   // Neighbouring maps with their origin relative to this map (in tiles).
+  // north/south offsets shift x; west/east offsets shift y.
   links() {
+    if (this.linkCache) return this.linkCache;
     const out = [];
     const c = this.def.connections || {};
     if (c.north) {
@@ -78,6 +92,15 @@ class GameMap {
       const m = World.get(c.south.map);
       out.push({ map: m, ox: -c.south.offset, oy: this.h, side: 'south' });
     }
+    if (c.west) {
+      const m = World.get(c.west.map);
+      out.push({ map: m, ox: -m.w, oy: -c.west.offset, side: 'west' });
+    }
+    if (c.east) {
+      const m = World.get(c.east.map);
+      out.push({ map: m, ox: this.w, oy: -c.east.offset, side: 'east' });
+    }
+    this.linkCache = out;
     return out;
   }
 }
@@ -133,6 +156,7 @@ const OW = {
   bumpSfx: 0,
   lastDir: null,
   encounterCooldown: 0,
+  camOff: { x: 0, y: 0 },
 
   // -- setup ------------------------------------------------------------------
   start() {
@@ -150,6 +174,7 @@ const OW = {
     this.player.ox = 0;
     this.player.oy = 0;
     this.player.moving = false;
+    this.camOff = { x: 0, y: 0 };
     this.spawnNpcs();
     this.onMapChanged();
   },
@@ -173,11 +198,12 @@ const OW = {
   onMapChanged() {
     const def = this.map.def;
     if (def.music) Sound.playMusic(def.music);
-    if (def.outdoor && def.name && this.shownPopup !== def.name) {
+    const named = (def.outdoor || def.popup) && def.name;
+    if (named && this.shownPopup !== def.name) {
       this.popup = { text: def.name, start: Game.frame };
       this.shownPopup = def.name;
     }
-    if (!def.outdoor) this.popup = null;
+    if (!named) this.popup = null;
   },
 
   // -- world queries ---------------------------------------------------------
@@ -356,6 +382,10 @@ const OW = {
     if (this.canEnter(p, nx, ny, dir)) {
       const warp = this.map.warpAt(nx, ny);
       if (warp && warp.kind === 'door') {
+        if (warp.lock && !State.flag(warp.lock.flag)) {
+          this.run(Events.sign(warp.lock.text, true));
+          return;
+        }
         this.run(this.enterDoor(warp));
         return;
       }
@@ -388,11 +418,68 @@ const OW = {
     if (this.checkTriggers(false)) return;
     if (this.checkTrainers()) return;
     if (this.encounterCooldown > 0) this.encounterCooldown--;
-    const enc = this.map.def.encounters;
-    if (enc && Tiles.def(this.tile(p.x, p.y)).grass && this.encounterCooldown <= 0 && U.chance(enc.rate)) {
-      const e = U.weighted(enc.table);
-      this.run(Events.wildBattle(e.species, U.randInt(e.min, e.max)));
+    if (State.d.repel > 0 && --State.d.repel === 0) {
+      this.run(Events.sign('REPEL\'s effect wore off...', true));
+      return;
     }
+    const enc = this.map.def.encounters;
+    const here = Tiles.def(this.tile(p.x, p.y));
+    if (enc && (here.grass || here.wild) && this.encounterCooldown <= 0 && U.chance(enc.rate)) {
+      const e = U.weighted(enc.table);
+      const level = U.randInt(e.min, e.max);
+      // REPEL keeps away wild AIMON weaker than your lead.
+      const lead = State.party.find((m) => !m.fainted);
+      if (State.d.repel > 0 && lead && level < lead.level) return;
+      this.run(Events.wildBattle(e.species, level));
+    }
+  },
+
+  // Put a person on the map for a cutscene.
+  spawn(o) {
+    const e = new Entity({ move: 'still', ...o });
+    this.npcs.push(e);
+    return e;
+  },
+
+  despawn(e) {
+    this.npcs = this.npcs.filter((n) => n !== e);
+  },
+
+  // Spawn someone a few steps from `near`, somewhere they can walk from.
+  spawnNear(o, near, side) {
+    const cands = [];
+    for (let dy = -5; dy <= 5; dy++) {
+      for (let dx = -5; dx <= 5; dx++) {
+        const d = Math.abs(dx) + Math.abs(dy);
+        if (d < 3 || d > 5) continue;
+        if (side === 'east' && dx <= 0) continue;
+        const x = near.x + dx;
+        const y = near.y + dy;
+        if (!this.map.inside(x, y)) continue;
+        const t = Tiles.def(this.tile(x, y));
+        if (t.solid || t.ledge || t.water || this.entityAt(x, y) || this.map.warpAt(x, y)) continue;
+        cands.push([x, y, Math.abs(dy) * 2 + d]);
+      }
+    }
+    cands.sort((a, b) => a[2] - b[2]);
+    for (const [x, y] of cands) {
+      const e = new Entity({ move: 'still', dir: 'down', ...o, x, y });
+      const path = this.findPath(e, near.x, near.y);
+      if (path && path.length > 1) {
+        this.npcs.push(e);
+        this.faceTowards(e, near);
+        return e;
+      }
+    }
+    return this.spawn({ ...o, x: near.x, y: near.y - 1 });
+  },
+
+  // Walk up to someone and face them.
+  *approach(ent, other) {
+    const path = this.findPath(ent, other.x, other.y);
+    if (path && path.length > 1) yield* this.walkPath(ent, path.slice(0, -1));
+    this.faceTowards(ent, other);
+    this.faceTowards(other, ent);
   },
 
   checkTriggers(arrive) {
@@ -597,26 +684,31 @@ const OW = {
   // -- drawing -------------------------------------------------------------------
   camera() {
     const p = this.player;
-    return [p.px - 112, p.py - 72];
+    return [p.px - 112 + Math.round(this.camOff.x), p.py - 72 + Math.round(this.camOff.y)];
+  },
+
+  // Slide the camera by (dx, dy) tiles from the player, for cutscenes.
+  *pan(dx, dy, frames = 30) {
+    const from = { ...this.camOff };
+    for (let i = 1; i <= frames; i++) {
+      const t = 0.5 - Math.cos((i / frames) * Math.PI) / 2;
+      this.camOff.x = from.x + (dx * TILE - from.x) * t;
+      this.camOff.y = from.y + (dy * TILE - from.y) * t;
+      yield;
+    }
   },
 
   draw(g) {
     const [cx, cy] = this.camera();
     const frame = Game.frame;
 
-    // Border filler (trees outdoors, black inside).
-    const borderImg = this.map.def.outdoor ? Tiles.treeImg() : null;
+    // Border filler (trees outdoors, rock in caves, black inside).
+    const borderImg = Tiles.borderImg(this.map.border);
     if (borderImg) {
-      const grass = Tiles.grassImg(0);
       const sx = Math.floor(cx / TILE);
       const sy = Math.floor(cy / TILE);
       for (let ty = sy; ty <= sy + 11; ty++) {
-        for (let tx = sx; tx <= sx + 15; tx++) {
-          const px = tx * TILE - cx;
-          const py = ty * TILE - cy;
-          g.drawImage(grass, px, py);
-          g.drawImage(borderImg, px, py);
-        }
+        for (let tx = sx; tx <= sx + 15; tx++) g.drawImage(borderImg, tx * TILE - cx, ty * TILE - cy);
       }
     } else {
       g.fillStyle = '#000';
@@ -661,6 +753,20 @@ const OW = {
       if (e.emote) g.drawImage(Chars.emote, x + 2, y - 18);
     }
 
+    // Darkness is lit around the player; crystal glows shine through it.
+    if (this.map.def.dark) {
+      g.drawImage(Tiles.darkness(this.map.def.dark), -120 - Math.round(this.camOff.x), -88 - Math.round(this.camOff.y));
+    }
+    g.globalCompositeOperation = 'lighter';
+    for (const gl of this.map.def.glows || []) {
+      if (gl.showIf && !State.flag(gl.showIf)) continue;
+      if (gl.hideIf && State.flag(gl.hideIf)) continue;
+      const a = (gl.alpha || 0.3) * (0.6 + 0.4 * Math.sin(frame / (gl.speed || 20) + gl.x));
+      g.globalAlpha = a;
+      Pix.ellipse(g, gl.x * TILE + 8 - cx, gl.y * TILE + 8 - cy, gl.r || 14, Math.round((gl.r || 14) * 0.7), gl.color || '#b070f8');
+    }
+    g.globalAlpha = 1;
+    g.globalCompositeOperation = 'source-over';
     if (this.popup) this.drawPopup(g);
   },
 
@@ -712,4 +818,11 @@ const TILE_TEXT = {
   bedTop: 'A comfy-looking bed.',
   bed: 'A comfy-looking bed.',
   healer: 'A machine that restores tired AIMON.',
+  pillar: 'A sturdy stone pillar. It hasn\'t moved in a hundred years.',
+  statue: 'A stone statue of a RUFFANG, standing proud.',
+  lamp: 'An old iron street lamp.',
+  crystal: 'A crystal glowing with a faint violet light.',
+  boulder: 'A big boulder. It won\'t budge.',
+  bamboo: 'Tall bamboo sways in the breeze.',
+  stoneWall: 'An old stone wall. Moss grows between the bricks.',
 };

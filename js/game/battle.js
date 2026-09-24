@@ -16,7 +16,7 @@ class Battle {
     this.enemyParty = this.wild
       ? [new Mon(opts.wild.species, opts.wild.level)]
       : this.tr.party().map(([s, l, moves]) => new Mon(s, l, moves ? { moves: moves.map((id) => ({ id, pp: MOVES[id].pp })) } : {}));
-    this.bgKind = OW.map && OW.map.def.outdoor ? 'grass' : 'indoor';
+    this.bgKind = (OW.map && OW.map.def.battleBg) || (OW.map && OW.map.def.outdoor ? 'grass' : 'indoor');
     this.pi = State.party.findIndex((m) => !m.fainted);
     this.ei = 0;
     this.p = this.side(State.party[this.pi], true);
@@ -56,7 +56,7 @@ class Battle {
 
   nameOf(s) { return `${this.prefix(s)}${s.mon.name}`; }
 
-  get trainerTitle() { return `${this.tr.cls} ${this.tr.name}`; }
+  get trainerTitle() { return [this.tr.cls, this.tr.name].filter(Boolean).join(' '); }
 
   // ---- messages ------------------------------------------------------------
   *msg(text, mode) {
@@ -215,8 +215,7 @@ class Battle {
       Font.draw(g, 'PP', 168, 120, '#404048', '#d0d0c8');
       const low = m.pp === 0 ? '#e03030' : m.pp <= mv.pp / 4 ? '#e07818' : '#404048';
       Font.drawRight(g, `${m.pp}/${mv.pp}`, 230, 120, low, '#d0d0c8');
-      Font.draw(g, 'TYPE/', 168, 136, '#404048', '#d0d0c8');
-      Font.drawRight(g, TYPES[mv.type].name, 230, 136, '#404048', '#d0d0c8');
+      UI.typeBadge(g, 176, 134, mv.type);
     };
     // Disabled entries: allow the cursor on them but refuse A for empty PP.
     const origUpdate = menu.update.bind(menu);
@@ -241,29 +240,41 @@ class Battle {
     if (!slots.length) return { type: 'move', struggle: true };
     if (this.wild) return { type: 'move', slot: U.pick(slots) };
     // Trainers favour strong, effective moves but mix in the rest.
+    const foe = this.p.mon;
     const scored = slots.map((i) => {
       const mv = MOVES[m.moves[i].id];
       let s;
       if (mv.cat === 'status') {
-        const st = mv.stat;
-        const side = st.target === 'self' ? this.e : this.p;
-        s = Math.abs(side.st[st.stat]) >= 2 ? 1 : 25;
+        if (mv.inflict) {
+          s = foe.status || !this.canAfflict(foe, mv.inflict.status) || typeEffect(mv.type, foe.types) === 0 ? 0 : 40;
+        } else {
+          s = [].concat(mv.stat).every((st) => Math.abs((st.target === 'self' ? this.e : this.p).st[st.stat]) >= 2) ? 1 : 22;
+        }
       } else {
-        s = mv.power * typeEffect(mv.type, this.p.mon.types) * (m.types.includes(mv.type) ? 1.5 : 1);
+        s = mv.power * (mv.hits || 1) * typeEffect(mv.type, foe.types) * (m.types.includes(mv.type) ? 1.5 : 1);
       }
       return { i, s };
     }).sort((a, b) => b.s - a.s);
-    const pick = U.chance(0.7) ? scored[0] : U.pick(scored);
+    const pick = U.chance(0.7) ? scored[0] : U.pick(scored.filter((x) => x.s > 0).length ? scored.filter((x) => x.s > 0) : scored);
     return { type: 'move', slot: pick.i };
   }
 
-  speedOf(s) { return s.mon.stats.spe * stageMult(s.st.spe); }
+  speedOf(s) {
+    const v = s.mon.stats.spe * stageMult(s.st.spe);
+    return s.mon.status === 'par' ? v / 2 : v;
+  }
 
   // ---- a turn ----------------------------------------------------------------
   *turn(act) {
+    yield* this.actions(act);
+    if (!this.result) yield* this.endOfTurn();
+  }
+
+  *actions(act) {
     const eAct = this.enemyAction();
     this.p.flinch = false;
     this.e.flinch = false;
+    this.firstMover = false;
 
     if (act.type === 'run') {
       if (yield* this.tryRun()) return;
@@ -304,41 +315,43 @@ class Battle {
     }
   }
 
-  *useMove(s, act) {
-    const t = this.other(s);
-    if (!s.vis || s.mon.fainted) return;
-    if (s.flinch) {
-      yield* this.msg(`${this.nameOf(s)} flinched!`, 'auto');
-      return;
+  // Burns hurt at the end of every turn.
+  *endOfTurn() {
+    for (const s of [this.p, this.e]) {
+      if (this.result || !s.vis || s.mon.fainted || s.mon.status !== 'brn') continue;
+      const d = Math.max(1, Math.floor(s.mon.stats.hp / 16));
+      s.mon.hp = Math.max(0, s.mon.hp - d);
+      yield* BattleFX.statusAnim(this, s, 'brn');
+      yield* this.drainBar(s);
+      yield* this.msg(`${this.nameOf(s)} is hurt by its burn!`, 'auto');
+      yield* this.checkFaints();
     }
-    let mv;
-    if (act.struggle) mv = STRUGGLE;
-    else {
-      const slot = s.mon.moves[act.slot];
-      slot.pp = Math.max(0, slot.pp - 1);
-      mv = MOVES[slot.id];
-    }
-    yield* this.msg(`${this.nameOf(s)} used ${mv.name}!`, 'hold');
-    yield 8;
+  }
 
-    if (mv.acc) {
-      const chance = mv.acc * accMult(U.clamp(s.st.acc - t.st.eva, -6, 6));
-      if (U.rand(100) >= chance) {
-        yield* this.msg(`${this.nameOf(s)}'s attack missed!`, 'auto');
-        return;
+  canAfflict(mon, status) {
+    if (mon.status || mon.fainted) return false;
+    if (status === 'par' && mon.types.includes('electric')) return false;
+    if (status === 'brn' && mon.types.includes('fire')) return false;
+    return true;
+  }
+
+  // Give a status condition. `loud` reports why it failed.
+  *inflict(side, status, loud) {
+    const m = side.mon;
+    if (!this.canAfflict(m, status)) {
+      if (loud) {
+        const already = m.status === status ? `${this.nameOf(side)} is already ${{ par: 'paralyzed', slp: 'asleep', brn: 'burned' }[status]}!` : 'But it failed!';
+        yield* this.msg(already, 'auto');
       }
-    }
-
-    if (mv.cat === 'status') {
-      yield* BattleFX.move(this, mv.fx, s, t);
-      const st = mv.stat;
-      yield* this.changeStat(st.target === 'self' ? s : t, st.stat, st.stages);
       return;
     }
+    m.status = status;
+    if (status === 'slp') m.sleep = U.randInt(2, 4);
+    yield* BattleFX.statusAnim(this, side, status);
+    yield* this.msg(`${this.nameOf(side)} ${STATUS[status].verb}`, 'auto');
+  }
 
-    // Damage.
-    const eff = typeEffect(mv.type, t.mon.types);
-    const crit = U.chance(mv.highCrit ? 1 / 8 : 1 / 16);
+  damageOf(s, t, mv, crit, struggle) {
     const physical = mv.cat === 'physical';
     const ak = physical ? 'atk' : 'spa';
     const dk = physical ? 'def' : 'spd';
@@ -357,21 +370,91 @@ class Battle {
     let dmg = Math.floor(Math.floor((Math.floor((2 * L) / 5 + 2) * power * A) / D) / 50) + 2;
     if (crit) dmg = Math.floor(dmg * 1.5);
     dmg = Math.floor(dmg * U.randInt(85, 100) / 100);
-    if (!act.struggle && s.mon.types.includes(mv.type)) dmg = Math.floor(dmg * 1.5);
-    dmg = Math.floor(dmg * eff);
-    dmg = Math.max(1, dmg);
+    if (!struggle && s.mon.types.includes(mv.type)) dmg = Math.floor(dmg * 1.5);
+    dmg = Math.floor(dmg * typeEffect(mv.type, t.mon.types));
+    if (physical && s.mon.status === 'brn') dmg = Math.floor(dmg / 2);
+    return Math.max(1, dmg);
+  }
 
-    if (physical) yield* BattleFX.lunge(this, s);
-    yield* BattleFX.move(this, mv.fx, s, t);
-    Sound.sfx(eff > 1 ? 'hitSuper' : eff < 1 ? 'hitWeak' : 'hit');
-    yield* BattleFX.blink(this, t, 3);
-    const dealt = Math.min(t.mon.hp, dmg);
-    t.mon.hp -= dealt;
-    yield* this.drainBar(t);
+  *useMove(s, act) {
+    const t = this.other(s);
+    if (!s.vis || s.mon.fainted) return;
+    const me = this.nameOf(s);
+    if (s.mon.status === 'slp') {
+      if (--s.mon.sleep > 0) {
+        yield* BattleFX.statusAnim(this, s, 'slp');
+        yield* this.msg(`${me} is fast asleep.`, 'auto');
+        return;
+      }
+      s.mon.status = null;
+      yield* this.msg(`${me} woke up!`, 'auto');
+    }
+    if (s.flinch) {
+      yield* this.msg(`${me} flinched!`, 'auto');
+      return;
+    }
+    if (s.mon.status === 'par' && U.chance(0.25)) {
+      yield* BattleFX.statusAnim(this, s, 'par');
+      yield* this.msg(`${me} is paralyzed! It can't move!`, 'auto');
+      return;
+    }
+    let mv;
+    if (act.struggle) mv = STRUGGLE;
+    else {
+      const slot = s.mon.moves[act.slot];
+      slot.pp = Math.max(0, slot.pp - 1);
+      mv = MOVES[slot.id];
+    }
+    yield* this.msg(`${me} used ${mv.name}!`, 'hold');
+    yield 8;
 
-    if (crit) yield* this.msg('A critical hit!', 'auto');
+    const targetsFoe = mv.cat !== 'status' || mv.inflict || [].concat(mv.stat || []).some((st) => st.target === 'foe');
+    if (mv.acc && targetsFoe) {
+      const chance = mv.acc * accMult(U.clamp(s.st.acc - t.st.eva, -6, 6));
+      if (U.rand(100) >= chance) {
+        yield* this.msg(`${me}'s attack missed!`, 'auto');
+        return;
+      }
+    }
+    const eff = typeEffect(mv.type, t.mon.types);
+    if (targetsFoe && eff === 0 && (mv.cat !== 'status' || mv.inflict)) {
+      yield* this.msg(`It doesn't affect ${this.nameOf(t)}...`, 'auto');
+      return;
+    }
+
+    if (mv.cat === 'status') {
+      if (mv.fx === 'powder' && t.mon.types.includes('grass')) {
+        yield* this.msg(`It doesn't affect ${this.nameOf(t)}...`, 'auto');
+        return;
+      }
+      yield* BattleFX.move(this, mv.fx, s, t);
+      if (mv.inflict) yield* this.inflict(t, mv.inflict.status, true);
+      for (const st of [].concat(mv.stat || [])) yield* this.changeStat(st.target === 'self' ? s : t, st.stat, st.stages);
+      return;
+    }
+
+    // Damage, once per hit.
+    const hits = mv.hits || 1;
+    let dealt = 0;
+    let crits = 0;
+    let n = 0;
+    for (; n < hits && !t.mon.fainted; n++) {
+      const crit = U.chance(mv.highCrit ? 1 / 8 : 1 / 16);
+      if (crit) crits++;
+      const dmg = this.damageOf(s, t, mv, crit, act.struggle);
+      if (mv.cat === 'physical' && n === 0) yield* BattleFX.lunge(this, s);
+      yield* BattleFX.move(this, mv.fx, s, t);
+      Sound.sfx(eff > 1 ? 'hitSuper' : eff < 1 ? 'hitWeak' : 'hit');
+      yield* BattleFX.blink(this, t, 3);
+      const d = Math.min(t.mon.hp, dmg);
+      t.mon.hp -= d;
+      dealt += d;
+      yield* this.drainBar(t);
+    }
+    if (crits) yield* this.msg(crits > 1 ? 'Critical hits!' : 'A critical hit!', 'auto');
     if (eff > 1) yield* this.msg('It\'s super effective!', 'auto');
     else if (eff < 1) yield* this.msg('It\'s not very effective...', 'auto');
+    if (hits > 1) yield* this.msg(`Hit ${n} time${n > 1 ? 's' : ''}!`, 'auto');
 
     if (mv.drain && dealt > 0 && s.mon.hp < s.mon.stats.hp) {
       const heal = Math.max(1, Math.floor(dealt * mv.drain));
@@ -383,11 +466,14 @@ class Battle {
       const r = Math.max(1, Math.floor(dealt * mv.recoil));
       s.mon.hp = Math.max(0, s.mon.hp - r);
       yield* this.drainBar(s);
-      yield* this.msg(`${this.nameOf(s)} is hit with recoil!`, 'auto');
+      yield* this.msg(`${me} is hit with recoil!`, 'auto');
     }
     if (t.mon.fainted) return;
-    if (mv.stat && U.rand(100) < (mv.stat.chance ?? 100)) {
-      yield* this.changeStat(mv.stat.target === 'self' ? s : t, mv.stat.stat, mv.stat.stages);
+    if (mv.inflict && U.rand(100) < (mv.inflict.chance ?? 100)) yield* this.inflict(t, mv.inflict.status, false);
+    for (const st of [].concat(mv.stat || [])) {
+      if (U.rand(100) < (st.chance ?? 100) && !(st.target === 'self' ? s : t).mon.fainted) {
+        yield* this.changeStat(st.target === 'self' ? s : t, st.stat, st.stages);
+      }
     }
     if (mv.flinch && this.firstMover && U.rand(100) < mv.flinch) t.flinch = true;
   }
@@ -443,6 +529,7 @@ class Battle {
     s.vis = false;
     s.sink = 0;
     s.hud = false;
+    s.mon.status = null;
   }
 
   *enemyFainted() {
@@ -455,6 +542,14 @@ class Battle {
     const alive = [...this.participants].filter((i) => State.party[i] && !State.party[i].fainted);
     const each = Math.max(1, Math.floor(base / Math.max(1, alive.length)));
     for (const i of alive) yield* this.giveExp(i, each);
+    // EXP. SHARE: everyone else still standing gets half.
+    if (State.d.expShareOn && State.count('expshare')) {
+      const rest = State.party.map((m, i) => i).filter((i) => !alive.includes(i) && !State.party[i].fainted && State.party[i].level < MAX_LEVEL);
+      if (rest.length) {
+        yield* this.msg('The rest of your team gained EXP. Points thanks to the EXP. SHARE!');
+        for (const i of rest) yield* this.giveExp(i, Math.max(1, Math.floor(base / 2)), true);
+      }
+    }
 
     const next = this.enemyParty.findIndex((m) => !m.fainted);
     if (!this.wild && next >= 0) {
@@ -483,11 +578,11 @@ class Battle {
   }
 
   // ---- experience ------------------------------------------------------------------
-  *giveExp(i, amount) {
+  *giveExp(i, amount, quiet) {
     const mon = State.party[i];
     if (mon.level >= MAX_LEVEL) return;
     const active = i === this.pi && this.p.vis;
-    yield* this.msg(`${mon.name} gained ${amount} EXP. Points!`);
+    if (!quiet) yield* this.msg(`${mon.name} gained ${amount} EXP. Points!`);
     let left = amount;
     while (left > 0 && mon.level < MAX_LEVEL) {
       const add = Math.min(left, mon.expToNext());
@@ -519,34 +614,7 @@ class Battle {
   }
 
   *learnMove(mon, id) {
-    const name = MOVES[id].name;
-    if (mon.moves.length < 4) {
-      mon.learn(id);
-      Sound.jingle('levelup');
-      yield* this.msg(`${mon.name} learned ${name}!`);
-      return;
-    }
-    yield* this.msg(`${mon.name} is trying to learn ${name}.\fBut ${mon.name} can't learn more than four moves.`);
-    for (;;) {
-      if (yield* Dialog.yesNo(`Delete an older move to make room for ${name}?`, { style: 'battle' })) {
-        yield* this.msg('Which move should be forgotten?', 'hold');
-        const i = yield* Menu.choose({
-          items: [...mon.moves.map((m) => MOVES[m.id].name), 'CANCEL'], anchor: 'right', cancel: 4,
-        });
-        if (i >= 0 && i < 4) {
-          const old = MOVES[mon.moves[i].id].name;
-          yield* this.msg(`1, 2, and... ... Poof!\f${mon.name} forgot ${old}.`);
-          mon.learn(id, i);
-          Sound.jingle('levelup');
-          yield* this.msg(`And... ${mon.name} learned ${name}!`);
-          return;
-        }
-      }
-      if (yield* Dialog.yesNo(`Stop trying to learn ${name}?`, { style: 'battle' })) {
-        yield* this.msg(`${mon.name} did not learn ${name}.`);
-        return;
-      }
-    }
+    yield* learnMoveFlow(mon, id, 'battle');
   }
 
   // ---- other actions ------------------------------------------------------------
@@ -593,6 +661,12 @@ class Battle {
       yield* this.msg(`${mon.name} was revived!`);
       return;
     }
+    if (it.cure) {
+      const st = mon.status;
+      mon.status = null;
+      yield* this.msg(`${mon.name} ${STATUS[st].cured}`);
+      return;
+    }
     const before = mon.hp;
     mon.hp = Math.min(mon.stats.hp, mon.hp + it.heal);
     if (act.target === this.pi) yield* this.drainBar(this.p);
@@ -621,7 +695,8 @@ class Battle {
 
     // GBA catch formula.
     const m = e.mon;
-    const a = Math.floor(((3 * m.stats.hp - 2 * m.hp) * m.sp.catchRate * it.ball) / (3 * m.stats.hp));
+    const bonus = m.status === 'slp' ? 2 : m.status ? 1.5 : 1;
+    const a = Math.floor((((3 * m.stats.hp - 2 * m.hp) * m.sp.catchRate * it.ball) / (3 * m.stats.hp)) * bonus);
     let shakes = 4;
     if (a < 255) {
       const b = Math.floor(1048560 / Math.floor(Math.sqrt(Math.floor(Math.sqrt(Math.floor(16711680 / Math.max(1, a)))))));
@@ -694,6 +769,8 @@ class Battle {
 
   draw(g) {
     const slide = this.slide;
+    g.save();
+    if (this.shake) g.translate(this.shake, 0);
     g.drawImage(BattleArt.bg(this.bgKind), 0, 0);
     const eOff = Math.round((1 - slide) * -240);
     const pOff = Math.round((1 - slide) * 240);
@@ -737,6 +814,11 @@ class Battle {
       g.fillStyle = `rgba(0,0,0,${this.dim})`;
       g.fillRect(0, 0, SCREEN_W, 112);
     }
+    if (this.flash) {
+      g.fillStyle = `rgba(255,255,220,${this.flash})`;
+      g.fillRect(0, 0, SCREEN_W, 112);
+    }
+    g.restore();
     if (this.e.hud) this.drawEnemyHud(g, 8 + this.e.hudX, 14);
     if (this.p.hud) this.drawPlayerHud(g, 126 + this.p.hudX, 74 + bob);
 
@@ -786,7 +868,8 @@ class Battle {
     this.hudBox(g, x, y, 104, 30);
     Font.draw(g, s.mon.name, x + 6, y + 4, '#404040', '#d8d0b0');
     Font.drawRight(g, `Lv${s.mon.level}`, x + 98, y + 4, '#404040', '#d8d0b0');
-    if (this.wild && State.d.dex.caught[s.mon.species]) g.drawImage(BattleArt.ballImg(), x + 4, y + 16, 8, 8);
+    if (s.mon.status) UI.statusTag(g, x + 5, y + 16, s.mon.status);
+    else if (this.wild && State.d.dex.caught[s.mon.species]) g.drawImage(BattleArt.ballImg(), x + 4, y + 16, 8, 8);
     UI.hpBar(g, x + 34, y + 17, s.hp / s.mon.stats.hp, 48);
   }
 
@@ -795,9 +878,48 @@ class Battle {
     this.hudBox(g, x, y, 108, 37);
     Font.draw(g, s.mon.name, x + 10, y + 3, '#404040', '#d8d0b0');
     Font.drawRight(g, `Lv${s.mon.level}`, x + 102, y + 3, '#404040', '#d8d0b0');
+    if (s.mon.status) UI.statusTag(g, x + 8, y + 13, s.mon.status);
     UI.hpBar(g, x + 38, y + 14, s.hp / s.mon.stats.hp, 48);
     Font.drawRight(g, `${Math.ceil(s.hp)}/${U.pad(s.mon.stats.hp, 3)}`, x + 102, y + 21, '#404040', '#d8d0b0');
     UI.expBar(g, x + 8, y + 31, s.exp, 92);
+  }
+}
+
+// Teach a move, asking which one to forget if four are known. Used by
+// level-ups in battle and by TMs in the field. Returns true if learned.
+function* learnMoveFlow(mon, id, style) {
+  const name = MOVES[id].name;
+  const say = (text) => Dialog.say(text, { style });
+  if (mon.knows(id)) {
+    yield* say(`${mon.name} already knows ${name}.`);
+    return false;
+  }
+  if (mon.moves.length < 4) {
+    mon.learn(id);
+    Sound.jingle('levelup');
+    yield* say(`${mon.name} learned ${name}!`);
+    return true;
+  }
+  yield* say(`${mon.name} is trying to learn ${name}.\fBut ${mon.name} can't learn more than four moves.`);
+  for (;;) {
+    if (yield* Dialog.yesNo(`Delete an older move to make room for ${name}?`, { style })) {
+      yield* Dialog.say('Which move should be forgotten?', { style, noWait: true, hold: true });
+      const i = yield* Menu.choose({
+        items: [...mon.moves.map((m) => MOVES[m.id].name), 'CANCEL'], anchor: 'right', cancel: 4,
+      });
+      if (i >= 0 && i < 4) {
+        const old = MOVES[mon.moves[i].id].name;
+        yield* say(`1, 2, and... ... Poof!\f${mon.name} forgot ${old}.`);
+        mon.learn(id, i);
+        Sound.jingle('levelup');
+        yield* say(`And... ${mon.name} learned ${name}!`);
+        return true;
+      }
+    }
+    if (yield* Dialog.yesNo(`Stop trying to learn ${name}?`, { style })) {
+      yield* say(`${mon.name} did not learn ${name}.`);
+      return false;
+    }
   }
 }
 

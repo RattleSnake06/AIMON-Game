@@ -285,6 +285,18 @@ const SFX = {
     S.osc('p12', 1200, t, 0.1, 0.05, b, { slideTo: 2400 });
   },
   wind(S, t, b) { S.noise(t, 0.45, 0.22, b, { filter: 'bandpass', freq: 600, freqTo: 2400 }); },
+  zap(S, t, b) {
+    for (let i = 0; i < 4; i++) S.osc('sawtooth', 1800 - i * 300, t + i * 0.04, 0.05, 0.08, b, { slideTo: 300 });
+    S.noise(t, 0.2, 0.2, b, { freq: 5000 });
+  },
+  rumble(S, t, b) {
+    S.noise(t, 0.9, 0.35, b, { filter: 'lowpass', freq: 220, freqTo: 90 });
+    S.osc('sine', 48, t, 0.9, 0.3, b, { slideTo: 38 });
+  },
+  hum(S, t, b) {
+    S.osc('sawtooth', 110, t, 1.2, 0.06, b, { vibrato: 6 });
+    S.osc('sawtooth', 116, t, 1.2, 0.05, b);
+  },
   rock(S, t, b) {
     for (let i = 0; i < 3; i++) S.noise(t + i * 0.09, 0.1, 0.3, b, { filter: 'lowpass', freq: 800 });
   },
@@ -304,6 +316,41 @@ const CRIES = {
   moltarock(S, t, b, p) {
     S.osc('sawtooth', 110 * p, t, 0.35, 0.12, b, { slideTo: 70 * p, vibrato: 12 });
     S.noise(t, 0.4, 0.2, b, { filter: 'lowpass', freq: 600, freqTo: 1500 });
+  },
+  voltvix(S, t, b, p) {
+    S.osc('p25', 900 * p, t, 0.08, 0.12, b, { slideTo: 1500 * p });
+    S.osc('sawtooth', 1200 * p, t + 0.09, 0.2, 0.08, b, { slideTo: 500 * p, vibrato: 20 });
+    S.noise(t + 0.05, 0.2, 0.12, b, { freq: 4000 });
+  },
+  terrapike(S, t, b, p) {
+    S.osc('sawtooth', 90 * p, t, 0.4, 0.13, b, { slideTo: 60 * p, vibrato: 8 });
+    S.noise(t, 0.35, 0.18, b, { filter: 'lowpass', freq: 500 });
+  },
+  scrapaw(S, t, b, p) {
+    S.osc('p25', 400 * p, t, 0.08, 0.12, b, { slideTo: 700 * p });
+    S.osc('p25', 650 * p, t + 0.1, 0.18, 0.12, b, { slideTo: 300 * p });
+  },
+  dapplekit(S, t, b, p) {
+    S.osc('p50', 1100 * p, t, 0.06, 0.1, b);
+    S.osc('p50', 1300 * p, t + 0.08, 0.06, 0.1, b);
+    S.osc('p50', 1200 * p, t + 0.16, 0.12, 0.1, b, { slideTo: 900 * p });
+  },
+  nibblit(S, t, b, p) {
+    S.osc('p12', 1800 * p, t, 0.05, 0.1, b);
+    S.osc('p12', 2000 * p, t + 0.07, 0.05, 0.1, b);
+    S.osc('p12', 1600 * p, t + 0.14, 0.1, 0.1, b, { slideTo: 2200 * p });
+  },
+  ruffang(S, t, b, p) {
+    S.osc('sawtooth', 220 * p, t, 0.12, 0.12, b, { slideTo: 330 * p });
+    S.osc('sawtooth', 330 * p, t + 0.14, 0.35, 0.12, b, { slideTo: 200 * p, vibrato: 10 });
+  },
+  leafgrub(S, t, b, p) {
+    S.osc('p50', 700 * p, t, 0.1, 0.09, b, { vibrato: 18 });
+    S.osc('p50', 600 * p, t + 0.12, 0.14, 0.09, b, { slideTo: 800 * p });
+  },
+  bambuck(S, t, b, p) {
+    S.osc('triangle', 500 * p, t, 0.14, 0.18, b, { slideTo: 700 * p });
+    S.osc('p25', 700 * p, t + 0.15, 0.25, 0.1, b, { slideTo: 450 * p, vibrato: 6 });
   },
   goskie(S, t, b, p) {
     S.osc('sawtooth', 300 * p, t, 0.14, 0.12, b, { slideTo: 380 * p });

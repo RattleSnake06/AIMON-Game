@@ -10,6 +10,7 @@ const StartMenu = {
       if (State.flag('got_dex')) entries.push(['AIMONDEX', () => Dex.open()]);
       if (State.party.length) entries.push(['AIMON', () => this.party()]);
       entries.push(['BAG', () => Bag.open()]);
+      entries.push(['MAP', () => TownMap.open()]);
       entries.push([State.name, () => TrainerCard.open()]);
       entries.push(['SAVE', () => this.save()]);
       entries.push(['OPTION', () => Options.open()]);
@@ -21,6 +22,11 @@ const StartMenu = {
       if (i < 0 || !entries[i][1]) break;
       this.index = i;
       const r = yield* entries[i][1]();
+      if (OW.pendingEscape) {
+        OW.pendingEscape = false;
+        yield* Events.escapeRope();
+        break;
+      }
       if (r === 'close') break;
     }
   },

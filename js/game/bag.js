@@ -1,16 +1,16 @@
 'use strict';
-// The bag: ITEMS and BALLS pockets. In battle it returns what to use;
-// in the field it lets you use healing items directly.
+// The bag: ITEMS, BALLS, TMs and KEY ITEMS pockets. In battle it returns
+// what to use; in the field it lets you use items, TMs and key items.
 
-const POCKETS = [['items', 'ITEMS'], ['balls', 'BALLS']];
+const POCKETS = [['items', 'ITEMS'], ['balls', 'BALLS'], ['tms', 'TMs'], ['key', 'KEY ITEMS']];
 
 class BagScreen {
   constructor(opts) {
     this.opaque = true;
     this.opts = opts;
     this.pocket = opts.pocket || 0;
-    this.cursor = [0, 0];
-    this.scroll = [0, 0];
+    this.cursor = POCKETS.map(() => 0);
+    this.scroll = POCKETS.map(() => 0);
     this.choice = null;
   }
 
@@ -62,7 +62,8 @@ class BagScreen {
       if (id === 'close') Font.draw(g, 'CLOSE BAG', 108, y, '#404048', '#d0d0c8');
       else {
         Font.draw(g, ITEMS[id].name, 108, y, '#404048', '#d0d0c8');
-        Font.drawRight(g, `×${State.count(id)}`, 230, y, '#404048', '#d0d0c8');
+        if (ITEMS[id].toggle) Font.drawRight(g, State.d.expShareOn ? 'ON' : 'OFF', 230, y, State.d.expShareOn ? '#3890e0' : '#909098', '#d0d0c8');
+        else if (ITEMS[id].pocket !== 'tms' && ITEMS[id].pocket !== 'key') Font.drawRight(g, `×${State.count(id)}`, 230, y, '#404048', '#d0d0c8');
       }
       if (i === this.cursor[this.pocket]) UI.cursor(g, 99, y);
     }
@@ -76,7 +77,7 @@ class BagScreen {
   }
 
   *say(text) {
-    this.message = text;
+    this.message = State.text(text);
     yield () => Input.pressed('a') || Input.pressed('b');
     Sound.sfx('select');
     this.message = null;
@@ -111,6 +112,10 @@ const Bag = {
       if (id === 'close') break;
       const it = ITEMS[id];
       if (opts.battle) {
+        if (it.pocket === 'key' || it.pocket === 'tms' || it.field) {
+          yield* scr.say('This can\'t be used in battle.');
+          continue;
+        }
         if (it.ball) {
           if (!opts.wild) {
             yield* scr.say('You can\'t catch another trainer\'s AIMON!');
@@ -131,11 +136,44 @@ const Bag = {
         continue;
       }
       // Field use.
-      const k = yield* Menu.choose({ items: ['USE', 'TOSS', 'CANCEL'], x: 170, y: 58, cancel: 2 });
+      if (it.toggle) {
+        State.d.expShareOn = !State.d.expShareOn;
+        Sound.sfx('confirm');
+        yield* scr.say(`The ${it.name} was turned ${State.d.expShareOn ? 'ON' : 'OFF'}.`);
+        continue;
+      }
+      if (it.tm) {
+        const learned = yield* this.useTM(scr, id);
+        if (learned === 'close') { result = null; break; }
+        continue;
+      }
+      const k = yield* Menu.choose({ items: it.pocket === 'key' ? ['CANCEL'] : ['USE', 'TOSS', 'CANCEL'], x: 170, y: 58, cancel: it.pocket === 'key' ? 0 : 2 });
+      if (it.pocket === 'key') continue;
       if (k === 0) {
         if (it.ball) {
           yield* scr.say('There\'s nothing to catch here!');
           continue;
+        }
+        if (it.repel) {
+          if (State.d.repel > 0) {
+            yield* scr.say('The last REPEL is still working.');
+            continue;
+          }
+          State.removeItem(id);
+          State.d.repel = it.repel;
+          Sound.sfx('potion');
+          yield* scr.say('{PLAYER} used the REPEL.\nWeak wild AIMON will stay away.');
+          continue;
+        }
+        if (it.escape) {
+          if (!OW.map.def.escape) {
+            yield* scr.say('This can\'t be used here.');
+            continue;
+          }
+          State.removeItem(id);
+          Game.remove(scr);
+          OW.pendingEscape = true;
+          return null;
         }
         const target = yield* this.pickTarget(scr, id);
         if (target >= 0) {
@@ -145,6 +183,10 @@ const Bag = {
           if (it.revive) {
             mon.hp = Math.floor(mon.stats.hp / 2);
             yield* scr.say(`${mon.name} was revived!`);
+          } else if (it.cure) {
+            const st = mon.status;
+            mon.status = null;
+            yield* scr.say(`${mon.name} ${STATUS[st].cured}`);
           } else {
             const before = mon.hp;
             mon.hp = Math.min(mon.stats.hp, mon.hp + it.heal);
@@ -163,6 +205,19 @@ const Bag = {
     return result;
   },
 
+  // Teach a TM's move to a party member (TMs are reusable).
+  *useTM(scr, id) {
+    const mv = ITEMS[id].tm;
+    const i = yield* Party.open({ mode: 'item', msg: `Teach ${MOVES[mv].name} to which AIMON?` });
+    if (i < 0) return false;
+    Game.remove(scr);
+    const mon = State.party[i];
+    Sound.sfx('boot');
+    const ok = yield* learnMoveFlow(mon, mv, 'field');
+    Game.push(scr);
+    return ok;
+  },
+
   // Choose which AIMON an item is for; checks it would do something.
   *pickTarget(scr, id) {
     const it = ITEMS[id];
@@ -170,7 +225,9 @@ const Bag = {
       const i = yield* Party.open({ mode: 'item' });
       if (i < 0) return -1;
       const mon = State.party[i];
-      const useful = it.revive ? mon.fainted : !mon.fainted && mon.hp < mon.stats.hp;
+      const useful = it.revive ? mon.fainted
+        : it.cure ? !mon.fainted && it.cure.includes(mon.status)
+          : !mon.fainted && mon.hp < mon.stats.hp;
       if (useful) return i;
       yield* scr.say('It won\'t have any effect.');
     }
