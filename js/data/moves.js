@@ -1,0 +1,61 @@
+'use strict';
+// cat: physical / special / status
+// stat effects: { target: 'foe' | 'self', stat, stages, chance }
+
+const MOVES = {
+  tackle: { name: 'TACKLE', type: 'normal', cat: 'physical', power: 40, acc: 100, pp: 35, fx: 'hit',
+    desc: 'A full-body charge attack.' },
+  headbutt: { name: 'HEADBUTT', type: 'normal', cat: 'physical', power: 70, acc: 100, pp: 15, fx: 'hit', flinch: 30,
+    desc: 'A ramming headbutt. May make the foe flinch.' },
+  quickattack: { name: 'QUICK ATTACK', type: 'normal', cat: 'physical', power: 40, acc: 100, pp: 30, priority: 1, fx: 'hit',
+    desc: 'An extremely fast attack that always strikes first.' },
+  growl: { name: 'GROWL', type: 'normal', cat: 'status', acc: 100, pp: 40, fx: 'sound',
+    stat: { target: 'foe', stat: 'atk', stages: -1 }, desc: 'A cute growl that lowers the foe\'s ATTACK.' },
+  honk: { name: 'HONK', type: 'normal', cat: 'status', acc: 100, pp: 40, fx: 'sound',
+    stat: { target: 'foe', stat: 'atk', stages: -1 }, desc: 'A startling honk that lowers the foe\'s ATTACK.' },
+  tailwhip: { name: 'TAIL WHIP', type: 'normal', cat: 'status', acc: 100, pp: 30, fx: 'wiggle',
+    stat: { target: 'foe', stat: 'def', stages: -1 }, desc: 'Wags its tail to lower the foe\'s DEFENSE.' },
+  leer: { name: 'LEER', type: 'normal', cat: 'status', acc: 100, pp: 30, fx: 'glare',
+    stat: { target: 'foe', stat: 'def', stages: -1 }, desc: 'A fierce stare that lowers the foe\'s DEFENSE.' },
+  harden: { name: 'HARDEN', type: 'normal', cat: 'status', pp: 30, fx: 'glow',
+    stat: { target: 'self', stat: 'def', stages: 1 }, desc: 'Stiffens the body to raise DEFENSE.' },
+  defensecurl: { name: 'DEFENSE CURL', type: 'normal', cat: 'status', pp: 40, fx: 'glow',
+    stat: { target: 'self', stat: 'def', stages: 1 }, desc: 'Curls up to raise DEFENSE.' },
+  growth: { name: 'GROWTH', type: 'normal', cat: 'status', pp: 20, fx: 'glow',
+    stat: { target: 'self', stat: 'spa', stages: 1 }, desc: 'Grows in the sunlight to raise SP. ATK.' },
+  smokescreen: { name: 'SMOKESCREEN', type: 'normal', cat: 'status', acc: 100, pp: 20, fx: 'smoke',
+    stat: { target: 'foe', stat: 'acc', stages: -1 }, desc: 'Blows smoke to lower the foe\'s accuracy.' },
+
+  leafage: { name: 'LEAFAGE', type: 'grass', cat: 'physical', power: 40, acc: 100, pp: 40, fx: 'leaf',
+    desc: 'Strikes the foe with a flurry of leaves.' },
+  razorleaf: { name: 'RAZOR LEAF', type: 'grass', cat: 'physical', power: 55, acc: 95, pp: 25, highCrit: true, fx: 'leaf',
+    desc: 'Sharp leaves that often land critical hits.' },
+  absorb: { name: 'ABSORB', type: 'grass', cat: 'special', power: 20, acc: 100, pp: 25, drain: 0.5, fx: 'drain',
+    desc: 'Drains the foe. Half the damage restores HP.' },
+
+  watergun: { name: 'WATER GUN', type: 'water', cat: 'special', power: 40, acc: 100, pp: 25, fx: 'water',
+    desc: 'Squirts water to attack the foe.' },
+  aquajet: { name: 'AQUA JET', type: 'water', cat: 'physical', power: 40, acc: 100, pp: 20, priority: 1, fx: 'water',
+    desc: 'A burst of water that always strikes first.' },
+  bubblebeam: { name: 'BUBBLE BEAM', type: 'water', cat: 'special', power: 65, acc: 100, pp: 20, fx: 'water',
+    stat: { target: 'foe', stat: 'spe', stages: -1, chance: 10 }, desc: 'A spray of bubbles. May lower SPEED.' },
+  withdraw: { name: 'WITHDRAW', type: 'water', cat: 'status', pp: 40, fx: 'glow',
+    stat: { target: 'self', stat: 'def', stages: 1 }, desc: 'Hides under its arches to raise DEFENSE.' },
+
+  ember: { name: 'EMBER', type: 'fire', cat: 'special', power: 40, acc: 100, pp: 25, fx: 'fire',
+    desc: 'A small flame that scorches the foe.' },
+  flamecharge: { name: 'FLAME CHARGE', type: 'fire', cat: 'physical', power: 50, acc: 100, pp: 20, fx: 'fire',
+    stat: { target: 'self', stat: 'spe', stages: 1, chance: 100 }, desc: 'Cloaks itself in flame and charges. Raises SPEED.' },
+
+  peck: { name: 'PECK', type: 'flying', cat: 'physical', power: 35, acc: 100, pp: 35, fx: 'peck',
+    desc: 'Jabs the foe with a sharp beak.' },
+  gust: { name: 'GUST', type: 'flying', cat: 'special', power: 40, acc: 100, pp: 35, fx: 'wind',
+    desc: 'Whips up a strong gust of wind.' },
+  wingattack: { name: 'WING ATTACK', type: 'flying', cat: 'physical', power: 60, acc: 100, pp: 35, fx: 'wind',
+    desc: 'Strikes the foe with wide-spread wings.' },
+
+  rockthrow: { name: 'ROCK THROW', type: 'rock', cat: 'physical', power: 50, acc: 90, pp: 15, fx: 'rock',
+    desc: 'Hurls small rocks at the foe.' },
+  bite: { name: 'BITE', type: 'dark', cat: 'physical', power: 60, acc: 100, pp: 25, flinch: 30, fx: 'bite',
+    desc: 'Bites with sharp fangs. May make the foe flinch.' },
+};

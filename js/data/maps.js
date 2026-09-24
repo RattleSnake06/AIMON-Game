@@ -1,0 +1,427 @@
+'use strict';
+// World maps. One character per 16x16 tile (see TILE_DEFS in tiles.js);
+// 'g' is tall grass. Buildings are placed as objects over '#' tiles and get
+// door warps to their interior automatically.
+//
+// Text may contain {PLAYER} and {RIVAL}.
+
+const MAPS = {
+  // -------------------------------------------------------------------------
+  willowbrook: {
+    name: 'WILLOWBROOK TOWN',
+    music: 'town',
+    outdoor: true,
+    border: 'T',
+    rows: [
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+      'TT.........::.........TT',
+      'TT..ff...S.::.....ff..TT',
+      'TT.#####...::..#####..TT',
+      'TT.#####...::..#####..TT',
+      'TT.#####...::..#####..TT',
+      'TT.#####...::..#####..TT',
+      'TT..o:S....::...S:o...TT',
+      'TT...:::::::::::::....TT',
+      'TT.........::.........TT',
+      'TT.~~~~....::...ff....TT',
+      'TT.~~~~..::::.........TT',
+      'TT.~~~~..:............TT',
+      'TT.FFFF..:.#######....TT',
+      'TT..f.f..:.#######....TT',
+      'TT.......:.#######....TT',
+      'TT.......:.#######....TT',
+      'TT.......:.#######....TT',
+      'TT.......::::::S......TT',
+      'TTTTTTTTTTTTTTTTTTTTTTTT',
+      'TTTTTTTTTTTTTTTTTTTTTTTT',
+    ],
+    buildings: [
+      { type: 'houseRed', x: 3, y: 4, to: 'home1f' },
+      { type: 'houseBlue', x: 15, y: 4, to: 'rivalhouse' },
+      { type: 'lab', x: 11, y: 14, to: 'lab' },
+    ],
+    connections: { north: { map: 'route1', offset: 0 } },
+    signs: [
+      { x: 9, y: 3, text: 'WILLOWBROOK TOWN\nWhere the river begins.' },
+      { x: 6, y: 8, text: '{PLAYER}\'s house' },
+      { x: 16, y: 8, text: '{RIVAL}\'s house' },
+      { x: 15, y: 19, text: 'PROF. LINDEN\'S AIMON LAB' },
+    ],
+    things: [
+      { x: 4, y: 8, text: 'There\'s a letter from Dad inside. He says he misses home cooking.' },
+      { x: 18, y: 8, text: 'The mailbox is stuffed with AIMON fan magazines.' },
+    ],
+    npcs: [
+      { id: 'wb_girl', person: 'girl', x: 18, y: 11, dir: 'down', move: 'wander',
+        text: () => (State.flag('got_starter')
+          ? 'Oh, you got your own AIMON? Take good care of it!'
+          : 'Wild AIMON live in the tall grass north of town. You need your own AIMON to go through safely!') },
+      { id: 'wb_man', person: 'man', x: 7, y: 12, dir: 'left', move: 'look',
+        text: 'I come to this pond every morning. Sometimes a GOSKIE flock lands here to rest!' },
+    ],
+    triggers: [
+      { x: 11, y: 2, w: 2, h: 1, script: 'leaveTownCheck' },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  route1: {
+    name: 'ROUTE 1',
+    music: 'route',
+    outdoor: true,
+    border: 'T',
+    rows: [
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+      'TT......S..::.........TT',
+      'TTggggg....::...ggggg.TT',
+      'TTggggg....::...gggggtTT',
+      'TTgggg.....::....gggg.TT',
+      'TT.gg...t..::..ff.....TT',
+      'TT..r......::.......t.TT',
+      'TTTTT......::......TTTTT',
+      'TTTT...g...::..ggg...TTT',
+      'TTT...ggg..::.ggggg...TT',
+      'TT...gggg..::.ggggg...TT',
+      'TT...gggg..::..ggg....TT',
+      'TT....gg...::...r.....TT',
+      'TT.f.......::.......f.TT',
+      'TT.ff......::....fff..TT',
+      'TT..f.....S::......f..TT',
+      '~~~~~~~~~~~==~~~~~~~~~~~',
+      '~~~~~~~~~~~==~~~~~~~~~~~',
+      '~~~~~~~~~~~==~~~~~~~~~~~',
+      'TT.f.......::.......f.TT',
+      'TT...t.....::.....r...TT',
+      'TTLLLLLLL..::..LLLLLLLTT',
+      'TT.f.......::......f..TT',
+      'TT..ggggg..::..ggggg..TT',
+      'TT.gggggg..::..gggggg.TT',
+      'TT.gggggg..::..gggggg.TT',
+      'TT..gggg...::...gggg..TT',
+      'TT.......f.::.f.......TT',
+      'TTTT.....t.::.t.....TTTT',
+      'TTT.....ggg::ggg.....TTT',
+      'TT....ggggg::ggggg....TT',
+      'TT....ggggg::ggggg....TT',
+      'TT.....ggg.::.ggg.....TT',
+      'TT.........::.........TT',
+      'TT..f......::......f..TT',
+      'TTT........::........TTT',
+      'TTTT.......::.......TTTT',
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+      'TTTTTTTTTTT::TTTTTTTTTTT',
+    ],
+    connections: {
+      south: { map: 'willowbrook', offset: 0 },
+      north: { map: 'archford', offset: 3 },
+    },
+    encounters: {
+      rate: 0.11,
+      table: [
+        { species: 'goskie', min: 2, max: 4, weight: 55 },
+        { species: 'mellowcap', min: 2, max: 4, weight: 45 },
+      ],
+    },
+    signs: [
+      { x: 8, y: 2, text: 'ROUTE 1\nNorth: ARCHFORD TOWN\nSouth: WILLOWBROOK TOWN' },
+      { x: 10, y: 16, text: 'OLD WILLOW BRIDGE\nBuilt long ago with help from the river\'s ARCHEPIN.' },
+    ],
+    npcs: [
+      { id: 'r1_boy', person: 'boy', x: 14, y: 34, dir: 'down', move: 'wander',
+        text: 'Wild AIMON are easier to catch once their HP is low. Weaken them first, then throw an AIMON BALL!' },
+      { id: 'r1_ned', person: 'fisher', x: 14, y: 20, dir: 'left', move: 'still', trainer: 'ned', sight: 4 },
+      { id: 'r1_ben', person: 'youngster', x: 4, y: 13, dir: 'right', move: 'still', trainer: 'ben', sight: 4 },
+      { id: 'r1_mia', person: 'lass', x: 19, y: 7, dir: 'left', move: 'still', trainer: 'mia', sight: 4 },
+      { id: 'r1_item1', sprite: 'ball', x: 2, y: 28, item: 'potion' },
+      { id: 'r1_item2', sprite: 'ball', x: 21, y: 6, item: 'aimonball', count: 2 },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  archford: {
+    name: 'ARCHFORD TOWN',
+    music: 'city',
+    outdoor: true,
+    border: 'T',
+    rows: [
+      'TTTTTTTTTTTTTT::TTTTTTTTTTTTTT',
+      'TTTTTTTTTTTTTT:STTTTTTTTTTTTTT',
+      'TT....t.......::.......t....TT',
+      'TT.####.......::.####.#####.TT',
+      'TT.####.......::.####.#####.TT',
+      'TT.####.......::.####.#####.TT',
+      'TT.####..ff...::.####.#####.TT',
+      'TT..:.........::...:...:....TT',
+      'TT..::::::::::::::::::::....TT',
+      'TT.S..........::............TT',
+      'TT..f.....r...::......f.....TT',
+      '~~~~~~~~~~~~~QQQQ~~~~~~~~~~~~~',
+      '~~~~~~~~~~~~~QQQQ~~~~~~~~~~~~~',
+      'TT.f..........::..........f.TT',
+      'TT............::............TT',
+      'TT...#####....::............TT',
+      'TT...#####....::....#####...TT',
+      'TT...#####....::....#####...TT',
+      'TT...#####....::....#####...TT',
+      'TT...#####....::....#####...TT',
+      'TT.....:......::.....:......TT',
+      'TT.....::::::::::::::::.....TT',
+      'TT..uu........::.......ff...TT',
+      'TT..uu........::............TT',
+      'TTTTTTTTTTTTTT::TTTTTTTTTTTTTT',
+      'TTTTTTTTTTTTTT::TTTTTTTTTTTTTT',
+    ],
+    buildings: [
+      { type: 'houseGreen', x: 3, y: 3, to: 'arch_house1' },
+      { type: 'houseBrown', x: 17, y: 3, to: 'arch_house2' },
+      { type: 'housePurple', x: 22, y: 3, to: 'arch_house3' },
+      { type: 'centre', x: 5, y: 15, to: 'centre' },
+      { type: 'mart', x: 20, y: 16, to: 'mart' },
+    ],
+    connections: { south: { map: 'route1', offset: -3 } },
+    signs: [
+      { x: 3, y: 9, text: 'ARCHFORD TOWN\nWhere old stone bridges span the river.' },
+      { x: 15, y: 1, text: 'ROUTE 2 is closed while the old bridge is repaired.' },
+    ],
+    things: [
+      { x: 4, y: 22, text: 'A fountain carved like an ARCHEPIN. Water pours from its arches.' },
+      { x: 5, y: 22, text: 'A fountain carved like an ARCHEPIN. Water pours from its arches.' },
+      { x: 4, y: 23, text: 'A fountain carved like an ARCHEPIN. Water pours from its arches.' },
+      { x: 5, y: 23, text: 'A fountain carved like an ARCHEPIN. Water pours from its arches.' },
+    ],
+    npcs: [
+      { id: 'af_worker', person: 'worker', x: 14, y: 1, dir: 'down', move: 'still',
+        text: 'Sorry, kid! The bridge on ROUTE 2 is being repaired. Nobody gets through until it\'s done!\f...That\'s as far as this adventure goes for now. Thanks for playing!' },
+      { id: 'af_oldman', person: 'oldman', x: 12, y: 10, dir: 'down', move: 'look',
+        text: 'This stone bridge is older than anyone in town. Legend says an ARCHEPIN carried the first stones on its back.' },
+      { id: 'af_boy', person: 'boy', x: 20, y: 13, dir: 'down', move: 'wander',
+        text: 'The river splits the town in two. Without the bridge, we\'d have to swim to school!' },
+      { id: 'af_woman', person: 'woman', x: 11, y: 20, dir: 'down', move: 'wander',
+        text: 'Is your AIMON tired? The AIMON CENTRE will heal it for free!' },
+      { id: 'af_girl', person: 'girl', x: 25, y: 9, dir: 'left', move: 'wander',
+        text: 'A boy with spiky hair ran through town earlier. He said he wanted to be the best trainer ever!' },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // Interiors
+
+  home2f: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wKwwwwwww',
+      'WkWWnWWUW',
+      'P__v____p',
+      '_________',
+      'Y___RR___',
+      'y___RR___',
+      '_________',
+      '_j_______',
+    ],
+    warps: [{ x: 7, y: 1, to: 'home1f', tx: 9, ty: 2, dir: 'down' }],
+    things: [
+      { x: 0, y: 2, script: 'bedroomPC' },
+      { x: 3, y: 2, text: 'It\'s a show about a flock of GOSKIE flying south. They\'re honking in perfect time.' },
+      { x: 1, y: 0, text: 'Your old AIMON picture books. You\'ve read them a hundred times.' },
+      { x: 1, y: 1, text: 'Your old AIMON picture books. You\'ve read them a hundred times.' },
+      { x: 0, y: 4, text: 'Your bed. It\'s still warm.' },
+      { x: 0, y: 5, text: 'Your bed. It\'s still warm.' },
+    ],
+  },
+
+  home1f: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wwwwwwwwwww',
+      'WnWWiWWnWUW',
+      'GG__v_____p',
+      '___________',
+      '___cDDc____',
+      '___cDDc____',
+      '___________',
+      'p_________p',
+      '_____M_____',
+    ],
+    warps: [{ x: 9, y: 1, to: 'home2f', tx: 7, ty: 2, dir: 'down' }],
+    things: [
+      { x: 4, y: 2, text: 'A cooking show is on. They\'re making berry pancakes. Yum!' },
+      { x: 0, y: 2, text: 'The fridge is full of snacks Mom made.' },
+      { x: 1, y: 2, text: 'The sink is sparkling clean.' },
+    ],
+    npcs: [
+      { id: 'mom', person: 'mom', x: 7, y: 4, dir: 'left', move: 'still', script: 'momTalk' },
+    ],
+    triggers: [
+      { x: 9, y: 2, w: 1, h: 1, script: 'momMorning', onArrive: true },
+    ],
+  },
+
+  rivalhouse: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wKKwwwwwwww',
+      'WkkWnWWiWnW',
+      'p__v___GG_p',
+      '___________',
+      '____cDDc___',
+      '____cDDc___',
+      '___________',
+      '___________',
+      '_____M_____',
+    ],
+    things: [
+      { x: 3, y: 2, text: 'A battle is on TV! The trainers look so cool...' },
+    ],
+    npcs: [
+      { id: 'lena', person: 'woman', x: 3, y: 4, dir: 'down', move: 'wander',
+        text: () => (State.flag('got_starter')
+          ? 'Kai ran off to ARCHFORD TOWN. He\'s so impatient! Please look out for him, {PLAYER}.'
+          : 'Hi, {PLAYER}! Kai already ran to the lab. He couldn\'t sleep last night, he was so excited!') },
+    ],
+  },
+
+  lab: {
+    name: '', music: 'lab', floor: '-',
+    rows: [
+      'wKKwwwwwwwKKw',
+      'WkkWnWWWnWkkW',
+      'XX---------XX',
+      '-------------',
+      '--------DDD--',
+      '-------------',
+      '-------------',
+      'p-----------p',
+      '-DD-------DD-',
+      '-DD-------DD-',
+      '-------------',
+      '------M------',
+    ],
+    things: [
+      { x: 0, y: 2, text: 'A machine humming with data on AIMON habitats.' },
+      { x: 1, y: 2, text: 'A machine humming with data on AIMON habitats.' },
+      { x: 11, y: 2, text: 'The screen shows a map of the river running through the region.' },
+      { x: 12, y: 2, text: 'The screen shows a map of the river running through the region.' },
+      { x: 1, y: 8, text: 'Notes titled "Why do GOSKIE honk in groups?"' },
+      { x: 2, y: 8, text: 'Notes titled "Why do GOSKIE honk in groups?"' },
+      { x: 10, y: 8, text: 'A sketch of MELLOWCAP napping in a river. Its leaves look freshly drawn.' },
+      { x: 11, y: 8, text: 'A sketch of MELLOWCAP napping in a river. Its leaves look freshly drawn.' },
+    ],
+    npcs: [
+      { id: 'prof', person: 'prof', x: 9, y: 3, dir: 'down', move: 'still', script: 'profTalk' },
+      { id: 'lab_rival', person: 'rival', x: 5, y: 4, dir: 'right', move: 'still', script: 'rivalLabTalk',
+        hideIf: 'rival_left_lab' },
+      { id: 'aide', person: 'aide', x: 3, y: 10, dir: 'up', move: 'wander',
+        text: 'I\'m PROF. LINDEN\'s aide. He studies how AIMON and people live side by side along the river.' },
+      { id: 'ball_skylavine', sprite: 'ball', x: 8, y: 4, script: 'pickStarter', arg: 'skylavine', hideIf: 'took_skylavine' },
+      { id: 'ball_moltarock', sprite: 'ball', x: 9, y: 4, script: 'pickStarter', arg: 'moltarock', hideIf: 'took_moltarock' },
+      { id: 'ball_archepin', sprite: 'ball', x: 10, y: 4, script: 'pickStarter', arg: 'archepin', hideIf: 'took_archepin' },
+    ],
+    triggers: [
+      { x: 0, y: 11, w: 13, h: 1, script: 'labEnter', onArrive: true },
+      { x: 1, y: 7, w: 11, h: 1, script: 'rivalChallenge' },
+    ],
+  },
+
+  centre: {
+    name: '', music: 'centre', floor: '-',
+    rows: [
+      'wwwwwwwwwwwww',
+      'WnWWWWlWWWWnW',
+      'p----------P-',
+      '--CCCCChCCC--',
+      '-------------',
+      '-------------',
+      'p--cDc-cDc--p',
+      '-------------',
+      '------M------',
+    ],
+    things: [
+      { x: 11, y: 2, script: 'centrePC' },
+    ],
+    npcs: [
+      { id: 'nurse', person: 'nurse', x: 6, y: 2, dir: 'down', move: 'still', script: 'nurseTalk' },
+      { id: 'c_man', person: 'man', x: 9, y: 5, dir: 'left', move: 'wander',
+        text: 'Your AIMON\'s moves have limited PP. Resting here restores all of them, too.' },
+      { id: 'c_youngster', person: 'youngster', x: 2, y: 7, dir: 'up', move: 'look',
+        text: 'GRASS beats WATER, WATER beats FIRE, and FIRE beats GRASS. Easy to remember!' },
+    ],
+  },
+
+  mart: {
+    name: '', music: 'centre', floor: '-',
+    rows: [
+      'wwwwwwwwwww',
+      'WnWWWWWWWnW',
+      'p---mm-mm-p',
+      '----mm-mm--',
+      '-----------',
+      'EEE--------',
+      '-----------',
+      '--M--------',
+    ],
+    npcs: [
+      { id: 'clerk', person: 'clerk', x: 1, y: 4, dir: 'down', move: 'still', script: 'martClerk' },
+      { id: 'm_girl', person: 'lass', x: 7, y: 5, dir: 'up', move: 'wander',
+        text: 'I always carry a few POTIONS. You never know when a battle will go badly!' },
+    ],
+  },
+
+  arch_house1: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wwwwwwwww',
+      'WnWiWWWnW',
+      'GG______p',
+      '_________',
+      '__cDDc___',
+      '_________',
+      '____M____',
+    ],
+    npcs: [
+      { id: 'granny', person: 'granny', x: 6, y: 3, dir: 'left', move: 'still', script: 'grannyGift' },
+    ],
+  },
+
+  arch_house2: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wKwwwwwww',
+      'WkWnWWiWW',
+      '________p',
+      '__cDDc___',
+      '__cDDc___',
+      '_________',
+      '____M____',
+    ],
+    npcs: [
+      { id: 'h2_man', person: 'man', x: 6, y: 3, dir: 'down', move: 'look',
+        text: 'A MELLOWCAP naps under our bridge every afternoon. Nothing wakes it up!' },
+      { id: 'h2_boy', person: 'boy', x: 1, y: 5, dir: 'right', move: 'wander',
+        text: 'When I grow up I\'m getting a GOSKIE. They\'re so friendly!' },
+    ],
+  },
+
+  arch_house3: {
+    name: '', music: 'home', floor: '_',
+    rows: [
+      'wwwwwwwKw',
+      'WnWWnWWkW',
+      'p___v____',
+      '_________',
+      '_RRR_____',
+      '_RRR_____',
+      '____M____',
+    ],
+    things: [
+      { x: 4, y: 2, text: 'A nature show about SKYLAVINE gliding between cliffs.' },
+    ],
+    npcs: [
+      { id: 'h3_girl', person: 'girl', x: 2, y: 4, dir: 'down', move: 'wander',
+        text: 'Did you know? AIMON with a type advantage deal double damage!' },
+      { id: 'h3_oldman', person: 'oldman', x: 6, y: 3, dir: 'left', move: 'look',
+        text: 'Some say MOLTAROCK can warm a whole house in winter. I could use one of those!' },
+    ],
+  },
+};

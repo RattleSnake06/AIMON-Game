@@ -1,0 +1,158 @@
+'use strict';
+// Boot, main loop and the scene stack.
+
+const Game = {
+  canvas: null,
+  g: null,
+  frame: 0,
+  scenes: [],
+  fadeA: 0,
+  fadeColor: '#000',
+  error: null,
+
+  push(s) { this.scenes.push(s); },
+  remove(s) {
+    const i = this.scenes.indexOf(s);
+    if (i >= 0) this.scenes.splice(i, 1);
+  },
+  top() { return this.scenes[this.scenes.length - 1]; },
+  clear() { this.scenes = []; },
+
+  *fadeOut(n = 16, color = '#000') {
+    this.fadeColor = color;
+    const start = this.fadeA;
+    for (let i = 1; i <= n; i++) {
+      this.fadeA = start + (1 - start) * (i / n);
+      yield;
+    }
+    this.fadeA = 1;
+  },
+
+  *fadeIn(n = 16) {
+    const start = this.fadeA;
+    for (let i = 1; i <= n; i++) {
+      this.fadeA = start * (1 - i / n);
+      yield;
+    }
+    this.fadeA = 0;
+  },
+
+  update() {
+    Input.update();
+    const t = this.top();
+    if (t && t.update) t.update();
+    Co.tick();
+    this.frame++;
+  },
+
+  draw() {
+    const g = this.g;
+    let start = 0;
+    for (let i = this.scenes.length - 1; i >= 0; i--) {
+      if (this.scenes[i].opaque) { start = i; break; }
+    }
+    if (!this.scenes.length || !this.scenes[start].opaque) {
+      g.fillStyle = '#000';
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+    }
+    for (let i = start; i < this.scenes.length; i++) this.scenes[i].draw(g);
+    if (this.fadeA > 0) {
+      g.globalAlpha = this.fadeA;
+      g.fillStyle = this.fadeColor;
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+      g.globalAlpha = 1;
+    }
+    if (this.error) {
+      g.fillStyle = 'rgba(120,0,0,0.85)';
+      g.fillRect(0, 0, SCREEN_W, 40);
+      Font.wrap(this.error.split('\n')[0], 230).slice(0, 2).forEach((l, i) => Font.draw(g, l, 4, 4 + i * 12, '#fff', null));
+    }
+  },
+
+  fatal(err) {
+    console.error(err);
+    this.error = String((err && err.message) || err);
+  },
+
+  fit() {
+    const touch = document.body.classList.contains('touch');
+    const availW = window.innerWidth - 32 - 20;
+    const availH = window.innerHeight - (touch ? 190 : 70) - 20;
+    let s = Math.min(availW / SCREEN_W, availH / SCREEN_H);
+    s = s >= 2 ? Math.floor(s) : Math.max(1, s);
+    this.canvas.style.width = `${Math.floor(SCREEN_W * s)}px`;
+    this.canvas.style.height = `${Math.floor(SCREEN_H * s)}px`;
+  },
+
+  start() {
+    this.canvas = document.getElementById('screen');
+    this.g = this.canvas.getContext('2d');
+    this.g.imageSmoothingEnabled = false;
+    this.fit();
+    window.addEventListener('resize', () => this.fit());
+    Input.init();
+    Input.onFirstGesture.push(() => Sound.init());
+    document.body.addEventListener('touchstart', () => this.fit(), { once: true, passive: true });
+    Sound.loadPrefs();
+    Font.init();
+    Tiles.init();
+    Chars.init();
+    TrainerArt.init();
+    World.init();
+
+    MonSprites.load().then(() => {
+      const params = new URLSearchParams(location.search);
+      if (params.has('debug')) Debug.start(params.get('debug'));
+      else Title.open();
+      this.loop();
+    });
+  },
+
+  loop() {
+    const STEP = 1000 / 60;
+    let last = performance.now();
+    let acc = 0;
+    const tick = (now) => {
+      acc += Math.min(100, now - last);
+      last = now;
+      let n = 0;
+      while (acc >= STEP && n < 4) {
+        try {
+          this.update();
+        } catch (e) {
+          this.fatal(e);
+        }
+        acc -= STEP;
+        n++;
+      }
+      try {
+        this.draw();
+      } catch (e) {
+        this.fatal(e);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  },
+};
+
+// Jump straight into the game for testing: index.html?debug=route1
+const Debug = {
+  start(where) {
+    State.newGame('RED');
+    const starter = new URLSearchParams(location.search).get('starter') || 'skylavine';
+    State.d.starter = starter;
+    State.addMon(new Mon(starter, 7));
+    State.addItem('aimonball', 5);
+    for (const f of ['mom_intro', 'lab_intro', 'got_starter', 'rival1_done', 'rival_left_lab', 'got_dex', `took_${starter}`]) State.setFlag(f);
+    const spots = {
+      willowbrook: ['willowbrook', 11, 10], route1: ['route1', 11, 30], archford: ['archford', 14, 20],
+      lab: ['lab', 6, 10], centre: ['centre', 6, 6], mart: ['mart', 3, 6], home: ['home2f', 2, 5],
+    };
+    const [map, x, y] = spots[where] || spots.willowbrook;
+    Object.assign(State.d, { map, x, y, dir: 'down' });
+    OW.start();
+  },
+};
+
+window.addEventListener('load', () => Game.start());

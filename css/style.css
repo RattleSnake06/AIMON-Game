@@ -1,0 +1,86 @@
+:root {
+  --bg: #1c1c28;
+  --bezel: #3a3a5c;
+  --bezel-hi: #50507a;
+  --ink: #c8c8e0;
+  --btn: #2a2a3e;
+  --btn-a: #b83a4a;
+  --btn-b: #7a3a8a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font: 13px/1.4 system-ui, sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+}
+
+#screen-wrap {
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(var(--bezel-hi), var(--bezel));
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .5), inset 0 0 0 2px rgba(0, 0, 0, .25);
+}
+
+#screen {
+  display: block;
+  width: 240px;
+  height: 160px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  outline: none;
+}
+
+#keys { margin: 0; opacity: .75; text-align: center; }
+#keys b { color: #fff; font-weight: 600; }
+
+/* ---- touch controls (shown on touch screens) ---- */
+#pad { display: none; width: 100%; max-width: 420px; align-items: center; justify-content: space-between; }
+body.touch #pad { display: flex; }
+body.touch #keys { display: none; }
+
+#pad button {
+  border: 0;
+  padding: 0;
+  color: #ddd;
+  font: 600 12px system-ui, sans-serif;
+  background: var(--btn);
+  box-shadow: 0 3px 0 #111;
+  touch-action: none;
+}
+#pad button.held { transform: translateY(2px); box-shadow: 0 1px 0 #111; filter: brightness(1.3); }
+
+.dpad { position: relative; width: 132px; height: 132px; flex: none; }
+.dpad .d { position: absolute; width: 44px; height: 44px; background: var(--btn); }
+.dpad .up { left: 44px; top: 0; border-radius: 6px 6px 0 0; }
+.dpad .down { left: 44px; top: 88px; border-radius: 0 0 6px 6px; }
+.dpad .left { left: 0; top: 44px; border-radius: 6px 0 0 6px; }
+.dpad .right { left: 88px; top: 44px; border-radius: 0 6px 6px 0; }
+.dpad .mid { left: 44px; top: 44px; }
+
+.mid-btns { display: flex; flex-direction: column; gap: 14px; align-self: flex-end; margin-bottom: 8px; }
+.pill { width: 62px; height: 20px; border-radius: 10px; font-size: 10px !important; }
+
+.ab { position: relative; width: 130px; height: 110px; flex: none; }
+.round { position: absolute; width: 56px; height: 56px; border-radius: 50%; font-size: 18px !important; }
+.round.a { right: 0; top: 4px; background: var(--btn-a) !important; }
+.round.b { left: 0; top: 44px; background: var(--btn-b) !important; }
