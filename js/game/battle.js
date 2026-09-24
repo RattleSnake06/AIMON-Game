@@ -16,7 +16,8 @@ class Battle {
     this.enemyParty = this.wild
       ? [new Mon(opts.wild.species, opts.wild.level)]
       : this.tr.party().map(([s, l, moves]) => new Mon(s, l, moves ? { moves: moves.map((id) => ({ id, pp: MOVES[id].pp })) } : {}));
-    this.bgKind = (OW.map && OW.map.def.battleBg) || (OW.map && OW.map.def.outdoor ? 'grass' : 'indoor');
+    const bg = OW.map && OW.map.def.battleBg;
+    this.bgKind = (typeof bg === 'function' ? bg() : bg) || (OW.map && OW.map.def.outdoor ? 'grass' : 'indoor');
     this.pi = State.party.findIndex((m) => !m.fainted);
     this.ei = 0;
     this.p = this.side(State.party[this.pi], true);
@@ -34,6 +35,7 @@ class Battle {
     this.done = false;
     this.lastAction = 0;
     this.lastMove = 0;
+    this.leveled = new Set();   // party AIMON that levelled up (may evolve after)
     Co.start(this.main());
   }
 
@@ -250,8 +252,11 @@ class Battle {
         } else {
           s = [].concat(mv.stat).every((st) => Math.abs((st.target === 'self' ? this.e : this.p).st[st.stat]) >= 2) ? 1 : 22;
         }
+      } else if (mv.fixed) {
+        s = typeEffect(mv.type, foe.types) === 0 ? 0 : (mv.fixed === 'level' ? m.level : mv.fixed) * 2;
       } else {
         s = mv.power * (mv.hits || 1) * typeEffect(mv.type, foe.types) * (m.types.includes(mv.type) ? 1.5 : 1);
+        if (mv.hexed && foe.status) s *= 2;
       }
       return { i, s };
     }).sort((a, b) => b.s - a.s);
@@ -352,6 +357,7 @@ class Battle {
   }
 
   damageOf(s, t, mv, crit, struggle) {
+    if (mv.fixed) return mv.fixed === 'level' ? s.mon.level : mv.fixed;
     const physical = mv.cat === 'physical';
     const ak = physical ? 'atk' : 'spa';
     const dk = physical ? 'def' : 'spd';
@@ -365,7 +371,10 @@ class Battle {
     const D = t.mon.stats[dk] * stageMult(dStage);
     let power = mv.power;
     const ab = s.mon.sp.ability;
-    if (s.mon.hp <= s.mon.stats.hp / 3 && ((ab === 'OVERGROW' && mv.type === 'grass') || (ab === 'TORRENT' && mv.type === 'water'))) power *= 1.5;
+    if (s.mon.hp <= s.mon.stats.hp / 3 && ((ab === 'OVERGROW' && mv.type === 'grass') || (ab === 'TORRENT' && mv.type === 'water')
+      || (ab === 'BLAZE' && mv.type === 'fire'))) power *= 1.5;
+    if (mv.hexed && t.mon.status) power *= 2;
+    if (mv === MOVES.echoedvoice) power *= s.echo || 1;
     const L = s.mon.level;
     let dmg = Math.floor(Math.floor((Math.floor((2 * L) / 5 + 2) * power * A) / D) / 50) + 2;
     if (crit) dmg = Math.floor(dmg * 1.5);
@@ -405,6 +414,9 @@ class Battle {
       slot.pp = Math.max(0, slot.pp - 1);
       mv = MOVES[slot.id];
     }
+    // ECHOED VOICE grows louder each turn in a row (up to 4x).
+    s.echo = mv === MOVES.echoedvoice && s.lastMv === mv ? Math.min(4, (s.echo || 1) + 1) : 1;
+    s.lastMv = mv;
     yield* this.msg(`${me} used ${mv.name}!`, 'hold');
     yield 8;
 
@@ -451,8 +463,8 @@ class Battle {
       dealt += d;
       yield* this.drainBar(t);
     }
-    if (crits) yield* this.msg(crits > 1 ? 'Critical hits!' : 'A critical hit!', 'auto');
-    if (eff > 1) yield* this.msg('It\'s super effective!', 'auto');
+    if (crits && !mv.fixed) yield* this.msg(crits > 1 ? 'Critical hits!' : 'A critical hit!', 'auto');
+    if (mv.fixed) { /* fixed damage ignores type matchups */ } else if (eff > 1) yield* this.msg('It\'s super effective!', 'auto');
     else if (eff < 1) yield* this.msg('It\'s not very effective...', 'auto');
     if (hits > 1) yield* this.msg(`Hit ${n} time${n > 1 ? 's' : ''}!`, 'auto');
 
@@ -601,6 +613,7 @@ class Battle {
       if (leveled) {
         const oldStats = { ...mon.stats };
         const { newMoves } = mon.levelUp();
+        this.leveled.add(mon);
         if (active) {
           this.p.exp = 0;
           this.p.hp = mon.hp;

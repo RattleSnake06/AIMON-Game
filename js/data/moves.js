@@ -3,6 +3,8 @@
 // stat:    { target: 'foe' | 'self', stat, stages, chance }  (or an array)
 // inflict: { status: 'par' | 'slp' | 'brn', chance }          (chance omitted = always)
 // acc 0 = never misses. hits = strikes per use. recoil/drain = fraction of damage.
+// fixed: exact damage (a number, or 'level' for the user's level).
+// hexed: double power if the foe has a status condition.
 
 const MOVES = {
   // Normal
@@ -41,6 +43,10 @@ const MOVES = {
   workup: { name: 'WORK UP', type: 'normal', cat: 'status', pp: 30, fx: 'glow',
     stat: [{ target: 'self', stat: 'atk', stages: 1 }, { target: 'self', stat: 'spa', stages: 1 }],
     desc: 'Rouses itself to raise ATTACK and SP. ATK.' },
+  screech: { name: 'SCREECH', type: 'sound', cat: 'status', acc: 85, pp: 40, fx: 'sound',
+    stat: { target: 'foe', stat: 'def', stages: -2 }, desc: 'An earsplitting screech that sharply lowers DEFENSE.' },
+  nastyplot: { name: 'NASTY PLOT', type: 'dark', cat: 'status', pp: 20, fx: 'glow',
+    stat: { target: 'self', stat: 'spa', stages: 2 }, desc: 'Thinks bad thoughts to sharply raise SP. ATK.' },
   smokescreen: { name: 'SMOKESCREEN', type: 'normal', cat: 'status', acc: 100, pp: 20, fx: 'smoke',
     stat: { target: 'foe', stat: 'acc', stages: -1 }, desc: 'Blows smoke to lower the foe\'s accuracy.' },
 
@@ -55,6 +61,12 @@ const MOVES = {
     desc: 'Drains the foe. Half the damage restores HP.' },
   megadrain: { name: 'MEGA DRAIN', type: 'grass', cat: 'special', power: 40, acc: 100, pp: 15, drain: 0.5, fx: 'drain',
     desc: 'A stronger drain. Half the damage restores HP.' },
+  magicalleaf: { name: 'MAGICAL LEAF', type: 'grass', cat: 'special', power: 60, acc: 0, pp: 20, fx: 'leaf',
+    desc: 'Scatters curious leaves that chase the foe. Never misses.' },
+  gigadrain: { name: 'GIGA DRAIN', type: 'grass', cat: 'special', power: 75, acc: 100, pp: 10, drain: 0.5, fx: 'drain',
+    desc: 'A powerful drain. Half the damage restores HP.' },
+  seedbomb: { name: 'SEED BOMB', type: 'grass', cat: 'physical', power: 80, acc: 100, pp: 15, fx: 'rock',
+    desc: 'Pelts the foe with a barrage of hard-shelled seeds.' },
   sleeppowder: { name: 'SLEEP POWDER', type: 'grass', cat: 'status', acc: 75, pp: 15, fx: 'powder',
     inflict: { status: 'slp' }, desc: 'Scatters a powder that puts the foe to sleep.' },
   stunspore: { name: 'STUN SPORE', type: 'grass', cat: 'status', acc: 75, pp: 30, fx: 'powder',
@@ -67,6 +79,14 @@ const MOVES = {
     desc: 'A burst of water that always strikes first.' },
   bubblebeam: { name: 'BUBBLE BEAM', type: 'water', cat: 'special', power: 65, acc: 100, pp: 20, fx: 'water',
     stat: { target: 'foe', stat: 'spe', stages: -1, chance: 10 }, desc: 'A spray of bubbles. May lower SPEED.' },
+  whirlpool: { name: 'WHIRLPOOL', type: 'water', cat: 'special', power: 35, acc: 90, pp: 15, fx: 'water',
+    stat: { target: 'foe', stat: 'spe', stages: -1, chance: 100 }, desc: 'Traps the foe in a whirlpool, lowering its SPEED.' },
+  waterpulse: { name: 'WATER PULSE', type: 'water', cat: 'special', power: 60, acc: 100, pp: 20, fx: 'water',
+    desc: 'Attacks with a pulsing blast of water.' },
+  aquatail: { name: 'AQUA TAIL', type: 'water', cat: 'physical', power: 90, acc: 90, pp: 10, fx: 'water',
+    desc: 'Swings its tail like a vicious wave.' },
+  surf: { name: 'SURF', type: 'water', cat: 'special', power: 90, acc: 100, pp: 15, fx: 'water',
+    desc: 'Swamps the foe with a huge wave.' },
   withdraw: { name: 'WITHDRAW', type: 'water', cat: 'status', pp: 40, fx: 'glow',
     stat: { target: 'self', stat: 'def', stages: 1 }, desc: 'Hides under its arches to raise DEFENSE.' },
 
@@ -75,6 +95,15 @@ const MOVES = {
     inflict: { status: 'brn', chance: 10 }, desc: 'A small flame. May leave the foe with a burn.' },
   flamecharge: { name: 'FLAME CHARGE', type: 'fire', cat: 'physical', power: 50, acc: 100, pp: 20, fx: 'fire',
     stat: { target: 'self', stat: 'spe', stages: 1, chance: 100 }, desc: 'Cloaks itself in flame and charges. Raises SPEED.' },
+
+  flamewheel: { name: 'FLAME WHEEL', type: 'fire', cat: 'physical', power: 60, acc: 100, pp: 25, fx: 'fire',
+    inflict: { status: 'brn', chance: 10 }, desc: 'Rolls into a wheel of fire. May burn the foe.' },
+  firefang: { name: 'FIRE FANG', type: 'fire', cat: 'physical', power: 65, acc: 95, pp: 15, flinch: 10, fx: 'bite',
+    inflict: { status: 'brn', chance: 10 }, desc: 'Bites with flaming fangs. May burn or flinch.' },
+  flamethrower: { name: 'FLAMETHROWER', type: 'fire', cat: 'special', power: 90, acc: 100, pp: 15, fx: 'fire',
+    inflict: { status: 'brn', chance: 10 }, desc: 'Scorches the foe with a torrent of fire. May burn.' },
+  willowisp: { name: 'WILL-O-WISP', type: 'fire', cat: 'status', acc: 85, pp: 15, fx: 'wisp',
+    inflict: { status: 'brn' }, desc: 'Sinister, eerie flames that leave the foe with a burn.' },
 
   // Electric
   thundershock: { name: 'THUNDERSHOCK', type: 'electric', cat: 'special', power: 40, acc: 100, pp: 30, fx: 'bolt',
@@ -85,6 +114,13 @@ const MOVES = {
     inflict: { status: 'par' }, desc: 'A weak jolt that paralyzes the foe.' },
   chargebeam: { name: 'CHARGE BEAM', type: 'electric', cat: 'special', power: 50, acc: 90, pp: 10, fx: 'bolt',
     stat: { target: 'self', stat: 'spa', stages: 1, chance: 70 }, desc: 'A beam of electricity. May raise SP. ATK.' },
+
+  thunderfang: { name: 'THUNDER FANG', type: 'electric', cat: 'physical', power: 65, acc: 95, pp: 15, flinch: 10, fx: 'bite',
+    inflict: { status: 'par', chance: 10 }, desc: 'Bites with electrified fangs. May paralyze or flinch.' },
+  shockwave: { name: 'SHOCK WAVE', type: 'electric', cat: 'special', power: 60, acc: 0, pp: 20, fx: 'bolt',
+    desc: 'A rapid jolt of electricity that never misses.' },
+  thunderbolt: { name: 'THUNDERBOLT', type: 'electric', cat: 'special', power: 90, acc: 100, pp: 15, fx: 'bolt',
+    inflict: { status: 'par', chance: 10 }, desc: 'A strong electric blast. May paralyze the foe.' },
 
   // Ground
   mudslap: { name: 'MUD-SLAP', type: 'ground', cat: 'special', power: 20, acc: 100, pp: 10, fx: 'mud',
@@ -113,11 +149,39 @@ const MOVES = {
   bugbite: { name: 'BUG BITE', type: 'bug', cat: 'physical', power: 60, acc: 100, pp: 20, fx: 'bite',
     desc: 'Bites the foe with tiny, powerful jaws.' },
 
+  // Ghost
+  astonish: { name: 'ASTONISH', type: 'ghost', cat: 'physical', power: 30, acc: 100, pp: 15, flinch: 30, fx: 'ghost',
+    desc: 'Shrieks to startle the foe. May make it flinch.' },
+  lick: { name: 'LICK', type: 'ghost', cat: 'physical', power: 30, acc: 100, pp: 30, fx: 'ghost',
+    inflict: { status: 'par', chance: 30 }, desc: 'A spooky lick that may paralyze the foe.' },
+  nightshade: { name: 'NIGHT SHADE', type: 'ghost', cat: 'special', power: 1, fixed: 'level', acc: 100, pp: 15, fx: 'ghost',
+    desc: 'A mirage that deals damage equal to the user\'s level.' },
+  hex: { name: 'HEX', type: 'ghost', cat: 'special', power: 65, acc: 100, pp: 10, hexed: true, fx: 'ghost',
+    desc: 'A cruel curse. Twice as strong if the foe has a status problem.' },
+  shadowsneak: { name: 'SHADOW SNEAK', type: 'ghost', cat: 'physical', power: 40, acc: 100, pp: 30, priority: 1, fx: 'ghost',
+    desc: 'Extends its shadow to strike first.' },
+  shadowball: { name: 'SHADOW BALL', type: 'ghost', cat: 'special', power: 80, acc: 100, pp: 15, fx: 'ghost',
+    stat: { target: 'foe', stat: 'spd', stages: -1, chance: 20 }, desc: 'Hurls a shadowy blob. May lower SP. DEF.' },
+
+  // Sound
+  sonicboom: { name: 'SONIC BOOM', type: 'sound', cat: 'special', power: 1, fixed: 20, acc: 90, pp: 20, fx: 'wave',
+    desc: 'A loud shock wave that always does 20 damage.' },
+  echoedvoice: { name: 'ECHOED VOICE', type: 'sound', cat: 'special', power: 40, acc: 100, pp: 15, fx: 'wave',
+    desc: 'An echoing cry. Grows stronger each time it is used in a row.' },
+  disarmingvoice: { name: 'DISARMING VOICE', type: 'sound', cat: 'special', power: 40, acc: 0, pp: 15, fx: 'wave',
+    desc: 'A charming cry that never misses.' },
+  hypervoice: { name: 'HYPER VOICE', type: 'sound', cat: 'special', power: 90, acc: 100, pp: 10, fx: 'wave',
+    stat: { target: 'foe', stat: 'spd', stages: -1, chance: 10 }, desc: 'A powerful sound wave. May lower SP. DEF.' },
+  boomburst: { name: 'BOOMBURST', type: 'sound', cat: 'special', power: 140, acc: 100, pp: 5, recoil: 0.25, fx: 'wave',
+    desc: 'A deafening blast of sound. It also hurts the user.' },
+
   // Flying
   peck: { name: 'PECK', type: 'flying', cat: 'physical', power: 35, acc: 100, pp: 35, fx: 'peck',
     desc: 'Jabs the foe with a sharp beak.' },
   gust: { name: 'GUST', type: 'flying', cat: 'special', power: 40, acc: 100, pp: 35, fx: 'wind',
     desc: 'Whips up a strong gust of wind.' },
+  airslash: { name: 'AIR SLASH', type: 'flying', cat: 'special', power: 75, acc: 95, pp: 15, flinch: 30, fx: 'wind',
+    desc: 'Slices with a blade of air. May make the foe flinch.' },
   wingattack: { name: 'WING ATTACK', type: 'flying', cat: 'physical', power: 60, acc: 100, pp: 35, fx: 'wind',
     desc: 'Strikes the foe with wide-spread wings.' },
 
@@ -126,11 +190,20 @@ const MOVES = {
     desc: 'Hurls small rocks at the foe.' },
   rocktomb: { name: 'ROCK TOMB', type: 'rock', cat: 'physical', power: 60, acc: 95, pp: 15, fx: 'rock',
     stat: { target: 'foe', stat: 'spe', stages: -1, chance: 100 }, desc: 'Boulders trap the foe and lower its SPEED.' },
+  feintattack: { name: 'FEINT ATTACK', type: 'dark', cat: 'physical', power: 60, acc: 0, pp: 20, fx: 'bite',
+    desc: 'Draws the foe close, then strikes. Never misses.' },
+  snarl: { name: 'SNARL', type: 'dark', cat: 'special', power: 55, acc: 95, pp: 15, fx: 'sound',
+    stat: { target: 'foe', stat: 'spa', stages: -1, chance: 100 }, desc: 'A spiteful snarl that lowers SP. ATK.' },
+  crunch: { name: 'CRUNCH', type: 'dark', cat: 'physical', power: 80, acc: 100, pp: 15, fx: 'bite',
+    stat: { target: 'foe', stat: 'def', stages: -1, chance: 20 }, desc: 'Crunches with sharp fangs. May lower DEFENSE.' },
   bite: { name: 'BITE', type: 'dark', cat: 'physical', power: 60, acc: 100, pp: 25, flinch: 30, fx: 'bite',
     desc: 'Bites with sharp fangs. May make the foe flinch.' },
 };
 
 // Technical Machines: reusable, teach one move.
+// compat: types that can learn it (omitted = every AIMON).
 const TMS = {
   tm01: { move: 'swift' },
+  tm02: { move: 'magicalleaf', compat: ['grass', 'bug', 'water', 'normal', 'flying'] },
+  tm03: { move: 'waterpulse', compat: ['water', 'normal', 'ground', 'fighting', 'sound'] },
 };

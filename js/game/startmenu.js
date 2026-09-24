@@ -27,6 +27,11 @@ const StartMenu = {
         yield* Events.escapeRope();
         break;
       }
+      if (OW.pendingFish) {
+        OW.pendingFish = false;
+        yield* Events.fish();
+        break;
+      }
       if (r === 'close') break;
     }
   },

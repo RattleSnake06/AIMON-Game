@@ -594,6 +594,17 @@ const PEOPLE = {
   historian: { head: 'bald', body: 'coat', pal: { h: '#e0e0e8', H: '#a8a8b8', c: '#6a5a88', C: '#4a3c68', w: '#8a7aa8', W: '#5c4c7c', p: '#4a4058', P: '#302a3c', k: '#302830' } },
   granny: { head: 'long', body: 'dress', pal: { h: '#d8d8e0', H: '#a0a0b0', c: '#9070b0', C: '#684888', k: '#503848' } },
   fisher: { head: 'cap', body: 'tee', pal: { a: '#608848', A: '#406030', h: '#584030', H: '#3a2818', c: '#c8b888', C: '#988858', p: '#506070', P: '#384450', k: '#383840' } },
+  // Chapter 3
+  ivy: { head: 'long', body: 'dress', pal: { h: '#4a8a3c', H: '#2c5c24', c: '#78b050', C: '#4c7c34', k: '#7a5a38' } },
+  nerissa: { head: 'hat', body: 'coat', pal: { a: '#24386a', A: '#141e3c', h: '#2a9a9a', H: '#186a6a', c: '#f4f4f4', C: '#c8c8d0', w: '#24386a', W: '#141e3c', p: '#f0ece0', P: '#c8c0b0', k: '#2a2018' } },
+  vesper: { head: 'long', body: 'coat', pal: { h: '#ded6f8', H: '#a898c8', c: '#a060e8', C: '#7038c0', w: '#2a2438', W: '#1a1624', p: '#1c1a24', P: '#100e16', k: '#383048' } },
+  thane: { head: 'spiky', body: 'coat', pal: { h: '#302840', H: '#1c1628', c: '#f0c030', C: '#b08818', w: '#262634', W: '#16161e', p: '#1c1a24', P: '#100e16', k: '#383048' } },
+  sailor: { head: 'cap', body: 'tee', pal: { a: '#f4f4f4', A: '#c0c0c8', h: '#402818', H: '#28180c', c: '#f4f4f4', C: '#3050a0', p: '#304880', P: '#1c2c58', k: '#383840' } },
+  medium: { head: 'hood', body: 'dress', pal: { h: '#5a3c80', H: '#3c2458', v: '#5a3c80', V: '#8a6cb0', c: '#6a4a90', C: '#4a2c6c', k: '#302040' } },
+  gardener: { head: 'hat', body: 'tee', pal: { a: '#e8c870', A: '#b89840', h: '#6a4020', H: '#4a2810', c: '#78a848', C: '#4c7c30', p: '#6a5a40', P: '#4a3c28', k: '#503828' } },
+  swimmer: { head: 'long', body: 'dress', pal: { h: '#3868a8', H: '#204880', c: '#48a8e0', C: '#2878b0', k: '#f8d0a8' } },
+  librarian: { head: 'long', body: 'dress', pal: { h: '#a8a8b8', H: '#787888', c: '#7a5a48', C: '#5a3c30', k: '#403030' } },
+  admiral: { head: 'cap', body: 'coat', pal: { a: '#24386a', A: '#141e3c', h: '#d8d8e0', H: '#a0a0b0', c: '#f4f4f4', C: '#c8c8d0', w: '#24386a', W: '#141e3c', p: '#24386a', P: '#141e3c', k: '#202028' } },
 };
 
 // The AIMON BALL: blue top, white bottom, gold button.

@@ -304,6 +304,67 @@ const SFX = {
 
 // Each creature gets its own synthesised call.
 const CRIES = {
+  tidepup(S, t, b, p) {
+    S.osc('p50', 700 * p, t, 0.08, 0.11, b, { slideTo: 950 * p });
+    S.osc('p50', 900 * p, t + 0.1, 0.16, 0.11, b, { slideTo: 650 * p, vibrato: 8 });
+  },
+  tidefin(S, t, b, p) {
+    S.osc('p25', 520 * p, t, 0.12, 0.12, b, { slideTo: 880 * p });
+    S.osc('p50', 760 * p, t + 0.12, 0.3, 0.12, b, { slideTo: 420 * p, vibrato: 10 });
+    S.noise(t + 0.1, 0.3, 0.07, b, { filter: 'bandpass', freq: 900 });
+  },
+  reefwhirl(S, t, b, p) {
+    S.osc('triangle', 600 * p, t, 0.3, 0.14, b, { slideTo: 380 * p, vibrato: 14 });
+    S.noise(t, 0.3, 0.05, b, { filter: 'bandpass', freq: 1500 });
+  },
+  reeflord(S, t, b, p) {
+    S.osc('triangle', 300 * p, t, 0.45, 0.15, b, { slideTo: 200 * p, vibrato: 10 });
+    S.osc('p12', 900 * p, t + 0.1, 0.3, 0.06, b, { slideTo: 600 * p, vibrato: 16 });
+  },
+  skydrift(S, t, b, p) {
+    S.osc('p25', 1200 * p, t, 0.1, 0.1, b, { slideTo: 1600 * p });
+    S.osc('p25', 1500 * p, t + 0.12, 0.2, 0.1, b, { slideTo: 1100 * p, vibrato: 6 });
+  },
+  skyseraph(S, t, b, p) {
+    S.osc('p25', 800 * p, t, 0.15, 0.12, b, { slideTo: 1400 * p });
+    S.osc('p50', 1300 * p, t + 0.15, 0.4, 0.11, b, { slideTo: 900 * p, vibrato: 7 });
+    S.noise(t + 0.1, 0.4, 0.05, b, { filter: 'highpass', freq: 3000 });
+  },
+  wraithling(S, t, b, p) {
+    S.osc('triangle', 500 * p, t, 0.45, 0.14, b, { slideTo: 260 * p, vibrato: 18 });
+    S.osc('p12', 1000 * p, t + 0.05, 0.4, 0.04, b, { slideTo: 520 * p, vibrato: 18 });
+  },
+  umbrafang(S, t, b, p) {
+    S.osc('sawtooth', 160 * p, t, 0.18, 0.13, b, { slideTo: 240 * p });
+    S.osc('sawtooth', 240 * p, t + 0.18, 0.4, 0.13, b, { slideTo: 110 * p, vibrato: 9 });
+    S.noise(t + 0.15, 0.35, 0.1, b, { filter: 'lowpass', freq: 900 });
+  },
+  flambramble(S, t, b, p) {
+    S.osc('sawtooth', 300 * p, t, 0.12, 0.11, b, { slideTo: 520 * p });
+    S.osc('p25', 480 * p, t + 0.12, 0.3, 0.1, b, { slideTo: 260 * p, vibrato: 12 });
+    S.noise(t, 0.4, 0.14, b, { filter: 'lowpass', freq: 800, freqTo: 2000 });
+  },
+  voltimp(S, t, b, p) {
+    S.osc('p12', 1600 * p, t, 0.05, 0.1, b);
+    S.osc('p25', 1200 * p, t + 0.07, 0.15, 0.1, b, { slideTo: 2000 * p, vibrato: 25 });
+    S.noise(t + 0.05, 0.12, 0.1, b, { freq: 5000 });
+  },
+  stormgale(S, t, b, p) {
+    S.osc('sawtooth', 400 * p, t, 0.15, 0.12, b, { slideTo: 900 * p });
+    S.osc('sawtooth', 800 * p, t + 0.15, 0.4, 0.1, b, { slideTo: 300 * p, vibrato: 22 });
+    S.noise(t + 0.1, 0.45, 0.16, b, { freq: 3000 });
+  },
+  tuner(S, t, b, p) {
+    S.osc('p50', 880 * p, t, 0.08, 0.1, b);
+    S.osc('p50', 1320 * p, t + 0.09, 0.08, 0.1, b);
+    S.osc('p50', 1760 * p, t + 0.18, 0.18, 0.1, b, { vibrato: 6 });
+  },
+  sonarion(S, t, b, p) {
+    S.osc('p50', 660 * p, t, 0.1, 0.11, b);
+    S.osc('p50', 990 * p, t + 0.1, 0.1, 0.11, b);
+    S.osc('p25', 1320 * p, t + 0.2, 0.4, 0.11, b, { slideTo: 880 * p, vibrato: 8 });
+    S.osc('p12', 1980 * p, t + 0.2, 0.4, 0.04, b, { slideTo: 1320 * p, vibrato: 8 });
+  },
   skylavine(S, t, b, p) {
     S.osc('p25', 1400 * p, t, 0.12, 0.12, b, { slideTo: 2100 * p });
     S.osc('p25', 1700 * p, t + 0.13, 0.18, 0.12, b, { slideTo: 1200 * p, vibrato: 9 });

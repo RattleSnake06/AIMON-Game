@@ -2,7 +2,7 @@
 
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
-designs from the design sheets. The story currently runs up to the first GYM
+designs from the design sheets. The story currently runs up to the third GYM
 BADGE.
 
 | | |
@@ -12,8 +12,12 @@ BADGE.
 | ![Battle](docs/screenshots/battle.png) | ![Archford Town](docs/screenshots/archford.png) |
 | ![Route 2](docs/screenshots/route2.png) | ![Riftstone Cave](docs/screenshots/cave.png) |
 | ![TEAM DISTORTION grunt](docs/screenshots/grunt.png) | ![Grayhaven City](docs/screenshots/grayhaven.png) |
-| ![GYM LEADER HOLT](docs/screenshots/holt.png) | ![Town map](docs/screenshots/townmap.png) |
-| ![Trainer card with the KEYSTONE BADGE](docs/screenshots/card.png) | ![Epilogue](docs/screenshots/epilogue.png) |
+| ![GYM LEADER HOLT](docs/screenshots/holt.png) | ![Epilogue](docs/screenshots/epilogue.png) |
+| ![Cedarwood Village and the withering cedar](docs/screenshots/cedarwood.png) | ![The hidden staircase in the library](docs/screenshots/library.png) |
+| ![ADMIN VESPER](docs/screenshots/vesper.png) | ![Evolution](docs/screenshots/evolution.png) |
+| ![Seabreeze Port in the storm](docs/screenshots/storm.png) | ![A storm coil in the lighthouse](docs/screenshots/lighthouse.png) |
+| ![GYM LEADER NERISSA](docs/screenshots/nerissa.png) | ![Town map of VALEMORA](docs/screenshots/townmap.png) |
+| ![Trainer card with three BADGES](docs/screenshots/card.png) | ![The ADMINS report to the CONDUCTOR](docs/screenshots/epilogue2.png) |
 
 ## Play
 
@@ -95,8 +99,61 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     the **KEYSTONE BADGE** (it has a real violet sliver of the stone) and
     **TM01 SWIFT**.
 15. Walk out of the GYM for a short epilogue: somewhere deep underground,
-    someone else is pleased that the children are collecting BADGES. The
-    road east (Route 4) is closed for now. That's the end of this chapter.
+    someone else is pleased that the children are collecting BADGES.
+
+**Chapter 3: The Withering Cedar**
+
+16. Back in Willowbrook, the road west (blocked by rockfall until you have a
+    BADGE) is open. PROF. LINDEN catches you there to explain **EVOLUTION**,
+    and asks you to check on his friend IVY in Cedarwood.
+17. **Route 5** is a forest road with a fishing pond. A fisherman gives you
+    the **OLD ROD**. North of it lies **Pinecrest Forest**, a dark wood lit
+    by stone lanterns, where **WRAITHLING** drift through the grass. At the
+    old shrine in its heart waits a one-time encounter: **UMBRAFANG**, "the
+    guardian of forgotten places".
+18. In **Cedarwood Village** the thousand-year-old great cedar is dying from
+    the roots up, and IVY's GYM is locked. KAI suspects TEAM DISTORTION.
+19. IVY is in the **library**, sure that black-coated visitors vanish inside
+    it every night. A torn note and a missing volume lead to a bookcase with
+    a cold metal spine. Pull it, and it slides aside to reveal a hidden
+    staircase. KAI charges in ahead of you.
+20. **TEAM DISTORTION's hideout** is dug into the cedar's roots. There are
+    grunts with new AIMON (**VOLTIMP**, **TUNER**, WRAITHLING), and a violet
+    energy gate that only a **CARD KEY** will open, so you'll have to take
+    one off a grunt.
+21. In the **root chamber**, ADMIN **VESPER** has beaten KAI and is draining
+    the **ROOTSTONE**, Cedarwood's KEYSTONE, with a RESONATOR. Beat her and
+    she vanishes, saying the stone's "song" is already recorded. IVY tears
+    the machine loose and the cedar begins to heal. Every GYM LEADER, it
+    turns out, is the **WARDEN** of one KEYSTONE.
+22. IVY's greenhouse **GYM** (LEAFGRUB and BAMBUCK) awards the **GROVE
+    BADGE** and **TM02 MAGICAL LEAF**.
+
+**Chapter 4: The Storm over Seabreeze**
+
+23. With IVY's word, Grayhaven's guard opens **Route 4**, a rainy coastal
+    road south with beaches, tide pools and fishing spots. KAI is waiting
+    for a rematch.
+24. **Seabreeze Port** is stuck under a storm that hasn't moved in three
+    days. There's rain, lightning and thunder, the harbour is shut, and the
+    lighthouse on the point is glowing violet. Captain **NERISSA**, the GYM
+    LEADER, can't get in: TEAM DISTORTION has sealed the door with the same
+    energy lock as the hideout. Your CARD KEY opens it, and KAI guards the
+    door behind you.
+25. **The lighthouse** is a climb, not a maze. Every floor's stairs are
+    blocked by energy gates powered by storm coils, and each coil is run by
+    a caged VOLTIMP. Free one and the panicked VOLTIMP attacks you (you can
+    catch it); its coil dies, and when every coil on a floor is dead, the
+    gate drops.
+26. At the top, ADMIN **THANE** and his **STORMGALE** are riding the storm
+    around the lamp, which is really the **TIDESTONE**. When you win, the
+    CONDUCTOR calls him off by radio ("three songs are enough to hear the
+    shape of the melody"). The storm breaks and the sun comes out over the
+    port.
+27. NERISSA's water GYM, with fully evolved **TIDEFIN**, **REEFLORD** and
+    **SKYSERAPH**, awards the **TIDE BADGE** and **TM03 WATER PULSE**.
+28. A second epilogue: VESPER and THANE report to the CONDUCTOR. The ferries
+    to the islands aren't running yet, so that's the end for now.
 
 **Gameplay**
 
@@ -117,8 +174,18 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - Menus: AIMONDEX (with entries adapted from the design sheets), party,
   summary pages, bag, trainer card, save and options.
 - **Types:** Normal, Grass, Fire, Water, Flying, Rock, Electric, Ground,
-  Fighting and Bug, including immunities (Ground ignores Electric moves and
-  Flying ignores Ground moves).
+  Fighting, Bug, Dark, Ghost and a new **Sound** type (strong against Rock
+  and Ghost, weak to Ground and Dark). Immunities work as you'd expect:
+  Ground ignores Electric, Flying ignores Ground, and Ghost ignores Normal
+  and Fighting (and vice versa).
+- **Evolution:** AIMON that level up in a battle can evolve afterwards. The
+  scene flashes between the two forms, and holding B stops it. The
+  evolutions: TIDEPUP → TIDEFIN (Lv 20), REEFWHIRL → REEFLORD (26), SKYDRIFT
+  → SKYSERAPH (28), VOLTIMP → STORMGALE (24) and TUNER → SONARION (32).
+- New moves include fixed-damage ones (SONIC BOOM, NIGHT SHADE), HEX (twice
+  as strong against a statused foe), ECHOED VOICE (gets louder each turn it
+  is used in a row), WILL-O-WISP and BOOMBURST. FLAMBRAMBLE's BLAZE powers
+  up FIRE moves at low HP.
 - **Status conditions:** paralysis (half speed, sometimes can't move), sleep
   and burn (halves physical damage and hurts each turn). Each has its own
   animation and a tag on the HP box. Electric types can't be paralysed,
@@ -136,14 +203,22 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 
 - **EXP. SHARE** (a key item you can switch on or off): AIMON that sat out a
   battle still get half the EXP.
-- **Town map** (START → MAP) of the region, VALEMORA, showing where you are.
-  Move the cursor to read about each place.
 - **Text speed** (START → OPTION): SLOW, MID or FAST. The setting is kept in
   the browser.
 - **REPEL** keeps weaker wild AIMON away for 100 steps. **ESCAPE ROPE** takes
   you straight out of the cave.
-- The AIMONDEX shows where each AIMON lives, and the move menu shows the
-  selected move's type.
+- The AIMONDEX shows where each AIMON lives (including fishing spots), and
+  the move menu shows the selected move's type.
+- **Fishing:** with the OLD ROD, face any water and press A, or use it from
+  the KEY ITEMS pocket. Some AIMON only live underwater.
+- **Move Reminder:** an old sage in Cedarwood teaches AIMON moves they have
+  forgotten, for free.
+- **Weather:** rain on Route 4 and a thunderstorm over Seabreeze, both of
+  which clear up for good once the storm is broken.
+- Some TMs can only be taught to certain types (MAGICAL LEAF, WATER PULSE).
+- **Town map** of the whole region, based on the VALEMORA map: 26 places, with
+  roads and sea routes. The places you've visited are marked, and you can
+  move the cursor to read about each one.
 - Trainer AI avoids moves the target is immune to, and won't try to inflict
   a status the target already has or can't get.
 - Map edges join seamlessly in all four directions, and rivers and paths
@@ -162,8 +237,14 @@ js/data/              species, moves, types, items, trainers, maps, music,
 js/game/              overworld, dialog, menus, battle, story events, screens
 assets/sprites/       battle sprites and party icons (generated)
 tools/make_sprites.py converts the design sheets into sprites
+tools/make_townmap.py turns the region painting into the town map terrain
 tools/bundle.py       inlines everything into dist/aimon.html
+art/                  the design sheets and the VALEMORA region map
 ```
+
+Later chapters live in their own files next to the originals: `tiles_ext.js`
+and `tiles_ch3.js` (tiles, buildings and props), `maps_ch3.js` and
+`events_ch3.js`. Evolution is in `evolution.js`.
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
 `yield* OW.walk(...)`) run by a small coroutine scheduler inside the fixed
@@ -176,7 +257,9 @@ The battle sprites come from two kinds of source:
 
 - the design PDFs, for the starters, GOSKIE and MELLOWCAP (Front/Side/Back
   turnaround panels);
-- the pixel-art sheets in `art/sheets/`, for everything added in chapter 2.
+- the pixel-art sheets in `art/sheets/`, for everything added in chapters
+  2 and 3. Where a sheet shows only one view, the player's side uses the
+  same art mirrored so it faces the opponent.
 
 The script cuts out each view, removes the background, shrinks it to 64×64,
 reduces it to 15 colours and adds a dark outline:
@@ -187,12 +270,20 @@ python3 tools/make_sprites.py                                   # art/sheets onl
 python3 tools/make_sprites.py starter_mons.pdf route_1_mons.pdf # + the PDFs
 ```
 
-This rewrites `assets/sprites/*.png` and `js/data/sprite_data.js`. The crop
-boxes and sizes are at the top of the script.
+Set `ONLY=tidepup,tidefin` to rebuild just some sprites. This rewrites
+`assets/sprites/*.png` and `js/data/sprite_data.js`. The crop boxes and
+sizes are at the top of the script.
+
+The town map's terrain comes from the region painting in
+`art/valemora_map.webp`. `python3 tools/make_townmap.py` sorts it into
+terrain kinds, shrinks it to 240×158 and repaints it in a flat GBA palette
+(`assets/sprites/region_map.png`). The game draws the roads, towns and labels
+on top.
 
 ## Debug shortcuts
 
 `index.html?debug=route1` skips the story and starts with a level 7 starter.
 Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
-`route2`, `cave`, `route3`, `grayhaven`. Add `&starter=moltarock` or
+`route2`, `cave`, `route3`, `grayhaven`, `route5`, `pinecrest`, `cedarwood`,
+`library`, `route4`, `seabreeze`, `lighthouse`. Add `&starter=moltarock` or
 `&starter=archepin` to pick the starter.

@@ -112,6 +112,7 @@ const Tiles = {
       }
     }
     for (const b of map.buildings || []) {
+      if (map.showBuilding && !map.showBuilding(b)) continue;
       g.drawImage(this.buildings[b.type], b.x * TILE, b.y * TILE);
     }
     return { canvas: cv, anims };
@@ -121,7 +122,7 @@ const Tiles = {
   waterMask(n) {
     const land = (dx, dy) => {
       const c = n(dx, dy);
-      return !(this.def(c).water || c === '=' || c === 'Q');
+      return !(this.def(c).water || c === '=' || c === 'Q' || c === 'Z');
     };
     let m = 0;
     [[0, -1], [1, 0], [0, 1], [-1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]].forEach(([dx, dy], i) => {
@@ -175,7 +176,11 @@ const Tiles = {
       case 'fountain':
         this.drawFountain(g, px, py, n);
         break;
-      case 'building': g.drawImage(map.def.cave ? this.caveFloorImg(0) : this.grassImg(0), px, py); break;
+      case 'building':
+        if (!map.def.outdoor && !map.def.cave) { this.drawFloor(g, px, py, map); break; }
+        g.drawImage(map.def.cave ? this.caveFloorImg(0) : map.def.ground === 'a' ? this.sandImg(0)
+          : map.def.ground === '+' ? this.pavingImg() : this.grassImg(0), px, py);
+        break;
       // interior
       case 'void': g.fillStyle = '#000'; g.fillRect(px, py, TILE, TILE); break;
       case 'wallTop': g.drawImage(this.wallTopImg(map.def.theme), px, py); break;
@@ -223,8 +228,10 @@ const Tiles = {
 
   drawFloor(g, px, py, map) {
     const f = map.floor;
-    g.drawImage(f === '-' ? this.floorTileImg() : f === 'd' ? this.gymFloorImg() : this.woodImg(), px, py);
+    if (this.floors[f]) g.drawImage(this.floors[f].call(this), px, py);
+    else g.drawImage(f === '-' ? this.floorTileImg() : f === 'd' ? this.gymFloorImg() : this.woodImg(), px, py);
   },
+  floors: {},
 
   memo(key, fn) {
     if (!this.cache[key]) this.cache[key] = fn();
@@ -1084,7 +1091,20 @@ const Tiles = {
     g.fillStyle = wall;
     g.fillRect(2, roofH - 4, W - 4, H - roofH + 3);
     g.fillStyle = wallLo;
-    for (let x = 6; x < W - 4; x += 8) g.fillRect(x, roofH, 1, H - roofH - 4);
+    if (o.logs) {
+      // Log cabin: stacked logs with round ends.
+      for (let y = roofH - 1; y < H - 5; y += 4) {
+        g.fillStyle = wallLo;
+        g.fillRect(2, y + 3, W - 4, 1);
+        g.fillStyle = Pix.mix(wall, '#ffffff', 0.2);
+        g.fillRect(2, y, W - 4, 1);
+        g.fillStyle = Pix.shade(wall, 0.6);
+        g.fillRect(1, y, 2, 3);
+        g.fillRect(W - 3, y, 2, 3);
+      }
+    } else {
+      for (let x = 6; x < W - 4; x += 8) g.fillRect(x, roofH, 1, H - roofH - 4);
+    }
     // Foundation.
     g.fillStyle = '#a09888';
     g.fillRect(2, H - 5, W - 4, 4);
@@ -1114,7 +1134,7 @@ const Tiles = {
     g.fillRect(1, roofH - 4, W - 2, 2);
     g.fillStyle = 'rgba(40,24,40,0.25)';
     g.fillRect(2, roofH - 2, W - 4, 3);
-    if (!o.lab && !o.sign) {
+    if (!o.lab && !o.sign && !o.noChimney) {
       // Chimney.
       g.fillStyle = line;
       g.fillRect(W - 20, 0, 8, 9);
@@ -1180,6 +1200,22 @@ const Tiles = {
       g.fillStyle = '#e03838';
       g.fillRect(W / 2 - 2, 7, 4, 10);
       g.fillRect(W / 2 - 5, 10, 10, 4);
+    }
+    if (o.sign === 'library') {
+      const sx = W / 2 - 22;
+      g.fillStyle = line;
+      g.fillRect(sx, roofH - 14, 44, 12);
+      g.fillStyle = '#f8f0d8';
+      g.fillRect(sx + 1, roofH - 13, 42, 10);
+      Font.drawRaw(g, 'LIBRARY', sx + 3, roofH - 12, '#6a3a20');
+      // An open book on the roof.
+      g.fillStyle = line;
+      g.fillRect(W / 2 - 9, 5, 18, 11);
+      g.fillStyle = '#f8f4e8';
+      g.fillRect(W / 2 - 8, 6, 7, 9);
+      g.fillRect(W / 2 + 1, 6, 7, 9);
+      g.fillStyle = '#b0a080';
+      for (let y = 8; y < 14; y += 2) { g.fillRect(W / 2 - 7, y, 5, 1); g.fillRect(W / 2 + 2, y, 5, 1); }
     }
     if (o.sign === 'mart') {
       const sx = W / 2 - 16;

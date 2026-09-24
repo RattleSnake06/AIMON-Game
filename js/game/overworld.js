@@ -72,8 +72,20 @@ class GameMap {
   }
 
   render() {
-    if (!this.rendered) this.rendered = Tiles.renderMap(this);
+    // Buildings can appear or change with story flags (e.g. the great cedar
+    // recovering); re-render when any of those flags change.
+    const key = this.buildings.map((b) => (b.showIf || b.hideIf ? +this.showBuilding(b) : '')).join('');
+    if (!this.rendered || key !== this.renderKey) {
+      this.rendered = Tiles.renderMap(this);
+      this.renderKey = key;
+    }
     return this.rendered;
+  }
+
+  showBuilding(b) {
+    if (b.showIf && !State.flag(b.showIf)) return false;
+    if (b.hideIf && State.flag(b.hideIf)) return false;
+    return true;
   }
 
   warpAt(x, y) { return (this.def.warps || []).find((w) => w.x === x && w.y === y); }
@@ -135,6 +147,7 @@ class Entity {
 
   image() {
     if (this.sprite === 'ball') return Chars.ball;
+    if (this.def.prop) return Props.image(this.def.prop, Game.frame);
     let phase = 0;
     if (this.moving && this.moveT < this.moveFrames / 2) phase = this.stepAlt ? 2 : 1;
     if (this.bumping) phase = (Math.floor(this.bumping / 8) % 2) ? (this.stepAlt ? 2 : 1) : 0;
@@ -179,6 +192,12 @@ const OW = {
     this.onMapChanged();
   },
 
+  // A map's music can depend on the story (a function returning a name).
+  music() {
+    const m = this.map.def.music;
+    return typeof m === 'function' ? m() : m;
+  },
+
   spawnNpcs() {
     this.npcs = (this.map.def.npcs || []).filter((n) => this.npcVisible(n)).map((n) => {
       const e = new Entity(n);
@@ -197,7 +216,10 @@ const OW = {
 
   onMapChanged() {
     const def = this.map.def;
-    if (def.music) Sound.playMusic(def.music);
+    const region = TownMap.regionOf(this.map.id);
+    if (region) State.setFlag(`visit_${region}`);
+    const music = this.music();
+    if (music) Sound.playMusic(music);
     const named = (def.outdoor || def.popup) && def.name;
     if (named && this.shownPopup !== def.name) {
       this.popup = { text: def.name, start: Game.frame };
@@ -383,7 +405,7 @@ const OW = {
       const warp = this.map.warpAt(nx, ny);
       if (warp && warp.kind === 'door') {
         if (warp.lock && !State.flag(warp.lock.flag)) {
-          this.run(Events.sign(warp.lock.text, true));
+          this.run(warp.lock.script ? Events[warp.lock.script](warp) : Events.sign(warp.lock.text, true));
           return;
         }
         this.run(this.enterDoor(warp));
@@ -453,6 +475,9 @@ const OW = {
         const d = Math.abs(dx) + Math.abs(dy);
         if (d < 3 || d > 5) continue;
         if (side === 'east' && dx <= 0) continue;
+        if (side === 'south' && dy <= 0) continue;
+        if (side === 'north' && dy >= 0) continue;
+        if (side === 'west' && dx >= 0) continue;
         const x = near.x + dx;
         const y = near.y + dy;
         if (!this.map.inside(x, y)) continue;
@@ -562,6 +587,10 @@ const OW = {
     const thing = (def.things || []).find((s) => s.x === fx && s.y === fy);
     if (thing) {
       this.run(thing.script ? Events[thing.script](thing) : Events.sign(thing.text, true));
+      return;
+    }
+    if (Tiles.def(this.tile(fx, fy)).water && State.count('oldrod') && def.fishing) {
+      this.run(Events.fishPrompt());
       return;
     }
     const generic = TILE_TEXT[Tiles.def(this.tile(fx, fy)).name];
@@ -742,6 +771,11 @@ const OW = {
         g.drawImage(e.image(), x + 2, y + 2);
         continue;
       }
+      if (e.def.prop) {
+        const img = e.image();
+        g.drawImage(img, x + 8 - img.width / 2, y + 16 - img.height);
+        continue;
+      }
       if (e.jumping) {
         const t = e.moveT / e.moveFrames;
         g.drawImage(Chars.shadow, x + 1, y + 13);
@@ -767,7 +801,64 @@ const OW = {
     }
     g.globalAlpha = 1;
     g.globalCompositeOperation = 'source-over';
+    if (this.fishing) this.drawRod(g, cx, cy);
+    const weather = this.weather();
+    if (weather) this.drawWeather(g, weather, frame);
     if (this.popup) this.drawPopup(g);
+  },
+
+  // --- weather ---------------------------------------------------------------
+  // def.weather: { kind: 'rain' | 'storm', hideIf, showIf }
+  weather() {
+    const w = this.map.def.weather;
+    if (!w || (w.hideIf && State.flag(w.hideIf)) || (w.showIf && !State.flag(w.showIf))) return null;
+    return w;
+  },
+
+  drawWeather(g, w, frame) {
+    const storm = w.kind === 'storm';
+    g.fillStyle = storm ? 'rgba(16,24,48,0.38)' : 'rgba(24,32,56,0.18)';
+    g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+    const n = storm ? 70 : 36;
+    g.fillStyle = storm ? 'rgba(200,215,240,0.75)' : 'rgba(200,215,240,0.55)';
+    for (let i = 0; i < n; i++) {
+      const sp = 5 + (i % 3);
+      const x = ((i * 41 + frame * (storm ? 3 : 1.5)) % 272) - 16;
+      const y = ((i * 67 + frame * sp) % 192) - 16;
+      for (let k = 0; k < 4; k++) g.fillRect(Math.round(x - k * (storm ? 0.8 : 0.4)), Math.round(y + k * 1.5), 1, 2);
+    }
+    if (!storm) return;
+    // Lightning every few seconds.
+    if (this.flashT > 0) this.flashT--;
+    else if (Math.random() < 1 / 260) {
+      this.flashT = 14;
+      Sound.sfx('rumble');
+      Game.shake = Math.max(Game.shake, 10);
+    }
+    if (this.flashT > 8 || (this.flashT > 2 && this.flashT < 5)) {
+      g.fillStyle = 'rgba(240,240,255,0.55)';
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+    }
+  },
+
+  // --- fishing -----------------------------------------------------------------
+  drawRod(g, cx, cy) {
+    const p = this.player;
+    const [dx, dy] = U.dirVec[p.dir];
+    const hx = p.px - cx + 8 + dx * 6;
+    const hy = p.py - cy + 4 + dy * 6;
+    const bx = p.px - cx + 8 + dx * 18;
+    const by = p.py - cy + 8 + dy * 18 + (this.fishing === 'bite' ? (Game.frame % 8 < 4 ? 2 : 0) : 0);
+    g.strokeStyle = '#f0f0f0';
+    g.lineWidth = 1;
+    g.beginPath();
+    g.moveTo(hx + 0.5, hy + 0.5);
+    g.lineTo(bx + 0.5, by + 0.5);
+    g.stroke();
+    g.fillStyle = '#e04040';
+    g.fillRect(bx - 1, by - 1, 3, 3);
+    g.fillStyle = '#f8f8f8';
+    g.fillRect(bx - 1, by - 1, 3, 1);
   },
 
   // Balls placed on the AIMON CENTRE machine while healing.

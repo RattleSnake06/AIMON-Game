@@ -1,5 +1,5 @@
 'use strict';
-// The five AIMON from the design sheets. Dex text is adapted from the sheets.
+// The AIMON from the design sheets. Dex text is adapted from the sheets.
 
 const SPECIES = {
   skylavine: {
@@ -139,6 +139,152 @@ const SPECIES = {
       text: 'Rarely seen in the wild. It stores static in its jagged mane and releases it in blinding bursts. TEAM DISTORTION is rumored to breed them in secret.',
     },
   },
+
+  // --- Chapter 3 ---------------------------------------------------------------
+  // evo: { to, level } - evolves after a battle once it reaches that level.
+  tidepup: {
+    name: 'TIDEPUP', num: 14, types: ['water'],
+    base: { hp: 50, atk: 50, def: 45, spa: 44, spd: 45, spe: 58 },
+    catchRate: 90, baseExp: 62, ability: 'TORRENT', evo: { to: 'tidefin', level: 20 },
+    learnset: [[1, 'tackle'], [1, 'tailwhip'], [4, 'watergun'], [8, 'quickattack'], [12, 'aquajet'],
+      [16, 'bite'], [21, 'waterpulse'], [26, 'aquatail']],
+    dex: {
+      category: 'SPLASH PUP', height: '1\'08"', weight: '17.2 lbs',
+      text: 'It loves to play in shallow water. It paddles with its flippers to splash about and move with surprising speed.',
+    },
+  },
+  tidefin: {
+    name: 'TIDEFIN', num: 15, types: ['water'],
+    base: { hp: 72, atk: 76, def: 62, spa: 62, spd: 62, spe: 84 },
+    catchRate: 45, baseExp: 155, ability: 'TORRENT',
+    learnset: [[1, 'tackle'], [1, 'tailwhip'], [1, 'watergun'], [8, 'quickattack'], [12, 'aquajet'],
+      [16, 'bite'], [21, 'waterpulse'], [26, 'aquatail'], [32, 'crunch'], [38, 'surf']],
+    dex: {
+      category: 'WAVE RIDER', height: '3\'11"', weight: '62.4 lbs',
+      text: 'It races along the coast leaping from wave to wave. Sailors say that when a TIDEFIN calls out, the tide is about to turn.',
+    },
+  },
+  reefwhirl: {
+    name: 'REEFWHIRL', num: 16, types: ['water'],
+    base: { hp: 55, atk: 35, def: 50, spa: 62, spd: 70, spe: 48 },
+    catchRate: 120, baseExp: 66, ability: 'SWIFT SWIM', evo: { to: 'reeflord', level: 26 },
+    learnset: [[1, 'watergun'], [1, 'withdraw'], [6, 'whirlpool'], [11, 'megadrain'], [16, 'bubblebeam'],
+      [21, 'waterpulse'], [27, 'hex']],
+    dex: {
+      category: 'DRIFTING', height: '3\'11"', weight: '71.4 lbs',
+      text: 'It drifts on ocean currents, snaring food with its tentacles. By spinning, it can stir up powerful whirlpools.',
+    },
+  },
+  reeflord: {
+    name: 'REEFLORD', num: 17, types: ['water'],
+    base: { hp: 82, atk: 50, def: 72, spa: 92, spd: 100, spe: 62 },
+    catchRate: 45, baseExp: 160, ability: 'SWIFT SWIM',
+    learnset: [[1, 'watergun'], [1, 'withdraw'], [6, 'whirlpool'], [11, 'megadrain'], [16, 'bubblebeam'],
+      [21, 'waterpulse'], [27, 'hex'], [33, 'surf'], [40, 'gigadrain']],
+    dex: {
+      category: 'REEF CROWN', height: '6\'07"', weight: '165.3 lbs',
+      text: 'It rules over coral reefs, raising whirlpools with a sweep of its crowned mantle. Fishing boats give the waters it guards a wide berth.',
+    },
+  },
+  skydrift: {
+    name: 'SKYDRIFT', num: 18, types: ['water'],
+    base: { hp: 48, atk: 55, def: 42, spa: 55, spd: 45, spe: 72 },
+    catchRate: 90, baseExp: 64, ability: 'HYDRATION', evo: { to: 'skyseraph', level: 28 },
+    learnset: [[1, 'watergun'], [1, 'gust'], [5, 'quickattack'], [9, 'aquajet'], [14, 'wingattack'],
+      [19, 'waterpulse'], [24, 'airslash']],
+    dex: {
+      category: 'GLIDER FISH', height: '5\'11"', weight: '99.6 lbs',
+      text: 'It glides effortlessly through the water on wing-like fins, chasing prey or leaping high above the surface.',
+    },
+  },
+  skyseraph: {
+    name: 'SKYSERAPH', num: 19, types: ['water'],
+    base: { hp: 75, atk: 80, def: 66, spa: 88, spd: 76, spe: 102 },
+    catchRate: 45, baseExp: 172, ability: 'HYDRATION',
+    learnset: [[1, 'watergun'], [1, 'gust'], [5, 'quickattack'], [9, 'aquajet'], [14, 'wingattack'],
+      [19, 'waterpulse'], [24, 'airslash'], [28, 'aquatail'], [34, 'surf']],
+    dex: {
+      category: 'SEA WYRM', height: '9\'06"', weight: '187.4 lbs',
+      text: 'It is said the first SKYSERAPH was a SKYDRIFT that leapt so high it touched the clouds. It can ride sea winds for days without landing.',
+    },
+  },
+  wraithling: {
+    name: 'WRAITHLING', num: 20, types: ['ghost'],
+    base: { hp: 45, atk: 40, def: 52, spa: 72, spd: 66, spe: 60 },
+    catchRate: 90, baseExp: 72, ability: 'CURSED BODY',
+    learnset: [[1, 'astonish'], [1, 'leer'], [5, 'lick'], [9, 'willowisp'], [13, 'nightshade'],
+      [18, 'hex'], [24, 'shadowball']],
+    dex: {
+      category: 'LANTERN', height: '2\'07"', weight: '27.8 lbs',
+      text: 'Its lantern burns with the spirits of lost travelers. It follows those who wander at night, its light growing stronger the closer it gets to its prey.',
+    },
+  },
+  umbrafang: {
+    name: 'UMBRAFANG', num: 21, types: ['dark'],
+    base: { hp: 72, atk: 98, def: 64, spa: 62, spd: 60, spe: 96 },
+    catchRate: 25, baseExp: 175, ability: 'PRANKSTER',
+    learnset: [[1, 'bite'], [1, 'leer'], [1, 'quickattack'], [8, 'feintattack'], [14, 'snarl'],
+      [19, 'crunch'], [25, 'shadowsneak'], [31, 'nastyplot']],
+    dex: {
+      category: 'SHADOW', height: '5\'03"', weight: '106.5 lbs',
+      text: 'It moves like a shadow, striking without a sound. It prefers the cover of darkness and is said to be the guardian of forgotten places.',
+    },
+  },
+  flambramble: {
+    name: 'FLAMBRAMBLE', num: 22, types: ['fire'],
+    base: { hp: 62, atk: 78, def: 58, spa: 66, spd: 55, spe: 70 },
+    catchRate: 60, baseExp: 112, ability: 'BLAZE',
+    learnset: [[1, 'ember'], [1, 'leer'], [7, 'flamewheel'], [12, 'bite'], [16, 'firefang'],
+      [21, 'flamecharge'], [27, 'flamethrower']],
+    dex: {
+      category: 'BRAMBLE', height: '3\'11"', weight: '69.9 lbs',
+      text: 'Its body is covered in burning brambles that never fade. It protects its territory fiercely, and its flames are said to bloom when it feels threatened.',
+    },
+  },
+  voltimp: {
+    name: 'VOLTIMP', num: 23, types: ['electric'],
+    base: { hp: 40, atk: 52, def: 38, spa: 62, spd: 45, spe: 82 },
+    catchRate: 120, baseExp: 60, ability: 'STATIC', evo: { to: 'stormgale', level: 24 },
+    learnset: [[1, 'thundershock'], [1, 'tailwhip'], [5, 'quickattack'], [9, 'thunderwave'], [13, 'spark'],
+      [18, 'thunderfang'], [22, 'chargebeam']],
+    dex: {
+      category: 'SPARK IMP', height: '1\'04"', weight: '15.0 lbs',
+      text: 'It makes electricity by swishing its tail. It loves to play and will often zap anything that gets too close, even a friend.',
+    },
+  },
+  stormgale: {
+    name: 'STORMGALE', num: 24, types: ['electric'],
+    base: { hp: 72, atk: 92, def: 64, spa: 92, spd: 66, spe: 115 },
+    catchRate: 45, baseExp: 178, ability: 'STATIC',
+    learnset: [[1, 'thundershock'], [1, 'tailwhip'], [5, 'quickattack'], [9, 'thunderwave'], [13, 'spark'],
+      [18, 'thunderfang'], [22, 'chargebeam'], [27, 'crunch'], [32, 'thunderbolt']],
+    dex: {
+      category: 'THUNDERSTORM', height: '5\'11"', weight: '187.8 lbs',
+      text: 'It controls electrical storms and runs so fast it leaves trails of lightning behind. It is said the sky grows stormy when it howls.',
+    },
+  },
+  tuner: {
+    name: 'TUNER', num: 25, types: ['sound'],
+    base: { hp: 45, atk: 35, def: 42, spa: 62, spd: 52, spe: 56 },
+    catchRate: 120, baseExp: 62, ability: 'SOUNDPROOF', evo: { to: 'sonarion', level: 32 },
+    learnset: [[1, 'sonicboom'], [1, 'growl'], [6, 'quickattack'], [10, 'echoedvoice'], [15, 'screech'],
+      [20, 'disarmingvoice'], [26, 'hypervoice']],
+    dex: {
+      category: 'LISTENING', height: '1\'08"', weight: '11.0 lbs',
+      text: 'It can hear a leaf fall a mile away. The rings on its ears hum to copy any sound it likes, so its calls are often mistaken for birdsong.',
+    },
+  },
+  sonarion: {
+    name: 'SONARION', num: 26, types: ['sound'],
+    base: { hp: 75, atk: 60, def: 66, spa: 112, spd: 82, spe: 96 },
+    catchRate: 45, baseExp: 182, ability: 'SOUNDPROOF',
+    learnset: [[1, 'sonicboom'], [1, 'growl'], [6, 'quickattack'], [10, 'echoedvoice'], [15, 'screech'],
+      [20, 'disarmingvoice'], [26, 'hypervoice'], [32, 'boomburst']],
+    dex: {
+      category: 'ECHO', height: '3\'03"', weight: '63.1 lbs',
+      text: 'It sends out sound waves from its ear-rings to navigate, talk to others and even confuse foes with illusions. Its calls can carry for miles.',
+    },
+  },
 };
 
 const DEX_ORDER = Object.keys(SPECIES).sort((a, b) => SPECIES[a].num - SPECIES[b].num);
@@ -148,8 +294,9 @@ const STARTERS = ['skylavine', 'moltarock', 'archepin'];
 function habitatOf(species) {
   const out = [];
   for (const def of Object.values(MAPS)) {
-    const enc = def.encounters;
-    if (enc && enc.table.some((e) => e.species === species) && !out.includes(def.name)) out.push(def.name);
+    for (const enc of [def.encounters, def.fishing]) {
+      if (enc && enc.table.some((e) => e.species === species) && !out.includes(def.name)) out.push(def.name);
+    }
   }
   return out;
 }

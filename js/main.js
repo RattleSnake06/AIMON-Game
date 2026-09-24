@@ -156,6 +156,8 @@ const Debug = {
       willowbrook: ['willowbrook', 11, 10], route1: ['route1', 11, 30], archford: ['archford', 14, 20],
       lab: ['lab', 6, 10], centre: ['centre', 6, 6], mart: ['mart', 3, 6], home: ['home2f', 2, 5],
       route2: ['route2', 36, 9], cave: ['cave1', 14, 21], route3: ['route3', 2, 11], grayhaven: ['grayhaven', 2, 17],
+      route5: ['route5', 46, 11], pinecrest: ['pinecrest', 16, 27], cedarwood: ['cedarwood', 30, 14], library: ['library', 7, 10],
+      route4: ['route4', 10, 5], seabreeze: ['seabreeze', 17, 4], lighthouse: ['light1', 5, 9],
     };
     const [map, x, y] = spots[where] || spots.willowbrook;
     Object.assign(State.d, { map, x, y, dir: 'down' });

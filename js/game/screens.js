@@ -70,7 +70,9 @@ const Dex = {
       Font.draw(g, `HT ${caught ? sp.dex.height : '???'}`, 94, 64, ...ink);
       Font.draw(g, `WT ${caught ? sp.dex.weight : '???'}`, 160, 64, ...ink);
       const areas = habitatOf(id);
-      const areaText = areas.length ? areas.join(', ') : (id === 'voltvix' ? 'UNKNOWN' : 'TRAINERS ONLY');
+      // Special encounters that aren't in any grass or fishing table.
+      const special = { voltvix: 'UNKNOWN', voltimp: 'SEABREEZE LIGHTHOUSE', umbrafang: 'PINECREST FOREST' };
+      const areaText = areas.length ? areas.join(', ') : (special[id] || 'TRAINERS ONLY');
       Font.draw(g, `AREA ${Font.wrap(areaText, 110)[0]}`, 94, 77, '#5068a0', '#d0d8e8');
       g.fillStyle = '#c8c8d0';
       g.fillRect(12, 90, 216, 1);
@@ -152,13 +154,20 @@ const BadgeArt = {
   cache: {},
   icon(i) {
     if (this.cache[i]) return this.cache[i];
-    const [main, dark, hi] = BADGES[i].colors;
+    const b = BADGES[i];
+    const [main, dark, hi] = b.colors;
     const p = new Painter(24, 24);
-    p.poly([[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
+    const shapes = {
+      grove: [[12, 0], [19, 5], [22, 12], [18, 19], [12, 23], [6, 19], [2, 12], [5, 5]],
+      tide: [[12, 0], [17, 7], [21, 13], [19, 19], [12, 23], [5, 19], [3, 13], [7, 7]],
+    };
+    p.poly(shapes[b.id] || [[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
       { fill: main, line: '#202020', shade: dark, hi: Pix.mix(main, '#ffffff', 0.4) });
+    if (b.id === 'grove') p.line(12, 3, 12, 20, dark);
+    if (b.id === 'tide') { p.line(7, 16, 10, 14, hi); p.line(10, 14, 14, 16, hi); p.line(14, 16, 17, 14, hi); }
     p.ellipse(11.5, 11.5, 6.5, 6.5, { fill: hi, line: '#202020', shade: Pix.shade(hi, 0.75) });
-    if (i === 0) {
-      // The keystone sliver.
+    if (b.leader) {
+      // A sliver of the leader's KEYSTONE.
       p.poly([[9, 8], [14, 8], [13.5, 15], [9.5, 15]], { fill: '#9058d8', line: '#281840', hi: '#c8a0f8' });
     } else {
       p.ellipse(11.5, 11.5, 2.5, 2.5, { fill: main, line: dark });
@@ -200,19 +209,60 @@ const BadgeShow = {
 };
 
 // ---------------------------------------------------------------------------
-// Town map of VALEMORA
+// Town map of VALEMORA. The terrain is baked from the region painting by
+// tools/make_townmap.py; roads, places and labels are drawn here.
 
+// Places, in map pixels (the terrain image is 240x158, drawn at y = 1).
+// kind: town | route | cave | spot | isle.
 const REGION = [
-  { id: 'willowbrook', name: 'WILLOWBROOK TOWN', x: 120, y: 128, kind: 'town', desc: 'A quiet town where the river begins.' },
-  { id: 'route1', name: 'ROUTE 1', x: 120, y: 104, kind: 'route', desc: 'A riverside path lined with tall grass.' },
-  { id: 'archford', name: 'ARCHFORD TOWN', x: 120, y: 78, kind: 'town', desc: 'The town of old stone bridges.' },
-  { id: 'route2', name: 'ROUTE 2', x: 84, y: 72, kind: 'route', desc: 'A path west toward the mountains.' },
-  { id: 'cave', name: 'RIFTSTONE CAVE', x: 50, y: 66, kind: 'cave', desc: 'A deep cave. Strange tremors echo inside.' },
-  { id: 'route3', name: 'ROUTE 3', x: 154, y: 80, kind: 'route', desc: 'A bamboo-lined path along the river.' },
-  { id: 'grayhaven', name: 'GRAYHAVEN CITY', x: 188, y: 84, kind: 'town', desc: 'The city of steadfast stone. Home of the NORMAL-type GYM.' },
-  { id: 'route4', name: 'ROUTE 4', x: 206, y: 50, kind: 'closed', desc: 'Closed while the tremors are investigated.' },
+  { id: 'willowbrook', name: 'WILLOWBROOK TOWN', x: 116, y: 84, kind: 'town', desc: 'A quiet riverside town. Your journey began here.' },
+  { id: 'route1', name: 'ROUTE 1', x: 116, y: 63, kind: 'route', desc: 'A riverside path between WILLOWBROOK and ARCHFORD.' },
+  { id: 'archford', name: 'ARCHFORD TOWN', x: 116, y: 48, kind: 'town', desc: 'A crossroads town of old stone bridges.' },
+  { id: 'route2', name: 'ROUTE 2', x: 70, y: 38, kind: 'route', desc: 'A trail west along the river to the mountains.' },
+  { id: 'cave', name: 'RIFTSTONE CAVE', x: 40, y: 37, kind: 'cave', desc: 'A deep cave in the western mountains. A KEYSTONE sleeps below.' },
+  { id: 'route3', name: 'ROUTE 3', x: 153, y: 39, kind: 'route', desc: 'A bamboo-lined path along the river.' },
+  { id: 'grayhaven', name: 'GRAYHAVEN CITY', x: 187, y: 35, kind: 'town', desc: 'The city of steadfast stone. Home of the NORMAL-type GYM.' },
+  { id: 'route4', name: 'ROUTE 4', x: 190, y: 64, kind: 'route', desc: 'A windswept coastal road south from GRAYHAVEN.' },
+  { id: 'seabreeze', name: 'SEABREEZE PORT', x: 216, y: 83, kind: 'town', desc: 'A bustling harbor with a tall lighthouse. Home of the WATER-type GYM.' },
+  { id: 'route5', name: 'ROUTE 5', x: 92, y: 86, kind: 'route', desc: 'A forest road between WILLOWBROOK and CEDARWOOD.' },
+  { id: 'cedarwood', name: 'CEDARWOOD VILLAGE', x: 69, y: 88, kind: 'town', desc: 'A village among giant cedars. Home of the GRASS-type GYM.' },
+  { id: 'pinecrest', name: 'PINECREST FOREST', x: 80, y: 66, kind: 'spot', desc: 'Dense, dark woods. Travelers tell of violet lights among the trees.' },
+  { id: 'sunspire', name: 'SUNSPIRE RUINS', x: 36, y: 71, kind: 'town', desc: 'Sun-bleached ruins of an ancient city in the western dunes.' },
+  { id: 'stonepeak', name: 'STONEPEAK WOODS', x: 117, y: 29, kind: 'spot', desc: 'Snowy woods beneath the tallest peak. An old tower watches over them.' },
+  { id: 'meadowfield', name: 'MEADOWFIELD FARM', x: 156, y: 54, kind: 'spot', desc: 'A sprawling farm with a windmill. Its milk is famous.' },
+  { id: 'silverfall', name: 'SILVERFALL FALLS', x: 171, y: 76, kind: 'spot', desc: 'A great waterfall that shines silver at dawn.' },
+  { id: 'bramblewood', name: 'BRAMBLEWOOD FOREST', x: 157, y: 103, kind: 'spot', desc: 'A tangled forest whose paths seem to shift.' },
+  { id: 'emberpeak', name: 'EMBERPEAK VOLCANO', x: 121, y: 110, kind: 'cave', desc: 'A smoldering volcano south of WILLOWBROOK.' },
+  { id: 'route7', name: 'ROUTE 7', x: 141, y: 110, kind: 'route', desc: 'A road from the volcano east to BRAMBLEWOOD.' },
+  { id: 'marshland', name: 'MARSHLAND', x: 87, y: 107, kind: 'spot', desc: 'Misty wetlands where the rivers meet the sea.' },
+  { id: 'route6', name: 'ROUTE 6', x: 62, y: 116, kind: 'route', desc: 'A road south from CEDARWOOD to the coast.' },
+  { id: 'lighthouse', name: 'FORGOTTEN LIGHTHOUSE', x: 16, y: 108, kind: 'isle', desc: 'A lighthouse on a lonely isle. No one has lit it in years.' },
+  { id: 'grove', name: 'MYSTIC GROVE', x: 58, y: 136, kind: 'isle', desc: 'An island grove said to glow on moonless nights.' },
+  { id: 'shrine', name: 'SUNKEN SHRINE', x: 105, y: 141, kind: 'isle', desc: 'A shrine half-swallowed by the sea.' },
+  { id: 'league', name: 'AIMON LEAGUE', x: 177, y: 138, kind: 'town', desc: 'Where the strongest trainers gather. Eight BADGES are needed to enter.' },
+  { id: 'starfall', name: 'STARFALL ISLE', x: 228, y: 24, kind: 'isle', desc: 'An island where falling stars are said to land.' },
 ];
 
+// Roads as polylines, and sea routes (dotted).
+const REGION_ROADS = [
+  [[41, 37], [67, 37], [93, 38], [107, 39], [115, 45]],
+  [[116, 50], [116, 82]],
+  [[124, 46], [134, 42], [148, 39], [171, 38], [184, 36]],
+  [[188, 38], [189, 46], [188, 58], [189, 69], [202, 78], [213, 82]],
+  [[108, 84], [99, 85], [90, 87], [80, 89], [71, 88]],
+  [[66, 88], [48, 87], [37, 84], [36, 73]],
+  [[78, 94], [70, 106], [62, 116], [73, 123]],
+  [[124, 112], [140, 110], [155, 110], [161, 115]],
+  [[128, 83], [137, 83], [155, 92], [158, 100]],
+];
+const REGION_SEA = [
+  [[38, 97], [31, 102], [27, 106], [20, 107]],
+  [[27, 106], [31, 114], [39, 131], [48, 136]],
+  [[68, 138], [90, 139], [95, 132], [105, 127], [114, 135], [120, 138]],
+  [[161, 115], [164, 124], [171, 131]],
+];
+
+// Map id -> REGION id (new maps can also set def.region).
 const MAP_REGION = {
   willowbrook: 'willowbrook', home1f: 'willowbrook', home2f: 'willowbrook', rivalhouse: 'willowbrook', lab: 'willowbrook',
   route1: 'route1', archford: 'archford', centre: 'archford', mart: 'archford',
@@ -225,89 +275,117 @@ const MAP_REGION = {
 const TownMap = {
   bg: null,
 
+  regionOf(mapId) {
+    return MAP_REGION[mapId] || (MAPS[mapId] && MAPS[mapId].region) || null;
+  },
+
   background() {
     if (this.bg) return this.bg;
     const c = Pix.canvas(SCREEN_W, SCREEN_H);
     const g = c.getContext('2d');
-    g.fillStyle = '#3c70b8';
+    g.fillStyle = '#3868c0';
     g.fillRect(0, 0, SCREEN_W, SCREEN_H);
-    g.fillStyle = '#4c80c8';
-    for (let y = 4; y < SCREEN_H; y += 8) for (let x = (y / 8) % 2 ? 0 : 6; x < SCREEN_W; x += 12) g.fillRect(x, y, 4, 1);
-    // Land.
-    Pix.ellipse(g, 124, 92, 104, 58, '#5c9848');
-    Pix.ellipse(g, 124, 90, 100, 55, '#78b060');
-    Pix.ellipse(g, 60, 60, 44, 30, '#78b060');
-    Pix.ellipse(g, 196, 60, 34, 36, '#78b060');
-    // Mountains in the west.
-    for (const [x, y] of [[40, 58], [54, 52], [66, 60], [46, 70]]) {
-      g.fillStyle = '#8a6a48';
-      for (let i = 0; i < 12; i++) g.fillRect(x - i, y + i - 6, i * 2 + 1, 1);
-      g.fillStyle = '#e8e0d8';
-      for (let i = 0; i < 3; i++) g.fillRect(x - i, y + i - 6, i * 2 + 1, 1);
-    }
-    // Bamboo along route 3.
-    g.fillStyle = '#3c7a30';
-    for (let x = 140; x < 176; x += 5) g.fillRect(x, 88, 2, 6);
-    // The river, west to east.
-    g.fillStyle = '#5898e0';
-    g.fillRect(34, 74, 200, 3);
-    g.fillRect(118, 74, 3, 60);
-    // Routes.
-    const route = (a, b) => {
-      g.fillStyle = '#e8d098';
-      const n = Math.max(Math.abs(b.x - a.x), Math.abs(b.y - a.y));
-      for (let i = 0; i <= n; i++) g.fillRect(Math.round(U.lerp(a.x, b.x, i / n)) - 1, Math.round(U.lerp(a.y, b.y, i / n)) - 1, 3, 3);
+    const terrain = MonSprites.img.region_map;
+    if (terrain) g.drawImage(terrain, 0, 1);
+    const line = (pts, w, color) => {
+      g.fillStyle = color;
+      for (let k = 1; k < pts.length; k++) {
+        const [ax, ay] = pts[k - 1];
+        const [bx, by] = pts[k];
+        const n = Math.max(Math.abs(bx - ax), Math.abs(by - ay), 1);
+        for (let i = 0; i <= n; i++) {
+          g.fillRect(Math.round(U.lerp(ax, bx, i / n)) - (w >> 1), Math.round(U.lerp(ay, by, i / n)) - (w >> 1), w, w);
+        }
+      }
     };
-    const at = (id) => REGION.find((r) => r.id === id);
-    route(at('willowbrook'), at('archford'));
-    route(at('archford'), at('cave'));
-    route(at('archford'), at('grayhaven'));
-    g.fillStyle = '#c8b080';
-    for (let i = 0; i < 30; i += 4) g.fillRect(190 + i * 0.55, 80 - i, 2, 2);
+    for (const r of REGION_ROADS) line(r, 3, '#8a6c40');
+    for (const r of REGION_ROADS) line(r, 1, '#f0d898');
+    g.fillStyle = '#f8f0b0';
+    for (const r of REGION_SEA) {
+      for (let k = 1; k < r.length; k++) {
+        const [ax, ay] = r[k - 1];
+        const [bx, by] = r[k];
+        const n = Math.max(Math.abs(bx - ax), Math.abs(by - ay), 1);
+        for (let i = 0; i <= n; i += 3) g.fillRect(Math.round(U.lerp(ax, bx, i / n)), Math.round(U.lerp(ay, by, i / n)), 1, 1);
+      }
+    }
     this.bg = c;
     return c;
   },
 
-  nodeFor(mapId) {
-    return REGION.findIndex((r) => r.id === (MAP_REGION[mapId] || mapId));
+  drawPlace(g, r, visited) {
+    if (r.kind === 'town') {
+      g.fillStyle = '#301818';
+      g.fillRect(r.x - 4, r.y - 4, 8, 8);
+      g.fillStyle = visited ? '#e84838' : '#b08078';
+      g.fillRect(r.x - 3, r.y - 3, 6, 6);
+      g.fillStyle = visited ? '#f8a898' : '#d0b0a8';
+      g.fillRect(r.x - 3, r.y - 3, 6, 1);
+    } else if (r.kind === 'cave') {
+      g.fillStyle = '#201818';
+      for (let k = 0; k < 5; k++) g.fillRect(r.x - k, r.y - 2 + k, k * 2 + 1, 1);
+      g.fillStyle = '#d0c0a0';
+      g.fillRect(r.x - 4, r.y + 3, 9, 1);
+    } else if (r.kind === 'spot' || r.kind === 'isle') {
+      g.fillStyle = '#302818';
+      g.fillRect(r.x - 2, r.y - 2, 5, 5);
+      g.fillStyle = visited ? '#f8d048' : '#c8b890';
+      g.fillRect(r.x - 1, r.y - 1, 3, 3);
+    }
+  },
+
+  // Nearest place in a direction from the current one.
+  step(from, dir) {
+    const [dx, dy] = U.dirVec[dir];
+    let best = null;
+    let bestScore = Infinity;
+    for (const r of REGION) {
+      const vx = r.x - from.x;
+      const vy = r.y - from.y;
+      const along = vx * dx + vy * dy;
+      if (along <= 0) continue;
+      const across = Math.abs(vx * dy - vy * dx);
+      const score = along + across * 2.2;
+      if (score < bestScore) { bestScore = score; best = r; }
+    }
+    return best;
   },
 
   *open() {
-    const here = Math.max(0, this.nodeFor(OW.map.id));
-    const s = { opaque: true, index: here, done: false };
+    const hereId = this.regionOf(OW.map.id);
+    const here = REGION.find((r) => r.id === hereId) || REGION[0];
+    const s = { opaque: true, cur: here, done: false };
     s.update = () => {
-      if (Input.repeat('right') || Input.repeat('down')) { s.index = (s.index + 1) % REGION.length; Sound.sfx('select'); }
-      if (Input.repeat('left') || Input.repeat('up')) { s.index = (s.index + REGION.length - 1) % REGION.length; Sound.sfx('select'); }
+      for (const d of ['up', 'down', 'left', 'right']) {
+        if (!Input.repeat(d)) continue;
+        const next = this.step(s.cur, d);
+        if (next) { s.cur = next; Sound.sfx('select'); }
+      }
       if (Input.pressed('b') || Input.pressed('a') || Input.pressed('start')) { Sound.sfx('select'); s.done = true; }
     };
     s.draw = (g) => {
       g.drawImage(this.background(), 0, 0);
-      REGION.forEach((r, i) => {
-        if (r.kind === 'town') {
-          g.fillStyle = '#301818';
-          g.fillRect(r.x - 5, r.y - 5, 10, 10);
-          g.fillStyle = '#e05848';
-          g.fillRect(r.x - 4, r.y - 4, 8, 8);
-          g.fillStyle = '#f8a090';
-          g.fillRect(r.x - 4, r.y - 4, 8, 2);
-        } else if (r.kind === 'cave') {
-          g.fillStyle = '#201818';
-          for (let k = 0; k < 7; k++) g.fillRect(r.x - k, r.y - 3 + k, k * 2 + 1, 1);
-        } else if (r.kind === 'closed') {
-          Font.draw(g, '?', r.x - 2, r.y - 4, '#f8f8f8', '#404040');
-        }
-        if (i === s.index && Math.floor(Game.frame / 12) % 2) {
-          g.strokeStyle = '#f8f040';
-          g.strokeRect(r.x - 7.5, r.y - 7.5, 15, 15);
-        }
-      });
-      const me = REGION[here];
-      if (Math.floor(Game.frame / 16) % 2) g.drawImage(Chars.frame('player', 'down', 0), me.x - 8, me.y - 16);
-      UI.window(g, 2, 2, 236, 22, 'dark');
-      Font.draw(g, 'VALEMORA', 10, 9, '#b8c8f8', '#303848');
-      Font.drawRight(g, REGION[s.index].name, 230, 9, '#f8f8f8', '#303848');
-      UI.window(g, 2, 124, 236, 34);
-      Font.wrap(REGION[s.index].desc, 220).slice(0, 2).forEach((l, i) => Font.draw(g, l, 10, 130 + i * 12, '#404048', '#d0d0c8'));
+      for (const r of REGION) this.drawPlace(g, r, State.flag(`visit_${r.id}`));
+      const cur = s.cur;
+      if (Math.floor(Game.frame / 10) % 2) {
+        g.strokeStyle = '#f8f040';
+        g.lineWidth = 1;
+        g.strokeRect(cur.x - 6.5, cur.y - 6.5, 13, 13);
+      }
+      if (Math.floor(Game.frame / 16) % 2) {
+        const head = Chars.frame('player', 'down', 0);
+        g.drawImage(head, 0, 0, 16, 12, here.x - 8, here.y - 15, 16, 12);
+      }
+      // Name bar at the top, description at the bottom (or top, if the
+      // cursor is down south where the box would cover it).
+      g.globalAlpha = 0.9;
+      UI.window(g, 2, 2, 236, 20, 'dark');
+      g.globalAlpha = 1;
+      Font.draw(g, 'VALEMORA', 9, 8, '#b8c8f8', '#303848');
+      Font.drawRight(g, cur.name, 231, 8, '#f8f8f8', '#303848');
+      const by = cur.y > 104 ? 24 : 122;
+      UI.window(g, 2, by, 236, 36);
+      Font.wrap(cur.desc, 220).slice(0, 2).forEach((l, i) => Font.draw(g, l, 10, by + 7 + i * 12, '#404048', '#d0d0c8'));
     };
     Game.push(s);
     yield () => s.done;

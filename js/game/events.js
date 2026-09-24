@@ -15,7 +15,7 @@ const Events = {
       yield* this.pickItem(npc);
       return;
     }
-    if (npc.sprite !== 'ball' && !d.noFace) OW.faceTowards(npc, OW.player);
+    if (npc.sprite !== 'ball' && !d.noFace && !d.prop) OW.faceTowards(npc, OW.player);
     if (d.trainer) {
       if (!State.flag(`beat_${d.trainer}`)) {
         yield* this.trainerBattle(npc);
@@ -247,7 +247,13 @@ const Events = {
     const tr = TRAINERS[id];
     if (tr.intro) yield* say(tr.intro);
     const res = yield* this.battle({ trainer: id });
-    if (res === 'win') State.setFlag(`beat_${id}`);
+    if (res === 'win') {
+      State.setFlag(`beat_${id}`);
+      if (tr.reward && !State.count(tr.reward)) {
+        if (tr.rewardText) yield* say(tr.rewardText);
+        yield* this.receive(tr.reward, 1);
+      }
+    }
   },
 
   *wildBattle(species, level) {
@@ -271,7 +277,8 @@ const Events = {
       return 'lose';
     }
     if (lost) State.healParty();
-    Sound.playMusic(OW.map.def.music);
+    else yield* Evolution.afterBattle(b.leveled);
+    Sound.playMusic(OW.music());
     yield* Game.fadeIn(16);
     return b.result;
   },
@@ -488,8 +495,13 @@ const Events = {
       yield* say('GUARD: Halt! ROUTE 4 is closed while the city checks the ground for tremor damage.\fOrders from HOLT himself.');
       return;
     }
-    yield* say('GUARD: You beat HOLT? Impressive! But ROUTE 4 is still closed, I\'m afraid.');
-    yield* say('...That\'s as far as this adventure goes for now.\fThanks for playing!');
+    if (!State.flag('badge_grove')) {
+      yield* say('GUARD: You beat HOLT? Impressive! But ROUTE 4 is still closed, I\'m afraid.');
+      yield* say('GUARD: HOLT did leave a message for you, though. IVY, the GYM LEADER of CEDARWOOD VILLAGE, hasn\'t answered his letters.\fCEDARWOOD is west of WILLOWBROOK TOWN, along ROUTE 5.');
+      return;
+    }
+    yield* say('GUARD: IVY called ahead for you. ROUTE 4 is open! It runs south along the coast to SEABREEZE PORT.');
+    yield* say('GUARD: Watch yourself down there. That storm hasn\'t moved in days.');
   },
 
   *historianTalk() {
@@ -530,6 +542,7 @@ const Events = {
     if (State.flag('badge_keystone')) {
       yield* say('HOLT: A shard of the KEYSTONE travels with you now. Carry it well, {PLAYER}.');
       yield* say('HOLT: Rest up at the AIMON CENTRE. I have a feeling TEAM DISTORTION isn\'t done with us.');
+      if (!State.flag('badge_grove')) yield* say('HOLT: IVY, in CEDARWOOD VILLAGE, still hasn\'t answered me. It\'s west of WILLOWBROOK. Would you check on her?');
       return;
     }
     yield* say('HOLT: {PLAYER}! You came.');
@@ -598,8 +611,42 @@ const Events = {
     yield* say('TO BE CONTINUED...', dark);
     yield* Game.fadeOut(40);
     Game.remove(scene);
-    Sound.playMusic(OW.map.def.music);
+    Sound.playMusic(OW.music());
     yield* Game.fadeIn(30);
+  },
+
+  // -- Fishing (OLD ROD) ----------------------------------------------------------
+  *fishPrompt() {
+    if (!(yield* Dialog.yesNo('The water is deep and dark.\nFish with the OLD ROD?'))) return;
+    Dialog.close();
+    yield* this.fish();
+  },
+
+  *fish() {
+    const p = OW.player;
+    const [dx, dy] = U.dirVec[p.dir];
+    const table = OW.map.def.fishing;
+    if (!table || !Tiles.def(OW.tile(p.x + dx, p.y + dy)).water) {
+      yield* say(table ? 'Face the water to use the OLD ROD.' : 'There\'s nowhere to fish here.');
+      return;
+    }
+    OW.fishing = true;
+    Sound.sfx('select');
+    yield* say('{PLAYER} cast the OLD ROD...', { auto: 20 });
+    yield* say('. . . . . .', { auto: 30 + U.rand(60) });
+    if (!U.chance(0.7)) {
+      OW.fishing = false;
+      yield* say('Not even a nibble...');
+      return;
+    }
+    OW.fishing = 'bite';
+    p.emote = 30;
+    Sound.sfx('exclaim');
+    yield* say('Oh! A bite!', { auto: 30 });
+    OW.fishing = false;
+    Dialog.close();
+    const e = U.weighted(table.table);
+    yield* this.wildBattle(e.species, U.randInt(e.min, e.max));
   },
 
   *escapeRope() {

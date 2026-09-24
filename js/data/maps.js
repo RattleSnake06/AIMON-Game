@@ -22,7 +22,7 @@ const MAPS = {
       'TT.#####...::..#####..TT',
       'TT.#####...::..#####..TT',
       'TT..o:S....::...S:o...TT',
-      'TT...:::::::::::::....TT',
+      ':::::::::::::::::::...TT',
       'TT.........::.........TT',
       'TT.~~~~....::...ff....TT',
       'TT.~~~~..::::.........TT',
@@ -41,7 +41,7 @@ const MAPS = {
       { type: 'houseBlue', x: 15, y: 4, to: 'rivalhouse' },
       { type: 'lab', x: 11, y: 14, to: 'lab' },
     ],
-    connections: { north: { map: 'route1', offset: 0 } },
+    connections: { north: { map: 'route1', offset: 0 }, west: { map: 'route5', offset: 2 } },
     signs: [
       { x: 9, y: 3, text: 'WILLOWBROOK TOWN\nWhere the river begins.' },
       { x: 6, y: 8, text: '{PLAYER}\'s house' },
@@ -57,11 +57,14 @@ const MAPS = {
         text: () => (State.flag('got_starter')
           ? 'Oh, you got your own AIMON? Take good care of it!'
           : 'Wild AIMON live in the tall grass north of town. You need your own AIMON to go through safely!') },
+      { id: 'wb_worker', person: 'worker', x: 1, y: 9, dir: 'right', move: 'still', hideIf: 'badge_keystone',
+        text: 'Whoa there! The tremors knocked rocks all over the road to CEDARWOOD VILLAGE.\fWe\'re still clearing them. Try again later!' },
       { id: 'wb_man', person: 'man', x: 7, y: 12, dir: 'left', move: 'look',
         text: 'I come to this pond every morning. Sometimes a GOSKIE flock lands here to rest!' },
     ],
     triggers: [
       { x: 11, y: 2, w: 2, h: 1, script: 'leaveTownCheck' },
+      { x: 3, y: 9, w: 1, h: 1, script: 'lindenEvolution' },
     ],
   },
 
@@ -716,7 +719,7 @@ const MAPS = {
       { type: 'houseDusk', x: 12, y: 20, to: 'gh_house2' },
       { type: 'houseStone', x: 26, y: 20, to: 'gh_house3' },
     ],
-    connections: { west: { map: 'route3', offset: -8 } },
+    connections: { west: { map: 'route3', offset: -8 }, east: { map: 'route4', offset: -15 } },
     triggers: [{ x: 16, y: 8, w: 1, h: 1, script: 'epilogue', onArrive: true }],
     signs: [
       { x: 2, y: 16, text: 'GRAYHAVEN CITY\nThe city of steadfast stone.' },
@@ -731,7 +734,8 @@ const MAPS = {
       { x: 20, y: 21, text: 'A fountain carved like a RUFFANG standing guard.' },
     ],
     npcs: [
-      { id: 'gh_guard', person: 'guard', x: 33, y: 17, dir: 'left', move: 'still', script: 'guardTalk' },
+      { id: 'gh_guard', person: 'guard', x: 33, y: 17, dir: 'left', move: 'still', script: 'guardTalk', hideIf: 'badge_grove' },
+      { id: 'gh_guard2', person: 'guard', x: 32, y: 16, dir: 'down', move: 'still', script: 'guardTalk', showIf: 'badge_grove' },
       { id: 'gh_boy', person: 'boy', x: 8, y: 4, dir: 'down', move: 'wander',
         text: () => (State.flag('holt_saved')
           ? 'HOLT is back! He says a kid from WILLOWBROOK saved him. Was that you?!'

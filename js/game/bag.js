@@ -112,7 +112,7 @@ const Bag = {
       if (id === 'close') break;
       const it = ITEMS[id];
       if (opts.battle) {
-        if (it.pocket === 'key' || it.pocket === 'tms' || it.field) {
+        if (it.pocket === 'key' || it.pocket === 'tms' || it.field || it.rod) {
           yield* scr.say('This can\'t be used in battle.');
           continue;
         }
@@ -146,6 +146,13 @@ const Bag = {
         const learned = yield* this.useTM(scr, id);
         if (learned === 'close') { result = null; break; }
         continue;
+      }
+      if (it.rod) {
+        const k = yield* Menu.choose({ items: ['USE', 'CANCEL'], x: 170, y: 58, cancel: 1 });
+        if (k !== 0) continue;
+        Game.remove(scr);
+        OW.pendingFish = true;
+        return null;
       }
       const k = yield* Menu.choose({ items: it.pocket === 'key' ? ['CANCEL'] : ['USE', 'TOSS', 'CANCEL'], x: 170, y: 58, cancel: it.pocket === 'key' ? 0 : 2 });
       if (it.pocket === 'key') continue;
@@ -210,8 +217,13 @@ const Bag = {
     const mv = ITEMS[id].tm;
     const i = yield* Party.open({ mode: 'item', msg: `Teach ${MOVES[mv].name} to which AIMON?` });
     if (i < 0) return false;
-    Game.remove(scr);
     const mon = State.party[i];
+    const compat = (TMS[id] || {}).compat;
+    if (compat && !mon.types.some((t) => compat.includes(t))) {
+      yield* scr.say(`${mon.name} can't learn ${MOVES[mv].name}.`);
+      return false;
+    }
+    Game.remove(scr);
     Sound.sfx('boot');
     const ok = yield* learnMoveFlow(mon, mv, 'field');
     Game.push(scr);

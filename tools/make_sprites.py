@@ -19,6 +19,7 @@ Usage:
   pip install pymupdf pillow numpy
   python3 tools/make_sprites.py                       # pixel-art sheets only
   python3 tools/make_sprites.py starter_mons.pdf route_1_mons.pdf   # + PDFs
+  ONLY=tidepup,tidefin python3 tools/make_sprites.py                # just these
 """
 import base64
 import io
@@ -48,6 +49,19 @@ SHEETS = {
     'ruffang': 'aimon_sheet_2.webp',
     'leafgrub': 'aimon_sheet_2.webp',
     'bambuck': 'aimon_sheet_2.webp',
+    'wraithling': 'aimon_sheet_3.webp',
+    'umbrafang': 'aimon_sheet_3.webp',
+    'flambramble': 'aimon_sheet_3.webp',
+    'tidepup': 'aimon_sheet_4.webp',
+    'tidefin': 'aimon_sheet_4.webp',
+    'reefwhirl': 'aimon_sheet_4.webp',
+    'reeflord': 'aimon_sheet_4.webp',
+    'skydrift': 'aimon_sheet_4.webp',
+    'skyseraph': 'aimon_sheet_4.webp',
+    'voltimp': 'aimon_sheet_5.webp',
+    'stormgale': 'aimon_sheet_5.webp',
+    'tuner': 'aimon_sheet_6.webp',
+    'sonarion': 'aimon_sheet_6.webp',
 }
 
 # Crop boxes (in sheet pixels) around each turnaround view, the view used
@@ -116,6 +130,73 @@ VIEWS = {
         'front': dict(box=(688, 672, 896, 856), fit=(60, 56), sat=1.05, tol=40),
         'back': dict(box=(940, 856, 1056, 1008), fit=(52, 60), sat=1.05, tol=40),
         'icon': dict(box=(1144, 676, 1220, 796), fit=(24, 28), sat=1.05, tol=40),
+    },
+    # Chapter 3 sheets. Most show one view only; the player's side then
+    # uses the same art mirrored so it faces the opponent.
+    'wraithling': {
+        'front': dict(box=(20, 80, 310, 492), fit=(50, 62), sat=1.05, tol=40),
+        'back': dict(box=(20, 80, 310, 492), fit=(50, 62), sat=1.05, tol=40, flip=True),
+        'icon': dict(box=(322, 95, 432, 250), fit=(22, 28), sat=1.05, tol=40),
+    },
+    'umbrafang': {
+        'front': dict(box=(778, 85, 1122, 482), fit=(62, 62), sat=1.05, tol=40, holes=24, erase=[(1096, 85, 1122, 262)]),
+        'back': dict(box=(778, 85, 1122, 482), fit=(62, 62), sat=1.05, tol=40, holes=24, flip=True, erase=[(1096, 85, 1122, 262)]),
+        'icon': dict(box=(1100, 86, 1242, 252), fit=(28, 28), sat=1.05, tol=40, holes=24, erase=[(1100, 150, 1112, 252), (1220, 186, 1242, 252)]),
+    },
+    'flambramble': {
+        'front': dict(box=(28, 582, 332, 988), fit=(56, 62), sat=1.05, tol=34),
+        'back': dict(box=(28, 582, 332, 988), fit=(56, 62), sat=1.05, tol=34, flip=True),
+        'icon': dict(box=(318, 588, 468, 752), fit=(26, 28), sat=1.05, tol=34),
+    },
+    'tidepup': {
+        'front': dict(box=(28, 78, 260, 308), fit=(52, 50), sat=1.05, tol=30),
+        'back': dict(box=(28, 78, 260, 308), fit=(52, 50), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(28, 78, 260, 308), fit=(26, 26), sat=1.05, tol=30),
+    },
+    'tidefin': {
+        'front': dict(box=(148, 622, 372, 848), fit=(60, 58), sat=1.05, tol=30),
+        'back': dict(box=(148, 622, 372, 848), fit=(60, 58), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(148, 622, 372, 848), fit=(28, 28), sat=1.05, tol=30),
+    },
+    'reefwhirl': {
+        'front': dict(box=(512, 58, 762, 318), fit=(56, 58), sat=1.05, tol=30),
+        'back': dict(box=(512, 58, 762, 318), fit=(56, 58), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(512, 58, 762, 318), fit=(26, 28), sat=1.05, tol=30),
+    },
+    'reeflord': {
+        'front': dict(box=(628, 614, 912, 848), fit=(62, 60), sat=1.05, tol=30),
+        'back': dict(box=(628, 614, 912, 848), fit=(62, 60), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(628, 614, 912, 848), fit=(28, 28), sat=1.05, tol=30),
+    },
+    'skydrift': {
+        'front': dict(box=(1012, 48, 1288, 334), fit=(58, 60), sat=1.05, tol=30, flip=True),
+        'back': dict(box=(1012, 48, 1288, 334), fit=(58, 60), sat=1.05, tol=30),
+        'icon': dict(box=(1012, 48, 1288, 334), fit=(28, 28), sat=1.05, tol=30, flip=True),
+    },
+    'skyseraph': {
+        'front': dict(box=(1072, 612, 1482, 860), fit=(64, 44), sat=1.05, tol=30),
+        'back': dict(box=(1072, 612, 1482, 860), fit=(64, 44), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(1072, 612, 1482, 860), fit=(30, 22), sat=1.05, tol=30),
+    },
+    'voltimp': {
+        'front': dict(box=(48, 122, 392, 528), fit=(54, 58), sat=1.05, tol=30),
+        'back': dict(box=(288, 672, 448, 882), fit=(48, 58), sat=1.05, tol=30),
+        'icon': dict(box=(62, 672, 218, 878), fit=(24, 28), sat=1.05, tol=30),
+    },
+    'stormgale': {
+        'front': dict(box=(818, 658, 1018, 898), fit=(58, 62), sat=1.05, tol=30),
+        'back': dict(box=(1058, 662, 1258, 898), fit=(56, 62), sat=1.05, tol=30),
+        'icon': dict(box=(818, 658, 1018, 898), fit=(26, 28), sat=1.05, tol=30),
+    },
+    'tuner': {
+        'front': dict(box=(102, 982, 266, 1122), fit=(48, 44), sat=1.05, tol=30),
+        'back': dict(box=(102, 982, 266, 1122), fit=(48, 44), sat=1.05, tol=30, flip=True),
+        'icon': dict(box=(102, 982, 266, 1122), fit=(26, 24), sat=1.05, tol=30),
+    },
+    'sonarion': {
+        'front': dict(box=(376, 676, 604, 838), fit=(62, 50), sat=1.05, tol=30),
+        'back': dict(box=(202, 676, 358, 838), fit=(54, 58), sat=1.05, tol=30),
+        'icon': dict(box=(46, 676, 184, 838), fit=(26, 28), sat=1.05, tol=30),
     },
     'mellowcap': {
         'front': dict(box=(280, 655, 560, 878), fit=(62, 50), sat=1.5),
@@ -251,7 +332,23 @@ def quantize(rgb, opaque, colors=15):
 
 def make_sprite(sheet, view, frame):
     crop = sheet.crop(view['box'])
-    mask = drop_specks(key_background(crop, tol_global=view.get('tol', 34.0)))
+    if view.get('erase'):
+        # Paint over bits of neighbouring art that fall inside the box.
+        bx, by = view['box'][:2]
+        a = np.asarray(crop).copy()
+        ref = np.median(np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]]), axis=0)
+        for x0, y0, x1, y1 in view['erase']:
+            a[max(0, y0 - by):y1 - by, max(0, x0 - bx):x1 - bx] = ref
+        crop = Image.fromarray(a)
+    if view.get('flip'):
+        crop = crop.transpose(Image.FLIP_LEFT_RIGHT)
+    mask = key_background(crop, tol_global=view.get('tol', 34.0))
+    if view.get('holes'):
+        # Background showing through gaps enclosed by the body (between legs).
+        a = np.asarray(crop).astype(np.float32)
+        ref = np.median(np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]]), axis=0)
+        mask &= np.sqrt(((a - ref) ** 2).sum(axis=2)) >= view['holes']
+    mask = drop_specks(mask)
     rgb, opaque = shrink(crop, mask, view['fit'])
     rgb = enhance(rgb, view.get('sat', 1.25))
     rgb = outline(rgb, opaque)
@@ -288,7 +385,10 @@ def main():
     pdf_sheets = load_sheets(pdfs) if pdfs else None
     sprite_dir = os.path.join(ROOT, 'assets', 'sprites')
     os.makedirs(sprite_dir, exist_ok=True)
+    only = set(filter(None, os.environ.get('ONLY', '').split(',')))
     for mon, src in SHEETS.items():
+        if only and mon not in only:
+            continue
         if isinstance(src, tuple):
             if not pdf_sheets:
                 continue

@@ -26,14 +26,24 @@ const ITEMS = {
     desc: 'Leads you out of a cave back to its entrance.' },
   expshare: { name: 'EXP. SHARE', pocket: 'key', toggle: true,
     desc: 'Lets AIMON that didn\'t battle earn half the EXP. Select to turn it ON or OFF.' },
+  oldrod: { name: 'OLD ROD', pocket: 'key', rod: true,
+    desc: 'An old fishing rod. Face the water and press A, or use it from here, to fish for AIMON.' },
+  cardkey: { name: 'CARD KEY', pocket: 'key',
+    desc: 'A TEAM DISTORTION key card. It opens the energy gates in their hideout.' },
   tm01: { name: 'TM01 SWIFT', pocket: 'tms', tm: 'swift',
     desc: 'Teaches SWIFT: star-shaped rays that never miss. Can be used again and again.' },
+  tm02: { name: 'TM02 MAGICAL LEAF', pocket: 'tms', tm: 'magicalleaf',
+    desc: 'Teaches MAGICAL LEAF: curious leaves that never miss. Can be used again and again.' },
+  tm03: { name: 'TM03 WATER PULSE', pocket: 'tms', tm: 'waterpulse',
+    desc: 'Teaches WATER PULSE: a pulsing blast of water. Can be used again and again.' },
 };
 
 // What each AIMON MART sells.
 const MART_STOCK = {
   archford: ['aimonball', 'potion', 'superpotion', 'parlyzheal', 'awakening', 'burnheal', 'repel', 'escaperope', 'revive'],
   grayhaven: ['aimonball', 'greatball', 'potion', 'superpotion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
+  cedarwood: ['aimonball', 'greatball', 'potion', 'superpotion', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'revive'],
+  seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
 };
 
 // Status conditions.

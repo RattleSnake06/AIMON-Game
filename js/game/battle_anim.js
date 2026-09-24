@@ -48,6 +48,58 @@ const BattleArt = {
       g.fillStyle = '#d8b050';
       g.fillRect(98, 39, 2, 73);
       g.fillRect(140, 39, 2, 73);
+    } else if (kind === 'forest') {
+      // Deep, dim woods.
+      const sky = ['#28402c', '#2c4830', '#305034', '#34583a'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 12, 240, 12); });
+      const r = U.seeded(17);
+      for (let x = -10; x < 250; x += 18) {
+        const h = 24 + Math.floor(r() * 16);
+        g.fillStyle = '#1c3020';
+        for (let y = 0; y < h; y++) g.fillRect(x - Math.round(y / 2.2), 50 - h + y, Math.round(y / 1.1) + 2, 1);
+        g.fillStyle = '#3a2c20';
+        g.fillRect(x, 44, 3, 8);
+      }
+      for (let y = 50; y < 112; y++) {
+        g.fillStyle = ['#4c7048', '#527650', '#587c56', '#5e825c'][Math.min(3, Math.floor((y - 50) / 16))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = 'rgba(200,180,255,0.35)';
+      for (let i = 0; i < 12; i++) g.fillRect(Math.floor(r() * 240), 10 + Math.floor(r() * 90), 1, 1);
+    } else if (kind === 'hideout') {
+      g.fillStyle = '#282434';
+      g.fillRect(0, 0, 240, 112);
+      g.fillStyle = '#34304a';
+      for (let x = 0; x < 240; x += 24) g.fillRect(x, 0, 22, 38);
+      g.fillStyle = '#9060e0';
+      g.fillRect(0, 30, 240, 2);
+      g.fillStyle = '#1c1826';
+      g.fillRect(0, 38, 240, 4);
+      // Roots breaking through the ceiling.
+      g.fillStyle = '#5a4430';
+      for (const [x, w] of [[20, 6], [70, 4], [150, 7], [210, 5]]) {
+        for (let y = 0; y < 28; y++) g.fillRect(x + Math.round(Math.sin(y / 5) * 3), y, Math.max(1, w - Math.floor(y / 7)), 1);
+      }
+      for (let y = 42; y < 112; y += 10) { g.fillStyle = '#3c3850'; g.fillRect(0, y, 240, 1); }
+      for (let x = 0; x < 240; x += 20) { g.fillStyle = '#3c3850'; g.fillRect(x, 42, 1, 70); }
+    } else if (kind === 'beach' || kind === 'storm') {
+      const storm = kind === 'storm';
+      const sky = storm ? ['#303848', '#384050', '#404858', '#485060', '#505868'] : ['#80c0f0', '#90c8f0', '#a0d0f0', '#b0d8f0', '#c0e0f0'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 7, 240, 7); });
+      g.fillStyle = storm ? '#384858' : '#4880c8';
+      g.fillRect(0, 35, 240, 12);
+      g.fillStyle = storm ? '#506070' : '#78a8e0';
+      for (let x = 0; x < 240; x += 12) g.fillRect(x + ((x / 12) % 2) * 5, 38, 6, 1);
+      const sand = storm ? ['#a89c80', '#b0a488', '#b8ac90', '#c0b498'] : ['#e8d8a0', '#ecdca8', '#f0e0b0', '#f4e4b8'];
+      for (let y = 47; y < 112; y++) {
+        g.fillStyle = sand[Math.min(3, Math.floor((y - 47) / 16))];
+        g.fillRect(0, y, 240, 1);
+      }
+      if (storm) {
+        g.fillStyle = 'rgba(200,210,230,0.5)';
+        const r = U.seeded(3);
+        for (let i = 0; i < 40; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 112), 1, 4);
+      }
     } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
@@ -97,6 +149,10 @@ const BattleArt = {
       indoor: ['#8888a0', '#b0b0c8', '#c8c8dc'],
       cave: ['#3c343a', '#585058', '#6c6470'],
       gym: ['#7c746c', '#a0988e', '#bcb4aa'],
+      forest: ['#34502c', '#4c6c40', '#608050'],
+      hideout: ['#403a58', '#58507a', '#6c6490'],
+      beach: ['#c0a870', '#d8c490', '#e8d8a8'],
+      storm: ['#80785c', '#9c9474', '#b0a888'],
     }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);
@@ -132,6 +188,9 @@ const BattleArt = {
       silk: [['wwwwwww'], { w: '#f0f0f0' }],
       vine: [['..gg', '.gg.', 'gg..', 'g...'], { g: '#48a040' }],
       down: [['..www..', '..www..', 'www.www', '.wwwww.', '..www..', '...w...'], { w: '#f86060' }],
+      ghost: [['..ppp..', '.pPPPp.', 'pPwPwPp', 'pPPPPPp', 'pPPPPPp', 'p.p.p.p'], { p: '#503878', P: '#8868c0', w: '#f0e0ff' }],
+      wisp: [['..v..', '.vVv.', 'vVwVv', '.vVv.', '..v..'], { v: '#7048c8', V: '#b090f8', w: '#f0e8ff' }],
+      ring: [['..bbbb..', '.b....b.', 'b......b', 'b......b', '.b....b.', '..bbbb..'], { b: '#90a8f8' }],
     };
     const [rows, pal] = S[name];
     this.cache[name] = Pix.fromRows(rows, pal);
@@ -456,6 +515,38 @@ const BattleFX = {
           lines.forEach((l, i) => { l.x = U.lerp(from[0], to[0], t); l.y = U.lerp(from[1], to[1], t) + i * 4 - 4; });
         });
         for (const l of lines) b.parts.splice(b.parts.indexOf(l), 1);
+        break;
+      }
+      case 'ghost': {
+        // A shade drifts over to the foe and the screen dims.
+        Sound.sfx('hum');
+        b.dim = 0.35;
+        yield* this.fly(b, BattleArt.sprite('ghost'), from, to, 20, 16, 2);
+        yield* all(this.shake(b, target, 3, 14), this.burst(b, BattleArt.sprite('wisp'), to, 6, 18, 16));
+        b.dim = 0;
+        break;
+      }
+      case 'wisp':
+        Sound.sfx('fire');
+        for (let i = 0; i < 3; i++) {
+          Co.start(this.fly(b, BattleArt.sprite('wisp'), from, [to[0] + (i - 1) * 10, to[1] - 4 + i * 4], 22, 20, 2));
+          yield 6;
+        }
+        yield 22;
+        break;
+      case 'wave': {
+        // Expanding sound rings.
+        const rings = [];
+        for (let i = 0; i < 4; i++) {
+          Sound.sfx('select');
+          const r = this.add(b, { img: BattleArt.sprite('ring'), x: from[0], y: from[1], scale: 1 });
+          rings.push(r);
+          Co.start(this.tween(18, (t) => { r.x = U.lerp(from[0], to[0], t); r.y = U.lerp(from[1], to[1], t); r.scale = 1 + t * 2; r.alpha = 1 - t * 0.6; }));
+          yield 5;
+        }
+        yield 16;
+        for (const r of rings) b.parts.splice(b.parts.indexOf(r), 1);
+        yield* all(this.shake(b, target, 3, 12), this.impact(b, to));
         break;
       }
       default:

@@ -68,6 +68,14 @@ class Mon {
     return { gains, newMoves };
   }
 
+  // Change species (evolution), keeping level, moves and damage taken.
+  evolveTo(species) {
+    const oldMax = this.stats.hp;
+    this.species = species;
+    this.calcStats();
+    if (!this.fainted) this.hp = U.clamp(this.hp + this.stats.hp - oldMax, 1, this.stats.hp);
+  }
+
   knows(id) { return this.moves.some((m) => m.id === id); }
 
   learn(id, slot = this.moves.length) {
