@@ -3,7 +3,7 @@
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
 designs from the design sheets, plus seven originals drawn in code. The story
-currently runs up to the seventh GYM BADGE (chapter 9 of the planned 15; the
+currently runs up to the eighth GYM BADGE (chapter 12 of the planned 15; the
 whole plan is in [docs/STORY.md](docs/STORY.md)).
 
 | | |
@@ -33,6 +33,13 @@ whole plan is in [docs/STORY.md](docs/STORY.md)).
 | ![Route 11 in the snow](docs/screenshots/route11.png) | ![Stonepeak Woods](docs/screenshots/stonepeak.png) |
 | ![CANTOR remembers AUGUST VALE](docs/screenshots/cantor.png) | ![MORROW under the great bell](docs/screenshots/belfry.png) |
 | ![GYM LEADER CANTOR](docs/screenshots/cantorbattle.png) | ![A letter signed (R.)](docs/screenshots/letter.png) |
+| ![Emberpeak Volcano](docs/screenshots/emberpeak.png) | ![The FORGE's catwalks over the lava](docs/screenshots/forge.png) |
+| ![KAI finds his brother RYKER](docs/screenshots/ryker.png) | ![Battling COMMANDER RYKER's RYKARN](docs/screenshots/rykerbattle.png) |
+| ![DR. AUGUST VALE at the GRAND RESONATOR](docs/screenshots/vale.png) | ![Battling the CONDUCTOR](docs/screenshots/valebattle.png) |
+| ![Silverfall goes dark](docs/screenshots/blackout.png) | ![The WARDENS' council](docs/screenshots/council.png) |
+| ![The Marshland landing](docs/screenshots/marshland.png) | ![The final verse in the MYSTIC GROVE](docs/screenshots/grove.png) |
+| ![Starfall Isle](docs/screenshots/starfall.png) | ![GYM LEADER NOX under the dome](docs/screenshots/nox.png) |
+| ![The sky over the south turns violet](docs/screenshots/violet.png) | ![Trainer card with eight BADGES](docs/screenshots/card8.png) |
 
 ## Play
 
@@ -281,7 +288,9 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 
 54. **Route 11** climbs north from ARCHFORD into the snow, with deep drifts,
     a frozen pond, snowy ledges, hikers and skiers, UMBRAFANG tracks, and
-    wild **GLACRON**, **NOCTHERYX**, **BELLPUP** and (rarely) UMBRAFANG.
+    the ICE-type **CHILLPIP**, **SNOWKIT**, **FROSTLING** and **FROSTFAWN**
+    (EMPERICE and GLACIOLEM turn up rarely), along with GLACRON, BELLPUP,
+    NOCTHERYX and UMBRAFANG.
 55. **Stonepeak Woods** is a snowy village around an old bell tower. The
     great bell rings every hour but one: the hour of silence.
 56. **CANTOR**, the oldest WARDEN, tells you about his brightest pupil, a
@@ -297,7 +306,82 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     **TM07 HYPER VOICE**.
 59. **The letter.** A grunt delivers a sealed letter for "the child and the
     boy": *EMBERPEAK. Tomorrow at dusk. Bring him. (R.)* KAI goes pale. "I
-    know that handwriting." To be continued...
+    know that handwriting."
+
+**Chapter 10: The Commander**
+
+60. **The south road.** The morning after the letter, the barriers on
+    WILLOWBROOK's south road have been dragged into the trees. KAI is
+    waiting, and barely says a word.
+61. **Route 7** runs south past a hot-spring inn (a free heal) into ash
+    fields and lava, with a hiker, a camper, a blackbelt and a picnicker,
+    and wild **VOLCARN**, **EMBERTAIL**, **GEODILLO**, **PEBBEAT**,
+    **CINDRAKE** and **QUAKEPIKE**.
+62. **Emberpeak Volcano** has been fenced off by SONANCE ENERGY. At the
+    FORGE gate KAI finally says it: the letter is in his brother
+    **RYKER**'s handwriting. Wild RIFFSTONE, PYROCLAST and HOURGHAST.
+63. **The FORGE** is two lava lakes crossed by catwalks, with grunts and a
+    scientist. Steam from the heat pumps seals the stairs, so KAI slips off
+    to find the control room and shuts the pumps down over the intercom.
+64. **The crater's heart.** The COMMANDER is RYKER, who lost the CHAMPION
+    match eight years ago: "Second place is silence." KAI: "Mom still sets
+    a plate for you." RYKER: "Go home, little brother." **Battle:**
+    UMBRAFANG, STORMGALE, OBELITH, SKYSERAPH and **RYKARN**. He drops the
+    **COMMANDER'S KEY** ("You took it. Nobody's ever...") and pauses at the
+    stairs: "...Tell Mom I'm sorry." KAI: "Let's finish this."
+
+**Chapter 11: The Grand Resonator**
+
+65. **The vault.** The COMMANDER'S KEY opens the sealed door on SONANCE
+    TOWER 3F.
+66. **4F is the GRAND RESONATOR**: organ pipes, cables and glowing tanks
+    holding five and a half KEYSTONE songs. ADMIN **MORROW** (HOURGHAST,
+    NOCTUMOTH, UMBRAFANG) steps aside: "The CONDUCTOR will see you now.
+    You're right on time."
+67. **The CONDUCTOR is DR. AUGUST VALE**, playing a cello at the heart of
+    the machine. He tells you about ECHO and the "true world", and that he
+    let you win your BADGES: "I'm not destroying VALEMORA. I'm finishing
+    its song." **Battle** (with its own theme): SONARION, REEFLORD,
+    STORMGALE and **CYGNATA**.
+68. The RESONATOR has been tuning every SONANCE line in VALEMORA. The
+    performance will be at the **SUNKEN SHRINE**, "and you will bring me the
+    rest yourself." He leaves with MORROW.
+69. **The master switch.** You and KAI pull it together, and **Silverfall
+    goes dark** for one night. The whole city comes out to look at the
+    stars. KAI goes home to tell his mother about RYKER himself.
+70. **The WARDENS' council** in GRAYHAVEN GYM. NOX of STARFALL ISLE hasn't
+    answered in a week, and CANTOR says the FIRST SCORE's lost final verse
+    is carved in the **MYSTIC GROVE**, readable only on a moonless night.
+    That's tonight.
+
+**Chapter 12: Starfall**
+
+71. **Route 6** opens south of CEDARWOOD: a misty road through reed beds
+    and mud, with wild **FERNEWT**, **MUDBARBEL**, **BRIARWILD**,
+    **FLORAXOL** and **GANDERGALE**.
+72. **The Marshland** has pools, boardwalks, a hut where a granny heals your
+    team, and NERISSA's boat at the landing. **ABYSSLURE** bites on a
+    fishing line here.
+73. **The Mystic Grove**, by boat on a moonless night: standing stones glow
+    around an altar, and PROF. LINDEN and SAHRA read the final verse:
+    *"Eight voices, one song, forward, together, and the one who carries
+    all eight sings last."* Wild **GLOAMFERN** and **HEXWRAITH**.
+74. **VESPER is there alone.** She doesn't fight. The CONDUCTOR's recordings
+    are off-key and incomplete (no MILLSTONE, half a BELLSTONE): "When he
+    plays, your BADGES will answer. Don't let him hear them first."
+75. **Starfall Isle**, a night and a day's sail away, is an observatory
+    village of fallen star crystals, **COMETCUB** and astronomers. TEAM
+    DISTORTION has taken the observatory and locked NOX in her own archive.
+76. **The observatory.** After the last grunts, MORROW is already in the
+    dome: the STARSTONE is recorded. "Time was always on my side." He warps
+    away, and **VESPER frees NOX** through the air vent.
+77. **GYM 8: NOX** under the open dome at midnight (NOCTUMOTH, HEXWRAITH,
+    HOURGHAST, UMBRAFANG and **METEORWOLF**) gives the **STAR BADGE** and
+    **TM08 SHADOW BALL**.
+78. **Eight BADGES** hum as one: the CHAMPION'S OATH. NOX: "Then you're the
+    one who sings last." That night the sky over the south turns violet,
+    the SUNKEN SHRINE rises from the sea, and AIMON everywhere fall silent.
+    The CONDUCTOR has begun the COUNTERMELODY. To be continued...
 
 **Gameplay**
 
@@ -369,8 +453,9 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
   PLUME, FLARE BLITZ, WILD CHARGE, EARTHQUAKE, BRICK BREAK, AURA SPHERE,
   CLOSE COMBAT, X-SCISSOR, AERIAL ACE, HURRICANE, BRAVE BIRD, STONE EDGE,
   NIGHT SLASH and DARK PULSE.
-- **AIMON for chapters 11-15 (No. 67-94)**, also in the AIMONDEX and waiting
-  for their chapters:
+- **AIMON for chapters 9-15 (No. 67-94)**. The ICE lines live on ROUTE 11,
+  and most of the rest appear in chapters 10-12; AMPOLITH and the two
+  legendaries are still waiting for their chapters:
   - new Lv 36 forms of early AIMON: GANDERGALE (WATER/FLYING), HEXWRAITH
     (GHOST), THUNDERVIX (ELECTRIC), BRAWLPAW (FIGHTING) and QUAKEPIKE
     (GROUND);
@@ -380,8 +465,9 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     GRASS/WATER), MUDBARBEL (WATER/GROUND), GLOAMFERN (GHOST/GRASS, seen only
     on moonless nights), COMETCUB → METEORWOLF (38, ROCK/DARK, NOX's ace) and
     ABYSSLURE (WATER/DARK);
-  - for VICTORY PATH: BRIARLET → BRIARWILD (22, GRASS/DARK) and PEBBEAT →
-    RIFFSTONE (28) → AMPOLITH (36, ROCK/SOUND);
+  - BRIARLET → BRIARWILD (22, GRASS/DARK) and PEBBEAT → RIFFSTONE (28) →
+    AMPOLITH (36, ROCK/SOUND), planned for VICTORY PATH; BRIARWILD, PEBBEAT
+    and RIFFSTONE already turn up in chapters 10-12;
   - two legendaries: ELEGIRA (SOUND/GHOST), who sleeps under the SUNKEN
     SHRINE, and ASTRALYX (DARK), the STARSTONE legend of the MYSTIC GROVE.
 
@@ -429,9 +515,11 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - **Move Reminder:** an old sage in Cedarwood teaches AIMON moves they have
   forgotten, for free.
 - **Weather:** rain on Route 4 and a thunderstorm over Seabreeze, both of
-  which clear up for good once the storm is broken.
+  which clear up for good once the storm is broken; mist over the MARSHLAND,
+  starry night skies in the MYSTIC GROVE and on STARFALL ISLE, and one very
+  dark night in SILVERFALL.
 - Some TMs can only be taught to certain types (MAGICAL LEAF, WATER PULSE).
-- **Town map** of the whole region, based on the VALEMORA map: 26 places, with
+- **Town map** of the whole region, based on the VALEMORA map: 33 places, with
   roads and sea routes. The places you've visited are marked, and you can
   move the cursor to read about each one.
 - Trainer AI avoids moves the target is immune to, and won't try to inflict
@@ -458,10 +546,12 @@ art/                  the design sheets and the VALEMORA region map
 ```
 
 Later chapters live in their own files next to the originals: `tiles_ext.js`,
-`tiles_ch3.js`, `tiles_ch4.js`, `tiles_ch6.js` and `tiles_ch8.js` (tiles,
-buildings and props), `maps_ch3.js`, `maps_ch4.js`, `maps_ch6.js`,
-`maps_ch8.js`, `events_ch3.js`, `events_ch4.js` (the chapter 5 story),
-`events_ch6.js` (chapters 6 and 7) and `events_ch8.js` (chapters 8 and 9).
+`tiles_ch3.js`, `tiles_ch4.js`, `tiles_ch6.js`, `tiles_ch8.js` and
+`tiles_ch10.js` (tiles, buildings and props), `maps_ch3.js`, `maps_ch4.js`,
+`maps_ch6.js`, `maps_ch8.js`, `maps_ch10.js`, `events_ch3.js`,
+`events_ch4.js` (the chapter 5 story), `events_ch6.js` (chapters 6 and 7),
+`events_ch8.js` (chapters 8 and 9) and `events_ch10.js` (chapters 10 to
+12).
 Evolution is in `evolution.js`, and the DS-style battle panels and HP plates
 are in `battle_ui.js`.
 
@@ -529,5 +619,6 @@ Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `route2`, `cave`, `route3`, `grayhaven`, `route5`, `pinecrest`, `cedarwood`,
 `library`, `route4`, `seabreeze`, `lighthouse`, `route8`, `silverfall`, `hq`, `bridge`,
 `cragmoor`, `route9`, `route10`, `sunspire`, `dig`, `route12`, `meadowfield`,
-`windmill`, `route11`, `stonepeak`, `belltower`. Add `&starter=moltarock` or
-`&starter=archepin` to pick the starter.
+`windmill`, `route11`, `stonepeak`, `belltower`, `route7`, `emberpeak`, `forge`,
+`resonator`, `route6`, `marshland`, `grove`, `starfall`, `observatory`. Add
+`&starter=moltarock` or `&starter=archepin` to pick the starter.

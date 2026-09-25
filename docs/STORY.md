@@ -2,7 +2,7 @@
 
 This is the full story of AIMON, from the first morning in Willowbrook to the
 Hall of Fame. It builds on everything that is already in the game. Chapters
-1 to 9 are **built**; chapters 10 to 15 are **planned**. Where a built chapter
+1 to 12 are **built**; chapters 13 to 15 are **planned**. Where a built chapter
 gets a small rewrite to set up something later, the change is listed under
 **Revisions** at the end of that chapter.
 
@@ -285,40 +285,40 @@ lights on.
 62. **GYM 7: LEADER CANTOR (SOUND)**, fought among the bells: BELLCHIME 42, NOCTUMOTH 43, SONARION 44, BELLUMOR 46. **CHORD BADGE** and TM07 HYPER VOICE.
 63. **The challenge.** A grunt leaves a sealed letter for "the child and the boy": *"EMBERPEAK. Tomorrow at dusk. Bring him. (R.)"* KAI goes pale. He knows that handwriting.
 
-## Chapter 10: The Commander *(planned)*
+## Chapter 10: The Commander *(built)*
 *Willowbrook south road, Route 7, Emberpeak Volcano*
 
 64. **To Emberpeak.** KAI is silent the whole way. At the volcano's mouth he admits it: the letter is in his brother's handwriting.
 65. **The FORGE.** Inside the volcano, TEAM DISTORTION taps the magma to power the GRAND RESONATOR. There are grunts on the hot catwalks. KAI splits off to shut down the heat pumps, which is his own quiet act of courage.
 66. **The crater's heart.** The COMMANDER turns around: **RYKER**. Eight years ago he won all eight BADGES and lost the CHAMPION match. "The LEAGUE taught me one thing: second place is silence." The CONDUCTOR offered him a world where only the strong are heard.
 67. **KAI arrives.** "Ryker... Mom still sets a plate for you." Ryker: "Go home, little brother."
-68. **Battle: COMMANDER RYKER**: RUFFANG 45, UMBRAFANG 46, STORMGALE 46, OBELITH 47, SKYSERAPH 48.
-69. You win, and he drops the **KEY CARD**. "You took it. Nobody's ever..." He leaves. At the door he pauses: "...Tell Mom I'm sorry." KAI, shaking, turns to you: "Let's finish this."
+68. **Battle: COMMANDER RYKER**: UMBRAFANG 46, STORMGALE 46, OBELITH 47, SKYSERAPH 47, RYKARN 49.
+69. You win, and he drops the **KEY CARD** (the COMMANDER'S KEY). "You took it. Nobody's ever..." He leaves. At the door he pauses: "...Tell Mom I'm sorry." KAI, shaking, turns to you: "Let's finish this."
 
-## Chapter 11: The Grand Resonator *(planned)*
+## Chapter 11: The Grand Resonator *(built)*
 *Silverfall City, SONANCE TOWER 4F*
 
 70. **Back to the tower.** The key card opens the sealed door on 3F.
-71. **4F** holds the **GRAND RESONATOR**, a cathedral of pipes, cables and glowing tanks with six and a half songs inside. **Battle: MORROW** at the top of the stairs: HOURGHAST 46, NOCTUMOTH 47, UMBRAFANG 48. He steps aside: "The CONDUCTOR will see you now. You're right on time."
+71. **4F** holds the **GRAND RESONATOR**, a cathedral of pipes, cables and glowing tanks with five and a half songs inside (the MILLSTONE was never recorded, and the BELLSTONE only in part). **Battle: MORROW** at the top of the stairs: HOURGHAST 46, NOCTUMOTH 47, UMBRAFANG 48. He steps aside: "The CONDUCTOR will see you now. You're right on time."
 72. **The CONDUCTOR is revealed: DR. AUGUST VALE**, playing a cello at the heart of the machine. He tells you about ECHO, the FIRST SCORE, the "true world", and why he let you win your BADGES: "I'm not destroying VALEMORA. I'm finishing its song."
-73. **Battle: THE CONDUCTOR**: SONARION 48, REEFLORD 48, STORMGALE 49, SONARION 50.
+73. **Battle: THE CONDUCTOR** (with his own battle theme): SONARION 48, REEFLORD 48, STORMGALE 49, CYGNATA 51.
 74. You win. Vale is unshaken. The GRAND RESONATOR was never meant to play the song here; it has been *tuning* every SONANCE line in VALEMORA for months. The performance will happen at the RIFT itself, the **SUNKEN SHRINE**, once the last stone sings, "and you will bring me the rest yourself." He leaves by river boat.
-75. **The switch.** You and KAI throw SONANCE's master switch. The tuning signal stops, and **Silverfall goes dark for one night**. The whole city looks up at the stars.
+75. **The switch.** You and KAI throw SONANCE's master switch. The tuning signal stops, and **Silverfall goes dark for one night**. The whole city looks up at the stars. KAI goes home to tell his mother about RYKER himself, and NERISSA arrives with word from HOLT.
 76. **The WARDENS' council at Grayhaven.** HOLT gathers the WARDENS. The eighth, **NOX** of STARFALL ISLE, hasn't answered in a week. CANTOR adds that the FIRST SCORE's missing final verse is said to be carved in the **MYSTIC GROVE**, readable only on a moonless night. That is tonight.
 
 ---
 
 # ACT V: EIGHT STONES
 
-## Chapter 12: Starfall *(planned)*
+## Chapter 12: Starfall *(built)*
 *Route 6, Marshland, Mystic Grove (sea route 22), Starfall Isle*
 
 77. **Route 6 and Marshland.** South from Cedarwood through misty wetlands to the coast, where NERISSA's boat is waiting.
 78. **The Mystic Grove** on a moonless night. The standing stones glow, and PROF. LINDEN and SAHRA read the **final verse**: *"Eight voices, one song, forward, together, and the one who carries all eight sings last."*
 79. **VESPER is there alone**, reading the same stones. She doesn't fight. She warns you: the CONDUCTOR's recordings are off-key and incomplete (no MILLSTONE, half a BELLSTONE). He means to use **your BADGES** to finish them at the shrine. "When he plays, your BADGES will answer. Don't let him hear them first." She leaves to find the eighth WARDEN.
-80. **Starfall Isle** (by NERISSA's boat from Grayhaven) is an observatory village where falling stars land. The **STARSTONE** is a fallen star kept in the observatory dome. TEAM DISTORTION has surrounded it and locked **NOX** in the lower archive.
+80. **Starfall Isle** (by NERISSA's boat from the MYSTIC GROVE: a night and a day's sail around the eastern cape) is an observatory village where falling stars land. The **STARSTONE** is a fallen star kept in the observatory dome. TEAM DISTORTION has surrounded it and locked **NOX** in the lower archive.
 81. **The observatory** is the last grunt fight. **VESPER frees NOX** from the other side: her defection is complete. At the dome, MORROW has already recorded the STARSTONE: "Time was always on my side." He warps away.
-82. **GYM 8: LEADER NOX (DARK)**, under the open dome at midnight: NOCTUMOTH 48, WRAITHLING 49, HOURGHAST 50, UMBRAFANG 51, UMBRAFANG 53. **STAR BADGE** and TM08 SHADOW BALL.
+82. **GYM 8: LEADER NOX (DARK)**, under the open dome at midnight: NOCTUMOTH 48, HEXWRAITH 49, HOURGHAST 50, UMBRAFANG 51, METEORWOLF 53. **STAR BADGE** and TM08 SHADOW BALL.
 83. **Eight BADGES.** The case glows and all eight slivers hum as one: the CHAMPION'S OATH. NOX: "Then you're the one who sings last."
 84. **That same night the sky over the south turns violet.** The **SUNKEN SHRINE** rises from the sea. Across VALEMORA, AIMON begin to **fall silent**. The CONDUCTOR has begun the COUNTERMELODY.
 
@@ -385,12 +385,12 @@ lights on.
 - **New trainers** reuse existing portraits: grunt, the admins, hiker, worker, scientist, sailor, swimmer, fisher and the other trainer classes. RYKER can use the rival portrait in the COMMANDER's colors. The CONDUCTOR, the late WARDENS and the ELITE FOUR use the existing admin and trainer portrait styles.
 - **TM05 to TM08** use existing moves: EARTH POWER, THUNDERBOLT, HYPER VOICE and SHADOW BALL.
 - **Every team** above was planned with the first 33 AIMON. The chapter 6-10 AIMON (No. 40-66) are now in the game too, and each chapter's teams and wild AIMON will be updated to use them when that chapter is built (for example SAHRA's ace becomes DUNARCH, and RYKER's becomes RYKARN).
-- **The chapter 11-15 AIMON (No. 67-94)** are in the game too, with a new **ICE** type. Where they are meant to go:
-  - SONANCE TOWER 4F (Ch 11): CYGNATA, the swan with the cello;
-  - Route 6 and the Marshland (Ch 12): FERNEWT, FLORAXOL and MUDBARBEL;
-  - the MYSTIC GROVE: GLOAMFERN (moonless nights only) and ASTRALYX, the STARSTONE legendary;
+- **The chapter 11-15 AIMON (No. 67-94)** are in the game too, with a new **ICE** type. Where they are:
+  - the ICE lines (CHILLPIP, FROSTFAWN, FROSTLING, SNOWKIT; EMPERICE and GLACIOLEM rarely): wild on ROUTE 11 and on its hikers' and skiers' teams (Ch 9);
+  - ROUTE 7 and EMBERPEAK (Ch 10): PEBBEAT, RIFFSTONE and QUAKEPIKE, with BRAWLPAW and THUNDERVIX on trainers' teams;
+  - SONANCE TOWER 4F (Ch 11): CYGNATA, the swan with the cello, as the CONDUCTOR's ace;
+  - Route 6 and the Marshland (Ch 12): FERNEWT, FLORAXOL, MUDBARBEL, BRIARWILD and GANDERGALE, and ABYSSLURE on a fishing line;
+  - the MYSTIC GROVE: GLOAMFERN (it's always a moonless night when you visit), HEXWRAITH and BRIARWILD. ASTRALYX, the STARSTONE legendary, is saved for later;
   - STARFALL ISLE: COMETCUB, and METEORWOLF as NOX's GYM 8 ace;
-  - the sea routes to the SUNKEN SHRINE (Ch 13): ABYSSLURE; ELEGIRA, the RIFT legendary, sleeps in the shrine;
-  - VICTORY PATH (Ch 14): BRIARLET, BRIARWILD, PEBBEAT, RIFFSTONE and AMPOLITH;
-  - the ICE lines (CHILLPIP, FROSTFAWN, FROSTLING, SNOWKIT and their evolutions): the snowy north (ROUTE 11, STONEPEAK) or VICTORY PATH;
+  - still to come: ELEGIRA, the RIFT legendary, who sleeps in the SUNKEN SHRINE (Ch 13); AMPOLITH and the rest of VICTORY PATH (Ch 14);
   - the new Lv 36 forms GANDERGALE, HEXWRAITH, THUNDERVIX, BRAWLPAW and QUAKEPIKE: late-game teams, such as CHAMPION KAI's GANDERGALE and BRAWLPAW, and ELITE SHADE's HEXWRAITH.

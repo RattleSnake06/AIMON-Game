@@ -816,23 +816,41 @@ Object.assign(Events, {
         const wx = (i * 53 + Math.floor(t / 3)) % (SCREEN_W + 20) - 10;
         g.fillRect(wx, 104 + (i * 7) % 50, 8, 1);
       }
-      // The SUNKEN SHRINE rising from the water.
+      // The SUNKEN SHRINE rising from the water: a drowned temple, lit from inside.
       const rise = Math.min(1, t / 240);
-      const top = Math.round(100 - 46 * rise);
-      g.fillStyle = '#140820';
-      g.fillRect(96, top + 14, 48, 100 - top - 14);
-      g.fillRect(104, top + 6, 32, 10);
-      g.fillRect(114, top, 12, 8);
-      g.fillRect(90, top + 22, 6, 100 - top - 22);
-      g.fillRect(144, top + 22, 6, 100 - top - 22);
+      const top = Math.round(100 - 50 * rise);
+      const dark = '#140820';
+      g.fillStyle = '#7a3ab0';
+      g.fillRect(92, top + 12, 56, 14);
+      g.fillStyle = '#d898ff';
+      g.fillRect(116, top + 15, 8, 11);
+      g.fillStyle = dark;
+      for (let i = 0; i < 6; i++) g.fillRect(92 + i * 10, top + 12, 4, 14);
+      // Pediment and roof.
+      for (let r = 0; r < 12; r++) g.fillRect(120 - (r * 3 + 4), top + r, (r * 3 + 4) * 2, 1);
+      g.fillStyle = '#301448';
+      g.fillRect(96, top + 9, 48, 1);
+      // Steps and a broken base, dripping into the sea.
+      g.fillStyle = dark;
+      g.fillRect(86, top + 26, 68, 4);
+      g.fillRect(80, top + 30, 80, 100 - top - 30);
+      g.fillRect(74, top + 36, 6, 100 - top - 36);
+      g.fillRect(160, top + 34, 5, 100 - top - 34);
+      // Its reflection in the water.
+      g.globalAlpha = 0.35 * rise;
+      g.fillStyle = '#7a3ab0';
+      for (let y = 0; y < 18; y += 2) g.fillRect(84 + ((y * 3 + Math.floor(t / 8)) % 5), 103 + y, 72 - y * 2, 1);
+      g.globalAlpha = 1;
       // The tear above it.
       if (rise >= 1) {
         const pulse = 0.5 + 0.4 * Math.sin(t / 10);
+        g.globalAlpha = pulse * 0.5;
+        Pix.ellipse(g, 120, top - 20, 9, 20, '#b060f0');
         g.globalAlpha = pulse;
-        Pix.ellipse(g, 120, top - 16, 4, 14, '#d898ff');
+        Pix.ellipse(g, 120, top - 20, 4, 15, '#d898ff');
         g.globalAlpha = 1;
         g.fillStyle = '#ffffff';
-        g.fillRect(120, top - 26, 1, 20);
+        g.fillRect(120, top - 32, 1, 24);
       }
       g.fillStyle = '#281040';
       g.fillRect(0, 100, SCREEN_W, 2);
