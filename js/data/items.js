@@ -62,6 +62,19 @@ const ITEMS = {
     desc: 'Teaches FLY. Use it outside from the AIMON menu to fly to a visited town.' },
   tm08: { name: 'TM08 SHADOW BALL', pocket: 'tms', tm: 'shadowball',
     desc: 'Teaches SHADOW BALL: a shadowy blob that may lower SP. DEF. Can be used again and again.' },
+  tm09: { name: 'TM09 BOOMBURST', pocket: 'tms', tm: 'boomburst',
+    desc: 'Teaches BOOMBURST: a deafening blast of sound. It also hurts the user a little.' },
+  // After the story.
+  sandglassball: { name: 'SANDGLASS BALL', pocket: 'balls', price: 0, ball: 1, sandglass: true,
+    desc: 'A ball made from the old lamp\'s glass. The longer a battle goes on, the better it works.' },
+  outfit_alt: { name: 'VICTORY OUTFIT', pocket: 'key', outfit: 'alt',
+    desc: 'Your usual clothes in black and gold. A prize for 5 BATTLE TOWER wins in a row.' },
+  outfit_cloak: { name: 'DISTORTION CLOAK', pocket: 'key', outfit: 'cloak',
+    desc: 'A real TEAM DISTORTION cloak, visor and all. A prize for 10 wins in a row.' },
+  outfit_conductor: { name: 'CONDUCTOR\'S COAT', pocket: 'key', outfit: 'conductor',
+    desc: 'The CONDUCTOR\'s long black coat. A prize for 20 BATTLE TOWER wins in a row.' },
+  hourglass: { name: 'HOURGLASS', pocket: 'key', hourglass: true,
+    desc: 'MORROW\'s hourglass. The sand hangs still, halfway down. USE it to see where it leads.' },
 };
 
 // What each AIMON MART sells.

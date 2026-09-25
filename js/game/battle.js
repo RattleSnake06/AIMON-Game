@@ -16,6 +16,8 @@ class Battle {
     this.trainerId = opts.trainer || null;
     this.tr = this.trainerId ? TRAINERS[this.trainerId] : null;
     this.wild = !this.tr;
+    this.bound = !!opts.bound;   // a wild AIMON that can't be caught
+    this.turns = 0;
     this.enemyParty = this.wild
       ? [new Mon(opts.wild.species, opts.wild.level)]
       : this.tr.party().map(([s, l, moves]) => new Mon(s, l, moves ? { moves: moves.map((id) => ({ id, pp: MOVES[id].pp })) } : {}));
@@ -77,6 +79,7 @@ class Battle {
     yield* this.intro();
     while (!this.result) {
       const act = yield* this.chooseAction();
+      this.turns++;
       yield* this.turn(act);
     }
     yield* this.outro();
@@ -189,7 +192,7 @@ class Battle {
         if (slot >= 0) return { type: 'move', slot };
         slide = false;
       } else if (i === 1) {
-        const r = yield* Bag.open({ battle: true, wild: this.wild, active: this.pi });
+        const r = yield* Bag.open({ battle: true, wild: this.wild, bound: this.bound, active: this.pi });
         if (r) return { type: 'item', ...r };
       } else if (i === 2) {
         const idx = yield* Party.open({ mode: 'battle', active: this.pi });
@@ -689,7 +692,9 @@ class Battle {
     // GBA catch formula.
     const m = e.mon;
     const bonus = m.status === 'slp' ? 2 : m.status ? 1.5 : 1;
-    const a = Math.floor((((3 * m.stats.hp - 2 * m.hp) * m.sp.catchRate * it.ball) / (3 * m.stats.hp)) * bonus);
+    // A SANDGLASS BALL works better the longer the battle has gone on.
+    const ballBonus = it.sandglass ? Math.min(4, 1 + 0.3 * this.turns) : it.ball;
+    const a = Math.floor((((3 * m.stats.hp - 2 * m.hp) * m.sp.catchRate * ballBonus) / (3 * m.stats.hp)) * bonus);
     let shakes = 4;
     if (a < 255) {
       const b = Math.floor(1048560 / Math.floor(Math.sqrt(Math.floor(Math.sqrt(Math.floor(16711680 / Math.max(1, a)))))));

@@ -1261,6 +1261,35 @@ const TRAINERS = {
     party: () => [['noctheryx', 63], ['hexwraith', 63], ['abysslure', 64], ['umbrafang', 64], ['meteorwolf', 66]],
     lose: 'The one who sang last. Still shining.',
   },
+  // --- The FORGOTTEN LIGHTHOUSE ---------------------------------------------------------------
+  vesperR: {
+    cls: 'KEEPER', name: 'VESPER', sprite: 'vesper', payout: 200, music: 'admin',
+    party: () => [
+      ['wraithling', 65, ['shadowball', 'hex', 'willowisp', 'nightshade']],
+      ['specterib', 66, ['shadowball', 'hypervoice', 'airslash', 'hex']],
+      ['phantasmuse', 66, ['shadowball', 'hypervoice', 'nastyplot', 'hex']],
+      ['bellumor', 67, ['boomburst', 'shadowball', 'hypervoice', 'earthpower']],
+      ['sonarion', 68, ['boomburst', 'crunch', 'aerialace', 'screech']],
+    ],
+    lose: 'Still loud, still you. Good.',
+  },
+  morrowR: {
+    cls: 'KEEPER', name: 'MORROW', sprite: 'morrow', payout: 200, music: 'admin',
+    party: () => [
+      ['noctumoth', 68, ['bugbuzz', 'airslash', 'darkpulse', 'stunspore']],
+      ['hexwraith', 68, ['shadowball', 'hex', 'willowisp', 'darkpulse']],
+      ['umbrafang', 69, ['crunch', 'nightslash', 'icefang', 'shadowsneak']],
+      ['hourghast', 70, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+    ],
+    lose: 'Right on time. As always.',
+  },
+
+  // --- The BATTLE TOWER: filled in before each battle ------------------------------------------
+  tower: {
+    cls: 'TRAINER', name: '', sprite: 'veteran', payout: 40, music: 'elite', canLose: true,
+    party: () => Tower.team,
+    lose: '',
+  },
 };
 
 // The eight GYM badges. The first seven gyms exist so far.

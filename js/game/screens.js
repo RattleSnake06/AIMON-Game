@@ -270,7 +270,7 @@ const REGION = [
   { id: 'route7', name: 'ROUTE 7', x: 118, y: 97, kind: 'route', desc: 'A road south from WILLOWBROOK to EMBERPEAK VOLCANO, past a hot-spring inn.' },
   { id: 'marshland', name: 'MARSHLAND', x: 74, y: 122, kind: 'spot', desc: 'Misty wetlands where the rivers meet the sea. Boats leave for the islands from the landing.' },
   { id: 'route6', name: 'ROUTE 6', x: 67, y: 109, kind: 'route', desc: 'A misty road south from CEDARWOOD to the MARSHLAND.' },
-  { id: 'lighthouse', name: 'FORGOTTEN LIGHTHOUSE', x: 16, y: 108, kind: 'isle', desc: 'A lighthouse on a lonely isle. No one has lit it in years.' },
+  { id: 'lighthouse', name: 'FORGOTTEN LIGHTHOUSE', x: 16, y: 108, kind: 'isle', desc: 'A lighthouse on a lonely isle far to the west. Its light burns again. Ferries leave from SEABREEZE.' },
   { id: 'grove', name: 'MYSTIC GROVE', x: 58, y: 136, kind: 'isle', desc: 'An island grove ringed with standing stones that glow on moonless nights.' },
   { id: 'shrine', name: 'SUNKEN SHRINE', x: 105, y: 141, kind: 'isle', desc: 'A shrine half-swallowed by the sea, where the first WARDENS sealed the RIFT.' },
   { id: 'league', name: 'AIMON LEAGUE', x: 177, y: 138, kind: 'town', desc: 'Where the strongest trainers gather. Eight BADGES are needed to enter.' },
@@ -442,7 +442,7 @@ const TownMap = {
         g.strokeRect(cur.x - 6.5, cur.y - 6.5, 13, 13);
       }
       if (Math.floor(Game.frame / 16) % 2) {
-        const head = Chars.frame('player', 'down', 0);
+        const head = Chars.frame(Outfit.person(), 'down', 0);
         g.drawImage(head, 0, 0, 16, 12, here.x - 8, here.y - 15, 16, 12);
       }
       // Name bar at the top, description at the bottom (or top, if the

@@ -954,7 +954,9 @@ const OW = {
     // People, sorted so lower ones overlap higher ones.
     const ents = [...this.npcs, this.player].filter((e) => !e.hidden);
     if (Follower.visible()) ents.push(Follower);
-    ents.sort((a, b) => a.py - b.py);
+    // The partner's sprite is tall, so it tucks in behind anyone on its row or the row above.
+    const depth = (e) => (e === Follower ? e.py - 17 : e.py);
+    ents.sort((a, b) => depth(a) - depth(b));
     for (const e of ents) {
       if (e === Follower) {
         Follower.draw(g, cx, cy);

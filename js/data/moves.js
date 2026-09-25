@@ -277,6 +277,7 @@ const TMS = {
   tm06: { move: 'thunderbolt', compat: ['electric', 'water', 'normal', 'flying', 'sound', 'dark'] },
   tm07: { move: 'hypervoice', compat: ['sound', 'normal', 'ghost', 'dark', 'flying', 'fighting', 'water'] },
   tm08: { move: 'shadowball', compat: ['ghost', 'dark', 'normal', 'sound', 'grass', 'water', 'ice', 'bug'] },
+  tm09: { move: 'boomburst', compat: ['sound', 'normal', 'ghost', 'electric'] },
   // HM02 FLY: FLYING types, plus the other AIMON with wings big enough to carry you.
   hm02: { move: 'fly', compat: ['flying'], also: ['skydrift', 'skyseraph', 'cygnata', 'goskie', 'windling', 'noctumoth'] },
 };

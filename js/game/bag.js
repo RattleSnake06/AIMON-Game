@@ -117,6 +117,10 @@ const Bag = {
           continue;
         }
         if (it.ball) {
+          if (opts.bound) {
+            yield* scr.say('It won\'t go into a ball! It\'s bound to this place.');
+            continue;
+          }
           if (!opts.wild) {
             yield* scr.say('You can\'t catch another trainer\'s AIMON!');
             continue;
@@ -153,6 +157,22 @@ const Bag = {
         Game.remove(scr);
         OW.pendingFish = true;
         return null;
+      }
+      if (it.outfit) {
+        // BATTLE TOWER outfits: put one on, or change back.
+        const wearing = State.d.outfit === it.outfit;
+        const k = yield* Menu.choose({ items: [wearing ? 'TAKE OFF' : 'WEAR', 'CANCEL'], x: 170, y: 58, cancel: 1 });
+        if (k !== 0) continue;
+        State.d.outfit = wearing ? null : it.outfit;
+        Outfit.apply();
+        Sound.sfx('confirm');
+        yield* scr.say(wearing ? '{PLAYER} changed back into their usual clothes.' : `{PLAYER} put on the ${it.name}!`);
+        continue;
+      }
+      if (it.hourglass) {
+        const k = yield* Menu.choose({ items: ['USE', 'CANCEL'], x: 170, y: 58, cancel: 1 });
+        if (k === 0) yield* scr.say(Hourglass.hint());
+        continue;
       }
       const choices = it.pocket === 'key' ? ['CANCEL'] : it.infinite ? ['USE', 'CANCEL'] : ['USE', 'TOSS', 'CANCEL'];
       const k = yield* Menu.choose({ items: choices, x: 170, y: 58, cancel: choices.length - 1 });

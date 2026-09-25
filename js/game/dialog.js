@@ -175,7 +175,7 @@ const Dialog = {
     box.show(text, { noWait: true });
     yield () => box.finished;
     const i = yield* Menu.choose({
-      items: choices, x: opts.x, y: opts.y, cancel: 'cancel' in opts ? opts.cancel : choices.length - 1,
+      items: choices, x: opts.x, y: opts.y, visible: opts.visible, cancel: 'cancel' in opts ? opts.cancel : choices.length - 1,
       style: opts.menuStyle || 'field', anchor: 'right',
     });
     return i;
