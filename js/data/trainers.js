@@ -744,17 +744,17 @@ const TRAINERS = {
   // --- Route 11 ------------------------------------------------------------------------------
   r11hiker1: {
     cls: 'HIKER', name: 'BRAM', sprite: 'hiker', payout: 60,
-    party: () => [['glacron', 40], ['cairnling', 39]],
+    party: () => [['glacron', 40], ['frostling', 39]],
     intro: 'The cold keeps a hiker honest! And a battle keeps him warm!',
     lose: 'Brr... Now I\'m cold AND beaten.',
     after: 'Keep to the road when the snow\'s deep. Wild AIMON love the drifts.',
   },
   r11skier1: {
     cls: 'SKIER', name: 'SOL', sprite: 'skier', payout: 60,
-    party: () => [['noctheryx', 40], ['skyblade', 40]],
+    party: () => [['snowkit', 40], ['noctheryx', 40]],
     intro: 'Out of the way! ...Oh, you want to battle? Even better!',
     lose: 'Wiped out!',
-    after: 'NOCTHERYX glide down the slopes at dusk. You never hear them coming.',
+    after: 'SNOWKIT love fresh powder. Mine follows me down every run, chiming the whole way.',
   },
   r11blackbelt: {
     cls: 'BLACKBELT', name: 'KENJI', sprite: 'blackbelt', payout: 62,
@@ -765,14 +765,14 @@ const TRAINERS = {
   },
   r11skier2: {
     cls: 'SKIER', name: 'ANYA', sprite: 'skier', payout: 62,
-    party: () => [['bellchime', 41], ['glacron', 41]],
+    party: () => [['chillpip', 40], ['bellchime', 41], ['frostfawn', 41]],
     intro: 'Hear that? The bell\'s ringing up at STONEPEAK. Let\'s make some noise of our own!',
     lose: 'Out of tune!',
     after: 'The bell rings every hour. Except one. Everyone up here knows to be quiet then.',
   },
   r11hiker2: {
     cls: 'HIKER', name: 'ODELL', sprite: 'hiker', payout: 64,
-    party: () => [['obelith', 42], ['geodillo', 41]],
+    party: () => [['obelith', 42], ['glaciolem', 41]],
     intro: 'Almost at the top! Show me you earned it!',
     lose: 'You earned it, all right.',
     after: 'STONEPEAK WOODS is just past the pines. Mind the ice on the pond.',
