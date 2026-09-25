@@ -112,6 +112,8 @@ const State = {
     d.badges = d.badges || {};
     d.repel = d.repel || 0;
     d.bag = { rarecandy: 1, ...d.bag };   // test build: endless RARE CANDY
+    // Saves from before HM02 FLY existed: WREN's BADGE comes with it now.
+    if ((d.badges.spark || (d.flags || {}).badge_spark) && !d.bag.hm02) d.bag.hm02 = 1;
     this.d = d;
     return true;
   },

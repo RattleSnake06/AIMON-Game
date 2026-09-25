@@ -53,7 +53,7 @@ const ITEMS = {
   cmdkey: { name: 'COMMANDER\'S KEY', pocket: 'key',
     desc: 'RYKER\'s black key card. It opens the sealed door to 4F of the SONANCE TOWER.' },
   hm02: { name: 'HM02 FLY', pocket: 'tms', tm: 'fly',
-    desc: 'Teaches FLY. Outside, choose FLY from the AIMON menu to fly to any town you\'ve visited.' },
+    desc: 'Teaches FLY. Use it outside from the AIMON menu to fly to a visited town.' },
   tm08: { name: 'TM08 SHADOW BALL', pocket: 'tms', tm: 'shadowball',
     desc: 'Teaches SHADOW BALL: a shadowy blob that may lower SP. DEF. Can be used again and again.' },
 };
