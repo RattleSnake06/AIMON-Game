@@ -45,6 +45,15 @@ HALL OF FAME, the credits and a post-game (the full plot is in
 | ![TOR's quarry: boulders and pits](docs/screenshots/gym_tor.png) | ![SAHRA's sinkholes](docs/screenshots/gym_sahra.png) |
 | ![WREN's barn: switch plates and electric gates](docs/screenshots/gym_wren.png) | ![CANTOR's hall: bell plates and a chime door](docs/screenshots/gym_cantor.png) |
 | ![NOX's dome: the hidden path of stars](docs/screenshots/gym_nox.png) | ![Flying to CEDARWOOD with HM02 FLY](docs/screenshots/fly.png) |
+| ![The WARDENS rally at the SEABREEZE docks](docs/screenshots/rally.png) | ![HOLT and TOR hold the SUNKEN SHRINE's gate](docs/screenshots/shrine.png) |
+| ![Riding the currents up the flooded stairs](docs/screenshots/floodstairs.png) | ![MORROW, for the last time](docs/screenshots/morrowlast.png) |
+| ![RYKER and KAI hold the inner door](docs/screenshots/rykerdoor.png) | ![The CONDUCTOR's final battle](docs/screenshots/valefinal.png) |
+| ![The CHAMPION'S OATH](docs/screenshots/oath.png) | ![The VICTORY PATH](docs/screenshots/victorypath.png) |
+| ![The AIMON LEAGUE](docs/screenshots/league.png) | ![ELITE SHADE's chamber](docs/screenshots/elite.png) |
+| ![CHAMPION KAI](docs/screenshots/champkai.png) | ![The HALL OF FAME](docs/screenshots/halloffame.png) |
+| ![RYKER claps from the doorway](docs/screenshots/hofryker.png) | ![The credits: the cedar in bloom](docs/screenshots/credits.png) |
+| ![The FORGOTTEN LIGHTHOUSE, lit again](docs/screenshots/lighthouselit.png) | ![Two extra plates: RYKER is home](docs/screenshots/homecoming.png) |
+| ![THE END](docs/screenshots/theend.png) | |
 
 ## Play
 
