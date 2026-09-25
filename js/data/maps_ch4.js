@@ -459,10 +459,10 @@ Object.assign(MAPS, {
       '^^ss####s:ggggss::ssss:s#####sss^^',
       '^^sss:::::ggggss::ssss::::::ssss^^',
       '^^ssssssssggggss::ssssssssssssss^^',
-      '^^sOsssssrssssss::ssssrsssssssOs^^',
+      '^^sOsssssrsssssS::ssssrsssssssOs^^',
       '^^ssssssssssssss::ssssssssssssss^^',
-      '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^',
-      '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^',
+      '^^^^^^^^^^^^^^^^::^^^^^^^^^^^^^^^^',
+      '^^^^^^^^^^^^^^^^::^^^^^^^^^^^^^^^^',
     ],
     buildings: [
       { type: 'rockGym', x: 13, y: 4, to: 'gym_cm' },
@@ -472,7 +472,7 @@ Object.assign(MAPS, {
       { type: 'houseMine2', x: 24, y: 20, to: 'cm_house2' },
       { type: 'caveMouth', x: 28, y: 2 },
     ],
-    connections: { north: { map: 'bridge', offset: -7 }, west: { map: 'route9', offset: -2 } },
+    connections: { north: { map: 'bridge', offset: -7 }, west: { map: 'route9', offset: -2 }, south: { map: 'victory1', offset: -2 } },
     encounters: {
       rate: 0.1,
       table: [
@@ -486,6 +486,7 @@ Object.assign(MAPS, {
       { x: 15, y: 12, text: 'CRAGMOOR AIMON GYM\nLEADER: TOR\fThe mountain that does not move!' },
       { x: 8, y: 18, text: 'CRAGMOOR TOWN\nCut from the hill, built to last.' },
       { x: 23, y: 10, text: 'CRAGMOOR QUARRY\nMINE CLOSED UNTIL FURTHER NOTICE.' },
+      { x: 15, y: 26, text: 'SOUTH: VICTORY PATH\nThrough BRAMBLEWOOD FOREST to the AIMON LEAGUE.' },
     ],
     things: [
       { x: 29, y: 3, text: 'The mine entrance is boarded up. Cold air hums through the gaps.' },
@@ -504,6 +505,9 @@ Object.assign(MAPS, {
         text: 'LEADER TOR can lift a boulder with one hand! ...I think. I\'ve never actually seen it.' },
       { id: 'cm_westcrew', person: 'worker', x: 1, y: 16, dir: 'right', move: 'still', hideIf: 'badge_crag',
         text: 'Hold it! A rockslide came down on the lake road to WILLOWBROOK.\fTOR\'s crew is shifting it now. It\'ll be clear by the time you\'ve earned his BADGE.' },
+      { id: 'cm_vpguard', person: 'guard', x: 16, y: 27, dir: 'up', move: 'still', script: 'vpGuard', hideIf: 'shrine_done' },
+      { id: 'cm_vpbar', prop: 'barrier', x: 17, y: 27, move: 'still', hideIf: 'shrine_done',
+        text: 'VICTORY PATH\nCLOSED BY ORDER OF THE AIMON LEAGUE.' },
       { id: 'cm_item1', sprite: 'ball', x: 30, y: 25, item: 'revive' },
       { id: 'cm_item2', sprite: 'ball', x: 6, y: 7, item: 'greatball', count: 2 },
     ],

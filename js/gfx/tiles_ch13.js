@@ -60,7 +60,8 @@ Object.assign(Tiles.extra, {
   },
   keystoneLight(g, px, py) { g.drawImage(this.shrineFloorImg(0), px, py); },
   coral(g, px, py, n, x, y, map, hash) {
-    g.drawImage(map.def.outdoor ? this.shrineFloorImg(0) : this.shrineFloorImg(0), px, py);
+    if (map.def.outdoor) g.drawImage(this.waterImg(0, 0), px, py);
+    else g.drawImage(this.shrineFloorImg(0), px, py);
     g.drawImage(this.coralImg(hash % 2), px, py);
   },
   bramble(g, px, py, n, x, y, map, hash) {
@@ -79,6 +80,19 @@ Object.assign(Tiles.extra, {
   goldFloor(g, px, py) { g.drawImage(this.eliteFloorImg('gold'), px, py); },
   eliteDeco(g, px, py, n, x, y, map) { this.drawFloor(g, px, py, map); },
 });
+
+// Outdoors at the shrine, lanterns and broken pillars stand on its stone floor.
+{
+  const onShrine = (map) => map.def.outdoor && Tiles.floors[map.def.ground] && map.def.ground !== '.';
+  const baseFor = Tiles.groundFor;
+  Tiles.groundFor = function groundFor(map, n) {
+    return onShrine(map) ? this.floors[map.def.ground].call(this) : baseFor.call(this, map, n);
+  };
+  const baseCh6 = Tiles.groundCh6;
+  Tiles.groundCh6 = function groundCh6(map, n) {
+    return onShrine(map) ? this.floors[map.def.ground].call(this) : baseCh6.call(this, map, n);
+  };
+}
 
 // Animated tiles.
 {

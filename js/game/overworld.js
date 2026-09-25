@@ -238,9 +238,11 @@ const OW = {
     });
   },
 
+  // showIf/hideIf: a flag name, or a function for anything fancier.
   npcVisible(n) {
-    if (n.hideIf && State.flag(n.hideIf)) return false;
-    if (n.showIf && !State.flag(n.showIf)) return false;
+    const on = (c) => (typeof c === 'function' ? c() : State.flag(c));
+    if (n.hideIf && on(n.hideIf)) return false;
+    if (n.showIf && !on(n.showIf)) return false;
     if (n.item && State.flag(`item_${n.id}`)) return false;
     return true;
   },

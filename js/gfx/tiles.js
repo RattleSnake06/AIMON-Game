@@ -122,7 +122,7 @@ const Tiles = {
   waterMask(n) {
     const land = (dx, dy) => {
       const c = n(dx, dy);
-      return !(this.def(c).water || c === '=' || c === 'Q' || c === 'Z');
+      return !(this.def(c).water || c === '=' || c === 'Q' || c === 'Z' || c === 'Ĥ');
     };
     let m = 0;
     [[0, -1], [1, 0], [0, 1], [-1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]].forEach(([dx, dy], i) => {
@@ -179,7 +179,8 @@ const Tiles = {
       case 'building':
         if (!map.def.outdoor && !map.def.cave) { this.drawFloor(g, px, py, map); break; }
         g.drawImage(map.def.cave ? this.caveFloorImg(0) : map.def.ground === 'a' ? this.sandImg(0)
-          : map.def.ground === '+' ? this.pavingImg() : this.grassImg(0), px, py);
+          : map.def.ground === '+' ? this.pavingImg()
+            : this.floors[map.def.ground] ? this.floors[map.def.ground].call(this) : this.grassImg(0), px, py);
         break;
       // interior
       case 'void': g.fillStyle = '#000'; g.fillRect(px, py, TILE, TILE); break;

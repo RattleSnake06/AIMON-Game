@@ -6,12 +6,18 @@ const ITEMS = {
     desc: 'A ball for catching wild AIMON.' },
   greatball: { name: 'GREAT BALL', pocket: 'balls', price: 600, ball: 1.5,
     desc: 'A better ball with a higher catch rate.' },
+  ultraball: { name: 'ULTRA BALL', pocket: 'balls', price: 1200, ball: 2,
+    desc: 'A top-quality ball. Even better at catching AIMON than a GREAT BALL.' },
   rarecandy: { name: 'RARE CANDY', pocket: 'items', candy: true, infinite: true, field: true,
     desc: 'Raises one AIMON\'s level by 1 instantly. (Test build: it never runs out.)' },
   potion: { name: 'POTION', pocket: 'items', price: 300, heal: 20,
     desc: 'Restores the HP of one AIMON by 20 points.' },
   superpotion: { name: 'SUPER POTION', pocket: 'items', price: 700, heal: 50,
     desc: 'Restores the HP of one AIMON by 50 points.' },
+  hyperpotion: { name: 'HYPER POTION', pocket: 'items', price: 1200, heal: 200,
+    desc: 'Restores the HP of one AIMON by 200 points.' },
+  maxpotion: { name: 'MAX POTION', pocket: 'items', price: 2500, heal: 9999,
+    desc: 'Fully restores the HP of one AIMON.' },
   revive: { name: 'REVIVE', pocket: 'items', price: 1500, revive: true,
     desc: 'Revives a fainted AIMON with half its HP.' },
   parlyzheal: { name: 'PARLYZ HEAL', pocket: 'items', price: 200, cure: ['par'],
@@ -70,6 +76,7 @@ const MART_STOCK = {
   stonepeak: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
   starfall: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'awakening', 'parlyzheal', 'repel', 'escaperope'],
   seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
+  league: ['ultraball', 'greatball', 'hyperpotion', 'maxpotion', 'superpotion', 'revive', 'fullheal', 'repel', 'escaperope'],
 };
 
 // Status conditions.

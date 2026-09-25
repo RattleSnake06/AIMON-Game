@@ -740,7 +740,7 @@ Object.assign(MUSIC, {
     ],
   },
   // VICTORY PATH: the last road, a march.
-  victory: {
+  victoryroad: {
     bpm: 132,
     ch: [
       { wave: 'p25', vol: 0.08, notes:

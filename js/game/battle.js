@@ -669,7 +669,7 @@ class Battle {
   *throwBall(itemId) {
     const e = this.e;
     const it = ITEMS[itemId];
-    yield* this.msg(`{PLAYER} threw an ${it.name}!`, 'hold');
+    yield* this.msg(`{PLAYER} threw ${/^[AEIOU]/.test(it.name) ? 'an' : 'a'} ${it.name}!`, 'hold');
     Sound.sfx('ballThrow');
     this.ball = { x: 40, y: 100, angle: 0 };
     yield* BattleFX.tween(24, (t) => {
