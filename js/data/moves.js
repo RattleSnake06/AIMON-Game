@@ -190,6 +190,10 @@ const MOVES = {
     desc: 'Hurls small rocks at the foe.' },
   rocktomb: { name: 'ROCK TOMB', type: 'rock', cat: 'physical', power: 60, acc: 95, pp: 15, fx: 'rock',
     stat: { target: 'foe', stat: 'spe', stages: -1, chance: 100 }, desc: 'Boulders trap the foe and lower its SPEED.' },
+  rockslide: { name: 'ROCK SLIDE', type: 'rock', cat: 'physical', power: 75, acc: 90, pp: 10, flinch: 30, fx: 'rock',
+    desc: 'Large boulders are hurled at the foe. May make it flinch.' },
+  powergem: { name: 'POWER GEM', type: 'rock', cat: 'special', power: 80, acc: 100, pp: 20, fx: 'glow',
+    desc: 'A ray of light that sparkles like gemstones.' },
   feintattack: { name: 'FEINT ATTACK', type: 'dark', cat: 'physical', power: 60, acc: 0, pp: 20, fx: 'bite',
     desc: 'Draws the foe close, then strikes. Never misses.' },
   snarl: { name: 'SNARL', type: 'dark', cat: 'special', power: 55, acc: 95, pp: 15, fx: 'sound',
@@ -198,6 +202,12 @@ const MOVES = {
     stat: { target: 'foe', stat: 'def', stages: -1, chance: 20 }, desc: 'Crunches with sharp fangs. May lower DEFENSE.' },
   bite: { name: 'BITE', type: 'dark', cat: 'physical', power: 60, acc: 100, pp: 25, flinch: 30, fx: 'bite',
     desc: 'Bites with sharp fangs. May make the foe flinch.' },
+
+  // Chapter 5
+  bugbuzz: { name: 'BUG BUZZ', type: 'bug', cat: 'special', power: 90, acc: 100, pp: 10, fx: 'sound',
+    stat: { target: 'foe', stat: 'spd', stages: -1, chance: 10 }, desc: 'A damaging buzz of vibrating wings. May lower SP. DEF.' },
+  earthpower: { name: 'EARTH POWER', type: 'ground', cat: 'special', power: 90, acc: 100, pp: 10, fx: 'quake',
+    stat: { target: 'foe', stat: 'spd', stages: -1, chance: 10 }, desc: 'The ground erupts under the foe. May lower SP. DEF.' },
 };
 
 // Technical Machines: reusable, teach one move.
@@ -206,4 +216,5 @@ const TMS = {
   tm01: { move: 'swift' },
   tm02: { move: 'magicalleaf', compat: ['grass', 'bug', 'water', 'normal', 'flying'] },
   tm03: { move: 'waterpulse', compat: ['water', 'normal', 'ground', 'fighting', 'sound'] },
+  tm04: { move: 'rockslide', compat: ['rock', 'ground', 'fighting', 'normal', 'fire', 'water'] },
 };

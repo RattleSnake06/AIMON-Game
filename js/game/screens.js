@@ -160,11 +160,13 @@ const BadgeArt = {
     const shapes = {
       grove: [[12, 0], [19, 5], [22, 12], [18, 19], [12, 23], [6, 19], [2, 12], [5, 5]],
       tide: [[12, 0], [17, 7], [21, 13], [19, 19], [12, 23], [5, 19], [3, 13], [7, 7]],
+      crag: [[12, 0], [15, 5], [19, 3], [23, 14], [18, 22], [6, 22], [1, 14], [5, 4], [9, 6]],
     };
     p.poly(shapes[b.id] || [[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
       { fill: main, line: '#202020', shade: dark, hi: Pix.mix(main, '#ffffff', 0.4) });
     if (b.id === 'grove') p.line(12, 3, 12, 20, dark);
     if (b.id === 'tide') { p.line(7, 16, 10, 14, hi); p.line(10, 14, 14, 16, hi); p.line(14, 16, 17, 14, hi); }
+    if (b.id === 'crag') { p.line(4, 15, 8, 18, dark); p.line(16, 19, 20, 15, dark); }
     p.ellipse(11.5, 11.5, 6.5, 6.5, { fill: hi, line: '#202020', shade: Pix.shade(hi, 0.75) });
     if (b.leader) {
       // A sliver of the leader's KEYSTONE.
@@ -230,7 +232,10 @@ const REGION = [
   { id: 'sunspire', name: 'SUNSPIRE RUINS', x: 36, y: 71, kind: 'town', desc: 'Sun-bleached ruins of an ancient city in the western dunes.' },
   { id: 'stonepeak', name: 'STONEPEAK WOODS', x: 117, y: 29, kind: 'spot', desc: 'Snowy woods beneath the tallest peak. An old tower watches over them.' },
   { id: 'meadowfield', name: 'MEADOWFIELD FARM', x: 156, y: 54, kind: 'spot', desc: 'A sprawling farm with a windmill. Its milk is famous.' },
-  { id: 'silverfall', name: 'SILVERFALL FALLS', x: 171, y: 76, kind: 'spot', desc: 'A great waterfall that shines silver at dawn.' },
+  { id: 'silverfall', name: 'SILVERFALL CITY', x: 171, y: 76, kind: 'town', desc: 'A city of mills and power plants around a great waterfall. SONANCE ENERGY runs the lights.' },
+  { id: 'route8', name: 'ROUTE 8', x: 194, y: 79, kind: 'route', desc: 'A hilly road west from SEABREEZE PORT to SILVERFALL CITY.' },
+  { id: 'bridge', name: 'SILVERFALL BRIDGE', x: 161, y: 86, kind: 'route', desc: 'A brand-new bridge over the river, south to CRAGMOOR.' },
+  { id: 'cragmoor', name: 'CRAGMOOR TOWN', x: 150, y: 95, kind: 'town', desc: 'A quarry town cut into the hills. Home of the ROCK-type GYM.' },
   { id: 'bramblewood', name: 'BRAMBLEWOOD FOREST', x: 157, y: 103, kind: 'spot', desc: 'A tangled forest whose paths seem to shift.' },
   { id: 'emberpeak', name: 'EMBERPEAK VOLCANO', x: 121, y: 110, kind: 'cave', desc: 'A smoldering volcano south of WILLOWBROOK.' },
   { id: 'route7', name: 'ROUTE 7', x: 141, y: 110, kind: 'route', desc: 'A road from the volcano east to BRAMBLEWOOD.' },
@@ -254,6 +259,8 @@ const REGION_ROADS = [
   [[78, 94], [70, 106], [62, 116], [73, 123]],
   [[124, 112], [140, 110], [155, 110], [161, 115]],
   [[128, 83], [137, 83], [155, 92], [158, 100]],
+  [[213, 82], [202, 80], [188, 79], [176, 77]],
+  [[169, 79], [164, 84], [157, 90], [152, 94]],
 ];
 const REGION_SEA = [
   [[38, 97], [31, 102], [27, 106], [20, 107]],

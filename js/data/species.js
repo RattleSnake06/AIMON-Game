@@ -285,6 +285,86 @@ const SPECIES = {
       text: 'It sends out sound waves from its ear-rings to navigate, talk to others and even confuse foes with illusions. Its calls can carry for miles.',
     },
   },
+
+  // Chapter 5: drawn for the game (tools/draw_originals.py).
+  geodillo: {
+    name: 'GEODILLO', num: 27, types: ['rock', 'electric'],
+    base: { hp: 60, atk: 80, def: 95, spa: 62, spd: 58, spe: 45 },
+    catchRate: 90, baseExp: 128, ability: 'STURDY',
+    learnset: [[1, 'tackle'], [1, 'defensecurl'], [1, 'thundershock'], [6, 'rockthrow'], [11, 'spark'], [16, 'rocktomb'],
+      [21, 'chargebeam'], [26, 'rockslide'], [31, 'thunderfang'], [36, 'powergem'], [42, 'thunderbolt']],
+    dex: {
+      category: 'GEODE', height: '2\'07"', weight: '99.2 lbs',
+      text: 'Its shell is made of split geodes. When it curls up and rolls, the crystals rub together and crackle with static.',
+    },
+  },
+  hourghast: {
+    name: 'HOURGHAST', num: 28, types: ['ghost', 'ground'],
+    base: { hp: 58, atk: 50, def: 82, spa: 88, spd: 80, spe: 50 },
+    catchRate: 60, baseExp: 140, ability: 'CURSED BODY',
+    learnset: [[1, 'astonish'], [1, 'sandattack'], [5, 'mudslap'], [10, 'nightshade'], [15, 'willowisp'], [20, 'hex'],
+      [25, 'bulldoze'], [30, 'shadowball'], [36, 'earthpower']],
+    dex: {
+      category: 'SANDGLASS', height: '3\'03"', weight: '41.9 lbs',
+      text: 'A spirit that moved into a lost traveler\'s hourglass. Anyone who stares into its falling sand loses track of time for hours.',
+    },
+  },
+  noctumoth: {
+    name: 'NOCTUMOTH', num: 29, types: ['dark', 'bug'],
+    base: { hp: 65, atk: 55, def: 60, spa: 90, spd: 76, spe: 82 },
+    catchRate: 75, baseExp: 142, ability: 'SHIELD DUST',
+    learnset: [[1, 'strugglebug'], [1, 'snarl'], [6, 'gust'], [11, 'feintattack'], [16, 'stunspore'], [21, 'bugbite'],
+      [26, 'airslash'], [31, 'nastyplot'], [36, 'bugbuzz']],
+    dex: {
+      category: 'ECLIPSE', height: '3\'11"', weight: '27.6 lbs',
+      text: 'The gold rings on its wings flare like an eclipsed sun. Its dust makes anyone who breathes it see a second moon.',
+    },
+  },
+  mosstodon: {
+    name: 'MOSSTODON', num: 30, types: ['grass', 'ground'],
+    base: { hp: 95, atk: 88, def: 80, spa: 50, spd: 60, spe: 42 },
+    catchRate: 60, baseExp: 145, ability: 'THICK FUR',
+    learnset: [[1, 'tackle'], [1, 'growl'], [5, 'vinewhip'], [10, 'mudslap'], [15, 'megadrain'], [20, 'bulldoze'],
+      [25, 'seedbomb'], [30, 'takedown'], [36, 'gigadrain'], [40, 'earthpower']],
+    dex: {
+      category: 'MOSS MAMMOTH', height: '7\'06"', weight: '661.4 lbs',
+      text: 'Moss and flowers grow on its back all year. Small AIMON nest in its fur, and it is careful never to step on a sapling.',
+    },
+  },
+  prismanta: {
+    name: 'PRISMANTA', num: 31, types: ['water', 'flying'],
+    base: { hp: 62, atk: 45, def: 55, spa: 88, spd: 92, spe: 84 },
+    catchRate: 60, baseExp: 144, ability: 'PRISM SCALES',
+    learnset: [[1, 'watergun'], [1, 'gust'], [8, 'bubblebeam'], [13, 'wingattack'], [18, 'waterpulse'], [24, 'airslash'],
+      [30, 'powergem'], [36, 'surf']],
+    dex: {
+      category: 'STAINED GLASS', height: '4\'03"', weight: '63.9 lbs',
+      text: 'Sunlight through its glassy wings scatters into rainbows on the sea floor. Sailors say spotting one means calm seas.',
+    },
+  },
+  cairnling: {
+    name: 'CAIRNLING', num: 32, types: ['rock'],
+    base: { hp: 50, atk: 68, def: 82, spa: 35, spd: 45, spe: 30 },
+    catchRate: 150, baseExp: 70, ability: 'STURDY',
+    evo: { to: 'obelith', level: 30 },
+    learnset: [[1, 'tackle'], [1, 'harden'], [5, 'rockthrow'], [9, 'defensecurl'], [13, 'mudslap'], [18, 'rocktomb'],
+      [23, 'headbutt'], [28, 'rockslide']],
+    dex: {
+      category: 'CAIRN', height: '1\'08"', weight: '50.7 lbs',
+      text: 'It stacks itself beside mountain trails to show travelers the way. When it gets lost, it adds a stone and waits to be found.',
+    },
+  },
+  obelith: {
+    name: 'OBELITH', num: 33, types: ['rock', 'ground'],
+    base: { hp: 82, atk: 108, def: 122, spa: 60, spd: 70, spe: 40 },
+    catchRate: 45, baseExp: 180, ability: 'STURDY',
+    learnset: [[1, 'tackle'], [1, 'harden'], [1, 'rockthrow'], [9, 'defensecurl'], [13, 'mudslap'], [18, 'rocktomb'],
+      [23, 'headbutt'], [28, 'rockslide'], [30, 'bulldoze'], [36, 'powergem'], [42, 'earthpower']],
+    dex: {
+      category: 'MONOLITH', height: '9\'02"', weight: '1,102 lbs',
+      text: 'Ancient runes glow across its body. Some scholars think the first OBELITH was carved to guard a KEYSTONE, then simply woke up.',
+    },
+  },
 };
 
 const DEX_ORDER = Object.keys(SPECIES).sort((a, b) => SPECIES[a].num - SPECIES[b].num);

@@ -274,7 +274,12 @@ class CommandPanel {
         let tx = 120 - total / 2;
         if (icon) {
           const bob = Math.floor(Game.frame / 16) % 2;
-          g.drawImage(icon, Math.round(tx - 4), top + bt.y - 6 + d - bob);
+          g.save();
+          g.beginPath();
+          g.rect(0, top + bt.y - 1, SCREEN_W, bt.h + 2);
+          g.clip();
+          g.drawImage(icon, Math.round(tx - 4), top + bt.y - 5 + d - bob);
+          g.restore();
           tx += 24 + gap;
         }
         BattleUI.outlined(g, bt.label, tx + Font.width(bt.label) / 2, ty, c.text, c.outline);

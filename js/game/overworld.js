@@ -437,6 +437,11 @@ const OW = {
       this.run(this.warp(warp));
       return;
     }
+    const pad = (this.map.def.pads || []).find((q) => q.x === p.x && q.y === p.y);
+    if (pad) {
+      this.run(this.padWarp(pad));
+      return;
+    }
     if (this.checkTriggers(false)) return;
     if (this.checkTrainers()) return;
     if (this.encounterCooldown > 0) this.encounterCooldown--;
@@ -702,6 +707,26 @@ const OW = {
       yield* Game.fadeIn(12);
     }
     if (this.checkTriggers(true)) yield 1;
+  },
+
+  // Warp pads: flicker out, reappear on the linked pad on the same floor.
+  *padWarp(pad) {
+    const p = this.player;
+    Sound.sfx('pad');
+    for (let i = 0; i < 10; i++) {
+      p.hidden = i % 2 === 0;
+      yield 2;
+    }
+    p.hidden = true;
+    yield* Game.fadeOut(6);
+    [p.x, p.y] = pad.to;
+    yield* Game.fadeIn(6);
+    Sound.sfx('pad');
+    for (let i = 0; i < 10; i++) {
+      p.hidden = i % 2 === 1;
+      yield 2;
+    }
+    p.hidden = false;
   },
 
   *teleport(mapId, x, y, dir) {

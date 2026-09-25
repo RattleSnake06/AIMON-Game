@@ -439,3 +439,70 @@ const MUSIC = {
     ],
   },
 };
+
+// Chapter 5: ROUTE 8, SILVERFALL CITY, SONANCE TOWER, SILVERFALL BRIDGE, CRAGMOOR.
+Object.assign(MUSIC, {
+  route8: {
+    bpm: 132,
+    ch: [
+      { wave: 'p25', vol: 0.09, vib: true, notes:
+        'G4:2 B4 D5 G5:4 F#5:2 E5 D5 | E5:4 C5:2 E5 G5:6 E5:2 | D5:2 F#5 A5 D6:4 C6:2 B5 A5 | B5:6 A5:2 G5:8 |'
+        + ' C5:2 E5 G5 C6:4 B5:2 A5 G5 | A5:4 F#5:2 D5 E5:6 F#5:2 | G5:2 A5 B5 D6:4 B5:2 A5 F#5 | G5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'B4:8 D5 | C5 E5 | A4 D5 | D5 B4 | E5 C5 | C5 A4 | B4 D5 | B4:16' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[G2:2 D3]*4 [C3:2 G3]*4 [D3:2 A3]*4 [G2:2 D3]*4 [C3:2 G3]*4 [D3:2 A3]*4 [G2:2 D3]*4 [G2:2 D3]*4' },
+      { wave: 'noise', vol: 0.045, notes: '[k:2 h:2 s:2 h:2]*16' },
+    ],
+  },
+  silverfall: {
+    bpm: 118,
+    ch: [
+      { wave: 'p25', vol: 0.09, vib: true, notes:
+        'E5:4 G5:2 B5 A5:4 G5:2 E5 | D5:4 F#5:2 A5 G5:8 | C5:4 E5:2 G5 F#5:4 E5:2 C5 | B4:6 D#5:2 F#5:8 |'
+        + ' E5:4 G5:2 B5 D6:4 C6:2 B5 | A5:4 C6:2 A5 G5:4 E5:2 D5 | C5:4 E5:2 A5 B5:4 A5:2 F#5 | E5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[E4:2 G4 B4 G4]*2 [D4:2 F#4 A4 F#4]*2 [C4:2 E4 G4 E4]*2 [B3:2 D#4 F#4 D#4]*2'
+        + ' [E4:2 G4 B4 G4]*2 [A3:2 C4 E4 C4]*2 [C4:2 E4 A4 E4]*2 [E4:2 G4 B4 G4]*2' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[E2:2 E2 B2 E2]*2 [D2:2 D2 A2 D2]*2 [C2:2 C2 G2 C2]*2 [B1:2 B1 F#2 B1]*2'
+        + ' [E2:2 E2 B2 E2]*2 [A1:2 A1 E2 A1]*2 [C2:2 C2 G2 C2]*2 [E2:2 E2 B2 E2]*2' },
+      { wave: 'noise', vol: 0.05, notes: '[k:2 h:2 s:2 h:1 h:1 k:2 h:2 s:2 h:2]*8' },
+    ],
+  },
+  hq: {
+    bpm: 136,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'D5:2 r D5 A5:4 G5:2 F5 E5 | F5:4 E5:2 D5 C#5:8 | D5:2 r D5 Bb5:4 A5:2 G5 F5 | G5:4 F5:2 E5 A5:8 |'
+        + ' Bb5:2 r Bb5 A5:4 G5:2 F5 E5 | F5:4 G5:2 A5 D6:8 | C#6:4 Bb5:2 A5 G5:4 E5:2 C#5 | D5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[D4:1 D4 A4 D4]*8 [Bb3:1 Bb3 F4 Bb3]*4 [A3:1 A3 E4 A3]*4 [D4:1 D4 A4 D4]*8 [G3:1 G3 D4 G3]*4 [A3:1 A3 E4 A3]*4' },
+      { wave: 'tri', vol: 0.16, notes: '[D2:2 D3]*8 [Bb1:2 Bb2]*4 [A1:2 A2]*4 [D2:2 D3]*8 [G1:2 G2]*4 [A1:2 A2]*4' },
+      { wave: 'noise', vol: 0.045, notes: '[k:2 h:1 h:1 s:2 h:2 k:1 k:1 h:2 s:2 h:2]*8' },
+    ],
+  },
+  bridge: {
+    bpm: 124,
+    ch: [
+      { wave: 'p25', vol: 0.09, vib: true, notes:
+        'F4:2 A4 C5 F5:6 E5:2 D5 | C5:4 A4 Bb4:2 D5:6 | C5:2 E5 G5 C6:6 Bb5:2 A5 | G5:8 F5:4 E5 |'
+        + ' D5:2 F5 A5 D6:6 C6:2 Bb5 | A5:4 F5 G5:2 Bb5:6 | A5:2 G5 F5 E5:4 D5:2 E5:4 | F5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'A4:8 C5 | F4 D4 | E4 G4 | Bb4 G4 | F4 A4 | F4 D4 | C5 Bb4 | A4:16' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[F2:2 C3]*4 [Bb1:2 F2]*4 [C2:2 G2]*4 [C2:2 G2]*4 [D2:2 A2]*4 [Bb1:2 F2]*4 [C2:2 G2]*4 [F2:2 C3]*4' },
+      { wave: 'noise', vol: 0.045, notes: '[k:2 h:2 s:2 h:2 k:2 h:2 s:2 o:2]*8' },
+    ],
+  },
+  cragmoor: {
+    bpm: 108,
+    ch: [
+      { wave: 'p50', vol: 0.08, vib: true, notes:
+        'A4:4 C5:2 E5 D5:4 C5:2 B4 | C5:4 A4:2 G4 A4:8 | F4:4 A4:2 C5 E5:4 D5:2 C5 | B4:6 G4:2 E4:8 |'
+        + ' A4:4 C5:2 E5 A5:4 G5:2 E5 | F5:4 E5:2 D5 C5:8 | D5:4 C5:2 B4 C5:4 B4:2 G#4 | A4:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'E4:8 C4 | E4 E4 | C4 F4 | G4 E4 | E4 C5 | A4 E4 | F4 E4 | C4:16' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[A1:4 E2]*2 [A1:4 E2]*2 [F1:4 C2]*2 [E1:4 B1]*2 [A1:4 E2]*2 [D2:4 A2]*2 [D2:4 E2]*2 [A1:4 E2]*2' },
+      { wave: 'noise', vol: 0.05, notes: '[k:4 s:2 h:2 k:2 k:2 s:4]*8' },
+    ],
+  },
+});

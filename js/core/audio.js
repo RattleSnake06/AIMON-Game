@@ -297,6 +297,10 @@ const SFX = {
     S.osc('sawtooth', 110, t, 1.2, 0.06, b, { vibrato: 6 });
     S.osc('sawtooth', 116, t, 1.2, 0.05, b);
   },
+  pad(S, t, b) {
+    S.osc('p25', 300, t, 0.18, 0.1, b, { slideTo: 1400 });
+    S.osc('p12', 600, t + 0.05, 0.16, 0.06, b, { slideTo: 2200 });
+  },
   rock(S, t, b) {
     for (let i = 0; i < 3; i++) S.noise(t + i * 0.09, 0.1, 0.3, b, { filter: 'lowpass', freq: 800 });
   },
@@ -304,6 +308,36 @@ const SFX = {
 
 // Each creature gets its own synthesised call.
 const CRIES = {
+  geodillo(S, t, b, p) {
+    S.osc('p25', 200 * p, t, 0.22, 0.14, b, { slideTo: 140 * p });
+    S.noise(t + 0.05, 0.25, 0.09, b, { filter: 'bandpass', freq: 2400 });
+    S.osc('p12', 900 * p, t + 0.18, 0.12, 0.07, b, { slideTo: 1400 * p });
+  },
+  hourghast(S, t, b, p) {
+    S.osc('triangle', 520 * p, t, 0.5, 0.14, b, { slideTo: 260 * p, vibrato: 6 });
+    S.noise(t + 0.1, 0.45, 0.05, b, { filter: 'highpass', freq: 3000 });
+  },
+  noctumoth(S, t, b, p) {
+    S.osc('p12', 1300 * p, t, 0.3, 0.09, b, { slideTo: 900 * p, vibrato: 22 });
+    S.noise(t, 0.3, 0.06, b, { filter: 'bandpass', freq: 700, freqTo: 1200 });
+  },
+  mosstodon(S, t, b, p) {
+    S.osc('p50', 300 * p, t, 0.12, 0.14, b, { slideTo: 520 * p });
+    S.osc('p50', 520 * p, t + 0.12, 0.35, 0.14, b, { slideTo: 250 * p, vibrato: 5 });
+  },
+  prismanta(S, t, b, p) {
+    S.osc('triangle', 1200 * p, t, 0.3, 0.12, b, { slideTo: 1500 * p });
+    S.osc('triangle', 1800 * p, t + 0.08, 0.35, 0.08, b, { slideTo: 1350 * p, vibrato: 9 });
+  },
+  cairnling(S, t, b, p) {
+    for (let i = 0; i < 3; i++) S.noise(t + i * 0.07, 0.05, 0.14, b, { filter: 'bandpass', freq: 1400 - i * 300 });
+    S.osc('p25', 420 * p, t + 0.2, 0.12, 0.1, b, { slideTo: 560 * p });
+  },
+  obelith(S, t, b, p) {
+    S.osc('triangle', 120 * p, t, 0.7, 0.2, b, { slideTo: 95 * p, vibrato: 3 });
+    S.osc('p12', 240 * p, t + 0.05, 0.6, 0.06, b, { slideTo: 190 * p });
+    S.noise(t, 0.3, 0.07, b, { filter: 'lowpass', freq: 500 });
+  },
   tidepup(S, t, b, p) {
     S.osc('p50', 700 * p, t, 0.08, 0.11, b, { slideTo: 950 * p });
     S.osc('p50', 900 * p, t + 0.1, 0.16, 0.11, b, { slideTo: 650 * p, vibrato: 8 });

@@ -36,6 +36,8 @@ const ITEMS = {
     desc: 'Teaches SWIFT: star-shaped rays that never miss. Can be used again and again.' },
   tm02: { name: 'TM02 MAGICAL LEAF', pocket: 'tms', tm: 'magicalleaf',
     desc: 'Teaches MAGICAL LEAF: curious leaves that never miss. Can be used again and again.' },
+  tm04: { name: 'TM04 ROCK SLIDE', pocket: 'tms', tm: 'rockslide',
+    desc: 'Teaches ROCK SLIDE: hurls boulders that may make the foe flinch. Can be used again and again.' },
   tm03: { name: 'TM03 WATER PULSE', pocket: 'tms', tm: 'waterpulse',
     desc: 'Teaches WATER PULSE: a pulsing blast of water. Can be used again and again.' },
 };
@@ -45,6 +47,8 @@ const MART_STOCK = {
   archford: ['aimonball', 'potion', 'superpotion', 'parlyzheal', 'awakening', 'burnheal', 'repel', 'escaperope', 'revive'],
   grayhaven: ['aimonball', 'greatball', 'potion', 'superpotion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
   cedarwood: ['aimonball', 'greatball', 'potion', 'superpotion', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'revive'],
+  silverfall: ['greatball', 'aimonball', 'superpotion', 'revive', 'fullheal', 'parlyzheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
+  cragmoor: ['greatball', 'aimonball', 'superpotion', 'potion', 'revive', 'fullheal', 'awakening', 'repel', 'escaperope'],
   seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
 };
 

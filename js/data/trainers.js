@@ -304,6 +304,151 @@ const TRAINERS = {
     ],
     lose: 'Ha! Like a gale at our backs! You\'ve earned your sea legs, {PLAYER}.',
   },
+
+  // --- Route 8 --------------------------------------------------------------------------
+  r8hiker: {
+    cls: 'HIKER', name: 'DALE', sprite: 'hiker', payout: 40,
+    party: () => [['cairnling', 24], ['terrapike', 25]],
+    intro: 'The road to SILVERFALL is open again! Celebrate with a battle!',
+    lose: 'Crumbled like an old cairn...',
+    after: 'Stack a few stones by the trail and a CAIRNLING might come to see who did it.',
+  },
+  r8pic: {
+    cls: 'PICNICKER', name: 'ROSA', sprite: 'picnicker', payout: 36,
+    party: () => [['mosstodon', 24], ['dapplekit', 24]],
+    intro: 'My MOSSTODON has flowers growing on its back! Isn\'t that the cutest thing?',
+    lose: 'Aww, you trampled the flowers...',
+    after: 'MOSSTODON are rare around here. I found mine napping in the tall grass.',
+  },
+  r8bug: {
+    cls: 'BUG CATCHER', name: 'NILS', sprite: 'bugcatcher', payout: 28,
+    party: () => [['leafgrub', 23], ['noctumoth', 25]],
+    intro: 'Look at these golden rings! My NOCTUMOTH is the coolest bug ever!',
+    lose: 'Even the eclipse couldn\'t save me!',
+    after: 'NOCTUMOTH\'s wing dust makes you see double. Don\'t stare at it too long.',
+  },
+  r8fisher: {
+    cls: 'FISHERMAN', name: 'GUS', sprite: 'fisher', payout: 36,
+    party: () => [['prismanta', 25], ['reefwhirl', 24]],
+    intro: 'Shh! You\'ll scare the PRISMANTA! ...Too late. Battle!',
+    lose: 'The one that got away... was me.',
+    after: 'PRISMANTA like clear, calm water. The stream here and the river in the city are good spots.',
+  },
+
+  // --- SONANCE TOWER ------------------------------------------------------------------------
+  hqgrunt1: {
+    cls: 'DISTORTION GRUNT', name: '', sprite: 'grunt', payout: 32, music: 'distortion',
+    party: () => [['tuner', 25], ['voltvix', 25]],
+    intro: '',
+    lose: 'Welcome to SONANCE ENERGY... please enjoy your stay...',
+    after: 'The receptionist job was supposed to be the EASY one.',
+  },
+  hqgrunt2: {
+    cls: 'DISTORTION GRUNT', name: '', sprite: 'grunt', payout: 32, music: 'distortion',
+    party: () => [['stormgale', 25]],
+    intro: 'Stairs are for staff only! And you are NOT staff!',
+    lose: 'You can\'t just... walk upstairs...',
+    after: 'The elevator\'s "broken" so nobody sneaks up to the top. Heh. Bet you didn\'t know that.',
+  },
+  hqgrunt3: {
+    cls: 'DISTORTION GRUNT', name: '', sprite: 'grunt', payout: 34, music: 'distortion',
+    party: () => [['wraithling', 25], ['voltimp', 25], ['tuner', 26]],
+    intro: 'Dizzy from the pads yet? Good! Easier to beat you!',
+    lose: 'I\'m the one who\'s dizzy now...',
+    after: 'The pads link up in pairs. Step on one, pop out of its twin. Took me a week to learn.',
+  },
+  hqgrunt4: {
+    cls: 'DISTORTION GRUNT', name: '', sprite: 'grunt', payout: 34, music: 'distortion',
+    party: () => [['noctumoth', 26], ['voltvix', 26]],
+    intro: 'How did you even get in here?! This room is a dead end! ...Isn\'t it?',
+    lose: 'Guess it isn\'t a dead end for you.',
+    after: 'ADMIN MORROW is upstairs with the songs. He doesn\'t like being interrupted.',
+  },
+  hqsci: {
+    cls: 'SCIENTIST', name: 'ELIAS', sprite: 'scientist', payout: 48, music: 'distortion',
+    party: () => [['voltimp', 26], ['geodillo', 26]],
+    intro: 'An intruder in the lab? The data will be ruined! Stop right there!',
+    lose: 'My calculations... did not include you.',
+    after: 'The KEYSTONES each hum a note. Together, the eight notes make one great chord. The seal.',
+  },
+  hqgrunt5: {
+    cls: 'DISTORTION GRUNT', name: '', sprite: 'grunt', payout: 36, music: 'distortion',
+    party: () => [['hourghast', 27], ['stormgale', 27]],
+    intro: 'The archive is off-limits! The ADMIN is busy tuning!',
+    lose: 'Out of tune... totally out of tune...',
+    after: 'Only the COMMANDER can open the door to the top floor. Not even ADMINS get a key.',
+  },
+  morrow: {
+    cls: 'ADMIN', name: 'MORROW', sprite: 'morrow', payout: 90, music: 'admin',
+    party: () => [
+      ['hourghast', 28, ['hex', 'willowisp', 'bulldoze', 'nightshade']],
+      ['noctumoth', 29, ['airslash', 'bugbite', 'feintattack', 'stunspore']],
+      ['umbrafang', 31, ['crunch', 'shadowsneak', 'feintattack', 'snarl']],
+    ],
+    lose: 'Hmm. The sand runs out for everyone, it seems. Even me.',
+  },
+
+  // --- Silverfall Bridge ----------------------------------------------------------------------
+  brworker: {
+    cls: 'WORKER', name: 'BRUNO', sprite: 'worker', payout: 40,
+    party: () => [['geodillo', 26], ['scrapaw', 27]],
+    intro: 'Two weeks of waiting and now I finally get to walk my own bridge! Let\'s celebrate!',
+    lose: 'Solid work. Solid as steel.',
+    after: 'GEODILLO love the girders. The static from their crystals keeps the birds away.',
+  },
+  brsailor: {
+    cls: 'SAILOR', name: 'PERCY', sprite: 'sailor', payout: 40,
+    party: () => [['tidefin', 27]],
+    intro: 'Ahoy! I sail under this bridge every day. Now I can finally walk over it!',
+    lose: 'Scuttled!',
+    after: 'The river runs all the way from the falls to the sea. The fish here are huge!',
+  },
+  brfisher: {
+    cls: 'FISHERMAN', name: 'WALT', sprite: 'fisher', payout: 40,
+    party: () => [['prismanta', 27], ['goskie', 26], ['reefwhirl', 26]],
+    intro: 'Best fishing spot in VALEMORA, this deck. And the best battling spot too!',
+    lose: 'Reeled in!',
+    after: 'Cast your line off the deck. PRISMANTA gather under the bridge where the water\'s calm.',
+  },
+  brhiker: {
+    cls: 'HIKER', name: 'IGOR', sprite: 'hiker', payout: 40,
+    party: () => [['cairnling', 27], ['hourghast', 27]],
+    intro: 'CRAGMOOR\'s just ahead. Warm up on me before you face TOR!',
+    lose: 'Warmed up and worn out!',
+    after: 'HOURGHAST drift out of the old mine at dusk. Lost travelers\' hourglasses, they say.',
+  },
+
+  // --- Cragmoor Gym ---------------------------------------------------------------------------
+  cmminer1: {
+    cls: 'MINER', name: 'DUNCAN', sprite: 'miner', payout: 44,
+    party: () => [['cairnling', 27], ['terrapike', 28]],
+    intro: 'Mind the ledges, rookie! One wrong step and it\'s back to the bottom!',
+    lose: 'Chipped right off the face!',
+    after: 'The ledges only go one way. Plan your climb before you jump.',
+  },
+  cmhiker: {
+    cls: 'HIKER', name: 'BERT', sprite: 'hiker', payout: 44,
+    party: () => [['geodillo', 28], ['cairnling', 28]],
+    intro: 'Halfway up already? TOR will be pleased. I won\'t!',
+    lose: 'Rolled right down the hill...',
+    after: 'TOR\'s OBELITH is older than this whole town. Nobody has ever made it budge.',
+  },
+  cmminer2: {
+    cls: 'MINER', name: 'OSWIN', sprite: 'miner', payout: 46,
+    party: () => [['terrapike', 28], ['geodillo', 29]],
+    intro: 'Last stop before the boss! Show me you can dig deep!',
+    lose: 'You struck gold!',
+    after: 'Go on. TOR\'s waiting by the CRAGSTONE. Try not to get flattened.',
+  },
+  tor: {
+    cls: 'LEADER', name: 'TOR', sprite: 'tor', payout: 130, music: 'leader', leader: true,
+    party: () => [
+      ['cairnling', 29, ['rocktomb', 'defensecurl', 'headbutt', 'rockthrow']],
+      ['geodillo', 30, ['rockslide', 'chargebeam', 'spark', 'defensecurl']],
+      ['obelith', 32, ['rockslide', 'bulldoze', 'rocktomb', 'harden']],
+    ],
+    lose: 'Hrmph! You moved the mountain. Nobody\'s done that in twenty years.',
+  },
 };
 
 // The eight GYM badges. The first three gyms exist so far.
@@ -314,7 +459,8 @@ const BADGES = [
     colors: ['#78b860', '#3c6830', '#e8f0a0'] },
   { id: 'tide', name: 'TIDE BADGE', leader: 'NERISSA', town: 'SEABREEZE PORT', type: 'water',
     colors: ['#5890d8', '#284878', '#c8e8f8'] },
-  { id: 'b4', name: '???', colors: ['#e07848', '#884020', '#f8d0a0'] },
+  { id: 'crag', name: 'CRAG BADGE', leader: 'TOR', town: 'CRAGMOOR TOWN', type: 'rock',
+    colors: ['#c09060', '#6a4a28', '#f8e0b0'] },
   { id: 'b5', name: '???', colors: ['#c878c8', '#704070', '#f8c8f8'] },
   { id: 'b6', name: '???', colors: ['#e0c048', '#886820', '#f8f0a0'] },
   { id: 'b7', name: '???', colors: ['#60b8c8', '#306878', '#c8f0f8'] },

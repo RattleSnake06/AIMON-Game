@@ -525,7 +525,7 @@ Object.assign(Events, {
 
   *nerissaGym() {
     if (State.flag('badge_tide')) {
-      yield* say('NERISSA: The ferries will sail again soon. There\'s a whole region past the horizon, {PLAYER}.');
+      yield* say('NERISSA: The road west is clear again. SILVERFALL CITY lies that way, and CRAGMOOR\'s GYM beyond it.');
       yield* say('NERISSA: Five more BADGES, five more WARDENS. Keep your eyes on the water, and your crew close.');
       return;
     }
@@ -540,7 +540,8 @@ Object.assign(Events, {
     yield* say('NERISSA: And take this TM. WATER PULSE, a move my crew swears by.');
     yield* this.receive('tm03', 1);
     yield* say('NERISSA: Three BADGES. Three stones that TEAM DISTORTION has "heard." I don\'t like how that sounds.');
-    yield* say('NERISSA: Rest up, {PLAYER}. When the ferries run again, the whole region opens up. And I think you\'ll be needed out there.');
+    yield* say('NERISSA: The storm buried the road west, but the crews are digging it out as we speak.');
+    yield* say('NERISSA: Follow ROUTE 8 to SILVERFALL CITY. The next GYM is in CRAGMOOR, across the river. And I think you\'ll be needed out there.');
   },
 
   *ferryTalk() {
@@ -553,7 +554,7 @@ Object.assign(Events, {
       return;
     }
     yield* say('SAILOR: The ferries to STARFALL ISLE and the AIMON LEAGUE island are still being repaired after the storm.');
-    yield* say('...That\'s as far as this adventure goes for now.\fThanks for playing!');
+    yield* say('SAILOR: If you\'re heading on, take ROUTE 8 west out of town. It goes all the way to SILVERFALL CITY.');
   },
 
   *healGift() {
@@ -609,7 +610,6 @@ Object.assign(Events, {
     yield* say('???: Five more WARDENS. Five more stones.', DARK);
     yield* say('???: And the child carries three pieces of the melody now. Let them keep collecting...', DARK);
     yield* say('???: When the last BADGE is won, every stone will be singing the same song.\fOurs.', DARK);
-    yield* say('TO BE CONTINUED...', DARK);
     yield* Game.fadeOut(40);
     Game.remove(scene);
     Sound.playMusic(OW.music());

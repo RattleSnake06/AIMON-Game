@@ -2,8 +2,8 @@
 
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
-designs from the design sheets. The story currently runs up to the third GYM
-BADGE.
+designs from the design sheets, plus seven originals drawn in code. The story
+currently runs up to the fourth GYM BADGE.
 
 | | |
 |---|---|
@@ -17,7 +17,11 @@ BADGE.
 | ![ADMIN VESPER](docs/screenshots/vesper.png) | ![Evolution](docs/screenshots/evolution.png) |
 | ![Seabreeze Port in the storm](docs/screenshots/storm.png) | ![A storm coil in the lighthouse](docs/screenshots/lighthouse.png) |
 | ![GYM LEADER NERISSA](docs/screenshots/nerissa.png) | ![Town map of VALEMORA](docs/screenshots/townmap.png) |
-| ![Trainer card with three BADGES](docs/screenshots/card.png) | ![The ADMINS report to the CONDUCTOR](docs/screenshots/epilogue2.png) |
+| ![Trainer card with four BADGES](docs/screenshots/card.png) | ![The ADMINS report to the CONDUCTOR](docs/screenshots/epilogue2.png) |
+| ![Silverfall City and the SONANCE TOWER](docs/screenshots/silverfall.png) | ![Warp pads on the tower's 2F](docs/screenshots/hqpads.png) |
+| ![ADMIN MORROW in the song archive](docs/screenshots/archive.png) | ![Battling MORROW's HOURGHAST](docs/screenshots/morrow.png) |
+| ![Silverfall Bridge](docs/screenshots/bridge.png) | ![Cragmoor Town](docs/screenshots/cragmoor.png) |
+| ![GYM LEADER TOR's CAIRNLING](docs/screenshots/tor.png) | ![The COMMANDER appears](docs/screenshots/epilogue3.png) |
 
 ## Play
 
@@ -152,8 +156,48 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     port.
 27. NERISSA's water GYM, with fully evolved **TIDEFIN**, **REEFLORD** and
     **SKYSERAPH**, awards the **TIDE BADGE** and **TM03 WATER PULSE**.
-28. A second epilogue: VESPER and THANE report to the CONDUCTOR. The ferries
-    to the islands aren't running yet, so that's the end for now.
+28. A second epilogue: VESPER and THANE report to the CONDUCTOR. Back in
+    town, the road crew clears the storm damage from the west road.
+
+**Chapter 5: The Silent Bridge**
+
+29. **Route 8** runs west from Seabreeze over hills and a stream. Its tall
+    grass hides **NOCTUMOTH** and the rare **MOSSTODON**, and **PRISMANTA**
+    bite in the water.
+30. **Silverfall City** is an industrial city built around a great waterfall.
+    Its bridge south to CRAGMOOR (and the next GYM) is finished but closed.
+    SONANCE ENERGY, the power company paying for it, has ordered the crew to
+    stop work. KAI has been watching SONANCE's glass tower: its logo is a
+    violet tuning fork, and black coats go in and out all day.
+31. **The SONANCE TOWER** is TEAM DISTORTION's headquarters. In the lobby,
+    the "receptionist" raises the alarm and KAI stays behind to hold the
+    stairs.
+    - **2F** is split into six glass-walled labs joined by **warp pads**,
+      which link in pairs. There are grunts, a scientist who wants out, and
+      memos about the KEYSTONES.
+    - **3F** is the **song archive**: glowing tanks hold the recorded songs of
+      the RIFTSTONE, ROOTSTONE and TIDESTONE, a fourth tank is filling with
+      the CRAGSTONE's, and the terminals describe **PROJECT COUNTERMELODY**.
+32. ADMIN **MORROW** (HOURGHAST, NOCTUMOTH, UMBRAFANG) explains the plan: play
+    all eight KEYSTONE songs backwards through the **GRAND RESONATOR** and the
+    seals will come undone, opening the RIFT. Then he escapes through a warp
+    pad.
+    - The door to **4F** needs the **COMMANDER's key card**, so it stays
+      locked for now. You'll have to win that card later in the story.
+    - The bridge had been kept closed so no WARDEN could help CRAGMOOR while
+      its stone was recorded. With the recording done, the crew cranes in
+      the last section.
+33. **Silverfall Bridge** is a long deck over the river with an observation
+    platform, trainers and good fishing. Its rocky south shore has
+    **CAIRNLING**, **GEODILLO** and **HOURGHAST**.
+34. **Cragmoor Town** is a quarry town with mine carts. LEADER **TOR**, WARDEN
+    of the CRAGSTONE, chased TEAM DISTORTION off with a shovel, but they had
+    already "heard enough".
+35. TOR's ROCK-type GYM is a climb through a quarry, with boulders and
+    one-way rock ledges. He fields CAIRNLING, GEODILLO and his ancient
+    **OBELITH**, and awards the **CRAG BADGE** and **TM04 ROCK SLIDE**.
+36. A third epilogue: MORROW reports to the CONDUCTOR, and the **COMMANDER**
+    appears for the first time.
 
 **Gameplay**
 
@@ -188,7 +232,16 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - **Evolution:** AIMON that level up in a battle can evolve afterwards. The
   scene flashes between the two forms, and holding B stops it. The
   evolutions: TIDEPUP → TIDEFIN (Lv 20), REEFWHIRL → REEFLORD (26), SKYDRIFT
-  → SKYSERAPH (28), VOLTIMP → STORMGALE (24) and TUNER → SONARION (32).
+  → SKYSERAPH (28), VOLTIMP → STORMGALE (24), TUNER → SONARION (32) and
+  CAIRNLING → OBELITH (30).
+- **Original AIMON (No. 27-33)** drawn in code with `tools/pixelart.py`:
+  GEODILLO (ROCK/ELECTRIC geode armadillo), HOURGHAST (GHOST/GROUND hourglass
+  spirit), NOCTUMOTH (DARK/BUG eclipse moth), MOSSTODON (GRASS/GROUND mossy
+  mammoth), PRISMANTA (WATER/FLYING stained-glass manta), and the ROCK-type
+  CAIRNLING and OBELITH line. New moves: ROCK SLIDE, POWER GEM, BUG BUZZ and
+  EARTH POWER.
+- **Warp pads** in the SONANCE TOWER send you to their linked pad on the same
+  floor.
 - New moves include fixed-damage ones (SONIC BOOM, NIGHT SHADE), HEX (twice
   as strong against a statused foe), ECHOED VOICE (gets louder each turn it
   is used in a row), WILL-O-WISP and BOOMBURST. FLAMBRAMBLE's BLAZE powers
@@ -256,9 +309,9 @@ tools/bundle.py       inlines everything into dist/aimon.html
 art/                  the design sheets and the VALEMORA region map
 ```
 
-Later chapters live in their own files next to the originals: `tiles_ext.js`
-and `tiles_ch3.js` (tiles, buildings and props), `maps_ch3.js` and
-`events_ch3.js`. Evolution is in `evolution.js`, and the DS-style battle
+Later chapters live in their own files next to the originals: `tiles_ext.js`,
+`tiles_ch3.js` and `tiles_ch4.js` (tiles, buildings and props), `maps_ch3.js`,
+`maps_ch4.js`, `events_ch3.js` and `events_ch4.js` (the chapter 5 story). Evolution is in `evolution.js`, and the DS-style battle
 panels and HP plates are in `battle_ui.js`.
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
@@ -289,6 +342,23 @@ Set `ONLY=tidepup,tidefin` to rebuild just some sprites. This rewrites
 `assets/sprites/*.png` and `js/data/sprite_data.js`. The crop boxes and
 sizes are at the top of the script.
 
+The seven original AIMON are drawn from shapes instead of cut from a sheet.
+`tools/pixelart.py` is a small renderer: each creature is a list of shapes
+(ellipses, tapered strokes, polygons) with a five-tone colour ramp. It shades
+them with light from the upper left, drops cast shadows, and reduces them to
+64×64 with dark outlines around the silhouette and between overlapping parts.
+The designs are in `tools/draw_originals.py`:
+
+```
+pip install pillow numpy
+python3 tools/draw_originals.py            # all of them
+python3 tools/draw_originals.py prismanta  # just one
+```
+
+This writes the front sprite, a mirrored back sprite and an icon to
+`assets/sprites/`, rewrites `js/data/sprite_data.js`, and keeps preview
+copies in `art/originals/`.
+
 The town map's terrain comes from the region painting in
 `art/valemora_map.webp`. `python3 tools/make_townmap.py` sorts it into
 terrain kinds, shrinks it to 240×158 and repaints it in a flat GBA palette
@@ -300,5 +370,6 @@ on top.
 `index.html?debug=route1` skips the story and starts with a level 7 starter.
 Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `route2`, `cave`, `route3`, `grayhaven`, `route5`, `pinecrest`, `cedarwood`,
-`library`, `route4`, `seabreeze`, `lighthouse`. Add `&starter=moltarock` or
+`library`, `route4`, `seabreeze`, `lighthouse`, `route8`, `silverfall`, `hq`, `bridge`,
+`cragmoor`. Add `&starter=moltarock` or
 `&starter=archepin` to pick the starter.

@@ -68,6 +68,21 @@ const TrainerArt = {
     this.sprites.thane = this.admin({
       hair: '#302840', hairStyle: 'swept', coat: '#262634', trim: '#f0c030', wide: true,
     });
+    this.sprites.morrow = this.admin({
+      hair: '#c8ccd8', hairStyle: 'swept', coat: '#1e2a2e', trim: '#e0b048',
+    });
+    this.sprites.scientist = this.front({
+      hair: 'prof', hairCol: '#5a4a3a', shirt: '#58a8a0', pants: '#4a4a58', shoes: '#302830', coat: '#f4f4fa',
+    });
+    this.sprites.worker = this.front({
+      hair: 'cap', hairCol: '#403030', cap: '#f8d030', shirt: '#f08030', stripes: '#f8f070', pants: '#4868a0', shoes: '#503828',
+      pose: 'hips', wide: true,
+    });
+    this.sprites.miner = this.front({
+      hair: 'cap', hairCol: '#3a2818', cap: '#e0b030', shirt: '#6a6258', pants: '#4a4238', shoes: '#302820', beard: '#3a2818',
+      belt: '#3a2a1c', wide: true,
+    });
+    this.sprites.tor = this.tor();
     this.sprites.ivy = this.ivy();
     this.sprites.nerissa = this.nerissa();
     this.sprites.playerBack = this.back(false);
@@ -277,6 +292,51 @@ const TrainerArt = {
     p.rows(cx - 6, 10, ['wo', 'oo'], f);
     p.rows(cx + 4, 10, ['ow', 'oo'], f);
     p.line(cx, 12, cx, 14, '#84502e');
+    return p.toCanvas();
+  },
+
+  // GYM LEADER TOR of CRAGMOOR: a quarry boss with a hard hat, a grey beard
+  // and a pickaxe over his shoulder.
+  tor() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const skin = { fill: '#d09870', shade: '#a87050', hi: '#e8b890', line: OUT };
+    const denim = style('#4a5a78');
+    // Boots and overalls.
+    p.rrect(cx - 12, 44, 11, 17, 2, denim);
+    p.rrect(cx + 1, 44, 11, 17, 2, denim);
+    p.rrect(cx - 13, 56, 12, 7, 2, style('#3a2818'));
+    p.rrect(cx + 1, 56, 12, 7, 2, style('#3a2818'));
+    // Pickaxe resting on the right shoulder (behind the body).
+    p.poly([[cx + 12, 40], [cx + 26, 6], [cx + 29, 7], [cx + 15, 41]], style('#7a5230'));
+    p.poly([[cx + 16, 4], [cx + 30, 1], [cx + 36, 8], [cx + 28, 6], [cx + 20, 9]], style('#b8c0c8', { shade: '#8890a0' }));
+    // Broad plaid shirt under the overall bib.
+    p.rrect(cx - 16, 22, 32, 24, 6, style('#a84838'));
+    for (let x = cx - 14; x < cx + 16; x += 5) p.line(x, 23, x, 45, '#7a2e24');
+    p.rect(cx - 9, 30, 18, 16, denim);
+    p.rect(cx - 3, 34, 6, 4, style('#3a4a66'));
+    p.line(cx - 9, 30, cx - 12, 23, '#303c54');
+    p.line(cx + 9, 30, cx + 12, 23, '#303c54');
+    // Arms: one hand on the hip, one gripping the pickaxe.
+    p.ellipse(cx - 18, 30, 6, 7, style('#a84838'));
+    p.rrect(cx - 23, 33, 7, 12, 3, skin);
+    p.ellipse(cx + 17, 29, 6, 7, style('#a84838'));
+    p.rrect(cx + 15, 31, 7, 10, 3, skin);
+    p.ellipse(cx + 17, 40, 3.5, 3, skin);
+    // Head: hard hat with a lamp, big grey beard.
+    p.rect(cx - 5, 16, 10, 7, skin);
+    p.ellipse(cx, 12, 10, 10.5, skin);
+    p.poly([[cx - 10, 12], [cx - 8, 21], [cx - 3, 26], [cx + 3, 26], [cx + 8, 21], [cx + 10, 12], [cx + 6, 15], [cx - 6, 15]],
+      style('#b0b0b8', { hi: '#d8d8e0' }));
+    p.rows(cx - 3, 17, ['.mmmm.'], { m: '#6a3a2a' });
+    p.ellipse(cx, 5, 12, 6, style('#e0b030', { hi: '#f8d870' }));
+    p.rect(cx - 14, 6, 28, 3, style('#c89820'));
+    p.ellipse(cx, 4, 3, 2.4, style('#f8f4c0', { shade: '#d8c870' }));
+    const f = { o: OUT, w: '#f8f8f8', b: '#606068' };
+    p.rows(cx - 7, 10, ['bbbb'], f);
+    p.rows(cx + 3, 10, ['bbbb'], f);
+    p.rows(cx - 6, 12, ['wo'], f);
+    p.rows(cx + 4, 12, ['ow'], f);
     return p.toCanvas();
   },
 
