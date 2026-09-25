@@ -197,7 +197,7 @@ Object.assign(MAPS, {
       'ÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊ',
     ],
     buildings: [
-      { type: 'digMouth', x: 10, y: 3, to: 'dig1' },
+      { type: 'digMouth', x: 10, y: 3, to: 'dig1', lock: { flag: 'beat_ssgrunt2', script: 'digGuardStop' } },
       { type: 'sunSpire', x: 26, y: 2 },
       { type: 'sandGym', x: 16, y: 11, to: 'gym_ss',
         lock: { flag: 'sahra_freed', text: 'The GYM doors are barred. A note is tacked to them:\n"Out digging. Back by supper. -SAHRA"\fThe note is dated a week ago.' } },

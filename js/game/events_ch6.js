@@ -110,6 +110,14 @@ Object.assign(Events, {
     this.spawnDef('ss_pip');
   },
 
+  // The second guard steps in if you try to slip past into the dig site.
+  *digGuardStop() {
+    const g = OW.npc('ss_grunt2');
+    if (!g) return;
+    yield* say('GRUNT: Hey! Where do you think you\'re going?');
+    yield* this.trainerSpotted(g);
+  },
+
   *pipTalk() {
     if (State.flag('beat_vesper2')) {
       yield* say('PIP: The humming stopped! Is SAHRA all right? Please, go check on her!');
