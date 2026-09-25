@@ -523,6 +523,7 @@ Object.assign(Events, {
     }
     yield* say('GUIDE: Ahoy, future champ! The CAPTAIN built her GYM around the tides. Step into a current and it\'ll carry you!');
     yield* say('GUIDE: Every current flows one way only. Pick the wrong one and it\'ll wash you right back here. Watch the arrows in the water.');
+    yield* say('GUIDE: Once you\'ve beaten the CAPTAIN, the current on the right of her deck will carry you back down.');
     yield* say('GUIDE: The CAPTAIN uses WATER types, and every one of them has evolved.');
     yield* say('GUIDE: GRASS and ELECTRIC moves hit them hard. And watch out for her SKYSERAPH. It\'s faster than the wind!');
   },
