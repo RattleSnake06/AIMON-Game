@@ -139,7 +139,7 @@ Object.assign(MAPS, {
     },
     signs: [
       { x: 36, y: 15, text: 'SILVERFALL CITY\nPowered by the Silver Falls.' },
-      { x: 29, y: 9, text: 'SONANCE ENERGY\nHEAD OFFICE\f"Tuning the future of VALEMORA."' },
+      { x: 29, y: 9, text: 'SONANCE ENERGY\nHEAD OFFICE\f"Tuning the future of VALEMORA."\fFounded by DR. AUGUST VALE.' },
       { x: 17, y: 27, text: () => (BRIDGE_OPEN()
         ? 'SILVERFALL BRIDGE\nSOUTH: CRAGMOOR TOWN'
         : 'SILVERFALL BRIDGE\nUNDER CONSTRUCTION. NO ENTRY.\f-SONANCE ENERGY') },
@@ -167,7 +167,7 @@ Object.assign(MAPS, {
       { id: 'sf_suit', person: 'suit', x: 27, y: 9, dir: 'down', move: 'look',
         text: () => (State.flag('hq_cleared')
           ? 'SONANCE ENERGY was TEAM DISTORTION all along? But... they pay for the streetlights. And my salary!'
-          : 'I work in accounts at SONANCE. Strange place lately. The top floor is off-limits, even to managers.') },
+          : 'I work in accounts at SONANCE. Strange place lately. The top floor is off-limits, even to managers.\fAnd nobody\'s seen DR. VALE in months. He used to play the cello in the lobby every morning.') },
       { id: 'sf_old', person: 'oldman', x: 3, y: 15, dir: 'right', move: 'look',
         text: 'The falls shine silver at dawn. My grandfather said there\'s a hum in the water, if you listen close.' },
       { id: 'sf_girl', person: 'lass', x: 2, y: 24, dir: 'up', move: 'wander',
@@ -209,6 +209,7 @@ Object.assign(MAPS, {
       { x: 11, y: 1, text: 'The elevator. A strip of tape reads:\n"OUT OF ORDER. USE THE STAIRS."' },
       { x: 12, y: 1, text: 'The floor display just shows two red dashes.' },
       { x: 3, y: 2, text: 'A visitor log. Today\'s only entry:\n"PRIVATE EVENT. NO VISITORS."' },
+      { x: 5, y: 1, text: 'A brass plaque on the wall:\n"Every city deserves a song."\f-DR. AUGUST VALE, FOUNDER' },
     ],
     npcs: [
       { id: 'hq_recept', person: 'grunt', x: 7, y: 3, dir: 'down', move: 'still', script: 'receptionist' },
@@ -555,7 +556,7 @@ Object.assign(MAPS, {
     rows: ['wwwwwwww', 'WnWiWWnW', 'kkK____p', '________', '_cDDc___', '________', '___M____'],
     npcs: [
       { id: 'sf2_sci', person: 'scientist', x: 5, y: 3, dir: 'left', move: 'look',
-        text: 'I quit SONANCE last month. They wanted me to build a machine that plays sounds backwards. Very, very loudly.' },
+        text: 'I quit SONANCE last month. They wanted me to build a machine that plays sounds backwards. Very, very loudly.\fDR. VALE was never like that. He studied music as a boy, under the old bell-keeper up in STONEPEAK.' },
     ],
   },
   cm_house1: {

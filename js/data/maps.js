@@ -292,8 +292,8 @@ const MAPS = {
     npcs: [
       { id: 'lena', person: 'woman', x: 3, y: 4, dir: 'down', move: 'wander',
         text: () => (State.flag('got_starter')
-          ? 'Kai ran off to ARCHFORD TOWN. He\'s so impatient! Please look out for him, {PLAYER}.'
-          : 'Hi, {PLAYER}! Kai already ran to the lab. He couldn\'t sleep last night, he was so excited!') },
+          ? 'Kai ran off to ARCHFORD TOWN. He\'s so impatient! Please look out for him, {PLAYER}.\fKai\'s big brother RYKER left for the AIMON LEAGUE eight years ago. He won all eight BADGES...\f...and then we never heard from him again. Kai still keeps his old cap.'
+          : 'Hi, {PLAYER}! Kai already ran to the lab. He couldn\'t sleep last night, he was so excited!\fKai\'s big brother RYKER left for the AIMON LEAGUE eight years ago. He won all eight BADGES...\f...and then we never heard from him again. Kai still keeps his old cap.') },
     ],
   },
 

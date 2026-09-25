@@ -513,7 +513,9 @@ const Events = {
     yield* say('Long ago, before any town was built, the land of VALEMORA split open. The old texts call it the RIFT.');
     yield* say('Where it touched, rivers ran backward and AIMON fell silent. Everything was... bent out of shape.');
     yield* say('Eight trainers and their AIMON sealed it with eight great stones, the KEYSTONES. They became the first GYM LEADERS.');
-    yield* say('Every GYM stands over a KEYSTONE. Every BADGE carries a sliver of one. That\'s why a trainer with all eight is trusted with the whole region.');
+    yield* say('Every WARDEN guards a KEYSTONE, and most of their GYMS were built right on top of them. Every BADGE carries a sliver of one.');
+    yield* say('In the old days, whoever held all eight BADGES would stand before the LEAGUE and swear the CHAMPION\'S OATH:\fif the seal ever weakens, sing it whole again.');
+    yield* say('Nobody\'s taken that oath in a hundred years.');
     yield* say('Some believe the RIFT was never a disaster at all... that the world beyond it is the "true" one, and ours is the distortion.');
     yield* say('Nonsense, if you ask me.\f...But lately, I wonder who else has been reading my books.');
   },

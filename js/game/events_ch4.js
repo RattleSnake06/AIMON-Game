@@ -160,6 +160,7 @@ Object.assign(Events, {
     yield* say('MORROW: The RIFT opens. The true world pours back in. Isn\'t that beautiful?');
     yield* say('MORROW: The RESONATOR waits upstairs. Only the COMMANDER carries the key card to that floor. Not even I may go up without him.');
     yield* say('MORROW: And the COMMANDER does not take visitors. Not yet.');
+    yield* say('MORROW: Oh, and your BADGES, child... every one holds a sliver of a stone. Do keep them safe.\fFor us.');
     // MORROW slips away through his private warp pad.
     yield* OW.walkTo(morrow, 18, 3);
     Sound.sfx('pad');
@@ -269,6 +270,7 @@ Object.assign(Events, {
     yield* say('TOR: KAI told me what you found in SILVERFALL. A RESONATOR on the top floor, and a COMMANDER with the only key.');
     yield* say('TOR: Four BADGES, four stones... and every one of them "heard" by those black coats. I don\'t like it.');
     yield* say('TOR: I\'ll talk to the other WARDENS. Whatever this COMMANDER is planning, we won\'t let it happen quietly.');
+    yield* say('TOR: Oh, and PROF. LINDEN\'s been asking after you. The lake road back to WILLOWBROOK should be clear any day now.');
   },
 
   // -- Epilogue: the COMMANDER -----------------------------------------------------------------
@@ -313,6 +315,7 @@ Object.assign(Events, {
     yield* say('COMMANDER: CONDUCTOR.', DARK);
     yield* say('???: When the time comes, the child will want to climb those stairs.', DARK);
     yield* say('COMMANDER: Then they\'ll have to take the key from me.\fNo one has ever taken anything from me.', DARK);
+    yield* say('COMMANDER: And the boy with the spiky hair... KAI.\fLeave him to me.', DARK);
     yield* say('???: Four songs. The RIFT is listening more closely now...', DARK);
     yield* say('TO BE CONTINUED...', DARK);
     yield* Game.fadeOut(40);
