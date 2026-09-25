@@ -144,7 +144,8 @@ const Options = {
   *open() {
     for (;;) {
       const i = yield* Menu.choose({
-        items: [`SOUND: ${Sound.muted ? 'OFF' : 'ON'}`, `TEXT: ${Dialog.speedName()}`, 'CONTROLS', 'CANCEL'], anchor: 'right', y: 2, cancel: 3,
+        items: [`SOUND: ${Sound.muted ? 'OFF' : 'ON'}`, `TEXT: ${Dialog.speedName()}`, `PARTNER: ${State.d && State.d.followerOff ? 'OFF' : 'ON'}`,
+          'CONTROLS', 'CANCEL'], anchor: 'right', y: 2, cancel: 4,
       });
       if (i === 0) {
         Sound.toggleMute();
@@ -152,6 +153,10 @@ const Options = {
       } else if (i === 1) {
         Dialog.cycleSpeed();
       } else if (i === 2) {
+        // Your lead AIMON walking behind you.
+        if (State.d) State.d.followerOff = !State.d.followerOff;
+        if (typeof OW !== 'undefined' && OW.player) Follower.place();
+      } else if (i === 3) {
         yield* say('Arrow keys or WASD: move\nZ or SPACE: A button');
         yield* say('X or ESC: B button (hold to run)\nENTER: START menu    M: sound');
       } else break;

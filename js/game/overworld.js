@@ -743,6 +743,10 @@ const OW = {
       this.run(Events.talk(npc));
       return;
     }
+    if (Follower.visible() && Follower.x === fx && Follower.y === fy) {
+      this.run(Events.followerTalk());
+      return;
+    }
     const def = this.map.def;
     const sign = (def.signs || []).find((s) => s.x === fx && s.y === fy);
     if (sign) {
@@ -948,8 +952,14 @@ const OW = {
     if (this.healBalls) this.drawHealBalls(g, cx, cy);
 
     // People, sorted so lower ones overlap higher ones.
-    const ents = [...this.npcs, this.player].filter((e) => !e.hidden).sort((a, b) => a.py - b.py);
+    const ents = [...this.npcs, this.player].filter((e) => !e.hidden);
+    if (Follower.visible()) ents.push(Follower);
+    ents.sort((a, b) => a.py - b.py);
     for (const e of ents) {
+      if (e === Follower) {
+        Follower.draw(g, cx, cy);
+        continue;
+      }
       const x = e.px - cx;
       let y = e.py - cy;
       if (e.sprite === 'ball') {
