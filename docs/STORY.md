@@ -1,10 +1,9 @@
 # AIMON: The Complete Story
 
 This is the full story of AIMON, from the first morning in Willowbrook to the
-Hall of Fame. It builds on everything that is already in the game. Chapters
-1 to 12 are **built**; chapters 13 to 15 are **planned**. Where a built chapter
-gets a small rewrite to set up something later, the change is listed under
-**Revisions** at the end of that chapter.
+Hall of Fame. All fifteen chapters are **built**, along with a post-game.
+Where a built chapter got a small rewrite to set up something later, the
+change is listed under **Revisions** at the end of that chapter.
 
 It uses only the AIMON, mechanics and graphics that already exist.
 
@@ -152,7 +151,8 @@ lights on.
 | 10 to 11 | 42 to 46 | 43 to 47 | COMMANDER 45 to 48; CONDUCTOR 48 to 50 |
 | 12 | 44 to 48 | 46 to 50 | NOX 48 to 53 |
 | 13 | none | 50 to 53 | MORROW 52 to 54; CONDUCTOR 54 to 57 |
-| 14 | 50 to 55 | 54 to 58 | ELITE FOUR 55 to 60; CHAMPION KAI 60 to 64 |
+| 14 | 50 to 56 | 54 to 56 | ELITE FOUR 55 to 60; CHAMPION KAI 60 to 64 |
+| Post-game | 70 (legendaries) | 62 to 66 (WARDENS) | KAI 68 to 72 |
 
 ---
 
@@ -322,7 +322,7 @@ lights on.
 83. **Eight BADGES.** The case glows and all eight slivers hum as one: the CHAMPION'S OATH. NOX: "Then you're the one who sings last."
 84. **That same night the sky over the south turns violet.** The **SUNKEN SHRINE** rises from the sea. Across VALEMORA, AIMON begin to **fall silent**. The CONDUCTOR has begun the COUNTERMELODY.
 
-## Chapter 13: The Sunken Shrine *(planned: the finale against TEAM DISTORTION)*
+## Chapter 13: The Sunken Shrine *(built)*
 *Seabreeze Port, sea route 23, the Sunken Shrine*
 
 85. **All the WARDENS rally at Seabreeze**, with Linden, KAI and VESPER. NERISSA's crew sails through violet water to the shrine.
@@ -339,22 +339,22 @@ lights on.
 
 # ACT VI: THE CHAMPION
 
-## Chapter 14: The AIMON League *(planned)*
+## Chapter 14: The AIMON League *(built)*
 *Bramblewood Forest (Victory Path), sea route 21, AIMON League*
 
 94. **HOLT**: "You carried the Oath. Now finish the journey." The LEAGUE welcomes trainers with eight BADGES again.
 95. **KAI** at Seabreeze docks: "Race you to the LEAGUE! Loser buys the POTIONS!" He's gone before you can answer.
 96. **Victory Path through Bramblewood Forest.** Tangled paths that seem to shift, veteran trainers and every kind of wild AIMON. At the far side, a bridge and a ferry cross sea route 21 to the LEAGUE island.
 97. **The AIMON LEAGUE** has four ELITE chambers, one after another, with no leaving in between.
-    - **ELITE SHADE (GHOST)**: WRAITHLING 55, HOURGHAST 56, WRAITHLING 56, HOURGHAST 58.
-    - **ELITE BRAWN (FIGHTING and NORMAL)**: SCRAPAW 56, RUFFANG 57, DAPPLEKIT 57, SCRAPAW 59.
-    - **ELITE CINDRA (FIRE)**: FLAMBRAMBLE 57, MOLTAROCK 58, FLAMBRAMBLE 60.
-    - **ELITE MARINA (WATER and FLYING)**: PRISMANTA 58, SKYSERAPH 59, REEFLORD 59, TIDEFIN 60.
+    - **ELITE SHADE (GHOST)**: GLOAMFERN 55, HOURGHAST 56, PHANTASMUSE 57, HEXWRAITH 59.
+    - **ELITE BRAWN (FIGHTING and NORMAL)**: BOVELLE 56, GLACRON 57, AERIALIS 57, BRAWLPAW 59.
+    - **ELITE CINDRA (FIRE)**: FLAMBRAMBLE 57, CINDRAKE 58, VOLCARN 58, PYROCLAST 60.
+    - **ELITE MARINA (WATER and FLYING)**: PRISMANTA 58, GANDERGALE 58, TIDECRUSHER 59, SKYSERAPH 60.
 98. **The CHAMPION's chamber.** The old CHAMPION ORLA walks out as you walk in, smiling ruefully. "You're too late to fight me. Someone beat you to it." **KAI** stands on the dais: "Beat you here!"
-99. **CHAMPION KAI, final battle**: GOSKIE 60, SCRAPAW 60, STORMGALE 61, UMBRAFANG 61, OBELITH 62, starter 64 (the one strong against yours). "This is for Ryker. And for me. And... for you too, I guess!"
+99. **CHAMPION KAI, final battle**: GANDERGALE 60, BRAWLPAW 60, STORMGALE 61, UMBRAFANG 61, OBELITH 62, starter 64 (the one strong against yours). "This is for Ryker. And for me. And... for you too, I guess!"
 100. **Kai loses.** "Guess I only got to be CHAMPION for ten minutes." The **Hall of Fame** records your team. RYKER watches from the doorway, and for once he claps.
 
-## Chapter 15: Epilogue *(planned)*
+## Chapter 15: Epilogue *(built)*
 
 101. **Credits**, over a tour of VALEMORA healed:
     - Silverfall's lights come back on.

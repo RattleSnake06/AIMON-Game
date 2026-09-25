@@ -260,14 +260,14 @@ const REGION = [
   { id: 'route8', name: 'ROUTE 8', x: 194, y: 79, kind: 'route', desc: 'A hilly road west from SEABREEZE PORT to SILVERFALL CITY.' },
   { id: 'bridge', name: 'SILVERFALL BRIDGE', x: 161, y: 86, kind: 'route', desc: 'A brand-new bridge over the river, south to CRAGMOOR.' },
   { id: 'cragmoor', name: 'CRAGMOOR TOWN', x: 150, y: 95, kind: 'town', desc: 'A quarry town cut into the hills. Home of the ROCK-type GYM.' },
-  { id: 'bramblewood', name: 'BRAMBLEWOOD FOREST', x: 157, y: 103, kind: 'spot', desc: 'A tangled forest whose paths seem to shift.' },
+  { id: 'bramblewood', name: 'BRAMBLEWOOD FOREST', x: 157, y: 103, kind: 'spot', desc: 'A tangled forest whose paths seem to shift. The VICTORY PATH winds through it, south from CRAGMOOR to the LEAGUE ferry.' },
   { id: 'emberpeak', name: 'EMBERPEAK VOLCANO', x: 121, y: 110, kind: 'cave', desc: 'A smoldering volcano south of WILLOWBROOK. SONANCE ENERGY fenced it off last year.' },
   { id: 'route7', name: 'ROUTE 7', x: 118, y: 97, kind: 'route', desc: 'A road south from WILLOWBROOK to EMBERPEAK VOLCANO, past a hot-spring inn.' },
   { id: 'marshland', name: 'MARSHLAND', x: 74, y: 122, kind: 'spot', desc: 'Misty wetlands where the rivers meet the sea. Boats leave for the islands from the landing.' },
   { id: 'route6', name: 'ROUTE 6', x: 67, y: 109, kind: 'route', desc: 'A misty road south from CEDARWOOD to the MARSHLAND.' },
   { id: 'lighthouse', name: 'FORGOTTEN LIGHTHOUSE', x: 16, y: 108, kind: 'isle', desc: 'A lighthouse on a lonely isle. No one has lit it in years.' },
   { id: 'grove', name: 'MYSTIC GROVE', x: 58, y: 136, kind: 'isle', desc: 'An island grove ringed with standing stones that glow on moonless nights.' },
-  { id: 'shrine', name: 'SUNKEN SHRINE', x: 105, y: 141, kind: 'isle', desc: 'A shrine half-swallowed by the sea.' },
+  { id: 'shrine', name: 'SUNKEN SHRINE', x: 105, y: 141, kind: 'isle', desc: 'A shrine half-swallowed by the sea, where the first WARDENS sealed the RIFT.' },
   { id: 'league', name: 'AIMON LEAGUE', x: 177, y: 138, kind: 'town', desc: 'Where the strongest trainers gather. Eight BADGES are needed to enter.' },
   { id: 'starfall', name: 'STARFALL ISLE', x: 228, y: 24, kind: 'isle', desc: 'An observatory village where falling stars land. Home of the DARK-type GYM.' },
 ];
@@ -303,7 +303,7 @@ const REGION_SEA = [
 const FLY_TOWNS = {
   willowbrook: 'houseRed', archford: 'centre', grayhaven: 'centre', cedarwood: 'centre', seabreeze: 'centre',
   silverfall: 'centre', cragmoor: 'centre', sunspire: 'centre', meadowfield: 'centre', stonepeak: 'centre',
-  emberpeak: 'centre', starfall: 'centre',
+  emberpeak: 'centre', starfall: 'centre', league: 'leagueHall',
 };
 
 // Map id -> REGION id (new maps can also set def.region).

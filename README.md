@@ -2,9 +2,10 @@
 
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
-designs from the design sheets, plus seven originals drawn in code. The story
-currently runs up to the eighth GYM BADGE (chapter 12 of the planned 15; the
-whole plan is in [docs/STORY.md](docs/STORY.md)).
+designs from the design sheets, plus seven originals drawn in code. The whole
+story is in: fifteen chapters, from the first morning in Willowbrook to the
+HALL OF FAME, the credits and a post-game (the full plot is in
+[docs/STORY.md](docs/STORY.md)).
 
 | | |
 |---|---|
@@ -385,7 +386,69 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 78. **Eight BADGES** hum as one: the CHAMPION'S OATH. NOX: "Then you're the
     one who sings last." That night the sky over the south turns violet,
     the SUNKEN SHRINE rises from the sea, and AIMON everywhere fall silent.
-    The CONDUCTOR has begun the COUNTERMELODY. To be continued...
+    The CONDUCTOR has begun the COUNTERMELODY.
+
+**Chapter 13: The Sunken Shrine**
+
+79. **The rally.** Every WARDEN gathers at the SEABREEZE docks under the
+    violet sky, with PROF. LINDEN (and three MAX POTIONS), KAI and VESPER.
+    NERISSA's GUST sails south through water so still you can hear the sails.
+80. **The outer halls.** The WARDENS hold the shrine in pairs: HOLT and TOR
+    at the gate, IVY and SAHRA on the **flooded stairs** (water pours down
+    them; ride the side currents across and climb where the stone is dry,
+    or the torrent washes you back down a level), WREN and NOX in the pillar
+    hall, CANTOR at the old bell. The last four grunts are in between.
+81. **MORROW, for the last time** (HOURGHAST, NOCTUMOTH, UMBRAFANG). The
+    sand runs out: "It seems your time has come, and mine has passed." Look
+    back, and he's gone.
+82. **RYKER blocks the inner door.** KAI: "This one's mine." While the
+    brothers battle, RYKER's UMBRAFANG steps into the RIFT's light and
+    can't make a sound. "Go. I'll hold the door, little brother."
+83. **The heart of the shrine.** A violet tear over the altar, ringed by
+    eight KEYSTONE lights. VALE plays the chord backwards: "Listen... ECHO
+    is singing." **Battle: the CONDUCTOR** (six AIMON, SONARION last).
+84. **The CHAMPION'S OATH.** The RIFT opens anyway, and VALE finds nothing
+    behind it. The WARDENS form the ring; each hums their KEYSTONE's note and
+    its light comes on; you sing last. The RIFT closes, the shrine settles
+    into the sea, and every AIMON in VALEMORA cries out at once. VALE asks
+    CANTOR to keep playing ECHO's song, VESPER turns herself in, and RYKER
+    goes with them, with KAI beside him.
+
+**Chapter 14: The AIMON League**
+
+85. **SEABREEZE, the morning after.** HOLT: "You carried the Oath. Now
+    finish the journey." KAI: "Race you to the LEAGUE! Loser buys the
+    POTIONS!"
+86. **The VICTORY PATH** runs south from CRAGMOOR through BRAMBLEWOOD
+    FOREST: veterans, late-game wild AIMON (AMPOLITH, QUAKEPIKE, BRAWLPAW,
+    ZEPHYRON...) and a **clearing whose paths shift**. Take a wrong exit and
+    you're back where you started; a drumming PEBBEAT always sits by the
+    right one. A LEAGUE nurse and the ferry wait on the far shore.
+87. **The AIMON LEAGUE**: a lobby with a centre and a mart (HYPER POTION,
+    MAX POTION, ULTRA BALL), then four ELITE chambers with no way out in
+    between: **SHADE** (GHOST), **BRAWN** (FIGHTING and NORMAL), **CINDRA**
+    (FIRE) and **MARINA** (WATER and FLYING), each in a themed room.
+88. **The CHAMPION's chamber.** ORLA walks out: "You're too late to fight
+    me. Someone beat you to it." KAI: "Beat you here!" **CHAMPION KAI**
+    (six AIMON, his starter at Lv 64): "This is for Ryker. And for me.
+    And... for you too, I guess!" Afterwards: "Guess I only got to be
+    CHAMPION for ten minutes."
+89. **The HALL OF FAME** records your team, one AIMON at a time. RYKER
+    claps from the doorway.
+
+**Chapter 15: Epilogue**
+
+90. **The credits** roll over a tour of VALEMORA healed: SILVERFALL's
+    lights, the cedar in bloom, the ferries, TOR's quarry, the FIRST SCORE,
+    the windmill, the bell at STONEPEAK and falling stars over STARFALL. The
+    FORGOTTEN LIGHTHOUSE is lit again by a woman in a long coat.
+91. **Home.** MOM's dinner, PROF. LINDEN asks for your AIMONDEX, and next
+    door KAI's mother sets two extra plates: RYKER is home. THE END.
+92. **After the story:** rematches with all eight WARDENS (Lv 62-66), KAI
+    waiting in the CHAMPION's room after another run through the ELITE FOUR
+    (Lv 68-72), ferries from SEABREEZE to every island, **ASTRALYX** at the
+    MYSTIC GROVE and **ELEGIRA** sleeping in the heart of the shrine (both
+    Lv 70), and an hourglass where MORROW vanished: "Time will tell. (M.)"
 
 **Gameplay**
 
@@ -573,11 +636,12 @@ art/                  the design sheets and the VALEMORA region map
 
 Later chapters live in their own files next to the originals: `tiles_ext.js`,
 `tiles_ch3.js`, `tiles_ch4.js`, `tiles_ch6.js`, `tiles_ch8.js` and
-`tiles_ch10.js` (tiles, buildings and props), `maps_ch3.js`, `maps_ch4.js`,
-`maps_ch6.js`, `maps_ch8.js`, `maps_ch10.js`, `events_ch3.js`,
-`events_ch4.js` (the chapter 5 story), `events_ch6.js` (chapters 6 and 7),
-`events_ch8.js` (chapters 8 and 9) and `events_ch10.js` (chapters 10 to
-12). The GYM puzzles have their own trio: `tiles_gyms.js`, `maps_gyms.js`
+`tiles_ch10.js`, `tiles_ch13.js` (tiles, buildings and props), `maps_ch3.js`,
+`maps_ch4.js`, `maps_ch6.js`, `maps_ch8.js`, `maps_ch10.js`, `maps_ch13.js`,
+`events_ch3.js`, `events_ch4.js` (the chapter 5 story), `events_ch6.js`
+(chapters 6 and 7), `events_ch8.js` (chapters 8 and 9), `events_ch10.js`
+(chapters 10 to 12) and `events_ch13.js` (chapters 13 to 15: the shrine, the
+LEAGUE, the credits, the epilogue and the post-game). The GYM puzzles have their own trio: `tiles_gyms.js`, `maps_gyms.js`
 and `events_gyms.js`.
 Evolution is in `evolution.js`, and the DS-style battle panels and HP plates
 are in `battle_ui.js`.
@@ -647,5 +711,7 @@ Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `library`, `route4`, `seabreeze`, `lighthouse`, `route8`, `silverfall`, `hq`, `bridge`,
 `cragmoor`, `route9`, `route10`, `sunspire`, `dig`, `route12`, `meadowfield`,
 `windmill`, `route11`, `stonepeak`, `belltower`, `route7`, `emberpeak`, `forge`,
-`resonator`, `route6`, `marshland`, `grove`, `starfall`, `observatory`. Add
+`resonator`, `route6`, `marshland`, `grove`, `starfall`, `observatory`,
+`shrine`, `shrine2`, `shrine3`, `shrine4`, `victory`, `bramble`, `victory2`,
+`league`, `lobby`, `elite1`, `champion`, `hof`. Add
 `&starter=moltarock` or `&starter=archepin` to pick the starter.

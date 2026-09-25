@@ -75,6 +75,7 @@ Object.assign(MAPS, {
       warden('s1_holt', 'holt', 7, 5, 'down'),
       warden('s1_tor', 'tor', 11, 5, 'down'),
       { id: 's1_nerissa', person: 'nerissa', x: 12, y: 24, dir: 'up', move: 'still', script: 'shrineBoat', showIf: AT_SHRINE, dyn: true },
+      { id: 's1_vesper', person: 'vesper', x: 12, y: 22, dir: 'left', move: 'still', script: 'shrineVesper', showIf: AT_SHRINE, dyn: true },
       { id: 's1_sailor', person: 'sailor', x: 12, y: 24, dir: 'up', move: 'still', script: 'shrineBoat', showIf: CLEAR },
       { id: 's1_boat', prop: 'boat', x: 10, y: 24, move: 'still', script: 'shrineBoat' },
       { id: 's1_grunt', person: 'grunt', x: 10, y: 12, dir: 'left', move: 'still', trainer: 'shgrunt1', sight: 2, hideIf: 'shrine_done' },
@@ -184,11 +185,11 @@ Object.assign(MAPS, {
     npcs: [
       { id: 's3_grunt4', person: 'grunt', x: 4, y: 16, dir: 'right', move: 'still', trainer: 'shgrunt4', sight: 5, hideIf: 'shrine_done' },
       { id: 's3_morrow', person: 'morrow', x: 7, y: 11, dir: 'down', move: 'still', script: 'morrowFinal', hideIf: 'beat_morrow4' },
-      { id: 's3_ryker', person: 'ryker', x: 7, y: 6, dir: 'down', move: 'still', script: 'rykerDoor', hideIf: 'ryker_door' },
+      { id: 's3_ryker', person: 'ryker', x: 7, y: 6, dir: 'down', move: 'still', script: 'rykerDoor', hideIf: 'ryker_door', dyn: true },
       { id: 's3_ryker2', person: 'ryker', x: 5, y: 6, dir: 'right', move: 'still', script: 'rykerHolds',
-        showIf: () => State.flag('ryker_door') && !State.flag('shrine_done') },
+        showIf: () => State.flag('ryker_door') && !State.flag('shrine_done'), dyn: true },
       { id: 's3_kai', person: 'rival', x: 9, y: 6, dir: 'left', move: 'still', script: 'rykerHolds',
-        showIf: () => State.flag('ryker_door') && !State.flag('shrine_done') },
+        showIf: () => State.flag('ryker_door') && !State.flag('shrine_done'), dyn: true },
       { id: 's3_hourglass', prop: 'hourglass', x: 7, y: 11, move: 'still', script: 'hourglassNote', showIf: CLEAR },
     ],
     triggers: [
@@ -445,7 +446,7 @@ Object.assign(MAPS, {
       { id: 'lg_fan', person: 'youngster', x: 16, y: 12, dir: 'left', move: 'look',
         text: () => (CLEAR()
           ? 'It\'s the new CHAMPION! Can I... can I shake your hand? I\'m never washing it again!'
-          : 'The ELITE FOUR wait inside, one after another. Nobody\'s made it to the CHAMPION\'s room in years!') },
+          : 'A spiky-haired kid ran past me an hour ago yelling "BEAT YOU HERE!" at nobody. Friend of yours?\fThe ELITE FOUR wait inside, one after another. Nobody\'s made it to the CHAMPION in years!') },
       { id: 'lg_kai', person: 'rival', x: 8, y: 10, dir: 'right', move: 'still', script: 'kaiPostgame', showIf: CLEAR },
       { id: 'lg_ryker', person: 'ryker', x: 12, y: 10, dir: 'left', move: 'still', script: 'rykerPostgame', showIf: CLEAR },
     ],
@@ -473,7 +474,7 @@ Object.assign(MAPS, {
       { id: 'clerk_lg', person: 'clerk', x: 1, y: 4, dir: 'down', move: 'still', script: 'martClerk', stock: 'league' },
       { id: 'lg_guard', person: 'guard', x: 12, y: 3, dir: 'down', move: 'still', script: 'e4Guard' },
       { id: 'lg_orla', person: 'orla', x: 9, y: 7, dir: 'left', move: 'still', script: 'orlaLobby', showIf: CLEAR },
-      { id: 'lg_vet', person: 'veteran', x: 4, y: 7, dir: 'right', move: 'look',
+      { id: 'lg_vet', person: 'veteran', x: 8, y: 5, dir: 'left', move: 'look',
         text: 'Heal up, stock up, then heal up again. Once you\'re through that door, there\'s no coming back out until it\'s over.' },
     ],
   },
@@ -605,6 +606,7 @@ Object.assign(MAPS, {
     rally('sb_r_kai', 'rival', 15, 17, 'up'),
     rally('sb_r_vesper', 'vesper', 27, 17, 'left'),
   );
+  sb.npcs.push({ id: 'sb_gust', person: 'nerissa', x: 19, y: 18, dir: 'up', move: 'still', script: 'sbGust', showIf: AT_SHRINE, dyn: true });
   sb.triggers.push({ x: 2, y: 15, w: 34, h: 1, script: 'rallyScene' });
 }
 
@@ -615,6 +617,3 @@ MAPS.starfall.npcs.find((n) => n.id === 'st_nerissa').hideIf = 'rally_done';
 // The MYSTIC GROVE: on a moonless night, something waits by the altar.
 MAPS.grove.npcs.push({ id: 'gr_astralyx', prop: 'mon:astralyx', x: 14, y: 8, move: 'still', script: 'astralyxMeet',
   showIf: () => CLEAR() && !State.flag('astralyx_done'), dyn: true });
-
-// Home: RYKER is back.
-MAPS.rivalhouse.npcs.push({ id: 'rh_ryker', person: 'ryker', x: 8, y: 4, dir: 'left', move: 'still', script: 'rykerHome', showIf: CLEAR });

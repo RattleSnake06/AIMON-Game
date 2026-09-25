@@ -471,23 +471,27 @@ Object.assign(Events, {
     yield* say('GRANNY: There. Warm and dry. Now mind the boardwalks on your way back.');
   },
 
-  // NERISSA's boat: from the MARSHLAND landing, the GROVE, or STARFALL.
-  *sail(to) {
-    const dest = {
-      marshland: ['marshland', 15, 24, 'up'],
-      grove: ['grove', 14, 21, 'up'],
-      starfall: ['starfall', 16, 25, 'up'],
-    }[to];
+  // NERISSA's boat (and, once the story is over, the island ferries).
+  sailDest: {
+    marshland: ['marshland', 15, 24, 'up'],
+    grove: ['grove', 14, 21, 'up'],
+    starfall: ['starfall', 16, 25, 'up'],
+  },
+
+  *sail(to, lines) {
+    const dest = this.sailDest[to];
     Sound.sfx('confirm');
     yield* Game.fadeOut(30);
-    if (to === 'starfall' && !State.flag('st_arrived')) {
+    if (lines) {
+      yield* this.blackCard(lines);
+    } else if (to === 'starfall' && !State.flag('st_arrived')) {
       yield* this.blackCard([
         'NERISSA\'s boat sailed on through the night, around the eastern cape...',
         '...and all through the next day, with the wind at its back.',
         'By the time STARFALL ISLE rose out of the sea, night had fallen again.',
       ]);
     } else {
-      yield* this.blackCard(['The GUST cut through the dark water...']);
+      yield* this.blackCard([State.flag('game_clear') ? 'The ferry cut across the bright water...' : 'The GUST cut through the dark water...']);
     }
     OW.loadMap(...dest);
     yield* Game.fadeIn(30);

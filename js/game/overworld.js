@@ -225,6 +225,7 @@ const OW = {
 
   // A map's music can depend on the story (a function returning a name).
   music() {
+    if (this.forceMusic) return this.forceMusic;   // the credits keep their own song
     const m = this.map.def.music;
     return typeof m === 'function' ? m() : m;
   },
