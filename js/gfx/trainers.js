@@ -83,6 +83,11 @@ const TrainerArt = {
       belt: '#3a2a1c', wide: true,
     });
     this.sprites.tor = this.tor();
+    this.sprites.sahra = this.sahra();
+    this.sprites.ruinmaniac = this.front({
+      hair: 'hat', hairCol: '#5a4030', hat: '#a89060', shirt: '#c8b080', pants: '#7a6a4a', shoes: '#4a3420', beard: '#8a8078',
+      belt: '#5a4028', pose: 'hips',
+    });
     this.sprites.ivy = this.ivy();
     this.sprites.nerissa = this.nerissa();
     this.sprites.playerBack = this.back(false);
@@ -490,6 +495,67 @@ const TrainerArt = {
     p.rows(cx - 6, hy + 1, ['wt', 'tt', 'oo'], f);
     p.rows(cx + 4, hy + 1, ['tw', 'tt', 'oo'], f);
     p.rows(cx - 1, hy + 7, ['.mmm', 'm...'], f);
+    return p.toCanvas();
+  },
+
+  // GYM LEADER SAHRA of SUNSPIRE: archaeologist in a wide-brimmed hat with
+  // goggles, a khaki field vest, and a trowel in hand.
+  sahra() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const skin = { fill: '#c08860', shade: '#9a6440', hi: '#dca880', line: OUT };
+    const vest = style('#8a7a48', { hi: '#a89868' });
+    const shirt = style('#f0e8d0');
+    const hair = style('#2a1c14', { hi: '#4a3424' });
+    // Curly hair tied back, showing behind the shoulders.
+    p.ellipse(cx + 9, 24, 7, 8, hair);
+    // Boots and cargo trousers.
+    p.rrect(cx - 11, 44, 10, 16, 2, style('#6a5a3a'));
+    p.rrect(cx + 1, 44, 10, 16, 2, style('#6a5a3a'));
+    p.rect(cx - 10, 49, 4, 4, style('#5a4a2e'));
+    p.rect(cx + 6, 49, 4, 4, style('#5a4a2e'));
+    p.rrect(cx - 12, 56, 11, 7, 2, style('#3a2814'));
+    p.rrect(cx + 1, 56, 11, 7, 2, style('#3a2814'));
+    // Rolled-sleeve shirt under a pocketed field vest, belt with pouches.
+    p.rrect(cx - 14, 23, 28, 23, 5, shirt);
+    p.poly([[cx - 14, 24], [cx - 4, 24], [cx - 2, 46], [cx - 14, 46]], vest);
+    p.poly([[cx + 14, 24], [cx + 4, 24], [cx + 2, 46], [cx + 14, 46]], vest);
+    p.rect(cx - 12, 30, 6, 5, style('#7a6a3a'));
+    p.rect(cx + 6, 30, 6, 5, style('#7a6a3a'));
+    p.rect(cx - 14, 42, 28, 3, style('#4a3420'));
+    p.rect(cx - 12, 41, 5, 5, style('#6a4a28'));
+    p.rect(cx + 7, 41, 5, 5, style('#6a4a28'));
+    p.set(cx, 43, '#f0c848');
+    // Red scarf.
+    p.poly([[cx - 7, 21], [cx + 7, 21], [cx + 4, 27], [cx - 4, 27]], style('#c84838'));
+    p.poly([[cx + 2, 25], [cx + 7, 33], [cx + 3, 33]], style('#c84838'));
+    // Arms: left fist on hip, right holding a trowel up.
+    p.rrect(cx - 20, 24, 7, 9, 3, shirt);
+    p.rrect(cx - 21, 32, 7, 11, 3, skin);
+    p.ellipse(cx - 17, 43, 3.4, 3, skin);
+    p.rrect(cx + 13, 24, 7, 9, 3, shirt);
+    p.rrect(cx + 15, 20, 6, 12, 3, skin);
+    p.ellipse(cx + 18, 19, 3.4, 3, skin);
+    p.poly([[cx + 17, 17], [cx + 19, 17], [cx + 20, 10], [cx + 16, 10]], style('#6a4a28'));
+    p.poly([[cx + 14, 10], [cx + 22, 10], [cx + 18, 1]], style('#c0c8d0', { shade: '#8890a0' }));
+    // Head.
+    const hy = 14;
+    p.rect(cx - 3, 20, 6, 5, skin);
+    p.ellipse(cx, hy, 10, 10.5, skin);
+    p.poly([[cx - 11, hy - 3], [cx + 11, hy - 3], [cx + 11, hy + 4], [cx + 7, hy - 1], [cx, hy - 2], [cx - 7, hy - 1], [cx - 11, hy + 4]], hair);
+    // Wide-brimmed hat with goggles on the band.
+    p.ellipse(cx, hy - 5, 18, 4, style('#b08850', { hi: '#d0a868' }));
+    p.rrect(cx - 10, hy - 16, 20, 12, 5, style('#d0a868', { hi: '#e8c890' }));
+    p.rect(cx - 10, hy - 8, 20, 3, style('#6a4a28'));
+    p.ellipse(cx - 4, hy - 7, 3, 2.6, style('#78c0d0', { hi: '#d0f0f8', line: '#2a2018' }));
+    p.ellipse(cx + 4, hy - 7, 3, 2.6, style('#78c0d0', { hi: '#d0f0f8', line: '#2a2018' }));
+    // Face: sharp eyebrows, a knowing grin.
+    const f = { o: OUT, w: '#f8f8f8', t: '#4a2c18', m: '#8a3c30', b: '#1a100a' };
+    p.rows(cx - 7, hy, ['bbb.'], f);
+    p.rows(cx + 4, hy, ['.bbb'], f);
+    p.rows(cx - 6, hy + 2, ['wt', 'tt'], f);
+    p.rows(cx + 4, hy + 2, ['tw', 'tt'], f);
+    p.rows(cx - 2, hy + 7, ['m...m', '.mmm.'], f);
     return p.toCanvas();
   },
 

@@ -22,7 +22,7 @@ const MAPS = {
       'TT.#####...::..#####..TT',
       'TT.#####...::..#####..TT',
       'TT..o:S....::...S:o...TT',
-      ':::::::::::::::::::...TT',
+      '::::::::::::::::::::::::',
       'TT.........::.........TT',
       'TT.~~~~....::...ff....TT',
       'TT.~~~~..::::.........TT',
@@ -41,7 +41,7 @@ const MAPS = {
       { type: 'houseBlue', x: 15, y: 4, to: 'rivalhouse' },
       { type: 'lab', x: 11, y: 14, to: 'lab' },
     ],
-    connections: { north: { map: 'route1', offset: 0 }, west: { map: 'route5', offset: 2 } },
+    connections: { north: { map: 'route1', offset: 0 }, west: { map: 'route5', offset: 2 }, east: { map: 'route9', offset: -3 } },
     signs: [
       { x: 9, y: 3, text: 'WILLOWBROOK TOWN\nWhere the river begins.' },
       { x: 6, y: 8, text: '{PLAYER}\'s house' },
@@ -59,12 +59,18 @@ const MAPS = {
           : 'Wild AIMON live in the tall grass north of town. You need your own AIMON to go through safely!') },
       { id: 'wb_worker', person: 'worker', x: 1, y: 9, dir: 'right', move: 'still', hideIf: 'badge_keystone',
         text: 'Whoa there! The tremors knocked rocks all over the road to CEDARWOOD VILLAGE.\fWe\'re still clearing them. Try again later!' },
+      { id: 'wb_eastcrew', person: 'worker', x: 22, y: 9, dir: 'left', move: 'still', hideIf: 'badge_crag',
+        text: 'Sorry, the lake road to CRAGMOOR is closed. A rockslide buried it near the quarry.\fThe crew on the CRAGMOOR side is digging it out. Could be a while.' },
       { id: 'wb_man', person: 'man', x: 7, y: 12, dir: 'left', move: 'look',
         text: 'I come to this pond every morning. Sometimes a GOSKIE flock lands here to rest!' },
     ],
     triggers: [
       { x: 11, y: 2, w: 2, h: 1, script: 'leaveTownCheck' },
       { x: 3, y: 9, w: 1, h: 1, script: 'lindenEvolution' },
+      // Coming home after the fourth BADGE, by any road.
+      { x: 20, y: 9, w: 1, h: 1, script: 'wbHomecoming' },
+      { x: 0, y: 9, w: 1, h: 1, script: 'wbHomecoming' },
+      { x: 11, y: 3, w: 2, h: 1, script: 'wbHomecoming' },
     ],
   },
 
@@ -291,10 +297,13 @@ const MAPS = {
     ],
     npcs: [
       { id: 'lena', person: 'woman', x: 3, y: 4, dir: 'down', move: 'wander',
-        text: () => (State.flag('got_starter')
+        text: () => (State.flag('kai_home_seen')
+          ? 'KAI was only home for one night. He barely ate his dinner before he was talking about the LEAGUE again.\fLook after each other out there, {PLAYER}.'
+          : State.flag('got_starter')
           ? 'Kai ran off to ARCHFORD TOWN. He\'s so impatient! Please look out for him, {PLAYER}.\fKai\'s big brother RYKER left for the AIMON LEAGUE eight years ago. He won all eight BADGES...\f...and then we never heard from him again. Kai still keeps his old cap.'
           : 'Hi, {PLAYER}! Kai already ran to the lab. He couldn\'t sleep last night, he was so excited!\fKai\'s big brother RYKER left for the AIMON LEAGUE eight years ago. He won all eight BADGES...\f...and then we never heard from him again. Kai still keeps his old cap.') },
     ],
+    triggers: [{ x: 5, y: 8, w: 1, h: 1, script: 'kaiHome', onArrive: true }],
   },
 
   lab: {
@@ -334,6 +343,7 @@ const MAPS = {
       { id: 'ball_archepin', sprite: 'ball', x: 10, y: 4, script: 'pickStarter', arg: 'archepin', hideIf: 'took_archepin' },
     ],
     triggers: [
+      { x: 6, y: 11, w: 1, h: 1, script: 'lindenBadges', onArrive: true },
       { x: 0, y: 11, w: 13, h: 1, script: 'labEnter', onArrive: true },
       { x: 1, y: 7, w: 11, h: 1, script: 'rivalChallenge' },
     ],

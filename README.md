@@ -3,7 +3,8 @@
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
 designs from the design sheets, plus seven originals drawn in code. The story
-currently runs up to the fourth GYM BADGE.
+currently runs up to the fifth GYM BADGE (chapter 7 of the planned 15; the
+whole plan is in [docs/STORY.md](docs/STORY.md)).
 
 | | |
 |---|---|
@@ -199,6 +200,47 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 36. A third epilogue: MORROW reports to the CONDUCTOR, and the **COMMANDER**
     appears for the first time.
 
+**Chapter 6: Homecoming**
+
+37. **Route 9** reopens once TOR's crew clears the rockslide: a quiet
+    lakeside road west from CRAGMOOR, with a beach, a pier, a lakeside cabin
+    and wild **SKYLARK**, **BELLPUP** and (on the line) **AQUABUG**.
+38. Back in **Willowbrook**, MOM has kept your room the same. **PROF.
+    LINDEN** holds up your BADGES and finds that the four slivers hum
+    together: "Your BADGES are listening." He now believes the CHAMPION'S
+    OATH is real, and sends you with his notes to **SAHRA**, the WARDEN who
+    has been digging up the **FIRST SCORE**.
+39. **KAI** is home for one night. His mother still sets a plate for his
+    brother **RYKER**. "When I'm CHAMPION, he'll hear about it."
+40. In **Cedarwood**, IVY warns that black coats have been marching west
+    along the desert road.
+
+**Chapter 7: The First Score**
+
+41. **Route 10** is the old caravan road across the dunes, with dry brush,
+    half-buried columns, an oasis, RUIN MANIACS and wild **SANDBLOOM**,
+    **EMBERTAIL** and **TERRAPIKE**.
+42. **Sunspire Ruins** is a desert town among ancient columns, under the
+    **sun spire** that holds the DUNESTONE. SAHRA's apprentice PIP explains
+    that TEAM DISTORTION has taken the dig site, and SAHRA is trapped behind
+    a collapsed passage.
+43. **The dig site** has two floors of sandstone halls. SAHRA calls through
+    the rubble on B1F. On B2F a RESONATOR on the DUNESTONE's golden roots
+    finishes its recording just as you arrive.
+44. **ADMIN VESPER** stands at the FIRST SCORE, reading that where the RIFT
+    opened, the AIMON fell silent: "no song at all". She battles you
+    (WRAITHLING, HOURGHAST, SONARION and her new **SPECTERIB**), then copies
+    the carvings, stops halfway, and leaves without a word.
+45. With the machine silent, SAHRA's DUNARCH breaks out. At the wall she
+    reads LINDEN's notes: eight slivers sung forwards reseal the RIFT, and
+    the BADGES "were never trophies. They're the spare key." But the song's
+    final verse is missing.
+46. SAHRA's GROUND-type GYM is a maze of fallen pillars. She fields
+    TERRAPIKE, HOURGHAST, DUNEWALKER and **DUNARCH**, and awards the **DUNE
+    BADGE** and **TM05 EARTH POWER**.
+47. A fourth epilogue: VESPER tells the CONDUCTOR what the wall said.
+    "Silence is only the rest between notes."
+
 **Gameplay**
 
 - Tile-based movement with walking, running, ledge hops, doors and stairs.
@@ -335,8 +377,9 @@ art/                  the design sheets and the VALEMORA region map
 ```
 
 Later chapters live in their own files next to the originals: `tiles_ext.js`,
-`tiles_ch3.js` and `tiles_ch4.js` (tiles, buildings and props), `maps_ch3.js`,
-`maps_ch4.js`, `events_ch3.js` and `events_ch4.js` (the chapter 5 story). Evolution is in `evolution.js`, and the DS-style battle
+`tiles_ch3.js`, `tiles_ch4.js` and `tiles_ch6.js` (tiles, buildings and
+props), `maps_ch3.js`, `maps_ch4.js`, `maps_ch6.js`, `events_ch3.js`,
+`events_ch4.js` (the chapter 5 story) and `events_ch6.js` (chapters 6 and 7). Evolution is in `evolution.js`, and the DS-style battle
 panels and HP plates are in `battle_ui.js`.
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
@@ -400,5 +443,5 @@ on top.
 Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `route2`, `cave`, `route3`, `grayhaven`, `route5`, `pinecrest`, `cedarwood`,
 `library`, `route4`, `seabreeze`, `lighthouse`, `route8`, `silverfall`, `hq`, `bridge`,
-`cragmoor`. Add `&starter=moltarock` or
+`cragmoor`, `route9`, `route10`, `sunspire`, `dig`. Add `&starter=moltarock` or
 `&starter=archepin` to pick the starter.

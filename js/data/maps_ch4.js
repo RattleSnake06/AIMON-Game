@@ -441,7 +441,7 @@ Object.assign(MAPS, {
       '^^ss#####sssssss::ssssss#####sss^^',
       '^^ss#####sssssss::ssssss#####srs^^',
       '^^ss#####sssssBs::sBsssss:ssssrs^^',
-      '^^ssss::::::::::::::::::::::ssss^^',
+      '::::::::::::::::::::::::::::ssss^^',
       '^^stss::::::::::::::::::::::ssss^^',
       '^^stssssS:ssssss::ssss:sssssssts^^',
       '^^sssssss:ssssss::ssss:sssssssts^^',
@@ -464,7 +464,7 @@ Object.assign(MAPS, {
       { type: 'houseMine2', x: 24, y: 20, to: 'cm_house2' },
       { type: 'caveMouth', x: 28, y: 2 },
     ],
-    connections: { north: { map: 'bridge', offset: -7 } },
+    connections: { north: { map: 'bridge', offset: -7 }, west: { map: 'route9', offset: -2 } },
     encounters: {
       rate: 0.1,
       table: [
@@ -494,6 +494,8 @@ Object.assign(MAPS, {
         text: 'CAIRNLING stack themselves by the road to guide lost travelers home. Be kind to them, dear.' },
       { id: 'cm_kid', person: 'boy', x: 20, y: 19, dir: 'left', move: 'wander',
         text: 'LEADER TOR can lift a boulder with one hand! ...I think. I\'ve never actually seen it.' },
+      { id: 'cm_westcrew', person: 'worker', x: 1, y: 16, dir: 'right', move: 'still', hideIf: 'badge_crag',
+        text: 'Hold it! A rockslide came down on the lake road to WILLOWBROOK.\fTOR\'s crew is shifting it now. It\'ll be clear by the time you\'ve earned his BADGE.' },
       { id: 'cm_item1', sprite: 'ball', x: 30, y: 25, item: 'revive' },
       { id: 'cm_item2', sprite: 'ball', x: 6, y: 7, item: 'greatball', count: 2 },
     ],

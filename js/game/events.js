@@ -88,6 +88,16 @@ const Events = {
       yield* say('MOM: PROF. LINDEN\'s lab is at the south end of town. Hurry along, dear!');
       return;
     }
+    if (State.flag('badge_crag') && !State.flag('mom_home')) {
+      State.setFlag('mom_home');
+      yield* say('MOM: {PLAYER}! You\'re home! Let me look at you... FOUR BADGES?! Oh, your father is going to burst.');
+      yield* say('MOM: I kept your room exactly the same. Your PC still has that note about tall grass on it.');
+      yield* say('MOM: Now sit down. You and your AIMON are going to rest whether you like it or not.');
+      yield* this.healJingle();
+      yield* say('MOM: There. Good as new. And I hear KAI is home too. Go and say hello to him and his mother, won\'t you?');
+      npc.dir = 'left';
+      return;
+    }
     yield* say('MOM: {PLAYER}! You and your AIMON look tired. Why don\'t you rest for a bit?');
     yield* this.healJingle();
     yield* say('MOM: There! You\'re both full of energy again. Take care out there!');
@@ -133,6 +143,13 @@ const Events = {
     if (!State.flag('got_dex')) {
       yield* say('PROF. LINDEN: How is your AIMON doing? It seems to like you already!');
       return;
+    }
+    if (State.flag('badge_crag') && !State.flag('linden_notes')) {
+      yield* this.lindenBadges();
+      return;
+    }
+    if (State.flag('linden_notes') && !State.flag('sahra_freed')) {
+      yield* say('PROF. LINDEN: SUNSPIRE is past CEDARWOOD, west along ROUTE 10. Please give SAHRA my notes!');
     }
     yield* say(`PROF. LINDEN: Let's see your AIMONDEX...\fYou've seen ${State.seenCount()} and caught ${State.caughtCount()} kinds of AIMON so far.`);
     if (State.caughtCount() >= DEX_ORDER.length) yield* say('Incredible! You\'ve caught every AIMON in the region. I\'m so proud of you!');

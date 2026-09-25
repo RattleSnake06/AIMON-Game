@@ -449,9 +449,177 @@ const TRAINERS = {
     ],
     lose: 'Hrmph! You moved the mountain. Nobody\'s done that in twenty years.',
   },
+
+  // --- Route 9 ------------------------------------------------------------------------------
+  r9youngster: {
+    cls: 'YOUNGSTER', name: 'TIMMY', sprite: 'youngster', payout: 40,
+    party: () => [['skylark', 29], ['bellpup', 29], ['scrapaw', 30]],
+    intro: 'The road\'s open again! I\'ve been waiting a whole week to battle someone new!',
+    lose: 'Aww! That was worth the wait, though.',
+    after: 'My SKYLARK is going to evolve any day now. Then it\'s going to be SO fast.',
+  },
+  r9picnicker: {
+    cls: 'PICNICKER', name: 'DAISY', sprite: 'picnicker', payout: 44,
+    party: () => [['bellpup', 30], ['dapplekit', 30], ['skylark', 29]],
+    intro: 'Perfect day for a picnic by the lake! And a battle for dessert!',
+    lose: 'Oh no, my sandwiches got sand in them...',
+    after: 'BELLPUP ring their heads when they\'re happy. Mine rings all day long!',
+  },
+  r9swimmer: {
+    cls: 'SWIMMER', name: 'MAYA', sprite: 'swimmer', payout: 44,
+    party: () => [['prismanta', 31], ['tidefin', 30]],
+    intro: 'The lake\'s warm today! Want to battle before I jump back in?',
+    lose: 'Splashed!',
+    after: 'PRISMANTA glow gold when the sun sets over the water. You should stay and watch!',
+  },
+  r9fisher: {
+    cls: 'FISHERMAN', name: 'HANK', sprite: 'fisher', payout: 44,
+    party: () => [['aquabug', 29], ['goskie', 30], ['riverclaw', 31]],
+    intro: 'Nothing biting all morning. I\'ll catch a battle instead!',
+    lose: 'The one that got away...',
+    after: 'AQUABUG hide under the pier. When they evolve, their claws can snap a fishing line clean in two.',
+  },
+  r9camper: {
+    cls: 'CAMPER', name: 'OWEN', sprite: 'camper', payout: 44,
+    party: () => [['skyblade', 31], ['ruffang', 31]],
+    intro: 'I\'m camping here till the rockslide\'s all cleared. Care to pass the time?',
+    lose: 'Knocked my tent flat!',
+    after: 'SKYBLADE dive faster than anything I\'ve ever seen. Watch the sky over the lake.',
+  },
+
+  // --- Route 10 -----------------------------------------------------------------------------
+  r10hiker: {
+    cls: 'HIKER', name: 'GUS', sprite: 'hiker', payout: 46,
+    party: () => [['cairnling', 30], ['sandbloom', 30], ['dunewalker', 32]],
+    intro: 'Heading for the dunes? Better make sure your legs are tough enough!',
+    lose: 'My knees give out before my AIMON do.',
+    after: 'Carry plenty of water out there. Or a SANDBLOOM. Same thing, really.',
+  },
+  r10picnicker: {
+    cls: 'PICNICKER', name: 'JUNE', sprite: 'picnicker', payout: 46,
+    party: () => [['embertail', 31], ['bellpup', 31]],
+    intro: 'It\'s so hot out here! Let\'s battle quick before I melt!',
+    lose: 'I melted anyway...',
+    after: 'My EMBERTAIL loves the sand. It dug a hole to China. Well, to the oasis.',
+  },
+  r10ruin1: {
+    cls: 'RUIN MANIAC', name: 'ABE', sprite: 'ruinmaniac', payout: 48,
+    party: () => [['hourghast', 32], ['terrapike', 32]],
+    intro: 'Stay back from that column! It\'s three thousand years old! ...Fine, battle me instead!',
+    lose: 'Crumbled like old sandstone...',
+    after: 'The columns out here are covered in carvings that look like music. Nobody can read them but SAHRA.',
+  },
+  r10ruin2: {
+    cls: 'RUIN MANIAC', name: 'LEON', sprite: 'ruinmaniac', payout: 48,
+    party: () => [['sandbloom', 31], ['obelith', 33]],
+    intro: 'I dug this OBELITH out of a dune myself! Want to see what it can do?',
+    lose: 'Buried!',
+    after: 'SAHRA was digging under SUNSPIRE for the FIRST SCORE. Then those black coats chased us all out.',
+  },
+  r10grunt: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 48,
+    party: () => [['distortail', 32], ['voltvix', 32]],
+    intro: 'Nobody gets to SUNSPIRE today! The dig site is closed for... a private recital!',
+    lose: 'Off-key! Totally off-key!',
+    after: 'Go ahead. The ADMIN\'s already downstairs. You\'re too late to stop the recording.',
+  },
+
+  // --- Sunspire dig site --------------------------------------------------------------------
+  ssgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 48,
+    party: () => [['distortail', 32], ['wraithling', 32]],
+    intro: 'Hey! This dig site belongs to TEAM DISTORTION now!',
+    lose: 'Ugh! Bad acoustics out here!',
+    after: 'The ADMIN said nobody comes in until the song is done. ...Well, I tried.',
+  },
+  ssgrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 48,
+    party: () => [['hourghast', 32], ['distortail', 33]],
+    intro: 'You beat my partner? Then you\'ll have to get through me too!',
+    lose: 'We\'re supposed to be the loud ones!',
+    after: 'Go on down. VESPER will deal with you herself.',
+  },
+  diggrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 50,
+    party: () => [['noctumoth', 32], ['distortail', 33]],
+    intro: 'A kid in the tunnels? Did you get lost on the way to the gift shop?',
+    lose: 'Buried alive... by a kid...',
+    after: 'That old digger behind the rubble keeps yelling at us. She\'s louder than our machine!',
+  },
+  diggrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 50,
+    party: () => [['geodillo', 33], ['wraithling', 32]],
+    intro: 'The stairs down are off-limits! Orders from VESPER!',
+    lose: 'Guess orders don\'t win battles.',
+    after: 'Down there is where the DUNESTONE\'s roots come through the floor. That\'s where the machine is.',
+  },
+  diggrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 50,
+    party: () => [['distortail', 33], ['hourghast', 33]],
+    intro: 'Hear that hum? That\'s the sound of TEAM DISTORTION winning!',
+    lose: 'Humbled...',
+    after: 'Every time the machine hums, a little more of the ceiling comes down. Great place to work.',
+  },
+  diggrunt4: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 50,
+    party: () => [['noctumoth', 33], ['voltvix', 33]],
+    intro: 'VESPER\'s reading the big wall. She said not to disturb her. That means you!',
+    lose: 'Disturbed!',
+    after: 'VESPER\'s been staring at those carvings for hours. She looks... upset.',
+  },
+  digsci: {
+    cls: 'SCIENTIST', name: 'TEAM DISTORTION', sprite: 'scientist', payout: 56,
+    party: () => [['geodillo', 33], ['voltvix', 33], ['distortail', 34]],
+    intro: '',
+    lose: 'Doesn\'t matter! The data\'s already safe!',
+    after: 'The DUNESTONE\'s song is on its way to the archive. There\'s nothing you can do now.',
+  },
+  vesper2: {
+    cls: 'ADMIN', name: 'VESPER', sprite: 'vesper', payout: 100, music: 'admin',
+    party: () => [
+      ['wraithling', 33, ['hex', 'willowisp', 'nightshade', 'shadowsneak']],
+      ['hourghast', 34, ['shadowball', 'bulldoze', 'willowisp', 'hex']],
+      ['sonarion', 34, ['hypervoice', 'echoedvoice', 'screech', 'quickattack']],
+      ['specterib', 35, ['shadowball', 'hypervoice', 'hex', 'airslash']],
+    ],
+    lose: 'Silence... No. Not silence. Not yet.',
+  },
+
+  // --- Sunspire Gym -------------------------------------------------------------------------
+  ssgym1: {
+    cls: 'RUIN MANIAC', name: 'OMAR', sprite: 'ruinmaniac', payout: 50,
+    party: () => [['hourghast', 33], ['sandbloom', 33]],
+    intro: 'Every pillar in this GYM came from the old city. Treat them with respect!',
+    lose: 'Knocked flat like a fallen column!',
+    after: 'SAHRA dug this whole arena up with her own two hands. And one very large DUNARCH.',
+  },
+  ssgym2: {
+    cls: 'HIKER', name: 'RASHID', sprite: 'hiker', payout: 50,
+    party: () => [['cairnling', 33], ['dunewalker', 34]],
+    intro: 'The sand here is hot enough to cook an egg. Is your team hot enough?',
+    lose: 'Cooked!',
+    after: 'GROUND moves can\'t touch FLYING types. Use that against SAHRA if you can.',
+  },
+  ssgym3: {
+    cls: 'PICNICKER', name: 'LAYLA', sprite: 'picnicker', payout: 52,
+    party: () => [['embertail', 34], ['terrapike', 34]],
+    intro: 'Last one before the LEADER! Show me what you\'ve dug up!',
+    lose: 'You struck water!',
+    after: 'SAHRA\'s waiting at the top. She\'s tougher than the desert, but fair.',
+  },
+  sahra: {
+    cls: 'LEADER', name: 'SAHRA', sprite: 'sahra', payout: 140, music: 'leader', leader: true,
+    party: () => [
+      ['terrapike', 33, ['bulldoze', 'rockthrow', 'headbutt', 'sandattack']],
+      ['hourghast', 34, ['earthpower', 'shadowball', 'willowisp', 'hex']],
+      ['dunewalker', 35, ['rockslide', 'crunch', 'bulldoze', 'sandattack']],
+      ['dunarch', 37, ['earthquake', 'rockslide', 'crunch', 'sandattack']],
+    ],
+    lose: 'Ha! Dug right to the bottom of me. Nobody\'s done that since I was your age.',
+  },
 };
 
-// The eight GYM badges. The first three gyms exist so far.
+// The eight GYM badges. The first five gyms exist so far.
 const BADGES = [
   { id: 'keystone', name: 'KEYSTONE BADGE', leader: 'HOLT', town: 'GRAYHAVEN CITY', type: 'normal',
     colors: ['#a8a0a0', '#686060', '#f8d048'] },
@@ -461,7 +629,8 @@ const BADGES = [
     colors: ['#5890d8', '#284878', '#c8e8f8'] },
   { id: 'crag', name: 'CRAG BADGE', leader: 'TOR', town: 'CRAGMOOR TOWN', type: 'rock',
     colors: ['#c09060', '#6a4a28', '#f8e0b0'] },
-  { id: 'b5', name: '???', colors: ['#c878c8', '#704070', '#f8c8f8'] },
+  { id: 'dune', name: 'DUNE BADGE', leader: 'SAHRA', town: 'SUNSPIRE RUINS', type: 'ground',
+    colors: ['#e0b060', '#8a6428', '#f8e8b0'] },
   { id: 'b6', name: '???', colors: ['#e0c048', '#886820', '#f8f0a0'] },
   { id: 'b7', name: '???', colors: ['#60b8c8', '#306878', '#c8f0f8'] },
   { id: 'b8', name: '???', colors: ['#886860', '#403030', '#e8c8c0'] },

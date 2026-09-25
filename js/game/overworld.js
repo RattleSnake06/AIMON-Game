@@ -807,8 +807,10 @@ const OW = {
         y -= Math.round(Math.sin(t * Math.PI) * 10);
       }
       g.drawImage(e.image(), x, y - 4);
-      if (!e.moving && Tiles.def(this.tile(e.x, e.y)).grass) g.drawImage(Tiles.tallOver, x, y);
-      else if (e.moving && e.moveT > e.moveFrames / 2 && Tiles.def(this.tile(e.x, e.y)).grass) g.drawImage(Tiles.tallOver, x, y);
+      const under = Tiles.def(this.tile(e.x, e.y));
+      if (under.grass && (!e.moving || e.moveT > e.moveFrames / 2)) {
+        g.drawImage(under.over ? Tiles[`${under.over}Img`]() : Tiles.tallOver, x, y);
+      }
       if (e.emote) g.drawImage(Chars.emote, x + 2, y - 18);
     }
 

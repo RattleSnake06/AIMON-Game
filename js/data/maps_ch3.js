@@ -171,7 +171,7 @@ Object.assign(MAPS, {
       'qq..#####........+S......#######..qq',
       'qq..#####...?+++++++++?.....:S....qq',
       'qq....:.....+++++++++++::::::.....qq',
-      'qq....::::::+++#####+++.....:.....qq',
+      '::::::::::::+++#####+++.....:.....qq',
       'qq..........+++#####+++.....:.f...qq',
       'qqq.........+++#####+++.....:..f..qq',
       'qq.......f..+++#####+++.....:...S.qq',
@@ -204,7 +204,7 @@ Object.assign(MAPS, {
       { type: 'cedar', x: 15, y: 10, showIf: 'hideout_cleared' },
       { type: 'cedarWilted', x: 15, y: 10, hideIf: 'hideout_cleared' },
     ],
-    connections: { east: { map: 'route5', offset: -3 } },
+    connections: { east: { map: 'route5', offset: -3 }, west: { map: 'route10', offset: 2 } },
     signs: [
       { x: 32, y: 13, text: 'CEDARWOOD VILLAGE\nWhere the great cedar grows.' },
       { x: 18, y: 7, text: 'CEDARWOOD VILLAGE AIMON GYM\nLEADER: IVY\fThe gardener who grows her battles!' },
@@ -230,6 +230,8 @@ Object.assign(MAPS, {
           : 'People in black coats have been going into the LIBRARY after dark. They never come out the front door...') },
       { id: 'cw_boy', person: 'boy', x: 20, y: 21, dir: 'down', move: 'wander',
         text: 'IVY says GRASS types are tougher than they look. They can drain your HP to heal themselves!' },
+      { id: 'cw_westguard', person: 'man', x: 1, y: 10, dir: 'right', move: 'still', hideIf: 'linden_notes',
+        text: 'The road west goes to SUNSPIRE RUINS, out in the desert.\fThere\'s been a sandstorm on and off all week. I wouldn\'t go out there without a good reason.' },
       { id: 'cw_camper', person: 'camper', x: 9, y: 22, dir: 'left', move: 'look',
         text: 'There\'s good fishing in the pond here. Got an OLD ROD? Face the water and press A!' },
     ],
@@ -240,7 +242,10 @@ Object.assign(MAPS, {
         { species: 'mellowcap', min: 12, max: 15, weight: 15 },
       ],
     },
-    triggers: [{ x: 33, y: 14, w: 1, h: 2, script: 'cedarArrive' }],
+    triggers: [
+      { x: 33, y: 14, w: 1, h: 2, script: 'cedarArrive' },
+      { x: 4, y: 10, w: 1, h: 1, script: 'ivyWest' },
+    ],
   },
 
   library: {

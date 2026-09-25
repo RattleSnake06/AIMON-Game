@@ -40,6 +40,10 @@ const ITEMS = {
     desc: 'Teaches ROCK SLIDE: hurls boulders that may make the foe flinch. Can be used again and again.' },
   tm03: { name: 'TM03 WATER PULSE', pocket: 'tms', tm: 'waterpulse',
     desc: 'Teaches WATER PULSE: a pulsing blast of water. Can be used again and again.' },
+  tm05: { name: 'TM05 EARTH POWER', pocket: 'tms', tm: 'earthpower',
+    desc: 'Teaches EARTH POWER: the ground erupts under the foe. Can be used again and again.' },
+  lindennotes: { name: 'LINDEN\'S NOTES', pocket: 'key',
+    desc: 'PROF. LINDEN\'s notes on the KEYSTONES and the CHAMPION\'S OATH, for SAHRA of SUNSPIRE.' },
 };
 
 // What each AIMON MART sells.
@@ -49,6 +53,7 @@ const MART_STOCK = {
   cedarwood: ['aimonball', 'greatball', 'potion', 'superpotion', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'revive'],
   silverfall: ['greatball', 'aimonball', 'superpotion', 'revive', 'fullheal', 'parlyzheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
   cragmoor: ['greatball', 'aimonball', 'superpotion', 'potion', 'revive', 'fullheal', 'awakening', 'repel', 'escaperope'],
+  sunspire: ['greatball', 'superpotion', 'revive', 'fullheal', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'escaperope'],
   seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
 };
 

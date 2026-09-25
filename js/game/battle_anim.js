@@ -100,6 +100,57 @@ const BattleArt = {
         const r = U.seeded(3);
         for (let i = 0; i < 40; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 112), 1, 4);
       }
+    } else if (kind === 'desert') {
+      // Hot sky, dunes and a broken column on the horizon.
+      const sky = ['#f0c878', '#f4d088', '#f8d898', '#f8e0a8', '#f8e8b8'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      Pix.ellipse(g, 196, 14, 9, 9, '#fff4d0');
+      for (const [x, w, h, col] of [[30, 70, 12, '#e0b070'], [120, 90, 16, '#d8a868'], [210, 70, 11, '#e0b070']]) {
+        for (let y = 0; y < h; y++) {
+          const half = Math.round(w * Math.sqrt(1 - ((h - y) / h) ** 2) / 2);
+          g.fillStyle = col;
+          g.fillRect(x - half, 46 - h + y, half * 2, 1);
+        }
+      }
+      g.fillStyle = '#b08850';
+      g.fillRect(72, 22, 6, 24); g.fillRect(70, 22, 10, 3); g.fillRect(164, 30, 6, 16);
+      g.fillStyle = '#c8a068';
+      g.fillRect(73, 25, 2, 21); g.fillRect(165, 32, 2, 14);
+      const sand = ['#e8c890', '#ecce98', '#f0d4a0', '#f4dcaa'];
+      for (let y = 46; y < 112; y++) {
+        g.fillStyle = sand[Math.min(3, Math.floor((y - 46) / 17))];
+        g.fillRect(0, y, 240, 1);
+      }
+      const r = U.seeded(61);
+      g.fillStyle = '#d8b478';
+      for (let i = 0; i < 24; i++) g.fillRect(Math.floor(r() * 240), 50 + Math.floor(r() * 60), 6 + Math.floor(r() * 10), 1);
+    } else if (kind === 'ruins') {
+      // Sandstone halls lit by lanterns, with carved staves on the walls.
+      g.fillStyle = '#8a6a3c';
+      g.fillRect(0, 0, 240, 112);
+      g.fillStyle = '#a07e4c';
+      g.fillRect(0, 0, 240, 40);
+      g.fillStyle = '#6a5030';
+      for (let y = 6; y < 36; y += 5) g.fillRect(0, y, 240, 1);
+      const r = U.seeded(77);
+      for (let i = 0; i < 26; i++) {
+        const x = Math.floor(r() * 236);
+        const y = 7 + Math.floor(r() * 6) * 5;
+        g.fillStyle = i % 5 ? '#3a2814' : '#f8d060';
+        g.fillRect(x, y - 1, 2, 2);
+      }
+      for (const x of [16, 120, 222]) {
+        Pix.ellipse(g, x, 20, 12, 10, 'rgba(255,200,90,0.25)');
+        g.fillStyle = '#f8c040';
+        g.fillRect(x - 1, 17, 3, 5);
+      }
+      g.fillStyle = '#4a3820';
+      g.fillRect(0, 40, 240, 3);
+      const floor = ['#b89868', '#c0a070', '#c8a878', '#d0b080'];
+      for (let y = 43; y < 112; y++) {
+        g.fillStyle = floor[Math.min(3, Math.floor((y - 43) / 18))];
+        g.fillRect(0, y, 240, 1);
+      }
     } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
@@ -153,6 +204,8 @@ const BattleArt = {
       hideout: ['#403a58', '#58507a', '#6c6490'],
       beach: ['#c0a870', '#d8c490', '#e8d8a8'],
       storm: ['#80785c', '#9c9474', '#b0a888'],
+      desert: ['#b89058', '#d8b478', '#ecd09c'],
+      ruins: ['#7a5c34', '#a88a5c', '#c4a678'],
     }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);

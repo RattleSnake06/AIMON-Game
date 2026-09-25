@@ -610,6 +610,9 @@ const PEOPLE = {
   miner: { head: 'cap', body: 'tee', pal: { a: '#e0b030', A: '#a88020', h: '#3a2818', H: '#241810', c: '#6a6258', C: '#4a4238', p: '#4a4238', P: '#302820', k: '#302820' } },
   morrow: { head: 'short', body: 'coat', pal: { h: '#c8ccd8', H: '#9098a8', c: '#e0b048', C: '#a8801c', w: '#1e2a2e', W: '#10181a', p: '#1c1a24', P: '#100e16', k: '#383048' } },
   tor: { head: 'hat', body: 'tee', pal: { a: '#e0b030', A: '#a88020', h: '#b0b0b8', H: '#808088', c: '#8a6a48', C: '#6a4a30', p: '#4a5a78', P: '#303c54', k: '#3a2818' } },
+  sahra: { head: 'hat', body: 'coat', pal: { a: '#d0a868', A: '#a07840', h: '#2a1c14', H: '#1a100a', s: '#c08860', S: '#9a6440', c: '#f0e8d0', C: '#c8bca0', w: '#8a7a48', W: '#665830', p: '#6a5a3a', P: '#4a3c24', k: '#3a2814' } },
+  ruinmaniac: { head: 'hat', body: 'tee', pal: { a: '#a89060', A: '#786030', h: '#5a4030', H: '#3a2818', c: '#c8b080', C: '#988050', p: '#7a6a4a', P: '#5a4c30', k: '#4a3420' } },
+  apprentice: { head: 'cap', body: 'tee', pal: { a: '#d84838', A: '#a02c20', h: '#3a2418', H: '#241410', c: '#d8c8a0', C: '#a89870', p: '#5a6a48', P: '#3c4a30', k: '#4a3420' } },
   admiral: { head: 'cap', body: 'coat', pal: { a: '#24386a', A: '#141e3c', h: '#d8d8e0', H: '#a0a0b0', c: '#f4f4f4', C: '#c8c8d0', w: '#24386a', W: '#141e3c', p: '#24386a', P: '#141e3c', k: '#202028' } },
 };
 

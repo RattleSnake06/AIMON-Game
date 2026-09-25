@@ -506,3 +506,58 @@ Object.assign(MUSIC, {
     ],
   },
 });
+
+// Chapters 6 and 7: the lake road home, the dune road, SUNSPIRE RUINS and
+// TEAM DISTORTION's dig site.
+Object.assign(MUSIC, {
+  route9: {
+    bpm: 108,
+    ch: [
+      { wave: 'p50', vol: 0.08, vib: true, notes:
+        'F5:4 A5:2 G5 F5:4 C5:4 | D5:4 F5:2 E5 D5:8 | Bb4:4 D5:2 F5 A5:4 G5:2 F5 | G5:12 r:4 |'
+        + ' F5:4 A5:2 C6 A5:4 F5:4 | G5:4 Bb5:2 A5 G5:8 | A5:4 G5:2 F5 E5:4 G5:4 | F5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'A4:16 F4 D4 E4 A4 Bb4 C5 A4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[F2:4 C3]*2 [D2:4 A2]*2 [Bb1:4 F2]*2 [C2:4 G2]*2 [F2:4 C3]*2 [G2:4 D3]*2 [C2:4 G2]*2 [F2:4 C3]*2' },
+      { wave: 'noise', vol: 0.035, notes: '[h:4 k:4 h:4 s:4]*8' },
+    ],
+  },
+  desert: {
+    bpm: 120,
+    ch: [
+      { wave: 'p25', vol: 0.08, vib: true, notes:
+        'D5:2 Eb5 F#5 G5 A5:4 G5:2 F#5 | Eb5:4 D5:4 C5:2 D5 Eb5:4 | D5:2 F#5 A5 Bb5 A5:4 G5:2 F#5 | G5:6 F#5:2 Eb5:4 D5:4 |'
+        + ' A5:2 Bb5 A5 G5 F#5:4 G5:2 A5 | Bb5:4 A5:2 G5 F#5:4 Eb5:4 | D5:2 Eb5 F#5 A5 G5:4 F#5:2 Eb5 | D5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'A4:16 G4 A4 Bb4 C5 D5 A4 A4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[D2:2 A2 D3 A2]*2 [C2:2 G2 C3 G2]*2 [D2:2 A2 D3 A2]*2 [Eb2:2 Bb2 Eb3 Bb2]*2'
+        + ' [D2:2 A2 D3 A2]*2 [G2:2 D3 G3 D3]*2 [Eb2:2 Bb2 Eb3 Bb2]*2 [D2:2 A2 D3 A2]*2' },
+      { wave: 'noise', vol: 0.045, notes: '[k:4 h:2 h:2 s:4 h:2 k:2]*8' },
+    ],
+  },
+  sunspire: {
+    bpm: 100,
+    ch: [
+      { wave: 'p50', vol: 0.08, vib: true, notes:
+        'A4:4 C5:2 E5 A5:4 G#5:4 | F5:4 E5:2 D5 E5:8 | D5:4 F5:2 A5 G5:4 F5:2 E5 | E5:6 D5:2 C5:4 B4:4 |'
+        + ' A4:4 C5:2 E5 A5:4 B5:4 | C6:4 B5:2 A5 G#5:8 | A5:4 F5:2 E5 D5:4 B4:4 | A4:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'E4:16 C4 D4 G#4 E4 E4 F4 E4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[A1:4 E2]*2 [A1:4 E2]*2 [D2:4 A2]*2 [E2:4 B2]*2 [A1:4 E2]*2 [E2:4 B2]*2 [D2:4 A2]*2 [A1:4 E2]*2' },
+      { wave: 'noise', vol: 0.04, notes: '[k:4 h:4 s:4 h:2 h:2]*8' },
+    ],
+  },
+  digsite: {
+    bpm: 116,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'D5:2 r:2 D5:2 F5:2 Ab5:4 G5:4 | F5:2 r:2 E5:2 D5:2 C#5:8 | D5:2 r:2 D5:2 F5:2 A5:4 Bb5:4 | A5:6 G5:2 F5:4 E5:4 |'
+        + ' D6:2 r:2 C6:2 Bb5:2 A5:4 Ab5:4 | G5:2 r:2 F5:2 E5:2 F5:8 | E5:2 F5:2 G5:2 Ab5:2 A5:4 C#5:4 | D5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[D4:2 A4]*4 [D4:2 Ab4]*4 [D4:2 A4]*4 [C#4:2 A4]*4 [Bb3:2 F4]*4 [G3:2 D4]*4 [A3:2 E4]*4 [D4:2 A4]*4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[D2:4 D2]*2 [D2:4 Ab1]*2 [D2:4 D2]*2 [A1:4 A1]*2 [Bb1:4 Bb1]*2 [G1:4 G1]*2 [A1:4 A1]*2 [D2:4 D2]*2' },
+      { wave: 'noise', vol: 0.045, notes: '[k:2 h:2 h:2 h:2 s:2 h:2 k:2 h:2]*8' },
+    ],
+  },
+});

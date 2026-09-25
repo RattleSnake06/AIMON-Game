@@ -254,4 +254,5 @@ const TMS = {
   tm02: { move: 'magicalleaf', compat: ['grass', 'bug', 'water', 'normal', 'flying'] },
   tm03: { move: 'waterpulse', compat: ['water', 'normal', 'ground', 'fighting', 'sound'] },
   tm04: { move: 'rockslide', compat: ['rock', 'ground', 'fighting', 'normal', 'fire', 'water'] },
+  tm05: { move: 'earthpower', compat: ['ground', 'rock', 'fire', 'grass', 'electric', 'ghost', 'normal'] },
 };

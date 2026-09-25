@@ -243,7 +243,7 @@ lights on.
 
 # ACT IV: THE FIRST SCORE
 
-## Chapter 6: Homecoming *(planned)*
+## Chapter 6: Homecoming *(built)*
 *Route 9, Willowbrook Town, Route 5, Cedarwood*
 
 38. **Route 9**, the lakeside road west from Cragmoor, reopens. It is quiet and golden: fishing, a few trainers, and home in the distance.
@@ -253,16 +253,16 @@ lights on.
 42. **KAI is home too.** In his house, Kai's mom asks him about RYKER again. Kai, at the door: "Ryker didn't just disappear. When I'm CHAMPION, he'll hear about it, wherever he is."
 43. **Route 5 to Cedarwood.** IVY says the SUNSPIRE road has been full of black coats heading west.
 
-## Chapter 7: The First Score *(planned)*
+## Chapter 7: The First Score *(built)*
 *Route 10, Sunspire Ruins*
 
 44. **Route 10** is a dune road west from Cedarwood, with hikers, ruin maniacs and GROUND types.
 45. **Sunspire Ruins** is a desert town built among the columns of an ancient city. Its sun spire holds the **DUNESTONE**. The dig site under the ruins has been taken over by TEAM DISTORTION, and SAHRA is trapped behind a collapsed passage.
 46. **The dig site** is ruined halls full of grunts and a RESONATOR humming on the DUNESTONE's roots. The DUNESTONE's song is recorded before you can stop it.
 47. **ADMIN VESPER** stands at the great wall of carvings: the FIRST SCORE. She reads aloud what TEAM DISTORTION never told her. Where the RIFT opened, *AIMON fell silent*. The world beyond isn't a greater song. It is **no song at all**. She is shaken: "The CONDUCTOR told us the other side was music..."
-48. **Battle: VESPER**: WRAITHLING 33, TUNER 33, HOURGHAST 34, SONARION 35. Afterwards she copies the carvings for the CONDUCTOR out of habit, hesitates, and leaves without a word.
+48. **Battle: VESPER**: WRAITHLING 33, HOURGHAST 34, SONARION 34, SPECTERIB 35. Afterwards she copies the carvings for the CONDUCTOR out of habit, hesitates, and leaves without a word.
 49. **SAHRA is freed.** She reads Linden's notes and the wall. Sung **forwards** by eight slivers, the score seals the RIFT; sung backwards, it opens it. "Those BADGES were never trophies, kid. They're the spare key." But the carvings are **missing their final verse**.
-50. **GYM 5: LEADER SAHRA (GROUND)**, in a sun-baked arena between fallen pillars: TERRAPIKE 33, MOSSTODON 34, HOURGHAST 35, OBELITH 37. **DUNE BADGE** and TM05 EARTH POWER.
+50. **GYM 5: LEADER SAHRA (GROUND)**, in a sun-baked arena between fallen pillars: TERRAPIKE 33, HOURGHAST 34, DUNEWALKER 35, DUNARCH 37. **DUNE BADGE** and TM05 EARTH POWER.
 51. **Interlude.** VESPER reports alone to the CONDUCTOR, who brushes off her doubts: "Silence is only the rest between notes, VESPER."
 
 ## Chapter 8: The Windmill *(planned)*

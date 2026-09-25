@@ -317,7 +317,6 @@ Object.assign(Events, {
     yield* say('COMMANDER: Then they\'ll have to take the key from me.\fNo one has ever taken anything from me.', DARK);
     yield* say('COMMANDER: And the boy with the spiky hair... KAI.\fLeave him to me.', DARK);
     yield* say('???: Four songs. The RIFT is listening more closely now...', DARK);
-    yield* say('TO BE CONTINUED...', DARK);
     yield* Game.fadeOut(40);
     Game.remove(scene);
     Sound.playMusic(OW.music());

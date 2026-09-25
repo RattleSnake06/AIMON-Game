@@ -173,12 +173,14 @@ const BadgeArt = {
       grove: [[12, 0], [19, 5], [22, 12], [18, 19], [12, 23], [6, 19], [2, 12], [5, 5]],
       tide: [[12, 0], [17, 7], [21, 13], [19, 19], [12, 23], [5, 19], [3, 13], [7, 7]],
       crag: [[12, 0], [15, 5], [19, 3], [23, 14], [18, 22], [6, 22], [1, 14], [5, 4], [9, 6]],
+      dune: [[12, 0], [16, 6], [23, 20], [20, 23], [4, 23], [1, 20], [8, 6]],
     };
     p.poly(shapes[b.id] || [[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
       { fill: main, line: '#202020', shade: dark, hi: Pix.mix(main, '#ffffff', 0.4) });
     if (b.id === 'grove') p.line(12, 3, 12, 20, dark);
     if (b.id === 'tide') { p.line(7, 16, 10, 14, hi); p.line(10, 14, 14, 16, hi); p.line(14, 16, 17, 14, hi); }
     if (b.id === 'crag') { p.line(4, 15, 8, 18, dark); p.line(16, 19, 20, 15, dark); }
+    if (b.id === 'dune') { p.line(4, 20, 9, 17, dark); p.line(9, 17, 14, 19, dark); p.line(14, 19, 20, 16, dark); }
     p.ellipse(11.5, 11.5, 6.5, 6.5, { fill: hi, line: '#202020', shade: Pix.shade(hi, 0.75) });
     if (b.leader) {
       // A sliver of the leader's KEYSTONE.
@@ -241,7 +243,9 @@ const REGION = [
   { id: 'route5', name: 'ROUTE 5', x: 92, y: 86, kind: 'route', desc: 'A forest road between WILLOWBROOK and CEDARWOOD.' },
   { id: 'cedarwood', name: 'CEDARWOOD VILLAGE', x: 69, y: 88, kind: 'town', desc: 'A village among giant cedars. Home of the GRASS-type GYM.' },
   { id: 'pinecrest', name: 'PINECREST FOREST', x: 80, y: 66, kind: 'spot', desc: 'Dense, dark woods. Travelers tell of violet lights among the trees.' },
-  { id: 'sunspire', name: 'SUNSPIRE RUINS', x: 36, y: 71, kind: 'town', desc: 'Sun-bleached ruins of an ancient city in the western dunes.' },
+  { id: 'sunspire', name: 'SUNSPIRE RUINS', x: 36, y: 71, kind: 'town', desc: 'Sun-bleached ruins of an ancient city in the western dunes. Home of the GROUND-type GYM.' },
+  { id: 'route10', name: 'ROUTE 10', x: 50, y: 87, kind: 'route', desc: 'An old caravan road across the dunes, from CEDARWOOD to SUNSPIRE RUINS.' },
+  { id: 'route9', name: 'ROUTE 9', x: 140, y: 86, kind: 'route', desc: 'A quiet lakeside road between WILLOWBROOK and CRAGMOOR.' },
   { id: 'stonepeak', name: 'STONEPEAK WOODS', x: 117, y: 29, kind: 'spot', desc: 'Snowy woods beneath the tallest peak. An old tower watches over them.' },
   { id: 'meadowfield', name: 'MEADOWFIELD FARM', x: 156, y: 54, kind: 'spot', desc: 'A sprawling farm with a windmill. Its milk is famous.' },
   { id: 'silverfall', name: 'SILVERFALL CITY', x: 171, y: 76, kind: 'town', desc: 'A city of mills and power plants around a great waterfall. SONANCE ENERGY runs the lights.' },
