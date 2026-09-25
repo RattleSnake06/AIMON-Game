@@ -835,14 +835,40 @@ const OW = {
   },
 
   // --- weather ---------------------------------------------------------------
-  // def.weather: { kind: 'rain' | 'storm', hideIf, showIf }
+  // def.weather: { kind: 'rain' | 'storm' | 'night' | 'mist' | 'violet', hideIf, showIf }
   weather() {
-    const w = this.map.def.weather;
+    const d = this.map.def.weather;
+    const w = typeof d === 'function' ? d() : d;
     if (!w || (w.hideIf && State.flag(w.hideIf)) || (w.showIf && !State.flag(w.showIf))) return null;
     return w;
   },
 
   drawWeather(g, w, frame) {
+    if (w.kind === 'night' || w.kind === 'violet') {
+      // A dark sky (or the violet sky of the COUNTERMELODY) with a few stars.
+      g.fillStyle = w.kind === 'night' ? `rgba(10,14,40,${w.dark || 0.42})` : 'rgba(60,20,90,0.38)';
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+      for (let i = 0; i < 14; i++) {
+        const tw = (Math.floor(frame / 12) + i * 5) % 9;
+        if (tw > 5) continue;
+        g.fillStyle = w.kind === 'night' ? 'rgba(255,250,220,0.8)' : 'rgba(230,200,255,0.8)';
+        g.fillRect((i * 67 + 13) % SCREEN_W, (i * 29 + 7) % 48, 1, 1);
+      }
+      return;
+    }
+    if (w.kind === 'mist') {
+      // Low banks of mist drifting across the marsh.
+      g.fillStyle = 'rgba(220,230,228,0.12)';
+      g.fillRect(0, 0, SCREEN_W, SCREEN_H);
+      for (let i = 0; i < 6; i++) {
+        const y = (i * 31 + 10) % SCREEN_H;
+        const x = ((frame * (0.3 + (i % 3) * 0.15) + i * 70) % (SCREEN_W + 120)) - 120;
+        g.fillStyle = 'rgba(236,242,240,0.16)';
+        g.fillRect(Math.round(x), y, 110, 10);
+        g.fillRect(Math.round(x) + 14, y - 4, 70, 4);
+      }
+      return;
+    }
     const storm = w.kind === 'storm';
     g.fillStyle = storm ? 'rgba(16,24,48,0.38)' : 'rgba(24,32,56,0.18)';
     g.fillRect(0, 0, SCREEN_W, SCREEN_H);

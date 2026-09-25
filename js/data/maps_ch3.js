@@ -187,7 +187,7 @@ Object.assign(MAPS, {
       'qq.~~~~~..####...:.........#####..qq',
       'qq~~~~~~..####...:..t......#####..qq',
       'qq~~~~~~...::::::::::::::::::###..qq',
-      'qq~~~~~......S..FFF........#####..qq',
+      'qq~~~~~......S..:::........#####..qq',
       'qq..............:::.........:.....qq',
       'qqqqqqqqqqqqqqqq:::qqqqqqqqqqqqqqqqq',
       'qqqqqqqqqqqqqqqq:::qqqqqqqqqqqqqqqqq',
@@ -204,12 +204,18 @@ Object.assign(MAPS, {
       { type: 'cedar', x: 15, y: 10, showIf: 'hideout_cleared' },
       { type: 'cedarWilted', x: 15, y: 10, hideIf: 'hideout_cleared' },
     ],
-    connections: { east: { map: 'route5', offset: -3 }, west: { map: 'route10', offset: 2 } },
+    connections: {
+      east: { map: 'route5', offset: -3 },
+      west: { map: 'route10', offset: 2 },
+      south: { map: 'route6', offset: -4 },
+    },
     signs: [
       { x: 32, y: 13, text: 'CEDARWOOD VILLAGE\nWhere the great cedar grows.' },
       { x: 18, y: 7, text: 'CEDARWOOD VILLAGE AIMON GYM\nLEADER: IVY\fThe gardener who grows her battles!' },
       { x: 29, y: 8, text: 'CEDARWOOD LIBRARY\nOpen to all who wish to learn.' },
-      { x: 13, y: 26, text: 'ROUTE 6 is closed.\nFloods in the MARSHLAND have washed out the road.' },
+      { x: 13, y: 26, text: () => (State.flag('council_done')
+        ? 'ROUTE 6\nSOUTH: THE MARSHLAND and the coast'
+        : 'ROUTE 6 is closed.\nFloods in the MARSHLAND have washed out the road.') },
     ],
     things: [
       { x: 15, y: 15, script: 'cedarInspect' }, { x: 16, y: 15, script: 'cedarInspect' }, { x: 17, y: 15, script: 'cedarInspect' },
@@ -232,6 +238,12 @@ Object.assign(MAPS, {
         text: 'IVY says GRASS types are tougher than they look. They can drain your HP to heal themselves!' },
       { id: 'cw_westguard', person: 'man', x: 1, y: 10, dir: 'right', move: 'still', hideIf: 'linden_notes',
         text: 'The road west goes to SUNSPIRE RUINS, out in the desert.\fThere\'s been a sandstorm on and off all week. I wouldn\'t go out there without a good reason.' },
+      { id: 'cw_south1', prop: 'barrier', x: 16, y: 26, move: 'still', hideIf: 'council_done',
+        text: 'ROAD CLOSED\nFLOODING ON ROUTE 6.' },
+      { id: 'cw_south2', prop: 'barrier', x: 17, y: 26, move: 'still', hideIf: 'council_done',
+        text: 'ROAD CLOSED\nFLOODING ON ROUTE 6.' },
+      { id: 'cw_south3', prop: 'barrier', x: 18, y: 26, move: 'still', hideIf: 'council_done',
+        text: 'ROAD CLOSED\nFLOODING ON ROUTE 6.' },
       { id: 'cw_camper', person: 'camper', x: 9, y: 22, dir: 'left', move: 'look',
         text: 'There\'s good fishing in the pond here. Got an OLD ROD? Face the water and press A!' },
     ],

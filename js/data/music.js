@@ -627,4 +627,102 @@ Object.assign(MUSIC, {
       { wave: 'noise', vol: 0.045, notes: '[k:4 h:4 s:4 h:4]*8' },
     ],
   },
+  // EMBERPEAK VOLCANO and ROUTE 7: heavy, smoldering, a little Phrygian.
+  volcano: {
+    bpm: 120,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'D5:4 Eb5:2 D5 C5:4 A4:4 | Bb4:4 A4:2 G4 A4:8 | D5:4 F5:2 G5 A5:4 Bb5:2 A5 | G5:4 F5:2 Eb5 D5:8 |'
+        + ' A5:4 Bb5:2 A5 G5:4 F5:4 | Eb5:4 D5:2 C5 D5:8 | F5:2 G5 A5 C6 Bb5:4 A5:2 G5 | A5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[D4:2 A4]*4 [G3:2 D4]*4 [D4:2 A4]*4 [G3:2 Eb4]*4 [F4:2 A4]*4 [C4:2 G4]*4 [Bb3:2 F4]*4 [A3:2 E4]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[D2:2 D3]*4 [G1:2 G2]*4 [D2:2 D3]*4 [Eb2:2 Eb3]*4 [F2:2 F3]*4 [C2:2 C3]*4 [Bb1:2 Bb2]*4 [A1:2 A2]*4' },
+      { wave: 'noise', vol: 0.05, notes: '[k:4 h:2 h:2 k:4 s:4]*8' },
+    ],
+  },
+  // THE FORGE: pumps, pistons and TEAM DISTORTION.
+  forge: {
+    bpm: 138,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'C5:2 r C5 Eb5 G5:4 F5:2 Eb5 | D5:2 r D5 F5 Ab5:4 G5:4 | C5:2 r C5 Eb5 G5:4 Bb5:2 Ab5 | G5:12 r:4 |'
+        + ' Ab5:4 G5:2 F5 Eb5:4 D5:4 | G5:4 F5:2 Eb5 D5:4 C5:4 | Eb5:2 F5 G5 Ab5 B5:4 D6:4 | C6:8 B5:4 G5:4' },
+      { wave: 'p12', vol: 0.04, notes: '[C5:1 r G4 r]*16 [D5:1 r Ab4 r]*8 [B4:1 r G4 r]*8' },
+      { wave: 'tri', vol: 0.17, notes: '[C2:2 C2 C3 C2]*8 [Ab1:2 Ab1 Ab2 Ab1]*4 [G1:2 G1 G2 G1]*4' },
+      { wave: 'noise', vol: 0.055, notes: '[k:2 h:2 k:2 s:2 h:2 k:2 s:2 s:1 s:1]*8' },
+    ],
+  },
+  // The GRAND RESONATOR: an organ in a machine.
+  resonator: {
+    bpm: 96,
+    ch: [
+      { wave: 'p50', vol: 0.07, notes:
+        'D5:8 F5:4 A5:4 | G5:8 E5:8 | F5:8 A5:4 D6:4 | C#6:16 |'
+        + ' D6:8 C6:4 Bb5:4 | A5:8 G5:4 F5:4 | E5:4 F5:4 G5:4 A5:4 | D5:16' },
+      { wave: 'p12', vol: 0.045, notes:
+        '[D4:1 F4 A4 D5]*4 [C4:1 E4 G4 C5]*4 [Bb3:1 D4 F4 Bb4]*4 [A3:1 C#4 E4 A4]*4'
+        + ' [Bb3:1 D4 G4 Bb4]*4 [F3:1 A3 C4 F4]*4 [G3:1 Bb3 C#4 E4]*4 [A3:1 D4 F4 A4]*4' },
+      { wave: 'tri', vol: 0.17, notes: 'D2:16 C2:16 Bb1:16 A1:16 G1:16 F1:16 G1:8 A1:8 D2:16' },
+      { wave: 'noise', vol: 0.025, notes: '[k:8 h:4 h:4]*8' },
+    ],
+  },
+  // ROUTE 6 and the MARSHLAND: lazy, misty.
+  marsh: {
+    bpm: 100,
+    ch: [
+      { wave: 'p50', vol: 0.07, notes:
+        'G4:4 B4:2 D5 E5:6 D5:2 | C5:4 B4:2 A4 G4:8 | E4:4 G4:2 A4 B4:6 D5:2 | A4:12 r:4 |'
+        + ' G4:4 B4:2 D5 G5:6 F#5:2 | E5:4 D5:2 B4 C5:8 | A4:4 B4:2 C5 D5:4 E5:2 C5 | G4:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[G3:2 D4 B4 D4]*2 [C4:2 G4 E4 G4]*2 [E3:2 B3 G4 B3]*2 [D4:2 A4 F#4 A4]*2'
+        + ' [G3:2 D4 B4 D4]*2 [C4:2 G4 E4 G4]*2 [A3:2 E4 C5 E4]*2 [G3:2 D4 B4 D4]*2' },
+      { wave: 'tri', vol: 0.16, notes:
+        'G1:8 D2:8 C2:8 G1:8 E2:8 B1:8 D2:8 A1:8 G1:8 D2:8 C2:8 G1:8 A1:8 E2:8 G1:8 D2:8' },
+      { wave: 'noise', vol: 0.035, notes: '[k:4 h:4 s:4 h:2 h:2]*8' },
+    ],
+  },
+  // The MYSTIC GROVE on a moonless night.
+  grove: {
+    bpm: 84,
+    ch: [
+      { wave: 'p50', vol: 0.07, notes:
+        'E5:6 F#5:2 G5:4 B5:4 | A5:6 G5:2 F#5:8 | D5:6 E5:2 F#5:4 A5:4 | G5:12 r:4 |'
+        + ' B5:6 C6:2 B5:4 A5:4 | G5:6 F#5:2 E5:8 | C5:4 E5:4 G5:4 F#5:4 | E5:12 r:4' },
+      { wave: 'p12', vol: 0.035, notes:
+        '[B5:1 r:3 E6:1 r:3]*2 [A5:1 r:3 D6:1 r:3]*2 [F#5:1 r:3 B5:1 r:3]*2 [G5:1 r:3 D6:1 r:3]*2'
+        + ' [G5:1 r:3 E6:1 r:3]*2 [E5:1 r:3 B5:1 r:3]*2 [E5:1 r:3 C6:1 r:3]*2 [B5:1 r:3 G5:1 r:3]*2' },
+      { wave: 'tri', vol: 0.16, notes: 'E2:16 D2:16 B1:16 G1:16 C2:16 E2:16 C2:8 B1:8 E2:16' },
+      { wave: 'noise', vol: 0.02, notes: '[r:8 h:8]*8' },
+    ],
+  },
+  // STARFALL ISLE and its observatory.
+  starfall: {
+    bpm: 108,
+    ch: [
+      { wave: 'p25', vol: 0.075, notes:
+        'A4:2 C#5 E5 A5 G#5:4 E5:4 | F#5:4 E5:2 D5 C#5:8 | D5:2 F#5 A5 D6 C#6:4 A5:4 | B5:12 r:4 |'
+        + ' C#6:4 B5:2 A5 G#5:4 F#5:4 | E5:4 F#5:2 G#5 A5:8 | F#5:2 G#5 A5 B5 C#6:4 G#5:4 | A5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[A4:2 E5 C#5 E5]*2 [D4:2 A4 F#4 A4]*2 [B3:2 F#4 D4 F#4]*2 [E4:2 B4 G#4 B4]*2'
+        + ' [F#4:2 C#5 A4 C#5]*2 [C#4:2 G#4 E4 G#4]*2 [D4:2 A4 F#4 A4]*2 [E4:2 B4 G#4 B4]*2' },
+      { wave: 'tri', vol: 0.16, notes:
+        'A1:8 E2:8 D2:8 A1:8 B1:8 F#2:8 E2:8 B1:8 F#2:8 C#2:8 C#2:8 G#1:8 D2:8 A1:8 E2:8 E1:8' },
+      { wave: 'noise', vol: 0.04, notes: '[k:4 h:2 h:2 s:4 h:4]*8' },
+    ],
+  },
+  // Battle: THE CONDUCTOR.
+  conductor: {
+    bpm: 176,
+    ch: [
+      { wave: 'p25', vol: 0.095, notes:
+        'D5:1 E5 F5 G5 A5:4 D6:4 C6:2 A5 | Bb5:4 A5:2 G5 A5:8 | G5:2 A5 Bb5 D6 C6:4 Bb5:2 A5 | A5:4 G5:2 F5 E5:8 |'
+        + ' F5:2 G5 A5 D6 F6:4 E6:2 D6 | C#6:4 D6:2 E6 A5:8 | Bb5:2 A5 G5 F5 E5:4 G5:2 C#6 | D6:12 r:4' },
+      { wave: 'p12', vol: 0.045, notes:
+        '[D5:2 A4]*4 [G4:2 D5]*4 [Bb4:2 G4]*4 [A4:2 E4]*4 [D5:2 A4]*4 [A4:2 E5]*4 [G4:2 Bb4]*4 [A4:2 F4]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[D2:2 D3]*4 [G1:2 G2]*4 [Bb1:2 Bb2]*4 [A1:2 A2]*4 [D2:2 D3]*4 [A1:2 A2]*4 [G1:2 G2]*4 [A1:2 A2]*4' },
+      { wave: 'noise', vol: 0.055, notes: DRUM_ROCK },
+    ],
+  },
 });

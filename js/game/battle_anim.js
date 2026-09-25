@@ -263,6 +263,125 @@ const BattleArt = {
       }
       g.fillStyle = '#7a8294';
       for (let y = 52; y < 112; y += 14) g.fillRect(0, y, 240, 1);
+    } else if (kind === 'volcano' || kind === 'forge') {
+      // Red sky over black rock and rivers of lava; inside the FORGE, iron
+      // girders instead of sky.
+      const forge = kind === 'forge';
+      const sky = forge ? ['#2a1a18', '#34201c', '#3e2620', '#482c22', '#523224'] : ['#6a2a24', '#84362a', '#9c4430', '#b45236', '#c8643c'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      const r = U.seeded(71);
+      if (forge) {
+        g.fillStyle = '#1a1210';
+        for (let x = 0; x < 240; x += 40) { g.fillRect(x, 0, 6, 40); g.fillRect(x, 10, 40, 3); }
+        g.fillStyle = '#8050d8';
+        g.fillRect(0, 20, 240, 2);
+      } else {
+        // The volcano's peak smoking in the distance.
+        g.fillStyle = '#2a1e1c';
+        for (let y = 6; y < 42; y++) {
+          const half = Math.round((y - 6) * 1.6) + 6;
+          g.fillRect(170 - half, y, half * 2, 1);
+        }
+        g.fillStyle = LAVA[2];
+        g.fillRect(166, 6, 8, 2);
+        g.fillStyle = 'rgba(80,70,70,0.6)';
+        for (let i = 0; i < 5; i++) Pix.ellipse(g, 168 + i * 6, 2 - i, 10 + i * 2, 4, 'rgba(80,70,70,0.5)');
+      }
+      const ground = forge ? ['#3a2e2a', '#443630', '#4c3c34', '#54443a'] : ['#3c3432', '#463c38', '#4e4440', '#564c46'];
+      for (let y = 40; y < 112; y++) {
+        g.fillStyle = ground[Math.min(3, Math.floor((y - 40) / 18))];
+        g.fillRect(0, y, 240, 1);
+      }
+      // Rivers of lava.
+      for (const [y, x0, x1] of [[44, 0, 90], [47, 150, 240], [104, 0, 60]]) {
+        g.fillStyle = LAVA[1];
+        g.fillRect(x0, y, x1 - x0, 3);
+        g.fillStyle = LAVA[3];
+        g.fillRect(x0 + 4, y + 1, x1 - x0 - 8, 1);
+      }
+      g.fillStyle = ASH.ember;
+      for (let i = 0; i < 24; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 112), 1, 1);
+    } else if (kind === 'resonator') {
+      // The GRAND RESONATOR's pipes glowing violet in the dark.
+      g.fillStyle = '#140f20';
+      g.fillRect(0, 0, 240, 112);
+      for (let x = 6; x < 240; x += 14) {
+        const top = 4 + Math.abs(((x / 14) % 8) - 4) * 5;
+        g.fillStyle = '#6a5020';
+        g.fillRect(x, top, 8, 42 - top);
+        g.fillStyle = '#d0b060';
+        g.fillRect(x + 1, top, 5, 42 - top);
+        g.fillStyle = '#f8e8a0';
+        g.fillRect(x + 1, top, 2, 42 - top);
+      }
+      Pix.ellipse(g, 120, 30, 50, 16, 'rgba(176,112,248,0.25)');
+      g.fillStyle = '#2e2440';
+      g.fillRect(0, 42, 240, 3);
+      const floor = ['#2a2238', '#302840', '#362e48', '#3c3450'];
+      for (let y = 45; y < 112; y++) {
+        g.fillStyle = floor[Math.min(3, Math.floor((y - 45) / 17))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = '#8050d8';
+      for (let y = 52; y < 112; y += 14) g.fillRect(0, y, 240, 1);
+    } else if (kind === 'marsh') {
+      const sky = ['#9aaaa8', '#a4b4b0', '#aebcb8', '#b8c4c0', '#c2ccc8'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      const r = U.seeded(88);
+      for (let x = -4; x < 250; x += 26) {
+        g.fillStyle = '#4a4a3c';
+        g.fillRect(x + 8, 16 + Math.floor(r() * 10), 3, 28);
+        g.fillRect(x + 4, 22, 6, 2);
+        g.fillRect(x + 10, 26, 6, 2);
+      }
+      g.fillStyle = '#56704a';
+      g.fillRect(0, 40, 240, 6);
+      const ground = ['#6a7a4a', '#627048', '#5a6844', '#526040'];
+      for (let y = 46; y < 112; y++) {
+        g.fillStyle = ground[Math.min(3, Math.floor((y - 46) / 17))];
+        g.fillRect(0, y, 240, 1);
+      }
+      for (const [x, y, w] of [[20, 60, 60], [150, 80, 70], [60, 98, 50]]) Pix.ellipse(g, x + w / 2, y, w / 2, 5, '#5a7078');
+      g.fillStyle = 'rgba(236,242,240,0.3)';
+      g.fillRect(0, 36, 240, 10);
+      g.fillStyle = '#2c4a24';
+      for (let i = 0; i < 30; i++) g.fillRect(Math.floor(r() * 240), 48 + Math.floor(r() * 60), 1, 5);
+    } else if (kind === 'grove' || kind === 'dome') {
+      // Night: the MYSTIC GROVE's glowing stones, or the observatory dome
+      // open to the stars.
+      const dome = kind === 'dome';
+      const sky = ['#080a20', '#0c1028', '#101430', '#141838', '#181c40'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      const r = U.seeded(dome ? 44 : 33);
+      g.fillStyle = '#f8f0c0';
+      for (let i = 0; i < 40; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 40), 1, 1);
+      if (dome) {
+        g.fillStyle = '#3a4060';
+        g.fillRect(0, 0, 60, 44); g.fillRect(180, 0, 60, 44);
+        g.fillStyle = '#5a6088';
+        g.fillRect(58, 0, 2, 44); g.fillRect(180, 0, 2, 44);
+        const floor = ['#1c2244', '#20284c', '#242c54', '#28305a'];
+        for (let y = 44; y < 112; y++) { g.fillStyle = floor[Math.min(3, Math.floor((y - 44) / 17))]; g.fillRect(0, y, 240, 1); }
+        g.fillStyle = '#c8d0f0';
+        for (let y = 56; y < 112; y += 14) g.fillRect(0, y, 240, 1);
+      } else {
+        for (let x = -10; x < 250; x += 22) {
+          const h = 20 + Math.floor(r() * 14);
+          g.fillStyle = '#0c1a18';
+          for (let y = 0; y < h; y++) g.fillRect(x - Math.round(y / 2), 46 - h + y, Math.round(y) + 2, 1);
+        }
+        const ground = ['#1c3a30', '#20402e', '#24462e', '#284c30'];
+        for (let y = 46; y < 112; y++) { g.fillStyle = ground[Math.min(3, Math.floor((y - 46) / 17))]; g.fillRect(0, y, 240, 1); }
+        for (const x of [30, 200]) {
+          g.fillStyle = '#5a605a';
+          g.fillRect(x - 5, 22, 10, 24);
+          g.fillStyle = '#80f0e0';
+          g.fillRect(x - 1, 28, 2, 10);
+          Pix.ellipse(g, x, 32, 12, 14, 'rgba(128,240,224,0.15)');
+        }
+        g.fillStyle = '#b0fff0';
+        for (let i = 0; i < 16; i++) g.fillRect(Math.floor(r() * 240), 50 + Math.floor(r() * 60), 1, 1);
+      }
     } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
@@ -322,6 +441,12 @@ const BattleArt = {
       tempest: ['#3a3424', '#524a30', '#665c3c'],
       snow: ['#a8b8d0', '#d4e0ee', '#eef4fa'],
       tower: ['#4a5264', '#6a7284', '#848ca0'],
+      volcano: ['#241c1a', '#3a302c', '#4e4440'],
+      forge: ['#241c1a', '#4a3e3a', '#6a5e58'],
+      resonator: ['#1c1628', '#3a3050', '#524870'],
+      marsh: ['#3e4a30', '#5a6a42', '#768a58'],
+      grove: ['#10281e', '#1e4034', '#2e5a48'],
+      dome: ['#10142a', '#2a3260', '#3e4884'],
     }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);

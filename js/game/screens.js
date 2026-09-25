@@ -177,6 +177,7 @@ const BadgeArt = {
       spark: [[12, 0], [14, 5], [20, 3], [18, 9], [23, 12], [18, 14], [20, 20], [14, 18], [12, 23], [9, 18], [3, 20], [5, 14], [0, 12],
         [5, 9], [3, 3], [9, 5]],
       chord: [[12, 0], [16, 2], [18, 8], [19, 15], [23, 19], [23, 22], [1, 22], [1, 19], [5, 15], [6, 8], [8, 2]],
+      star: [[12, 0], [15, 7], [23, 8], [17, 14], [19, 23], [12, 19], [4, 23], [6, 14], [0, 8], [8, 7]],
     };
     p.poly(shapes[b.id] || [[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
       { fill: main, line: '#202020', shade: dark, hi: Pix.mix(main, '#ffffff', 0.4) });
@@ -185,6 +186,7 @@ const BadgeArt = {
     if (b.id === 'crag') { p.line(4, 15, 8, 18, dark); p.line(16, 19, 20, 15, dark); }
     if (b.id === 'dune') { p.line(4, 20, 9, 17, dark); p.line(9, 17, 14, 19, dark); p.line(14, 19, 20, 16, dark); }
     if (b.id === 'chord') p.line(3, 20, 20, 20, dark);
+    if (b.id === 'star') { p.line(12, 3, 12, 5, hi); p.line(3, 9, 5, 9, hi); p.line(19, 9, 21, 9, hi); }
     p.ellipse(11.5, 11.5, 6.5, 6.5, { fill: hi, line: '#202020', shade: Pix.shade(hi, 0.75) });
     if (b.leader) {
       // A sliver of the leader's KEYSTONE.
@@ -259,15 +261,15 @@ const REGION = [
   { id: 'bridge', name: 'SILVERFALL BRIDGE', x: 161, y: 86, kind: 'route', desc: 'A brand-new bridge over the river, south to CRAGMOOR.' },
   { id: 'cragmoor', name: 'CRAGMOOR TOWN', x: 150, y: 95, kind: 'town', desc: 'A quarry town cut into the hills. Home of the ROCK-type GYM.' },
   { id: 'bramblewood', name: 'BRAMBLEWOOD FOREST', x: 157, y: 103, kind: 'spot', desc: 'A tangled forest whose paths seem to shift.' },
-  { id: 'emberpeak', name: 'EMBERPEAK VOLCANO', x: 121, y: 110, kind: 'cave', desc: 'A smoldering volcano south of WILLOWBROOK.' },
-  { id: 'route7', name: 'ROUTE 7', x: 141, y: 110, kind: 'route', desc: 'A road from the volcano east to BRAMBLEWOOD.' },
-  { id: 'marshland', name: 'MARSHLAND', x: 87, y: 107, kind: 'spot', desc: 'Misty wetlands where the rivers meet the sea.' },
-  { id: 'route6', name: 'ROUTE 6', x: 62, y: 116, kind: 'route', desc: 'A road south from CEDARWOOD to the coast.' },
+  { id: 'emberpeak', name: 'EMBERPEAK VOLCANO', x: 121, y: 110, kind: 'cave', desc: 'A smoldering volcano south of WILLOWBROOK. SONANCE ENERGY fenced it off last year.' },
+  { id: 'route7', name: 'ROUTE 7', x: 118, y: 97, kind: 'route', desc: 'A road south from WILLOWBROOK to EMBERPEAK VOLCANO, past a hot-spring inn.' },
+  { id: 'marshland', name: 'MARSHLAND', x: 74, y: 122, kind: 'spot', desc: 'Misty wetlands where the rivers meet the sea. Boats leave for the islands from the landing.' },
+  { id: 'route6', name: 'ROUTE 6', x: 67, y: 109, kind: 'route', desc: 'A misty road south from CEDARWOOD to the MARSHLAND.' },
   { id: 'lighthouse', name: 'FORGOTTEN LIGHTHOUSE', x: 16, y: 108, kind: 'isle', desc: 'A lighthouse on a lonely isle. No one has lit it in years.' },
-  { id: 'grove', name: 'MYSTIC GROVE', x: 58, y: 136, kind: 'isle', desc: 'An island grove said to glow on moonless nights.' },
+  { id: 'grove', name: 'MYSTIC GROVE', x: 58, y: 136, kind: 'isle', desc: 'An island grove ringed with standing stones that glow on moonless nights.' },
   { id: 'shrine', name: 'SUNKEN SHRINE', x: 105, y: 141, kind: 'isle', desc: 'A shrine half-swallowed by the sea.' },
   { id: 'league', name: 'AIMON LEAGUE', x: 177, y: 138, kind: 'town', desc: 'Where the strongest trainers gather. Eight BADGES are needed to enter.' },
-  { id: 'starfall', name: 'STARFALL ISLE', x: 228, y: 24, kind: 'isle', desc: 'An island where falling stars are said to land.' },
+  { id: 'starfall', name: 'STARFALL ISLE', x: 228, y: 24, kind: 'isle', desc: 'An observatory village where falling stars land. Home of the DARK-type GYM.' },
 ];
 
 // Roads as polylines, and sea routes (dotted).
@@ -285,12 +287,15 @@ const REGION_ROADS = [
   [[169, 79], [164, 84], [157, 90], [152, 94]],
   [[153, 40], [155, 46], [156, 52]],
   [[116, 46], [116, 38], [117, 32]],
+  [[116, 86], [118, 97], [121, 106]],
+  [[69, 91], [74, 93], [78, 94]],
 ];
 const REGION_SEA = [
   [[38, 97], [31, 102], [27, 106], [20, 107]],
   [[27, 106], [31, 114], [39, 131], [48, 136]],
   [[68, 138], [90, 139], [95, 132], [105, 127], [114, 135], [120, 138]],
   [[161, 115], [164, 124], [171, 131]],
+  [[76, 125], [70, 131], [62, 135]],
 ];
 
 // Map id -> REGION id (new maps can also set def.region).

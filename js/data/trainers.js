@@ -842,6 +842,241 @@ const TRAINERS = {
     ],
     lose: 'Bravo. Bravo! Oh, it has been a long time since anyone made these old bells sing like that.',
   },
+
+  // --- Route 7 -------------------------------------------------------------------------------
+  r7hiker: {
+    cls: 'HIKER', name: 'DERRICK', sprite: 'hiker', payout: 66,
+    party: () => [['geodillo', 42], ['obelith', 43]],
+    intro: 'The ground\'s warm enough to cook on! Perfect battling weather!',
+    lose: 'I\'m steamed!',
+    after: 'The rangers used to guide hikes up EMBERPEAK. Then SONANCE put a fence around the whole mountain.',
+  },
+  r7camper: {
+    cls: 'CAMPER', name: 'TOBIAS', sprite: 'camper', payout: 64,
+    party: () => [['embertail', 42], ['cindrake', 43]],
+    intro: 'I\'m camping by the hot spring! My FIRE AIMON love it here!',
+    lose: 'My campfire went out...',
+    after: 'The spring used to be lukewarm. Now it\'s boiling. Something down in the mountain is running hot.',
+  },
+  r7blackbelt: {
+    cls: 'BLACKBELT', name: 'SORA', sprite: 'blackbelt', payout: 68,
+    party: () => [['brawlpaw', 43], ['quakepike', 44]],
+    intro: 'I train by the lava! If you can\'t stand the heat, get off my road! HIYAA!',
+    lose: 'I melted...',
+    after: 'BRAWLPAW trains harder than I do. It punches boulders all day and never gets tired.',
+  },
+  r7picnicker: {
+    cls: 'PICNICKER', name: 'ELODIE', sprite: 'picnicker', payout: 64,
+    party: () => [['thundervix', 43], ['pebbeat', 42], ['bellpup', 42]],
+    intro: 'Want to hear my PEBBEAT drum? It keeps time with the rumbling!',
+    lose: 'We lost the beat!',
+    after: 'PEBBEAT tap on the warm rocks up here. The ground hums along with them.',
+  },
+
+  // --- EMBERPEAK VOLCANO and THE FORGE ----------------------------------------------------------
+  epgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 60, music: 'distortion',
+    party: () => [['volcarn', 44], ['pyroclast', 45]],
+    intro: 'The COMMANDER said you\'d come. He said to let you through... after I test you!',
+    lose: 'Fine! Go on in! He\'s waiting!',
+    after: 'The COMMANDER doesn\'t wait for anybody. But he\'s waiting for you.',
+  },
+  fggrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 60, music: 'distortion',
+    party: () => [['distortail', 44], ['cindrake', 45]],
+    intro: 'Watch your step! One wrong move on these catwalks and you\'re soup!',
+    lose: 'I\'m sweating in this coat...',
+    after: 'The magma runs the heat pumps. The pumps run the GRAND RESONATOR. Nice and simple.',
+  },
+  fggrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 60, music: 'distortion',
+    party: () => [['hourghast', 45], ['volcarn', 45]],
+    intro: 'Nobody gets near the COMMANDER without going through me!',
+    lose: 'Through me it is, then.',
+    after: 'The COMMANDER won all eight BADGES, you know. Then the LEAGUE threw him out like trash.',
+  },
+  fggrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 62, music: 'distortion',
+    party: () => [['noctumoth', 45], ['pyroclast', 46]],
+    intro: 'The stairs to the crater are sealed with steam! You\'ll never get up there!',
+    lose: 'Guess I\'ll just... stand here, then.',
+    after: 'Only the control room can shut those pumps off. And the control room is locked tight.',
+  },
+  fggrunt4: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 62, music: 'distortion',
+    party: () => [['geodillo', 45], ['umbrafang', 45], ['distortail', 45]],
+    intro: 'Three AIMON! Three times the heat!',
+    lose: 'Three times the burn...',
+    after: 'I signed up for the uniform. Nobody told me it was wool.',
+  },
+  fgsci: {
+    cls: 'SCIENTIST', name: 'FERRIS', sprite: 'scientist', payout: 70, music: 'distortion',
+    party: () => [['stormgale', 46], ['thundervix', 46]],
+    intro: 'Don\'t touch anything! The pressure readings are already off the chart!',
+    lose: 'My calculations... didn\'t account for you.',
+    after: 'Each heat pump feeds a SONANCE line. When the RESONATOR plays, every line in VALEMORA plays with it.',
+  },
+  ryker: {
+    cls: 'COMMANDER', name: 'RYKER', sprite: 'ryker', payout: 220, music: 'admin',
+    party: () => [
+      ['umbrafang', 46, ['crunch', 'nightslash', 'icefang', 'snarl']],
+      ['stormgale', 46, ['thunderbolt', 'wildcharge', 'quickattack', 'thunderwave']],
+      ['obelith', 47, ['stoneedge', 'earthquake', 'rockslide', 'harden']],
+      ['skyseraph', 47, ['surf', 'airslash', 'aquajet', 'icywind']],
+      ['rykarn', 49, ['brickbreak', 'nightslash', 'crunch', 'bulkup']],
+    ],
+    lose: '...So this is what it feels like. From the other side.',
+  },
+
+  // --- SONANCE TOWER 4F ---------------------------------------------------------------------
+  h4grunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 62, music: 'distortion',
+    party: () => [['hexwraith', 46], ['distortail', 47]],
+    intro: 'Nobody comes up here! Nobody! How did you get a key card?!',
+    lose: 'The COMMANDER\'s card... He gave it to you?',
+    after: 'Those tanks hold the songs of the KEYSTONES. Six and a half of them. Beautiful, aren\'t they?',
+  },
+  h4grunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 62, music: 'distortion',
+    party: () => [['noctumoth', 46], ['umbrafang', 47]],
+    intro: 'The CONDUCTOR is rehearsing! Keep it down!',
+    lose: 'Shhh! ...Oh, forget it.',
+    after: 'He plays that cello every night. The whole tower hums along.',
+  },
+  morrow3: {
+    cls: 'ADMIN', name: 'MORROW', sprite: 'morrow', payout: 140, music: 'admin',
+    party: () => [
+      ['hourghast', 46, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+      ['noctumoth', 47, ['bugbuzz', 'airslash', 'darkpulse', 'stunspore']],
+      ['umbrafang', 48, ['crunch', 'nightslash', 'shadowsneak', 'snarl']],
+    ],
+    lose: 'Precisely on time. As always.',
+  },
+  conductor1: {
+    cls: 'CONDUCTOR', name: 'VALE', sprite: 'conductor', payout: 300, music: 'conductor',
+    party: () => [
+      ['sonarion', 48, ['hypervoice', 'crunch', 'aerialace', 'screech']],
+      ['reeflord', 48, ['surf', 'gigadrain', 'bubblebeam', 'withdraw']],
+      ['stormgale', 49, ['thunderbolt', 'wildcharge', 'quickattack', 'thunderwave']],
+      ['cygnata', 51, ['surf', 'hypervoice', 'airslash', 'icebeam']],
+    ],
+    lose: 'Ah. A lovely cadence. But a cadence is not the end of a piece.',
+  },
+
+  // --- Route 6 and the MARSHLAND --------------------------------------------------------------
+  r6bugcatcher: {
+    cls: 'BUG CATCHER', name: 'NILS', sprite: 'bugcatcher', payout: 60,
+    party: () => [['riverclaw', 45], ['tidecrusher', 46]],
+    intro: 'The mist is full of BUG AIMON! I\'ve caught a hundred today! ...Maybe ten.',
+    lose: 'Squashed!',
+    after: 'TIDECRUSHER hide under the boardwalks. Mine pinched me three times before it liked me.',
+  },
+  r6fisher: {
+    cls: 'FISHER', name: 'WADE', sprite: 'fisher', payout: 64,
+    party: () => [['mudbarbel', 45], ['gandergale', 46]],
+    intro: 'Shh! You\'ll scare the fish! ...Too late. Battle me, then!',
+    lose: 'The one that got away...',
+    after: 'MUDBARBEL feel with their whiskers. They can find you in the thickest mist.',
+  },
+  r6medium: {
+    cls: 'MEDIUM', name: 'ODESSA', sprite: 'medium', payout: 66,
+    party: () => [['gloamfern', 45], ['specterib', 46], ['hexwraith', 46]],
+    intro: 'The spirits in the mist are restless tonight... They want to battle.',
+    lose: 'The spirits are... satisfied.',
+    after: 'GLOAMFERN glow in the dark. On a moonless night, they lead lost travelers to the MYSTIC GROVE.',
+  },
+  r6picnicker: {
+    cls: 'PICNICKER', name: 'MAISIE', sprite: 'picnicker', payout: 62,
+    party: () => [['fernewt', 45], ['briarwild', 46]],
+    intro: 'Picnic in the mist! It\'s romantic! Or it would be if I had company. You\'ll do!',
+    lose: 'Rained out!',
+    after: 'BRIARWILD look grumpy, but they just hate getting their thorns wet.',
+  },
+  mlfisher: {
+    cls: 'FISHER', name: 'GIL', sprite: 'fisher', payout: 66,
+    party: () => [['mudbarbel', 46], ['abysslure', 47]],
+    intro: 'See that light down in the deep pool? That\'s no lantern. That\'s ABYSSLURE!',
+    lose: 'Reeled in!',
+    after: 'Never follow a light in the water. That\'s the first thing marsh kids learn.',
+  },
+  mlcamper: {
+    cls: 'CAMPER', name: 'REED', sprite: 'camper', payout: 64,
+    party: () => [['floraxol', 47], ['mosstodon', 46]],
+    intro: 'I\'ve lived out here a whole month! My AIMON grew moss! So did I!',
+    lose: 'Time for a bath...',
+    after: 'The boardwalks are the only dry ground for miles. Well. Mostly dry.',
+  },
+  mlswimmer: {
+    cls: 'SWIMMER', name: 'CORAL', sprite: 'swimmer', payout: 64,
+    party: () => [['prismanta', 46], ['gandergale', 47]],
+    intro: 'The marsh water is so warm! Come on in! After our battle!',
+    lose: 'Glub...',
+    after: 'On clear nights you can see the MYSTIC GROVE from the landing. Not tonight, though. No moon.',
+  },
+
+  // --- STARFALL ISLE -------------------------------------------------------------------------
+  stgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 64, music: 'distortion',
+    party: () => [['umbrafang', 47], ['distortail', 47]],
+    intro: 'The observatory is closed! By order of the CONDUCTOR!',
+    lose: 'Reopened, I guess...',
+    after: 'MORROW is up in the dome with the STARSTONE. Nobody else is allowed up there.',
+  },
+  stgrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 64, music: 'distortion',
+    party: () => [['hexwraith', 47], ['noctumoth', 48]],
+    intro: 'Stars, stars, stars! This whole island is obsessed! Let\'s see YOU shine!',
+    lose: 'I saw stars, all right.',
+    after: 'We locked the GYM LEADER in the archive. She kept trying to lecture us about constellations.',
+  },
+  stastro1: {
+    cls: 'ASTRONOMER', name: 'VEGA', sprite: 'astronomer', payout: 66,
+    party: () => [['cometcub', 47], ['obelith', 48]],
+    intro: 'Those thugs threw me out of my own observatory! I need to battle SOMETHING!',
+    lose: 'A falling star... that\'s me.',
+    after: 'COMETCUB are born where the stars land. Every crystal on this island has one curled beside it.',
+  },
+  stastro2: {
+    cls: 'ASTRONOMER', name: 'ORION', sprite: 'astronomer', payout: 66,
+    party: () => [['noctheryx', 47], ['riffstone', 48]],
+    intro: 'The new moon! Perfect for stargazing! And for battling!',
+    lose: 'Eclipsed!',
+    after: 'NOX says the STARSTONE hums a single note, too low for people to hear. Only AIMON can.',
+  },
+  obgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 66, music: 'distortion',
+    party: () => [['distortail', 48], ['hourghast', 48]],
+    intro: 'You again?! How many of us do you have to beat?!',
+    lose: 'All of us. Apparently.',
+    after: 'This is the last post. After this, there\'s just MORROW. And he doesn\'t lose.',
+  },
+  obgrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 66, music: 'distortion',
+    party: () => [['umbrafang', 48], ['briarwild', 48]],
+    intro: 'Nobody gets to the stairs!',
+    lose: 'Somebody got to the stairs.',
+    after: 'I heard the COMMANDER quit. Just walked out of the volcano and never came back.',
+  },
+  obgrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 66, music: 'distortion',
+    party: () => [['noctumoth', 48], ['specterib', 48], ['distortail', 48]],
+    intro: 'The CONDUCTOR\'s nearly finished! You\'re too late!',
+    lose: 'Too late... for me.',
+    after: 'Once the STARSTONE\'s recorded, that\'s eight. Well. Seven and a bit.',
+  },
+
+  // --- GYM 8: STARFALL OBSERVATORY -------------------------------------------------------------
+  nox: {
+    cls: 'LEADER', name: 'NOX', sprite: 'nox', payout: 200, music: 'leader', leader: true,
+    party: () => [
+      ['noctumoth', 48, ['bugbuzz', 'airslash', 'darkpulse', 'stunspore']],
+      ['hexwraith', 49, ['shadowball', 'hex', 'willowisp', 'darkpulse']],
+      ['hourghast', 50, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+      ['umbrafang', 51, ['crunch', 'nightslash', 'icefang', 'shadowsneak']],
+      ['meteorwolf', 53, ['stoneedge', 'crunch', 'nightslash', 'howl']],
+    ],
+    lose: 'The stars were right about you.',
+  },
 };
 
 // The eight GYM badges. The first seven gyms exist so far.
@@ -860,5 +1095,6 @@ const BADGES = [
     colors: ['#e0c048', '#886820', '#f8f0a0'] },
   { id: 'chord', name: 'CHORD BADGE', leader: 'CANTOR', town: 'STONEPEAK WOODS', type: 'sound',
     colors: ['#60b8c8', '#306878', '#c8f0f8'] },
-  { id: 'b8', name: '???', colors: ['#886860', '#403030', '#e8c8c0'] },
+  { id: 'star', name: 'STAR BADGE', leader: 'NOX', town: 'STARFALL ISLE', type: 'dark',
+    colors: ['#6858b8', '#302460', '#e0d8f8'] },
 ];

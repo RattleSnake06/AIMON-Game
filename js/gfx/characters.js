@@ -620,6 +620,11 @@ const PEOPLE = {
   farmer: { head: 'hat', body: 'tee', pal: { a: '#e8c870', A: '#b89840', h: '#6a4428', H: '#4a2c18', c: '#c84838', C: '#8a2c20', p: '#4a6aa0', P: '#304a78', k: '#503828' } },
   skier: { head: 'cap', body: 'tee', pal: { a: '#e04858', A: '#a82838', h: '#f0c848', H: '#b88a20', c: '#38a0e0', C: '#2070b0', p: '#383850', P: '#202034', k: '#f0f0f0' } },
   musician: { head: 'long', body: 'coat', pal: { h: '#383050', H: '#201830', c: '#f4f0f8', C: '#c8c0d8', w: '#6a4a90', W: '#4a2c6c', p: '#2a2438', P: '#1a1624', k: '#302040' } },
+  // Chapters 10 to 12
+  ryker: { head: 'spiky', body: 'coat', pal: { h: '#a85020', H: '#6a3010', c: '#c83040', C: '#8a1c28', w: '#1c1a24', W: '#0c0a10', p: '#2a2834', P: '#141218', k: '#141218' } },
+  conductor: { head: 'short', body: 'coat', pal: { h: '#e0e0e8', H: '#a8a8b8', c: '#f4f4f8', C: '#6a2cb0', w: '#141418', W: '#0a0a0c', p: '#1c1c24', P: '#0c0c10', k: '#0c0c10' } },
+  nox: { head: 'long', body: 'coat', pal: { h: '#c8c0e0', H: '#9890b8', c: '#e8e4f4', C: '#c0bcd8', w: '#1c2250', W: '#10143a', p: '#1c2250', P: '#10143a', k: '#1c1a28' } },
+  astronomer: { head: 'short', body: 'coat', pal: { h: '#5a4a6a', H: '#3a2c4a', c: '#e8e4f0', C: '#c0bcd0', w: '#2c3c70', W: '#1c2850', p: '#2c3460', P: '#1c2040', k: '#1c1a28' } },
 };
 
 // The AIMON BALL: blue top, white bottom, gold button.

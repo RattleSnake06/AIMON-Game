@@ -274,4 +274,5 @@ const TMS = {
   tm05: { move: 'earthpower', compat: ['ground', 'rock', 'fire', 'grass', 'electric', 'ghost', 'normal'] },
   tm06: { move: 'thunderbolt', compat: ['electric', 'water', 'normal', 'flying', 'sound', 'dark'] },
   tm07: { move: 'hypervoice', compat: ['sound', 'normal', 'ghost', 'dark', 'flying', 'fighting', 'water'] },
+  tm08: { move: 'shadowball', compat: ['ghost', 'dark', 'normal', 'sound', 'grass', 'water', 'ice', 'bug'] },
 };

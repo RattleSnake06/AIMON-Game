@@ -33,7 +33,7 @@ const Events = {
   },
 
   *sign(text, plain) {
-    yield* say(text, { style: plain ? 'field' : 'sign' });
+    yield* say(typeof text === 'function' ? text() : text, { style: plain ? 'field' : 'sign' });
   },
 
   *receive(id, n = 1, verb = 'received') {

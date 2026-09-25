@@ -33,15 +33,20 @@ const MAPS = {
       'TT.......:.#######....TT',
       'TT.......:.#######....TT',
       'TT.......::::::S......TT',
-      'TTTTTTTTTTTTTTTTTTTTTTTT',
-      'TTTTTTTTTTTTTTTTTTTTTTTT',
+      'TTTTTTTTT::TTTTTTTTTTTTT',
+      'TTTTTTTTT::TTTTTTTTTTTTT',
     ],
     buildings: [
       { type: 'houseRed', x: 3, y: 4, to: 'home1f' },
       { type: 'houseBlue', x: 15, y: 4, to: 'rivalhouse' },
       { type: 'lab', x: 11, y: 14, to: 'lab' },
     ],
-    connections: { north: { map: 'route1', offset: 0 }, west: { map: 'route5', offset: 2 }, east: { map: 'route9', offset: -3 } },
+    connections: {
+      north: { map: 'route1', offset: 0 },
+      west: { map: 'route5', offset: 2 },
+      east: { map: 'route9', offset: -3 },
+      south: { map: 'route7', offset: 3 },
+    },
     signs: [
       { x: 9, y: 3, text: 'WILLOWBROOK TOWN\nWhere the river begins.' },
       { x: 6, y: 8, text: '{PLAYER}\'s house' },
@@ -63,6 +68,10 @@ const MAPS = {
         text: 'Sorry, the lake road to CRAGMOOR is closed. A rockslide buried it near the quarry.\fThe crew on the CRAGMOOR side is digging it out. Could be a while.' },
       { id: 'wb_man', person: 'man', x: 7, y: 12, dir: 'left', move: 'look',
         text: 'I come to this pond every morning. Sometimes a GOSKIE flock lands here to rest!' },
+      { id: 'wb_south1', prop: 'barrier', x: 9, y: 20, move: 'still', hideIf: 'letter_read',
+        text: 'ROAD CLOSED\nThe road south to EMBERPEAK VOLCANO.\fBY ORDER OF SONANCE ENERGY.' },
+      { id: 'wb_south2', prop: 'barrier', x: 10, y: 20, move: 'still', hideIf: 'letter_read',
+        text: 'ROAD CLOSED\nThe road south to EMBERPEAK VOLCANO.\fBY ORDER OF SONANCE ENERGY.' },
     ],
     triggers: [
       { x: 11, y: 2, w: 2, h: 1, script: 'leaveTownCheck' },
@@ -71,6 +80,8 @@ const MAPS = {
       { x: 20, y: 9, w: 1, h: 1, script: 'wbHomecoming' },
       { x: 0, y: 9, w: 1, h: 1, script: 'wbHomecoming' },
       { x: 11, y: 3, w: 2, h: 1, script: 'wbHomecoming' },
+      // The south road, the day after the letter.
+      { x: 9, y: 19, w: 2, h: 1, script: 'kaiSouthRoad' },
     ],
   },
 
@@ -303,7 +314,11 @@ const MAPS = {
     ],
     npcs: [
       { id: 'lena', person: 'woman', x: 3, y: 4, dir: 'down', move: 'wander',
-        text: () => (State.flag('kai_home_seen')
+        text: () => (State.flag('beat_ryker')
+          ? 'KAI told me. About RYKER, and the volcano, and all of it.\f...I\'ll keep setting his plate, {PLAYER}. Every night, until he comes home.'
+          : State.flag('letter_read')
+          ? 'KAI came home last night and went straight to his room. He wouldn\'t touch his dinner.\fWhen I asked what was wrong, he just said "Nothing, Mom."\f...He sounded exactly like his brother.'
+          : State.flag('kai_home_seen')
           ? 'KAI was only home for one night. He barely ate his dinner before he was talking about the LEAGUE again.\fLook after each other out there, {PLAYER}.'
           : State.flag('got_starter')
           ? 'Kai ran off to ARCHFORD TOWN. He\'s so impatient! Please look out for him, {PLAYER}.\fKai\'s big brother RYKER left for the AIMON LEAGUE eight years ago. He won all eight BADGES...\f...and then we never heard from him again. Kai still keeps his old cap.'
@@ -798,7 +813,15 @@ const MAPS = {
       { id: 'gym_ross', person: 'trainee', x: 3, y: 10, dir: 'right', move: 'still', trainer: 'ross', sight: 4 },
       { id: 'gym_tessa', person: 'trainee', x: 9, y: 6, dir: 'left', move: 'still', trainer: 'tessa', sight: 4 },
       { id: 'gym_guide', person: 'man', x: 8, y: 13, dir: 'down', move: 'still', script: 'gymGuide' },
+      // The WARDENS' council, the night SILVERFALL went dark.
+      { id: 'cn_cantor', person: 'cantor', x: 4, y: 3, dir: 'down', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
+      { id: 'cn_ivy', person: 'ivy', x: 8, y: 3, dir: 'down', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
+      { id: 'cn_tor', person: 'tor', x: 3, y: 5, dir: 'right', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
+      { id: 'cn_nerissa', person: 'nerissa', x: 9, y: 5, dir: 'left', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
+      { id: 'cn_sahra', person: 'sahra', x: 4, y: 7, dir: 'right', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
+      { id: 'cn_wren', person: 'wren', x: 8, y: 7, dir: 'left', move: 'still', script: 'councilTalk', showIf: 'council_called', hideIf: 'council_done' },
     ],
+    triggers: [{ x: 6, y: 15, w: 1, h: 1, script: 'wardenCouncil', onArrive: true }],
   },
 
   gh_house1: {

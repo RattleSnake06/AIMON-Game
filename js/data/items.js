@@ -50,6 +50,10 @@ const ITEMS = {
     desc: 'Fresh milk from MEADOWFIELD FARM. Restores the HP of one AIMON by 100 points.' },
   lindennotes: { name: 'LINDEN\'S NOTES', pocket: 'key',
     desc: 'PROF. LINDEN\'s notes on the KEYSTONES and the CHAMPION\'S OATH, for SAHRA of SUNSPIRE.' },
+  cmdkey: { name: 'COMMANDER\'S KEY', pocket: 'key',
+    desc: 'RYKER\'s black key card. It opens the sealed door to 4F of the SONANCE TOWER.' },
+  tm08: { name: 'TM08 SHADOW BALL', pocket: 'tms', tm: 'shadowball',
+    desc: 'Teaches SHADOW BALL: a shadowy blob that may lower SP. DEF. Can be used again and again.' },
 };
 
 // What each AIMON MART sells.
@@ -62,6 +66,7 @@ const MART_STOCK = {
   sunspire: ['greatball', 'superpotion', 'revive', 'fullheal', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'escaperope'],
   meadowfield: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'parlyzheal', 'repel', 'escaperope'],
   stonepeak: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
+  starfall: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'awakening', 'parlyzheal', 'repel', 'escaperope'],
   seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
 };
 

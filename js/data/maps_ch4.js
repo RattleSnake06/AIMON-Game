@@ -87,6 +87,8 @@ Object.assign(MAPS, {
     ground: '+',
     region: 'silverfall',
     battleBg: 'grass',
+    // The night the master switch was thrown.
+    weather: { kind: 'night', dark: 0.66, showIf: 'sf_night' },
     rows: [
       'T^^^!!!!!!!!!^^^^^^^^^#######^^^^^^^^^^T',
       'T^^^!!!!!!!!!^^^^^^^^^#######^^^^^^^^^^T',
@@ -293,9 +295,15 @@ Object.assign(MAPS, {
       { type: 'tankEmpty', x: 6, y: 2 }, { type: 'tankEmpty', x: 7, y: 2 }, { type: 'tankEmpty', x: 8, y: 2 },
       { type: 'tankEmpty', x: 9, y: 2 }, { type: 'tankEmpty', x: 10, y: 2 },
       { type: 'bigScreen', x: 12, y: 0 },
-      { type: 'vaultDoor', x: 16, y: 0 },
+      { type: 'vaultDoor', x: 16, y: 0, hideIf: 'vault_open' },
+      { type: 'vaultOpen', x: 16, y: 0, showIf: 'vault_open' },
     ],
-    warps: [{ x: 1, y: 12, to: 'hq2', tx: 20, ty: 2, dir: 'down', kind: 'stairs' }],
+    warps: [
+      { x: 1, y: 12, to: 'hq2', tx: 20, ty: 2, dir: 'down', kind: 'stairs' },
+      // The sealed door to 4F opens with the COMMANDER's key card.
+      { x: 16, y: 1, to: 'hq4', tx: 10, ty: 14, kind: 'door', lock: { flag: 'vault_open', script: 'vaultDoor' } },
+      { x: 17, y: 1, to: 'hq4', tx: 10, ty: 14, kind: 'door', lock: { flag: 'vault_open', script: 'vaultDoor' } },
+    ],
     things: [
       { x: 3, y: 3, text: 'A glass tank full of violet light, humming softly.\nLABEL: "RIFTSTONE. RECORDED."' },
       { x: 4, y: 3, text: 'A glass tank full of green light, rustling like leaves.\nLABEL: "ROOTSTONE. RECORDED."' },

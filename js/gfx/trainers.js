@@ -101,6 +101,12 @@ const TrainerArt = {
     this.sprites.musician = this.front({
       hair: 'long', hairCol: '#383050', shirt: '#f4f0f8', dress: '#6a4a90', shoes: '#302040', beads: '#f0d060',
     });
+    this.sprites.ryker = this.ryker();
+    this.sprites.conductor = this.conductor();
+    this.sprites.nox = this.nox();
+    this.sprites.astronomer = this.front({
+      hair: 'prof', hairCol: '#5a4a6a', shirt: '#e8e4f0', pants: '#2c3460', shoes: '#1c1a28', coat: '#2c3c70',
+    });
     this.sprites.ivy = this.ivy();
     this.sprites.nerissa = this.nerissa();
     this.sprites.playerBack = this.back(false);
@@ -683,6 +689,139 @@ const TrainerArt = {
     p.poly([[cx - 6, hy + 6], [cx + 6, hy + 6], [cx + 7, hy + 8], [cx + 2, hy + 8], [cx, hy + 7], [cx - 2, hy + 8], [cx - 7, hy + 8]],
       style('#f4f4f8', { shade: '#c8c8d8' }));
     p.rows(cx - 1, hy + 9, ['ll'], f);
+    return p.toCanvas();
+  },
+
+  // COMMANDER RYKER: KAI's older brother, grown hard. Spiky rust hair, a
+  // scar across one cheek, arms folded in a black-and-crimson coat.
+  ryker() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const coat = style('#1c1a24', { hi: '#3a3648' });
+    const trim = '#c83040';
+    // Legs and boots.
+    p.rrect(cx - 11, 44, 10, 16, 2, style('#2a2834'));
+    p.rrect(cx + 1, 44, 10, 16, 2, style('#2a2834'));
+    p.rrect(cx - 12, 56, 11, 7, 2, style('#141218'));
+    p.rrect(cx + 1, 56, 11, 7, 2, style('#141218'));
+    // Long coat with crimson trim and a high collar.
+    p.poly([[cx - 16, 23], [cx + 16, 23], [cx + 20, 58], [cx + 3, 58], [cx, 42], [cx - 3, 58], [cx - 20, 58]], coat);
+    p.line(cx - 19, 57, cx - 3, 57, trim);
+    p.line(cx + 3, 57, cx + 19, 57, trim);
+    p.line(cx - 1, 25, cx - 3, 56, trim);
+    p.line(cx + 1, 25, cx + 3, 56, trim);
+    p.poly([[cx - 10, 16], [cx - 4, 24], [cx + 4, 24], [cx + 10, 16], [cx + 12, 25], [cx - 12, 25]], coat);
+    p.line(cx - 10, 17, cx - 4, 24, trim);
+    p.line(cx + 10, 17, cx + 4, 24, trim);
+    // Arms folded across the chest.
+    p.rrect(cx - 18, 27, 30, 8, 3, coat);
+    p.rrect(cx - 12, 32, 30, 8, 3, coat);
+    p.ellipse(cx + 12, 31, 3, 3, SKIN_ST);
+    p.ellipse(cx - 12, 36, 3, 3, SKIN_ST);
+    p.line(cx - 14, 30, cx + 8, 30, trim);
+    // Head.
+    const hy = 12;
+    p.rect(cx - 3, 18, 6, 5, SKIN_ST);
+    p.ellipse(cx, hy, 10, 10.5, SKIN_ST);
+    p.ellipse(cx - 10, hy + 1, 2, 3, SKIN_ST);
+    p.ellipse(cx + 10, hy + 1, 2, 3, SKIN_ST);
+    // Spiky hair like KAI's, darker and swept back.
+    p.poly([[cx - 12, hy], [cx - 16, hy - 10], [cx - 8, hy - 9], [cx - 7, hy - 16], [cx - 1, hy - 11], [cx + 4, hy - 18], [cx + 7, hy - 10],
+      [cx + 16, hy - 13], [cx + 12, hy - 2], [cx + 8, hy - 7], [cx + 2, hy - 6], [cx - 4, hy - 7], [cx - 9, hy - 3]], style('#a85020', { hi: '#d07838' }));
+    // Hard eyes, a scar, a flat mouth.
+    const f = { o: OUT, w: '#f8f8f8', b: '#2a1810', r: '#c87060', m: '#8a4a40' };
+    p.rows(cx - 7, hy - 1, ['bbbb'], f);
+    p.rows(cx + 3, hy - 1, ['bbbb'], f);
+    p.rows(cx - 6, hy + 1, ['wo', 'oo'], f);
+    p.rows(cx + 4, hy + 1, ['ow', 'oo'], f);
+    p.rows(cx + 5, hy + 3, ['r..', '.r.', '..r'], f);
+    p.rows(cx - 2, hy + 6, ['mmmm'], f);
+    return p.toCanvas();
+  },
+
+  // The CONDUCTOR, DR. AUGUST VALE: tall and thin, white hair swept back,
+  // a black tailcoat trimmed in gold, holding a cello bow like a baton.
+  conductor() {
+    const p = new Painter(64, 64);
+    const cx = 30;
+    const coat = style('#141418', { hi: '#34343e' });
+    const gold = '#d0b060';
+    // The cello standing beside him.
+    p.ellipse(52, 50, 8, 11, style('#7a4020', { hi: '#a86030' }));
+    p.ellipse(52, 34, 6, 8, style('#7a4020', { hi: '#a86030' }));
+    p.rect(51, 8, 3, 28, style('#3a2010'));
+    p.rect(50, 40, 5, 2, style('#1c1008'));
+    p.line(52, 10, 52, 58, '#e8e0c0');
+    // Legs.
+    p.rrect(cx - 8, 44, 7, 16, 2, style('#1c1c24'));
+    p.rrect(cx + 1, 44, 7, 16, 2, style('#1c1c24'));
+    p.ellipse(cx - 5, 61, 5, 2.5, style('#0c0c10'));
+    p.ellipse(cx + 5, 61, 5, 2.5, style('#0c0c10'));
+    // Shirt, cravat and tailcoat.
+    p.rrect(cx - 11, 22, 22, 22, 4, style('#f4f4f8', { shade: '#c8c8d8' }));
+    p.poly([[cx - 12, 23], [cx - 3, 23], [cx - 4, 44], [cx - 14, 60], [cx - 15, 44]], coat);
+    p.poly([[cx + 12, 23], [cx + 3, 23], [cx + 4, 44], [cx + 14, 60], [cx + 15, 44]], coat);
+    p.line(cx - 3, 24, cx - 4, 43, gold);
+    p.line(cx + 3, 24, cx + 4, 43, gold);
+    p.poly([[cx - 3, 22], [cx + 3, 22], [cx + 2, 28], [cx, 30], [cx - 2, 28]], style('#6a2cb0'));
+    // One arm raised with the bow; the other hand resting on the cello.
+    p.rrect(cx - 18, 16, 7, 14, 3, coat);
+    p.ellipse(cx - 15, 14, 3.2, 3, SKIN_ST);
+    p.line(cx - 15, 13, cx - 26, 1, '#e8e0c0');
+    p.line(cx - 14, 13, cx - 25, 1, '#6a4020');
+    p.rrect(cx + 11, 24, 7, 10, 3, coat);
+    p.rrect(cx + 14, 32, 8, 5, 2, coat);
+    p.ellipse(cx + 22, 34, 3, 3, SKIN_ST);
+    // Head: a long, calm face; white hair swept back; gold spectacles.
+    const hy = 12;
+    p.rect(cx - 3, 18, 6, 5, SKIN_ST);
+    p.ellipse(cx, hy, 9.5, 10.5, SKIN_ST);
+    p.poly([[cx - 11, hy + 1], [cx - 12, hy - 8], [cx - 5, hy - 13], [cx + 6, hy - 13], [cx + 13, hy - 8], [cx + 15, hy - 2], [cx + 11, hy + 3],
+      [cx + 9, hy - 5], [cx, hy - 7], [cx - 8, hy - 4]], style('#e0e0e8', { shade: '#b0b0c0', hi: '#ffffff' }));
+    const f = { o: OUT, g: gold, w: '#f8f8f8', m: '#a07060' };
+    p.rows(cx - 8, hy, ['.ggg....ggg.', 'g.o.gggg.o.g', '.ggg....ggg.'], f);
+    p.rows(cx - 2, hy + 6, ['mmmm'], f);
+    return p.toCanvas();
+  },
+
+  // GYM LEADER NOX of STARFALL ISLE: an astronomer in a starry hooded cloak,
+  // silver hair, holding a small brass star lantern.
+  nox() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const cloak = style('#1c2250', { hi: '#34407a' });
+    const hair = style('#c8c0e0', { hi: '#f0ecff' });
+    // Hair falling behind.
+    p.rrect(cx - 13, 8, 26, 34, 9, hair);
+    // Long cloak to the ground.
+    p.poly([[cx - 14, 22], [cx + 14, 22], [cx + 20, 62], [cx - 20, 62]], cloak);
+    p.rrect(cx - 7, 24, 14, 38, 3, style('#e8e4f4', { shade: '#c0bcd8' }));
+    p.line(cx, 26, cx, 60, '#8a86a8');
+    // Stars scattered on the cloak.
+    for (const [x, y] of [[cx - 15, 40], [cx - 11, 52], [cx + 12, 34], [cx + 16, 50], [cx - 9, 30], [cx + 9, 58], [cx - 17, 58]]) {
+      p.set(x, y, '#f8f0c0');
+    }
+    // Arms: one holding the lantern out, one on the chest.
+    p.rrect(cx + 12, 24, 7, 12, 3, cloak);
+    p.rrect(cx + 16, 33, 9, 6, 3, cloak);
+    p.ellipse(cx + 25, 36, 3, 3, SKIN_ST);
+    p.rect(cx + 24, 38, 2, 4, style('#8a6a30'));
+    p.rrect(cx + 21, 41, 8, 9, 2, style('#c8a048', { hi: '#f0d080' }));
+    p.rect(cx + 23, 43, 4, 5, { fill: '#f8f0c0', line: false });
+    p.rrect(cx - 19, 24, 7, 14, 3, cloak);
+    p.ellipse(cx - 9, 36, 3, 3, SKIN_ST);
+    // Hood and face.
+    const hy = 13;
+    p.rect(cx - 3, 18, 6, 5, SKIN_ST);
+    p.ellipse(cx, hy, 9.5, 10, SKIN_ST);
+    p.poly([[cx - 14, hy + 10], [cx - 13, hy - 6], [cx - 6, hy - 13], [cx + 6, hy - 13], [cx + 13, hy - 6], [cx + 14, hy + 10],
+      [cx + 10, hy + 10], [cx + 9, hy - 3], [cx - 9, hy - 3], [cx - 10, hy + 10]], cloak);
+    p.poly([[cx - 9, hy - 3], [cx + 9, hy - 3], [cx + 7, hy + 1], [cx, hy - 1], [cx - 7, hy + 1]], hair);
+    p.set(cx, hy - 9, '#f8f0c0');
+    const f = { o: OUT, w: '#f8f8f8', v: '#6a58b8', m: '#b07080' };
+    p.rows(cx - 6, hy + 2, ['wv', 'vv'], f);
+    p.rows(cx + 4, hy + 2, ['vw', 'vv'], f);
+    p.rows(cx - 1, hy + 7, ['mm'], f);
     return p.toCanvas();
   },
 
