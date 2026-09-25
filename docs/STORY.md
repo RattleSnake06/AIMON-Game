@@ -272,7 +272,7 @@ lights on.
 53. **Meadowfield Farm** is famous for its milk and its great windmill. The windmill's ancient grinding stone is the **MILLSTONE**. **WREN** runs the ELECTRIC GYM in the big red barn. SONANCE ENERGY keeps making offers for the windmill, and she keeps saying no.
 54. **The TEMPEST ARRAY.** That night **THANE** brings a storm to overload the MILLSTONE with lightning and rip its song out while the farm's power is down. You and Wren defend the fields against grunts, fix the farm's lightning rods and climb the windmill.
 55. **Battle: THANE** on the windmill balcony: VOLTVIX 36, SONARION 37, STORMGALE 39. You win, the storm fizzles, and **the MILLSTONE's song is never recorded**. THANE is arrested by the farmhands and a Grayhaven guard. Leaving, he says: "You think the COMMANDER loses to kids? He's lost ONE battle in his life. At the LEAGUE."
-56. **GYM 6: LEADER WREN (ELECTRIC)**, a barn full of turbines: VOLTVIX 38, GEODILLO 39, STORMGALE 39, ZEPHYRON 41. **SPARK BADGE** and TM06 THUNDERBOLT.
+56. **GYM 6: LEADER WREN (ELECTRIC)**, a barn full of turbines: VOLTVIX 38, GEODILLO 39, STORMGALE 39, ZEPHYRON 41. **SPARK BADGE**, TM06 THUNDERBOLT and **HM02 FLY** ("You've got a lot of ground left to cover").
 57. **Interlude.** MORROW to the CONDUCTOR: "The MILLSTONE is lost to us." CONDUCTOR: "Nothing is lost. The child carries a copy now."
 
 ## Chapter 9: The Bell of Stonepeak *(built)*
@@ -383,7 +383,8 @@ lights on.
   - the observatory uses tower tiles;
   - the shrine uses stone, water and lighthouse-style tiles.
 - **New trainers** reuse existing portraits: grunt, the admins, hiker, worker, scientist, sailor, swimmer, fisher and the other trainer classes. RYKER can use the rival portrait in the COMMANDER's colors. The CONDUCTOR, the late WARDENS and the ELITE FOUR use the existing admin and trainer portrait styles.
-- **TM05 to TM08** use existing moves: EARTH POWER, THUNDERBOLT, HYPER VOICE and SHADOW BALL.
+- **TM05 to TM08** use existing moves: EARTH POWER, THUNDERBOLT, HYPER VOICE and SHADOW BALL. **HM02 FLY** (from WREN) flies you to any town you've visited.
+- **GYM puzzles.** Every GYM after HOLT's has a small puzzle for its type, in the spirit of the classic games: IVY's blooms and vine walls, NERISSA's currents, TOR's boulders and pits, SAHRA's sinkholes, WREN's switch plates and electric gates, CANTOR's bell tunes, and NOX's hidden path of stars across the open sky of her dome.
 - **Every team** above was planned with the first 33 AIMON. The chapter 6-10 AIMON (No. 40-66) are now in the game too, and each chapter's teams and wild AIMON will be updated to use them when that chapter is built (for example SAHRA's ace becomes DUNARCH, and RYKER's becomes RYKARN).
 - **The chapter 11-15 AIMON (No. 67-94)** are in the game too, with a new **ICE** type. Where they are:
   - the ICE lines (CHILLPIP, FROSTFAWN, FROSTLING, SNOWKIT; EMPERICE and GLACIOLEM rarely): wild on ROUTE 11 and on its hikers' and skiers' teams (Ch 9);

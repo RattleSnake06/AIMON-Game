@@ -40,6 +40,10 @@ whole plan is in [docs/STORY.md](docs/STORY.md)).
 | ![The Marshland landing](docs/screenshots/marshland.png) | ![The final verse in the MYSTIC GROVE](docs/screenshots/grove.png) |
 | ![Starfall Isle](docs/screenshots/starfall.png) | ![GYM LEADER NOX under the dome](docs/screenshots/nox.png) |
 | ![The sky over the south turns violet](docs/screenshots/violet.png) | ![Trainer card with eight BADGES](docs/screenshots/card8.png) |
+| ![IVY's greenhouse: blooms and vine walls](docs/screenshots/gym_ivy.png) | ![NERISSA's pool of currents](docs/screenshots/gym_nerissa.png) |
+| ![TOR's quarry: boulders and pits](docs/screenshots/gym_tor.png) | ![SAHRA's sinkholes](docs/screenshots/gym_sahra.png) |
+| ![WREN's barn: switch plates and electric gates](docs/screenshots/gym_wren.png) | ![CANTOR's hall: bell plates and a chime door](docs/screenshots/gym_cantor.png) |
+| ![NOX's dome: the hidden path of stars](docs/screenshots/gym_nox.png) | ![Flying to CEDARWOOD with HM02 FLY](docs/screenshots/fly.png) |
 
 ## Play
 
@@ -279,8 +283,8 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     "You think the COMMANDER loses to kids? He's lost ONE battle in his
     life. At the LEAGUE."
 52. **GYM 6: WREN** fights in a barn full of turbines (VOLTVIX, GEODILLO,
-    STORMGALE and **ZEPHYRON**) and gives the **SPARK BADGE** and **TM06
-    THUNDERBOLT**.
+    STORMGALE and **ZEPHYRON**) and gives the **SPARK BADGE**, **TM06
+    THUNDERBOLT** and **HM02 FLY**.
 53. A fifth epilogue: MORROW reports that the MILLSTONE is lost. The
     CONDUCTOR: "Nothing is lost. The child carries a copy now."
 
@@ -490,6 +494,28 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
   for electric, ground, fighting, bug and powder moves.
 - **Eight GYM BADGES:** the trainer card has eight badge slots, and each
   badge you win is shown in close-up.
+- **GYM puzzles:** every GYM after HOLT's has a puzzle for its type, and its
+  guide at the door explains it:
+  - **IVY (GRASS):** a hedge maze. Wake the three sleeping blooms and their
+    vine walls wither away.
+  - **NERISSA (WATER):** a pool of one-way currents that carry you between
+    islands. Only one chain of rides reaches her.
+  - **TOR (ROCK):** three walls of rock, each with one pit. Push a boulder
+    into the pit to fill it (leave the GYM to reset the boulders).
+  - **SAHRA (GROUND):** sinkholes drop you to the floor below, where each
+    ladder climbs back up somewhere else. Only one reaches her dais, and a
+    sand ledge leads back down.
+  - **WREN (ELECTRIC):** switch plates flip every gate in the barn between
+    BLUE and ORANGE.
+  - **CANTOR (SOUND):** ring the bell plates in the tune carved beside each
+    chime door.
+  - **NOX (DARK):** the dome's floor is open sky. One hidden path of stars
+    crosses it and lights up as you walk it; step off and you're back at
+    the stairs. Her chart of THE WANDERER in the archive shows the way.
+- **HM02 FLY** (from WREN): teach it to a FLYING AIMON (or SKYDRIFT,
+  SKYSERAPH, CYGNATA, GOSKIE, WINDLING or NOCTUMOTH). Outdoors, pick FLY
+  from the AIMON menu, choose any town you've visited on the map, and land
+  outside its AIMON CENTRE (or your own front door in WILLOWBROOK).
 - **Bag pockets:** ITEMS, BALLS, TMs and KEY ITEMS. TMs can be used again
   and again.
 
@@ -551,7 +577,8 @@ Later chapters live in their own files next to the originals: `tiles_ext.js`,
 `maps_ch6.js`, `maps_ch8.js`, `maps_ch10.js`, `events_ch3.js`,
 `events_ch4.js` (the chapter 5 story), `events_ch6.js` (chapters 6 and 7),
 `events_ch8.js` (chapters 8 and 9) and `events_ch10.js` (chapters 10 to
-12).
+12). The GYM puzzles have their own trio: `tiles_gyms.js`, `maps_gyms.js`
+and `events_gyms.js`.
 Evolution is in `evolution.js`, and the DS-style battle panels and HP plates
 are in `battle_ui.js`.
 
