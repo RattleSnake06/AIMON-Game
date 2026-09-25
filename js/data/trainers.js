@@ -1077,6 +1077,190 @@ const TRAINERS = {
     ],
     lose: 'The stars were right about you.',
   },
+
+  // --- The SUNKEN SHRINE ---------------------------------------------------------------------
+  shgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 70, music: 'distortion',
+    party: () => [['distortionix', 50], ['hexwraith', 50]],
+    intro: 'Can you hear it? The COUNTERMELODY! We\'re nearly there!',
+    lose: 'Out of tune... again...',
+    after: 'The CONDUCTOR promised we\'d hear the ones we lost. My ruffang... I just wanted to hear her bark again.',
+  },
+  shgrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 70, music: 'distortion',
+    party: () => [['umbrafang', 50], ['abysslure', 51]],
+    intro: 'The WARDENS are at the gate?! Then YOU won\'t get past ME!',
+    lose: 'Guess I\'m not much of a gate.',
+    after: 'The water\'s rising every time the cello plays. This place is waking up.',
+  },
+  shgrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 72, music: 'distortion',
+    party: () => [['phantasmuse', 51], ['noctheryx', 51], ['distortail', 50]],
+    intro: 'Last line of defense! Last GRUNT standing! Last... uh... battle!',
+    lose: 'Last GRUNT sitting down, actually.',
+    after: 'My AIMON stopped talking to me when the sky went violet. Is that... normal?',
+  },
+  shgrunt4: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 72, music: 'distortion',
+    party: () => [['distortionix', 52], ['briarwild', 51]],
+    intro: 'MORROW said you\'d come this way. He said it like he\'d already seen it happen.',
+    lose: 'He was right. He\'s always right. It\'s so annoying.',
+    after: 'Go on, then. Everyone else already has.',
+  },
+  morrow4: {
+    cls: 'ADMIN', name: 'MORROW', sprite: 'morrow', payout: 200, music: 'admin',
+    party: () => [
+      ['hourghast', 52, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+      ['noctumoth', 53, ['bugbuzz', 'airslash', 'darkpulse', 'stunspore']],
+      ['umbrafang', 54, ['crunch', 'nightslash', 'icefang', 'shadowsneak']],
+    ],
+    lose: 'Ah. There it is. The last grain.',
+  },
+  conductor2: {
+    cls: 'CONDUCTOR', name: 'VALE', sprite: 'conductor', payout: 500, music: 'conductor',
+    party: () => [
+      ['stormgale', 54, ['thunderbolt', 'wildcharge', 'quickattack', 'thunderwave']],
+      ['reeflord', 54, ['surf', 'gigadrain', 'icebeam', 'withdraw']],
+      ['skyseraph', 55, ['surf', 'airslash', 'aquajet', 'icywind']],
+      ['umbrafang', 55, ['crunch', 'nightslash', 'icefang', 'snarl']],
+      ['cygnata', 56, ['hydropump', 'hypervoice', 'airslash', 'icebeam']],
+      ['sonarion', 57, ['boomburst', 'crunch', 'aerialace', 'screech']],
+    ],
+    lose: '...Silence. Is that all there is, on the other side?',
+  },
+
+  // --- VICTORY PATH ----------------------------------------------------------------------------
+  vp_vet1: {
+    cls: 'VETERAN', name: 'GARRICK', sprite: 'veteran', payout: 110,
+    party: () => [['aerialis', 54], ['quakepike', 54], ['ampolith', 55]],
+    intro: 'Eight BADGES? Everyone who walks this path has eight BADGES. Show me something more!',
+    lose: 'Now THAT was something more.',
+    after: 'The brambles ahead move when you\'re not looking. Listen for the drumming. The PEBBEAT always know the way.',
+  },
+  vp_vet2: {
+    cls: 'VETERAN', name: 'ELSPETH', sprite: 'veteran', payout: 110,
+    party: () => [['blizzara', 54], ['crystag', 55], ['glaciolem', 55]],
+    intro: 'I trained on STONEPEAK\'s slopes for ten years. Let\'s see you handle the cold!',
+    lose: 'Thawed out...',
+    after: 'The LEAGUE hasn\'t had a new CHAMPION in years. Maybe that\'s about to change.',
+  },
+  vp_vet3: {
+    cls: 'VETERAN', name: 'OSWIN', sprite: 'veteran', payout: 112,
+    party: () => [['dunarch', 55], ['thundervix', 55], ['meteorwolf', 56]],
+    intro: 'I\'ve lost to the ELITE FOUR nine times. Tenth time\'s the charm. After I beat YOU!',
+    lose: 'Make that eleven.',
+    after: 'SHADE, BRAWN, CINDRA, MARINA. Four rooms, no way out between them. Stock up before you go in.',
+  },
+  vp_vet4: {
+    cls: 'VETERAN', name: 'ROSALIND', sprite: 'veteran', payout: 112,
+    party: () => [['floraxol', 55], ['emperice', 55], ['phantasmuse', 56], ['zephyron', 56]],
+    intro: 'You\'re the one who sang at the SUNKEN SHRINE, aren\'t you? Then sing for me!',
+    lose: 'What a voice.',
+    after: 'The ferry to the LEAGUE is just past the gatehouse. Good luck, CHAMPION-to-be.',
+  },
+
+  // --- The AIMON LEAGUE --------------------------------------------------------------------------
+  shade: {
+    cls: 'ELITE FOUR', name: 'SHADE', sprite: 'shade', payout: 300, music: 'elite',
+    party: () => [
+      ['gloamfern', 55, ['shadowball', 'gigadrain', 'sleeppowder', 'hex']],
+      ['hourghast', 56, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+      ['phantasmuse', 57, ['shadowball', 'hypervoice', 'nastyplot', 'hex']],
+      ['hexwraith', 59, ['shadowball', 'hex', 'willowisp', 'darkpulse']],
+    ],
+    lose: 'Hm. The spirits said you would win. I never listen to them.',
+  },
+  brawn: {
+    cls: 'ELITE FOUR', name: 'BRAWN', sprite: 'brawn', payout: 300, music: 'elite',
+    party: () => [
+      ['bovelle', 56, ['bodyslam', 'earthquake', 'headbutt', 'workup']],
+      ['glacron', 57, ['closecombat', 'iciclecrash', 'brickbreak', 'bulkup']],
+      ['aerialis', 57, ['bravebird', 'bodyslam', 'aerialace', 'quickattack']],
+      ['brawlpaw', 59, ['closecombat', 'rockslide', 'brickbreak', 'bulkup']],
+    ],
+    lose: 'HA! You hit like a rockslide! Go on, kid. Go on!',
+  },
+  cindra: {
+    cls: 'ELITE FOUR', name: 'CINDRA', sprite: 'cindra', payout: 300, music: 'elite',
+    party: () => [
+      ['flambramble', 57, ['flamethrower', 'leafblade', 'willowisp', 'flamecharge']],
+      ['cindrake', 58, ['flamethrower', 'earthquake', 'lavaplume', 'bulldoze']],
+      ['volcarn', 58, ['lavaplume', 'flamethrower', 'rockslide', 'workup']],
+      ['pyroclast', 60, ['flareblitz', 'stoneedge', 'lavaplume', 'earthquake']],
+    ],
+    lose: 'Burned out. For today.',
+  },
+  marina: {
+    cls: 'ELITE FOUR', name: 'MARINA', sprite: 'marina', payout: 300, music: 'elite',
+    party: () => [
+      ['prismanta', 58, ['surf', 'airslash', 'icebeam', 'aquajet']],
+      ['gandergale', 58, ['hurricane', 'surf', 'aquajet', 'icywind']],
+      ['tidecrusher', 59, ['aquatail', 'xscissor', 'bugbuzz', 'surf']],
+      ['skyseraph', 60, ['hydropump', 'bravebird', 'icebeam', 'aquajet']],
+    ],
+    lose: 'Swept away by the tide. Beautiful.',
+  },
+  champkai: {
+    cls: 'CHAMPION', name: 'KAI', sprite: 'rival', payout: 800, music: 'champion',
+    party: () => [
+      ['gandergale', 60, ['hurricane', 'surf', 'aquajet', 'icywind']],
+      ['brawlpaw', 60, ['closecombat', 'rockslide', 'brickbreak', 'bulkup']],
+      ['stormgale', 61, ['thunderbolt', 'wildcharge', 'quickattack', 'thunderwave']],
+      ['umbrafang', 61, ['crunch', 'nightslash', 'icefang', 'snarl']],
+      ['obelith', 62, ['stoneedge', 'earthquake', 'rockslide', 'harden']],
+      [State.rivalStarter(64), 64],
+    ],
+    lose: '...Yeah. Yeah, I knew it. I think I always knew it.',
+  },
+
+  // --- Post-game rematches -------------------------------------------------------------------------
+  kaiR: {
+    cls: 'RIVAL', name: 'KAI', sprite: 'rival', payout: 600, music: 'champion',
+    party: () => [
+      ['gandergale', 68], ['brawlpaw', 68], ['stormgale', 69], ['rykarn', 69], ['obelith', 70], [State.rivalStarter(72), 72],
+    ],
+    lose: 'Again?! Ryker, write this down. We\'re training harder.',
+  },
+  holtR: {
+    cls: 'LEADER', name: 'HOLT', sprite: 'holt', payout: 300, music: 'leader',
+    party: () => [['ruffang', 62], ['bovelle', 62], ['aerialis', 63], ['dapplekit', 62], ['glacron', 64]],
+    lose: 'Steadfast as ever. The OATH chose well.',
+  },
+  ivyR: {
+    cls: 'LEADER', name: 'IVY', sprite: 'ivy', payout: 300, music: 'leader',
+    party: () => [['mosstodon', 62], ['briarwild', 62], ['floraxol', 63], ['gloamfern', 63], ['bambuck', 64]],
+    lose: 'You\'ve grown so much. So has my garden, you know.',
+  },
+  nerissaR: {
+    cls: 'LEADER', name: 'NERISSA', sprite: 'nerissa', payout: 300, music: 'leader',
+    party: () => [['tidefin', 62], ['reeflord', 63], ['abysslure', 63], ['gandergale', 63], ['skyseraph', 65]],
+    lose: 'Fair winds, CHAMPION. You\'ve earned them.',
+  },
+  torR: {
+    cls: 'LEADER', name: 'TOR', sprite: 'tor', payout: 300, music: 'leader',
+    party: () => [['geodillo', 62], ['riffstone', 63], ['pyroclast', 63], ['ampolith', 64], ['obelith', 65]],
+    lose: 'Solid. Solid as bedrock.',
+  },
+  sahraR: {
+    cls: 'LEADER', name: 'SAHRA', sprite: 'sahra', payout: 300, music: 'leader',
+    party: () => [['quakepike', 62], ['hourghast', 63], ['mudbarbel', 63], ['cindrake', 63], ['dunarch', 65]],
+    lose: 'The desert remembers. And it\'ll remember this.',
+  },
+  wrenR: {
+    cls: 'LEADER', name: 'WREN', sprite: 'wren', payout: 300, music: 'leader',
+    party: () => [['thundervix', 62], ['geodillo', 63], ['stormgale', 63], ['bovelle', 63], ['zephyron', 65]],
+    lose: 'Still electric! Grandpa says come by for supper.',
+  },
+  cantorR: {
+    cls: 'LEADER', name: 'CANTOR', sprite: 'cantor', payout: 300, music: 'leader',
+    party: () => [['bellchime', 62], ['riffstone', 63], ['sonarion', 63], ['cygnata', 64], ['bellumor', 65]],
+    lose: 'A standing ovation, child. From an old man with bad knees.',
+  },
+  noxR: {
+    cls: 'LEADER', name: 'NOX', sprite: 'nox', payout: 300, music: 'leader',
+    party: () => [['noctheryx', 63], ['hexwraith', 63], ['abysslure', 64], ['umbrafang', 64], ['meteorwolf', 66]],
+    lose: 'The one who sang last. Still shining.',
+  },
 };
 
 // The eight GYM badges. The first seven gyms exist so far.

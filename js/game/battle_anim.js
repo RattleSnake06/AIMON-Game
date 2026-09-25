@@ -382,6 +382,37 @@ const BattleArt = {
         g.fillStyle = '#b0fff0';
         for (let i = 0; i < 16; i++) g.fillRect(Math.floor(r() * 240), 50 + Math.floor(r() * 60), 1, 1);
       }
+    } else if (kind === 'shrine') {
+      // The SUNKEN SHRINE: drowned stone under a violet sky.
+      const sky = ['#2a1040', '#361650', '#421c60', '#502470', '#5e2c80'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      g.fillStyle = '#1a1028';
+      for (const x of [14, 70, 170, 226]) {
+        g.fillRect(x - 6, 6, 12, 36);
+        g.fillRect(x - 8, 4, 16, 3);
+      }
+      g.fillStyle = '#b070f8';
+      for (const x of [14, 70, 170, 226]) g.fillRect(x - 1, 14, 2, 6);
+      const floor = ['#3a3450', '#423c5a', '#4a4462', '#524c6a'];
+      for (let y = 40; y < 112; y++) { g.fillStyle = floor[Math.min(3, Math.floor((y - 40) / 18))]; g.fillRect(0, y, 240, 1); }
+      g.fillStyle = 'rgba(120,80,200,0.35)';
+      for (let y = 48; y < 112; y += 10) g.fillRect(0, y, 240, 2);
+    } else if (kind.startsWith('elite') || kind === 'champion') {
+      // The AIMON LEAGUE's chambers, each dressed for its master.
+      const t = {
+        eliteGhost: { wall: ['#1a1428', '#221a34', '#2a2040'], trim: '#b070f8', floor: ['#2e2640', '#342c48', '#3a3250', '#403858'] },
+        eliteDojo: { wall: ['#5a3e28', '#6a4a30', '#7a5638'], trim: '#e8c070', floor: ['#c8b080', '#d0b888', '#d8c090', '#e0c898'] },
+        eliteFire: { wall: ['#3a1810', '#4a2014', '#5a2818'], trim: '#f88828', floor: ['#4a3028', '#523830', '#5a4038', '#624840'] },
+        eliteWater: { wall: ['#103050', '#143c64', '#184878'], trim: '#80e0ff', floor: ['#2a6090', '#306898', '#3670a0', '#3c78a8'] },
+        champion: { wall: ['#e8e0c8', '#f0e8d4', '#f8f0e0'], trim: '#d8b040', floor: ['#c8c0b0', '#d0c8b8', '#d8d0c0', '#e0d8c8'] },
+      }[kind] || { wall: ['#3a3a4a', '#444456', '#4e4e62'], trim: '#d8b040', floor: ['#8a8aa0', '#9292a8', '#9a9ab0', '#a2a2b8'] };
+      t.wall.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 14, 240, 14); });
+      g.fillStyle = t.trim;
+      g.fillRect(0, 40, 240, 2);
+      for (let x = 10; x < 240; x += 44) { g.fillRect(x, 4, 3, 34); g.fillRect(x + 20, 12, 4, 4); }
+      for (let y = 42; y < 112; y++) { g.fillStyle = t.floor[Math.min(3, Math.floor((y - 42) / 18))]; g.fillRect(0, y, 240, 1); }
+      g.fillStyle = 'rgba(255,255,255,0.12)';
+      for (let y = 52; y < 112; y += 14) g.fillRect(0, y, 240, 1);
     } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
@@ -447,6 +478,12 @@ const BattleArt = {
       marsh: ['#3e4a30', '#5a6a42', '#768a58'],
       grove: ['#10281e', '#1e4034', '#2e5a48'],
       dome: ['#10142a', '#2a3260', '#3e4884'],
+      shrine: ['#241a38', '#3e3060', '#58488a'],
+      eliteGhost: ['#1a1428', '#3a3050', '#524870'],
+      eliteDojo: ['#8a6a40', '#b89868', '#d0b488'],
+      eliteFire: ['#3a1810', '#6a3020', '#8a4428'],
+      eliteWater: ['#103050', '#2a6090', '#4a88c0'],
+      champion: ['#a08838', '#d8c888', '#f0e4b8'],
     }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);

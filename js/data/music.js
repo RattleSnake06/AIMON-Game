@@ -725,4 +725,108 @@ Object.assign(MUSIC, {
       { wave: 'noise', vol: 0.055, notes: DRUM_ROCK },
     ],
   },
+  // The SUNKEN SHRINE: drowned stone and a cello somewhere below.
+  shrine: {
+    bpm: 80,
+    ch: [
+      { wave: 'p50', vol: 0.06, notes:
+        'D5:8 F5:4 E5:4 | A4:12 r:4 | Bb4:8 A4:4 G4:4 | A4:16 |'
+        + ' D5:8 F5:4 G#5:4 | A5:12 G5:4 | F5:4 E5:4 D5:4 C#5:4 | D5:16' },
+      { wave: 'p12', vol: 0.035, notes:
+        '[D4:2 A4 F4 A4]*2 [C4:2 A4 E4 A4]*2 [Bb3:2 F4 D4 F4]*2 [A3:2 E4 C#4 E4]*2'
+        + ' [D4:2 A4 F4 A4]*2 [D4:2 G#4 F4 G#4]*2 [G3:2 D4 Bb3 D4]*2 [A3:2 E4 C#4 E4]*2' },
+      { wave: 'tri', vol: 0.16, notes: 'D2:16 A1:16 Bb1:16 A1:16 D2:16 D2:16 G1:16 A1:16' },
+      { wave: 'noise', vol: 0.02, notes: '[r:12 h:4]*8' },
+    ],
+  },
+  // VICTORY PATH: the last road, a march.
+  victory: {
+    bpm: 132,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'G4:2 B4 D5 G5 F#5:4 D5:4 | E5:4 C5:2 E5 D5:8 | G4:2 B4 D5 G5 A5:4 B5:4 | A5:12 r:4 |'
+        + ' C6:4 B5:2 A5 G5:4 E5:4 | F#5:4 G5:2 A5 D5:8 | E5:2 F#5 G5 A5 B5:4 A5:2 F#5 | G5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[G4:2 D4]*4 [C4:2 E4]*4 [G4:2 D4]*4 [D4:2 F#4]*4 [C4:2 E4]*4 [D4:2 A4]*4 [C4:2 E4]*2 [D4:2 F#4]*2 [G4:2 D4]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[G1:2 G2]*4 [C2:2 C3]*4 [G1:2 G2]*4 [D2:2 D3]*4 [C2:2 C3]*4 [D2:2 D3]*4 [C2:2 C3]*2 [D2:2 D3]*2 [G1:2 G2]*4' },
+      { wave: 'noise', vol: 0.05, notes: DRUM_ROCK },
+    ],
+  },
+  // The AIMON LEAGUE: marble halls.
+  league: {
+    bpm: 112,
+    ch: [
+      { wave: 'p50', vol: 0.075, notes:
+        'C5:4 E5:4 G5:4 C6:4 | B5:6 A5:2 G5:8 | A5:4 F5:4 C6:4 A5:4 | G5:12 r:4 |'
+        + ' E5:4 G5:4 C6:4 E6:4 | D6:6 C6:2 B5:8 | A5:4 B5:4 C6:4 D6:4 | C6:12 r:4' },
+      { wave: 'p12', vol: 0.035, notes:
+        '[C4:2 G4 E4 G4]*2 [G3:2 D4 B3 D4]*2 [F4:2 C5 A4 C5]*2 [C4:2 G4 E4 G4]*2'
+        + ' [C4:2 G4 E4 G4]*2 [G3:2 D4 B3 D4]*2 [F4:2 C5 A4 C5]*2 [C4:2 G4 E4 G4]*2' },
+      { wave: 'tri', vol: 0.16, notes: 'C2:16 G1:16 F1:16 C2:16 C2:16 G1:16 F1:8 G1:8 C2:16' },
+      { wave: 'noise', vol: 0.035, notes: '[k:4 h:4 s:4 h:4]*8' },
+    ],
+  },
+  // Battle: the ELITE FOUR.
+  elite: {
+    bpm: 168,
+    ch: [
+      { wave: 'p25', vol: 0.095, notes:
+        'A4:2 C5 E5 A5 G#5:4 E5:4 | F5:2 E5 D5 C5 B4:4 E5:4 | A4:2 C5 E5 A5 B5:4 C6:4 | B5:4 G#5:4 E5:8 |'
+        + ' F5:2 A5 C6 F6 E6:4 C6:4 | D6:2 C6 B5 A5 G#5:8 | A5:2 B5 C6 D6 E6:4 G#5:4 | A5:12 r:4' },
+      { wave: 'p12', vol: 0.045, notes:
+        '[A4:2 E4]*4 [F4:2 C4]*2 [E4:2 B3]*2 [A4:2 E4]*4 [E4:2 G#4]*4 [F4:2 C5]*4 [D4:2 F4]*2 [E4:2 G#4]*2'
+        + ' [A4:2 C5]*2 [E4:2 G#4]*2 [A4:2 E4]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[A1:2 A2]*4 [F1:2 F2]*2 [E1:2 E2]*2 [A1:2 A2]*4 [E1:2 E2]*4 [F1:2 F2]*4 [D2:2 D3]*2 [E2:2 E3]*2'
+        + ' [A1:2 A2]*2 [E2:2 E3]*2 [A1:2 A2]*4' },
+      { wave: 'noise', vol: 0.055, notes: DRUM_ROCK },
+    ],
+  },
+  // Battle: the CHAMPION.
+  champion: {
+    bpm: 180,
+    ch: [
+      { wave: 'p25', vol: 0.095, notes:
+        'E5:1 F#5 G5 A5 B5:4 E6:4 D6:2 B5 | C6:4 B5:2 A5 B5:8 | G5:2 A5 B5 D6 E6:4 F#6:2 E6 | D6:4 B5:4 A5:8 |'
+        + ' E5:2 G5 B5 E6 D6:4 C6:2 B5 | A5:4 C6:2 E6 D6:8 | C6:2 B5 A5 G5 F#5:4 A5:2 D#6 | E6:12 r:4' },
+      { wave: 'p12', vol: 0.045, notes:
+        '[E5:2 B4]*4 [A4:2 E5]*4 [G4:2 D5]*4 [D5:2 A4]*4 [E5:2 B4]*4 [A4:2 E5]*4 [C5:2 A4]*2 [B4:2 F#4]*2 [E5:2 B4]*4' },
+      { wave: 'tri', vol: 0.17, notes:
+        '[E2:2 E3]*4 [A1:2 A2]*4 [G1:2 G2]*4 [D2:2 D3]*4 [E2:2 E3]*4 [A1:2 A2]*4 [C2:2 C3]*2 [B1:2 B2]*2 [E2:2 E3]*4' },
+      { wave: 'noise', vol: 0.06, notes: DRUM_ROCK },
+    ],
+  },
+  // The HALL OF FAME.
+  halloffame: {
+    bpm: 104,
+    ch: [
+      { wave: 'p50', vol: 0.08, notes:
+        'G4:4 C5:4 E5:4 G5:4 | C6:12 r:4 | A5:4 G5:4 F5:4 E5:4 | D5:12 r:4 |'
+        + ' E5:4 G5:4 C6:4 E6:4 | D6:8 C6:4 B5:4 | C6:4 D6:4 E6:4 D6:4 | C6:16' },
+      { wave: 'p25', vol: 0.04, notes:
+        'C4:4 E4 G4 C5 | E4:4 G4 C5 E5 | F4:4 A4 C5 F5 | G4:4 B4 D5 G5 | C4:4 E4 G4 C5 | F4:4 A4 D5 F5 | G4:4 B4 E5 G5 | C5:16' },
+      { wave: 'tri', vol: 0.16, notes: 'C2:16 C2:16 F1:16 G1:16 C2:16 F1:16 G1:16 C2:16' },
+      { wave: 'noise', vol: 0.03, notes: '[k:8 s:8]*8' },
+    ],
+  },
+  // The ending: a tour of VALEMORA, healed.
+  credits: {
+    bpm: 96,
+    ch: [
+      { wave: 'p50', vol: 0.075, notes:
+        'F5:6 G5:2 A5:4 C6:4 | Bb5:6 A5:2 G5:8 | E5:6 F5:2 G5:4 Bb5:4 | A5:12 r:4 |'
+        + ' D5:6 E5:2 F5:4 A5:4 | G5:6 F5:2 E5:8 | F5:4 G5:4 A5:4 Bb5:4 | C6:12 r:4 |'
+        + ' D6:6 C6:2 A5:4 F5:4 | Bb5:6 A5:2 G5:8 | C6:6 Bb5:2 A5:4 G5:4 | F5:12 r:4 |'
+        + ' A5:4 Bb5:4 C6:4 D6:4 | C6:6 Bb5:2 A5:8 | G5:4 A5:4 Bb5:4 E5:4 | F5:16' },
+      { wave: 'p12', vol: 0.035, notes:
+        '[F3:2 C4 A3 C4]*2 [G3:2 D4 Bb3 D4]*2 [C4:2 G4 E4 G4]*2 [F3:2 C4 A3 C4]*2'
+        + ' [D4:2 A4 F4 A4]*2 [C4:2 G4 E4 G4]*2 [F3:2 C4 A3 C4]*2 [C4:2 G4 E4 G4]*2'
+        + ' [D4:2 A4 F4 A4]*2 [G3:2 D4 Bb3 D4]*2 [C4:2 G4 E4 G4]*2 [F3:2 C4 A3 C4]*2'
+        + ' [F3:2 C4 A3 C4]*2 [F3:2 C4 A3 C4]*2 [C4:2 G4 E4 G4]*2 [F3:2 C4 A3 C4]*2' },
+      { wave: 'tri', vol: 0.16, notes:
+        'F1:16 G1:16 C2:16 F1:16 D2:16 C2:16 F1:16 C2:16 D2:16 G1:16 C2:16 F1:16 F1:16 F1:16 C2:16 F1:16' },
+      { wave: 'noise', vol: 0.03, notes: '[k:4 h:4 s:4 h:4]*16' },
+    ],
+  },
 });

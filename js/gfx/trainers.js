@@ -107,6 +107,25 @@ const TrainerArt = {
     this.sprites.astronomer = this.front({
       hair: 'prof', hairCol: '#5a4a6a', shirt: '#e8e4f0', pants: '#2c3460', shoes: '#1c1a28', coat: '#2c3c70',
     });
+    // The ELITE FOUR and the VICTORY PATH veterans.
+    this.sprites.shade = this.front({
+      hair: 'veil', hairCol: '#2a1c40', shirt: '#e8e4f4', dress: '#3a2a5a', shoes: '#140c20', beads: '#e8e4f4',
+    });
+    this.sprites.brawn = this.front({
+      hair: 'band', hairCol: '#2a2020', band: '#c83030', shirt: '#e8c070', pants: '#403830', shoes: '#e0c090', skin: 'tan',
+      belt: '#c83030', pose: 'hips', wide: true,
+    });
+    this.sprites.cindra = this.front({
+      hair: 'long', hairCol: '#e05028', shirt: '#f8e0b0', dress: '#e07820', shoes: '#502010', beads: '#f8d040',
+    });
+    this.sprites.marina = this.front({
+      hair: 'cap', hairCol: '#2860a0', cap: '#f4f4f8', shirt: '#3890d0', stripes: '#f4f4f8', pants: '#f0f0f0', shoes: '#1c3050',
+      pose: 'hips',
+    });
+    this.sprites.veteran = this.front({
+      hair: 'band', hairCol: '#5a4030', band: '#3868c0', shirt: '#e8e0d0', coat: '#5a6048', pants: '#4a4438', shoes: '#302820',
+      belt: '#302820',
+    });
     this.sprites.ivy = this.ivy();
     this.sprites.nerissa = this.nerissa();
     this.sprites.playerBack = this.back(false);

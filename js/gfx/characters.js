@@ -624,6 +624,13 @@ const PEOPLE = {
   ryker: { head: 'spiky', body: 'coat', pal: { h: '#a85020', H: '#6a3010', c: '#c83040', C: '#8a1c28', w: '#1c1a24', W: '#0c0a10', p: '#2a2834', P: '#141218', k: '#141218' } },
   conductor: { head: 'short', body: 'coat', pal: { h: '#e0e0e8', H: '#a8a8b8', c: '#f4f4f8', C: '#6a2cb0', w: '#141418', W: '#0a0a0c', p: '#1c1c24', P: '#0c0c10', k: '#0c0c10' } },
   nox: { head: 'long', body: 'coat', pal: { h: '#c8c0e0', H: '#9890b8', c: '#e8e4f4', C: '#c0bcd8', w: '#1c2250', W: '#10143a', p: '#1c2250', P: '#10143a', k: '#1c1a28' } },
+  // Chapters 14-15: the ELITE FOUR, the old CHAMPION and the VICTORY PATH veterans.
+  shade: { head: 'long', body: 'coat', pal: { h: '#e8e4f4', H: '#b0a8c8', c: '#3a2a5a', C: '#241838', w: '#2a1c40', W: '#180e28', p: '#241838', P: '#140c20', k: '#140c20' } },
+  brawn: { head: 'band', body: 'tee', pal: { h: '#2a2020', H: '#140c0c', a: '#c83030', A: '#8a1c1c', c: '#e8c070', C: '#b88c40', p: '#403830', P: '#28221c', k: '#e0c090' } },
+  cindra: { head: 'long', body: 'dress', pal: { h: '#e05028', H: '#a03418', c: '#f0a030', C: '#c07018', k: '#502010' } },
+  marina: { head: 'cap', body: 'tee', pal: { a: '#f4f4f8', A: '#b8c0d0', h: '#2860a0', H: '#184070', c: '#3890d0', C: '#2060a0', p: '#f0f0f0', P: '#c0c8d0', k: '#1c3050' } },
+  orla: { head: 'long', body: 'coat', pal: { h: '#f0d878', H: '#c0a040', c: '#f8f4e8', C: '#d8d0c0', w: '#c8a848', W: '#907428', p: '#f4f0e4', P: '#c8c0b0', k: '#806020' } },
+  veteran: { head: 'band', body: 'coat', pal: { h: '#5a4030', H: '#3a2818', a: '#3868c0', A: '#244890', c: '#e8e0d0', C: '#b8b0a0', w: '#5a6048', W: '#3c4030', p: '#4a4438', P: '#302c24', k: '#302820' } },
   astronomer: { head: 'short', body: 'coat', pal: { h: '#5a4a6a', H: '#3a2c4a', c: '#e8e4f0', C: '#c0bcd0', w: '#2c3c70', W: '#1c2850', p: '#2c3460', P: '#1c2040', k: '#1c1a28' } },
 };
 
