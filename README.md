@@ -23,6 +23,10 @@ whole plan is in [docs/STORY.md](docs/STORY.md)).
 | ![ADMIN MORROW in the song archive](docs/screenshots/archive.png) | ![Battling MORROW's HOURGHAST](docs/screenshots/morrow.png) |
 | ![Silverfall Bridge](docs/screenshots/bridge.png) | ![Cragmoor Town](docs/screenshots/cragmoor.png) |
 | ![GYM LEADER TOR's CAIRNLING](docs/screenshots/tor.png) | ![The COMMANDER appears](docs/screenshots/epilogue3.png) |
+| ![Route 9 by the lake](docs/screenshots/route9.png) | ![KAI at home with his mother](docs/screenshots/kaihome.png) |
+| ![Route 10's dry brush](docs/screenshots/route10.png) | ![PIP in Sunspire Ruins](docs/screenshots/sunspire.png) |
+| ![The RESONATOR on the DUNESTONE's roots](docs/screenshots/resonator.png) | ![VESPER reading the FIRST SCORE](docs/screenshots/firstscore.png) |
+| ![GYM LEADER SAHRA](docs/screenshots/sahra.png) | ![VESPER reports to the CONDUCTOR](docs/screenshots/epilogue4.png) |
 
 ## Play
 
