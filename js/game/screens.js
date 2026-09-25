@@ -1,6 +1,18 @@
 'use strict';
 // AIMONDEX, trainer card and options.
 
+// Every species some trainer uses (the dex shows "TRAINERS ONLY" for those
+// that never appear in the wild).
+function trainerSpecies() {
+  const out = new Set();
+  for (const t of Object.values(TRAINERS)) {
+    try {
+      for (const [sp] of t.party()) out.add(sp);
+    } catch (e) { /* a party that depends on story state */ }
+  }
+  return out;
+}
+
 const Dex = {
   *open() {
     const s = { opaque: true, done: false };
@@ -45,6 +57,10 @@ const Dex = {
     const sp = SPECIES[id];
     const caught = State.d.dex.caught[id];
     const s = { opaque: true, done: false };
+    const areas = habitatOf(id);
+    // Special encounters that aren't in any grass or fishing table.
+    const special = { voltvix: 'UNKNOWN', voltimp: 'SEABREEZE LIGHTHOUSE', umbrafang: 'PINECREST FOREST' };
+    const areaText = areas.length ? areas.join(', ') : (special[id] || (trainerSpecies().has(id) ? 'TRAINERS ONLY' : 'UNKNOWN'));
     Sound.cry(id);
     s.update = () => {
       if (Input.pressed('b') || Input.pressed('a')) {
@@ -69,10 +85,6 @@ const Dex = {
       sp.types.forEach((t, i) => UI.typeBadge(g, 94 + i * 50, 46, t));
       Font.draw(g, `HT ${caught ? sp.dex.height : '???'}`, 94, 64, ...ink);
       Font.draw(g, `WT ${caught ? sp.dex.weight : '???'}`, 160, 64, ...ink);
-      const areas = habitatOf(id);
-      // Special encounters that aren't in any grass or fishing table.
-      const special = { voltvix: 'UNKNOWN', voltimp: 'SEABREEZE LIGHTHOUSE', umbrafang: 'PINECREST FOREST' };
-      const areaText = areas.length ? areas.join(', ') : (special[id] || 'TRAINERS ONLY');
       Font.draw(g, `AREA ${Font.wrap(areaText, 110)[0]}`, 94, 77, '#5068a0', '#d0d8e8');
       g.fillStyle = '#c8c8d0';
       g.fillRect(12, 90, 216, 1);

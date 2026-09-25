@@ -29,7 +29,7 @@ from collections import deque
 
 import numpy as np
 import pymupdf
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -63,6 +63,17 @@ SHEETS = {
     'tuner': 'aimon_sheet_6.webp',
     'sonarion': 'aimon_sheet_6.webp',
 }
+# Chapter 6-10 design cards (one creature per card, plus the small
+# evolution-line pictures for forms that have no card of their own).
+for _sheet, _mons in {
+    'aimon_sheet_7.webp': 'galeaf sylvaquila marshhyn maelwyrm magmorn calderon',
+    'aimon_sheet_8.webp': 'skylark skyblade aerialis aquabug riverclaw tidecrusher sandbloom dunewalker dunarch embertail cindrake',
+    'aimon_sheet_9.webp': 'distortail distortionix specterib phantasmuse moozle bovelle windling zephyron',
+    'aimon_sheet_10.webp': 'bellpup bellchime bellumor glacron noctheryx',
+    'aimon_sheet_11.webp': 'volcarn pyroclast rykarn',
+}.items():
+    for _m in _mons.split():
+        SHEETS[_m] = _sheet
 
 # Crop boxes (in sheet pixels) around each turnaround view, the view used
 # for each sprite, and the size it should occupy in the 64x64 frame.
@@ -205,6 +216,71 @@ VIEWS = {
     },
 }
 
+
+def card(box, fit, icon=(28, 28), flip=False, **kw):
+    """One view on a design card: the opponent faces left, the player's
+    own AIMON is the same art mirrored, and the icon is a smaller copy."""
+    opts = dict(sat=1.05, tol=30)
+    opts.update(kw)
+    return {
+        'front': dict(box=box, fit=fit, flip=flip, **opts),
+        'back': dict(box=box, fit=fit, flip=not flip, **opts),
+        'icon': dict(box=box, fit=icon, flip=flip, **opts),
+    }
+
+
+# Bellumor only has a painted card, so it is cut out along this outline and
+# the sky showing through its edges is keyed away.
+BELLUMOR_OUTLINE = [
+    (1003, 62), (1009, 62), (1012, 78), (1022, 91), (1020, 105), (1037, 124), (1047, 139), (1049, 152),
+    (1037, 160), (1024, 166), (1024, 175), (1037, 187), (1053, 202), (1065, 222), (1073, 242), (1081, 255),
+    (1091, 268), (1110, 284), (1116, 292), (1111, 309), (1100, 312), (1087, 322), (1067, 338), (1051, 349),
+    (1037, 349), (1019, 334), (1008, 372), (983, 372), (979, 348), (964, 342), (953, 349), (949, 376),
+    (939, 377), (936, 346), (924, 371), (906, 332), (896, 288), (900, 268), (913, 242), (930, 215),
+    (947, 195), (963, 182), (979, 172), (963, 162), (958, 152), (963, 137), (980, 124), (990, 105),
+    (992, 88), (999, 75)]
+
+VIEWS.update({
+    # Starter evolutions (sheet 7).
+    'galeaf': card((55, 425, 250, 648), (56, 58), specks=0.01),
+    'sylvaquila': card((24, 770, 256, 988), (64, 64)),
+    'marshhyn': card((555, 425, 762, 652), (58, 60)),
+    'maelwyrm': card((535, 766, 778, 996), (64, 64)),
+    'magmorn': card((1062, 428, 1262, 648), (60, 60)),
+    'calderon': card((1043, 768, 1302, 988), (64, 60)),
+    # Chapters 6 and 7 (sheet 8).
+    'skylark': card((35, 88, 282, 268), (48, 40), icon=(28, 24)),
+    'skyblade': card((245, 352, 382, 466), (56, 48)),
+    'aerialis': card((440, 312, 622, 466), (64, 56), band=[(430, 298, 640, 338)]),
+    'aquabug': card((700, 78, 945, 292), (46, 42), icon=(26, 24), flip=True),
+    'riverclaw': card((880, 340, 1032, 466), (56, 46)),
+    'tidecrusher': card((1082, 340, 1282, 466), (64, 50)),
+    'sandbloom': card((55, 668, 282, 842), (48, 42), icon=(26, 24)),
+    'dunewalker': card((250, 942, 388, 1046), (56, 46)),
+    'dunarch': card((445, 904, 606, 1046), (64, 58), band=[(440, 896, 612, 924)], band_tol=75),
+    'embertail': card((722, 656, 912, 842), (52, 54)),
+    'cindrake': card((1000, 926, 1222, 1046), (64, 42), icon=(30, 22)),
+    # Chapters 7 and 8 (sheet 9).
+    'distortail': card((48, 52, 288, 218), (56, 42), icon=(30, 24)),
+    'distortionix': card((688, 52, 1002, 308), (64, 56), tol=90),
+    'specterib': card((62, 448, 288, 612), (56, 46), tol=40),
+    'phantasmuse': card((386, 650, 572, 724), (64, 44), icon=(30, 22), tol=60, specks=0.03),
+    'moozle': card((708, 458, 902, 618), (54, 48)),
+    'bovelle': card((1058, 662, 1218, 746), (62, 46)),
+    'windling': card((68, 882, 198, 1002), (44, 42), icon=(26, 24)),
+    'zephyron': card((682, 874, 992, 1132), (64, 60), specks=0.05),
+    # Chapter 9 (sheet 10).
+    'bellpup': card((52, 92, 178, 222), (42, 44), icon=(24, 26)),
+    'bellchime': card((462, 58, 652, 268), (54, 58)),
+    'bellumor': card((885, 58, 1122, 382), (54, 64), icon=(22, 28), outline=BELLUMOR_OUTLINE),
+    'glacron': card((62, 512, 208, 662), (58, 60)),
+    'noctheryx': card((58, 872, 198, 1018), (54, 56)),
+    # Chapter 10 (sheet 11).
+    'volcarn': card((52, 88, 262, 282), (56, 52)),
+    'pyroclast': card((358, 352, 528, 458), (64, 50)),
+    'rykarn': card((58, 672, 298, 902), (60, 62)),
+})
+
 # Views that should be mirrored (the sheets' side views face left, which is
 # already right for an opponent; nothing needs flipping by default).
 FLIP = set()
@@ -253,6 +329,26 @@ def key_background(img, tol_global=34.0, tol_local=10.0):
                         np.sqrt(((a[ny, nx] - c) ** 2).sum()) < tol_local):
                     bg[ny, nx] = True
                     q.append((ny, nx))
+    return ~bg
+
+
+def outline_mask(img, box, outline):
+    """Everything inside a hand-traced outline, minus pale sky that reaches
+    in from the outline's edge (for art painted onto a scene)."""
+    m = Image.new('L', img.size, 0)
+    ImageDraw.Draw(m).polygon([(x - box[0], y - box[1]) for x, y in outline], fill=255)
+    a = np.asarray(img).astype(np.int32)
+    bright = a.sum(axis=2) / 3
+    sky = (bright > 140) & (a[..., 2] >= a[..., 0] - 5)
+    bg = np.asarray(m) == 0
+    h, w = bg.shape
+    q = deque(zip(*np.nonzero(bg)))
+    while q:
+        y, x = q.popleft()
+        for ny, nx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
+            if 0 <= ny < h and 0 <= nx < w and not bg[ny, nx] and sky[ny, nx]:
+                bg[ny, nx] = True
+                q.append((ny, nx))
     return ~bg
 
 
@@ -340,15 +436,31 @@ def make_sprite(sheet, view, frame):
         for x0, y0, x1, y1 in view['erase']:
             a[max(0, y0 - by):y1 - by, max(0, x0 - bx):x1 - bx] = ref
         crop = Image.fromarray(a)
+    if view.get('band'):
+        # A card's title bar runs behind the art: key away pixels that match
+        # the bar's colour but keep the creature's outline drawn over it.
+        bx, by = view['box'][:2]
+        a = np.asarray(crop).astype(np.float32).copy()
+        ref = np.median(np.concatenate([a[-1], a[:, 0], a[:, -1]]), axis=0)
+        for x0, y0, x1, y1 in view['band']:
+            reg = a[max(0, y0 - by):max(0, y1 - by), max(0, x0 - bx):max(0, x1 - bx)]
+            bar = np.median(reg.reshape(-1, 3), axis=0)
+            near = np.sqrt(((reg - bar) ** 2).sum(axis=2)) < view.get('band_tol', 60)
+            reg[near] = ref
+        crop = Image.fromarray(a.astype(np.uint8))
+    if view.get('outline'):
+        mask = outline_mask(crop, view['box'], view['outline'])
+    else:
+        mask = key_background(crop, tol_global=view.get('tol', 34.0))
     if view.get('flip'):
         crop = crop.transpose(Image.FLIP_LEFT_RIGHT)
-    mask = key_background(crop, tol_global=view.get('tol', 34.0))
+        mask = mask[:, ::-1]
     if view.get('holes'):
         # Background showing through gaps enclosed by the body (between legs).
         a = np.asarray(crop).astype(np.float32)
         ref = np.median(np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]]), axis=0)
         mask &= np.sqrt(((a - ref) ** 2).sum(axis=2)) >= view['holes']
-    mask = drop_specks(mask)
+    mask = drop_specks(mask, view.get('specks', 0.004))
     rgb, opaque = shrink(crop, mask, view['fit'])
     rgb = enhance(rgb, view.get('sat', 1.25))
     rgb = outline(rgb, opaque)
@@ -361,7 +473,7 @@ def make_sprite(sheet, view, frame):
 
 
 def write_sprite_data(sprite_dir):
-    js = ['// Generated by tools/make_sprites.py from the design sheets. Do not edit.',
+    js = ['// Generated by tools/make_sprites.py and tools/draw_originals.py. Do not edit.',
           'window.SPRITE_DATA = {']
     for name in sorted(os.listdir(sprite_dir)):
         if not name.endswith('.png'):

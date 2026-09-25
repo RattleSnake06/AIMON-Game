@@ -308,6 +308,172 @@ const SFX = {
 
 // Each creature gets its own synthesised call.
 const CRIES = {
+  // Starter evolutions.
+  galeaf(S, t, b, p) {
+    S.osc('p25', 1200 * p, t, 0.12, 0.12, b, { slideTo: 1900 * p });
+    S.osc('p25', 1500 * p, t + 0.13, 0.26, 0.12, b, { slideTo: 1000 * p, vibrato: 14 });
+    S.noise(t + 0.1, 0.25, 0.05, b, { filter: 'highpass', freq: 4000 });
+  },
+  sylvaquila(S, t, b, p) {
+    S.osc('p25', 1000 * p, t, 0.14, 0.13, b, { slideTo: 1800 * p });
+    S.osc('sawtooth', 1500 * p, t + 0.14, 0.45, 0.09, b, { slideTo: 850 * p, vibrato: 11 });
+    S.noise(t + 0.05, 0.55, 0.07, b, { filter: 'bandpass', freq: 2500, freqTo: 800 });
+  },
+  magmorn(S, t, b, p) {
+    S.osc('sawtooth', 150 * p, t, 0.4, 0.13, b, { slideTo: 95 * p, vibrato: 14 });
+    S.noise(t, 0.45, 0.2, b, { filter: 'lowpass', freq: 700, freqTo: 1800 });
+  },
+  calderon(S, t, b, p) {
+    S.osc('sawtooth', 95 * p, t, 0.7, 0.15, b, { slideTo: 55 * p, vibrato: 9 });
+    S.osc('sawtooth', 190 * p, t + 0.05, 0.6, 0.06, b, { slideTo: 110 * p });
+    S.noise(t, 0.75, 0.22, b, { filter: 'lowpass', freq: 400, freqTo: 1400 });
+  },
+  marshhyn(S, t, b, p) {
+    S.osc('p50', 400 * p, t, 0.12, 0.13, b, { slideTo: 640 * p });
+    S.osc('p50', 540 * p, t + 0.12, 0.3, 0.12, b, { slideTo: 360 * p, vibrato: 8 });
+    S.noise(t + 0.05, 0.3, 0.08, b, { filter: 'bandpass', freq: 1400 });
+  },
+  maelwyrm(S, t, b, p) {
+    S.osc('triangle', 300 * p, t, 0.2, 0.16, b, { slideTo: 520 * p });
+    S.osc('sawtooth', 500 * p, t + 0.18, 0.55, 0.09, b, { slideTo: 240 * p, vibrato: 6 });
+    S.noise(t + 0.1, 0.6, 0.1, b, { filter: 'bandpass', freq: 900, freqTo: 500 });
+  },
+  // Chapter 6.
+  skylark(S, t, b, p) {
+    S.osc('p12', 2000 * p, t, 0.06, 0.1, b, { slideTo: 2600 * p });
+    S.osc('p12', 2200 * p, t + 0.08, 0.08, 0.1, b, { slideTo: 1800 * p });
+    S.osc('p12', 2100 * p, t + 0.18, 0.1, 0.1, b, { slideTo: 2700 * p });
+  },
+  skyblade(S, t, b, p) {
+    S.osc('p25', 1600 * p, t, 0.1, 0.11, b, { slideTo: 2400 * p });
+    S.osc('p25', 2000 * p, t + 0.11, 0.22, 0.11, b, { slideTo: 1400 * p, vibrato: 12 });
+  },
+  aerialis(S, t, b, p) {
+    S.osc('sawtooth', 900 * p, t, 0.15, 0.1, b, { slideTo: 1600 * p });
+    S.osc('p25', 1500 * p, t + 0.15, 0.4, 0.11, b, { slideTo: 900 * p, vibrato: 10 });
+    S.noise(t + 0.1, 0.45, 0.05, b, { filter: 'highpass', freq: 3500 });
+  },
+  aquabug(S, t, b, p) {
+    S.osc('p50', 700 * p, t, 0.05, 0.1, b);
+    S.osc('p50', 900 * p, t + 0.07, 0.05, 0.1, b);
+    S.osc('p50', 800 * p, t + 0.14, 0.1, 0.1, b, { slideTo: 1100 * p });
+    S.noise(t, 0.25, 0.07, b, { filter: 'bandpass', freq: 1500 });
+  },
+  riverclaw(S, t, b, p) {
+    for (let i = 0; i < 3; i++) S.noise(t + i * 0.06, 0.04, 0.12, b, { filter: 'bandpass', freq: 3000 });
+    S.osc('p25', 520 * p, t + 0.18, 0.2, 0.12, b, { slideTo: 340 * p });
+  },
+  tidecrusher(S, t, b, p) {
+    S.osc('sawtooth', 180 * p, t, 0.45, 0.13, b, { slideTo: 115 * p, vibrato: 7 });
+    S.noise(t, 0.45, 0.12, b, { filter: 'bandpass', freq: 900 });
+    S.osc('p12', 1250 * p, t + 0.3, 0.2, 0.06, b);
+  },
+  // Chapter 7.
+  sandbloom(S, t, b, p) {
+    S.osc('p25', 600 * p, t, 0.1, 0.12, b, { slideTo: 900 * p });
+    S.osc('p25', 800 * p, t + 0.11, 0.16, 0.12, b, { slideTo: 500 * p });
+    S.noise(t, 0.3, 0.06, b, { filter: 'highpass', freq: 5000 });
+  },
+  dunewalker(S, t, b, p) {
+    S.osc('sawtooth', 250 * p, t, 0.35, 0.13, b, { slideTo: 175 * p, vibrato: 6 });
+    S.noise(t, 0.35, 0.14, b, { filter: 'lowpass', freq: 800 });
+  },
+  dunarch(S, t, b, p) {
+    S.osc('sawtooth', 140 * p, t, 0.55, 0.14, b, { slideTo: 90 * p, vibrato: 8 });
+    S.osc('p25', 280 * p, t + 0.05, 0.4, 0.05, b, { slideTo: 200 * p });
+    S.noise(t, 0.55, 0.16, b, { filter: 'bandpass', freq: 600, freqTo: 300 });
+  },
+  embertail(S, t, b, p) {
+    S.osc('p25', 900 * p, t, 0.08, 0.12, b, { slideTo: 1300 * p });
+    S.osc('sawtooth', 700 * p, t + 0.09, 0.22, 0.09, b, { slideTo: 400 * p });
+    S.noise(t, 0.3, 0.08, b, { freq: 4000 });
+  },
+  cindrake(S, t, b, p) {
+    S.osc('sawtooth', 300 * p, t, 0.15, 0.12, b, { slideTo: 500 * p });
+    S.osc('sawtooth', 450 * p, t + 0.15, 0.45, 0.12, b, { slideTo: 200 * p, vibrato: 12 });
+    S.noise(t, 0.6, 0.14, b, { filter: 'lowpass', freq: 1500 });
+  },
+  distortail(S, t, b, p) {
+    S.osc('p12', 800 * p, t, 0.1, 0.11, b, { slideTo: 1600 * p });
+    S.osc('sawtooth', 1200 * p, t + 0.1, 0.22, 0.09, b, { slideTo: 600 * p, vibrato: 30 });
+  },
+  distortionix(S, t, b, p) {
+    S.osc('sawtooth', 400 * p, t, 0.12, 0.11, b, { slideTo: 900 * p });
+    S.osc('sawtooth', 850 * p, t + 0.12, 0.45, 0.11, b, { slideTo: 300 * p, vibrato: 40 });
+    S.osc('p12', 1600 * p, t + 0.12, 0.45, 0.05, b, { slideTo: 800 * p, vibrato: 37 });
+    S.noise(t + 0.1, 0.45, 0.08, b, { filter: 'bandpass', freq: 2000 });
+  },
+  specterib(S, t, b, p) {
+    S.osc('triangle', 900 * p, t, 0.3, 0.13, b, { slideTo: 1400 * p, vibrato: 12 });
+    S.osc('triangle', 1300 * p, t + 0.3, 0.4, 0.11, b, { slideTo: 700 * p, vibrato: 10 });
+  },
+  phantasmuse(S, t, b, p) {
+    S.osc('triangle', 660 * p, t, 0.14, 0.12, b, { vibrato: 7 });
+    S.osc('triangle', 880 * p, t + 0.13, 0.14, 0.12, b, { vibrato: 7 });
+    S.osc('triangle', 1100 * p, t + 0.26, 0.14, 0.12, b, { vibrato: 7 });
+    S.osc('triangle', 1320 * p, t + 0.4, 0.5, 0.12, b, { slideTo: 990 * p, vibrato: 9 });
+  },
+  // Chapter 8.
+  moozle(S, t, b, p) {
+    S.osc('sawtooth', 180 * p, t, 0.5, 0.12, b, { slideTo: 150 * p, vibrato: 4 });
+    S.osc('p50', 360 * p, t, 0.5, 0.06, b, { slideTo: 300 * p });
+  },
+  bovelle(S, t, b, p) {
+    S.osc('sawtooth', 140 * p, t, 0.6, 0.13, b, { slideTo: 110 * p, vibrato: 4 });
+    S.osc('p50', 280 * p, t, 0.6, 0.06, b, { slideTo: 220 * p });
+    S.osc('triangle', 1760 * p, t + 0.45, 0.35, 0.08, b);
+  },
+  windling(S, t, b, p) {
+    S.osc('p12', 1400 * p, t, 0.08, 0.1, b, { slideTo: 2000 * p });
+    S.osc('p25', 1800 * p, t + 0.09, 0.16, 0.1, b, { slideTo: 1500 * p, vibrato: 30 });
+    S.noise(t, 0.25, 0.07, b, { freq: 6000 });
+  },
+  zephyron(S, t, b, p) {
+    S.osc('sawtooth', 700 * p, t, 0.15, 0.11, b, { slideTo: 1400 * p });
+    S.osc('p25', 1300 * p, t + 0.15, 0.4, 0.11, b, { slideTo: 700 * p, vibrato: 25 });
+    S.noise(t, 0.6, 0.1, b, { filter: 'highpass', freq: 3000 });
+  },
+  // Chapter 9.
+  bellpup(S, t, b, p) {
+    S.osc('triangle', 1320 * p, t, 0.08, 0.14, b);
+    S.osc('triangle', 1760 * p, t + 0.09, 0.25, 0.14, b, { vibrato: 5 });
+  },
+  bellchime(S, t, b, p) {
+    S.osc('triangle', 988 * p, t, 0.1, 0.14, b);
+    S.osc('triangle', 1319 * p, t + 0.1, 0.1, 0.14, b);
+    S.osc('triangle', 1568 * p, t + 0.2, 0.35, 0.14, b, { vibrato: 4 });
+  },
+  bellumor(S, t, b, p) {
+    S.osc('triangle', 523 * p, t, 0.6, 0.13, b);
+    S.osc('triangle', 659 * p, t + 0.15, 0.55, 0.12, b);
+    S.osc('triangle', 784 * p, t + 0.3, 0.6, 0.12, b, { vibrato: 4 });
+    S.osc('p12', 1568 * p, t + 0.3, 0.5, 0.03, b);
+  },
+  glacron(S, t, b, p) {
+    S.osc('sawtooth', 200 * p, t, 0.15, 0.13, b, { slideTo: 300 * p });
+    S.osc('sawtooth', 280 * p, t + 0.15, 0.4, 0.13, b, { slideTo: 160 * p, vibrato: 10 });
+    S.noise(t, 0.5, 0.1, b, { filter: 'lowpass', freq: 900 });
+  },
+  noctheryx(S, t, b, p) {
+    S.osc('p50', 600 * p, t, 0.18, 0.12, b, { slideTo: 500 * p });
+    S.osc('p50', 520 * p, t + 0.28, 0.3, 0.12, b, { slideTo: 420 * p, vibrato: 5 });
+  },
+  // Chapter 10.
+  volcarn(S, t, b, p) {
+    S.osc('sawtooth', 160 * p, t, 0.12, 0.13, b, { slideTo: 240 * p });
+    S.osc('sawtooth', 220 * p, t + 0.12, 0.3, 0.13, b, { slideTo: 130 * p, vibrato: 10 });
+    S.noise(t, 0.4, 0.14, b, { filter: 'lowpass', freq: 900 });
+  },
+  pyroclast(S, t, b, p) {
+    S.osc('sawtooth', 100 * p, t, 0.65, 0.15, b, { slideTo: 65 * p, vibrato: 10 });
+    S.noise(t, 0.65, 0.2, b, { filter: 'lowpass', freq: 500, freqTo: 1800 });
+    S.noise(t + 0.2, 0.3, 0.06, b, { freq: 5000 });
+  },
+  rykarn(S, t, b, p) {
+    S.osc('sawtooth', 250 * p, t, 0.1, 0.13, b, { slideTo: 450 * p });
+    S.osc('sawtooth', 420 * p, t + 0.1, 0.5, 0.14, b, { slideTo: 150 * p, vibrato: 18 });
+    S.noise(t + 0.05, 0.5, 0.14, b, { filter: 'bandpass', freq: 1200 });
+  },
   geodillo(S, t, b, p) {
     S.osc('p25', 200 * p, t, 0.22, 0.14, b, { slideTo: 140 * p });
     S.noise(t + 0.05, 0.25, 0.09, b, { filter: 'bandpass', freq: 2400 });

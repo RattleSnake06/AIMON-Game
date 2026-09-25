@@ -244,7 +244,7 @@ const TRAINERS = {
   },
   rival3: {
     cls: 'RIVAL', name: 'KAI', sprite: 'rival', payout: 60,
-    party: () => [['goskie', 19], ['scrapaw', 20], [State.rivalStarter(), 22]],
+    party: () => [['goskie', 19], ['scrapaw', 20], [State.rivalStarter(22), 22]],
     intro: '',
     lose: 'Again?! How do you keep getting stronger?!',
     win: 'Ha! That\'s what training in the rain gets you!',

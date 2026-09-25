@@ -231,15 +231,40 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
   and Fighting (and vice versa).
 - **Evolution:** AIMON that level up in a battle can evolve afterwards. The
   scene flashes between the two forms, and holding B stops it. The
-  evolutions: TIDEPUP → TIDEFIN (Lv 20), REEFWHIRL → REEFLORD (26), SKYDRIFT
+  starters evolve at Lv 20 and 45: SKYLAVINE → GALEAF → SYLVAQUILA,
+  MOLTAROCK → MAGMORN → CALDERON and ARCHEPIN → MARSHHYN → MAELWYRM. KAI's
+  starter is evolved too once his team reaches Lv 20. The other evolutions
+  so far: TIDEPUP → TIDEFIN (Lv 20), REEFWHIRL → REEFLORD (26), SKYDRIFT
   → SKYSERAPH (28), VOLTIMP → STORMGALE (24), TUNER → SONARION (32) and
   CAIRNLING → OBELITH (30).
-- **Original AIMON (No. 27-33)** drawn in code with `tools/pixelart.py`:
+- **Original AIMON (No. 33-39)** drawn in code with `tools/pixelart.py`:
   GEODILLO (ROCK/ELECTRIC geode armadillo), HOURGHAST (GHOST/GROUND hourglass
   spirit), NOCTUMOTH (DARK/BUG eclipse moth), MOSSTODON (GRASS/GROUND mossy
   mammoth), PRISMANTA (WATER/FLYING stained-glass manta), and the ROCK-type
   CAIRNLING and OBELITH line. New moves: ROCK SLIDE, POWER GEM, BUG BUZZ and
   EARTH POWER.
+- **AIMON for chapters 6-10 (No. 40-66)**, cut from the design cards. They
+  are in the AIMONDEX already and will show up in the wild and on teams as
+  those chapters are built:
+  - SKYLARK → SKYBLADE (Lv 30) → AERIALIS (45), NORMAL/FLYING birds;
+  - AQUABUG → RIVERCLAW (30) → TIDECRUSHER (45), BUG/WATER;
+  - SANDBLOOM → DUNEWALKER (30) → DUNARCH (45), GROUND;
+  - EMBERTAIL → CINDRAKE (45), FIRE/GROUND;
+  - DISTORTAIL → DISTORTIONIX (38), DARK/SOUND (TEAM DISTORTION's own);
+  - SPECTERIB → PHANTASMUSE (38), GHOST/SOUND (VESPER's);
+  - MOOZLE → BOVELLE (36), NORMAL;
+  - WINDLING → ZEPHYRON (38), ELECTRIC, then ELECTRIC/FLYING;
+  - BELLPUP → BELLCHIME (30) → BELLUMOR (45), SOUND;
+  - GLACRON (FIGHTING) and NOCTHERYX (DARK/FLYING);
+  - VOLCARN → PYROCLAST (45), FIRE, then FIRE/ROCK;
+  - RYKARN (DARK/FIGHTING), the COMMANDER's partner.
+
+  [docs/new_aimon.png](docs/new_aimon.png) shows them all by evolution line.
+
+  New moves for the stronger forms: BODY SLAM, LEAF BLADE, HYDRO PUMP, LAVA
+  PLUME, FLARE BLITZ, WILD CHARGE, EARTHQUAKE, BRICK BREAK, AURA SPHERE,
+  CLOSE COMBAT, X-SCISSOR, AERIAL ACE, HURRICANE, BRAVE BIRD, STONE EDGE,
+  NIGHT SLASH and DARK PULSE.
 - **Warp pads** in the SONANCE TOWER send you to their linked pad on the same
   floor.
 - New moves include fixed-damage ones (SONIC BOOM, NIGHT SHADE), HEX (twice
@@ -327,7 +352,11 @@ The battle sprites come from two kinds of source:
   turnaround panels);
 - the pixel-art sheets in `art/sheets/`, for everything added in chapters
   2 and 3. Where a sheet shows only one view, the player's side uses the
-  same art mirrored so it faces the opponent.
+  same art mirrored so it faces the opponent;
+- the design cards in `art/sheets/aimon_sheet_7.webp` to `_11.webp`, for the
+  starter evolutions and the chapter 6-10 AIMON. Forms without a card of
+  their own come from the small evolution-line pictures. BELLUMOR only has
+  a painted card, so it is cut out along a hand-traced outline.
 
 The script cuts out each view, removes the background, shrinks it to 64×64,
 reduces it to 15 colours and adds a dark outline:

@@ -65,8 +65,11 @@ const State = {
   healParty() { for (const m of this.d.party) m.heal(); },
   anyAlive() { return this.d.party.some((m) => !m.fainted); },
 
-  rivalStarter() {
-    return { skylavine: 'moltarock', moltarock: 'archepin', archepin: 'skylavine' }[this.d.starter] || 'moltarock';
+  // Kai's starter; given a level, the form it would have evolved into by then.
+  rivalStarter(level) {
+    let sp = { skylavine: 'moltarock', moltarock: 'archepin', archepin: 'skylavine' }[this.d.starter] || 'moltarock';
+    while (level && SPECIES[sp].evo && level >= SPECIES[sp].evo.level) sp = SPECIES[sp].evo.to;
+    return sp;
   },
 
   badgeCount() { return BADGES.filter((b) => this.d.badges[b.id]).length; },

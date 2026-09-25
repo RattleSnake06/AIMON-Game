@@ -384,4 +384,4 @@ lights on.
   - the shrine uses stone, water and lighthouse-style tiles.
 - **New trainers** reuse existing portraits: grunt, the admins, hiker, worker, scientist, sailor, swimmer, fisher and the other trainer classes. RYKER can use the rival portrait in the COMMANDER's colors. The CONDUCTOR, the late WARDENS and the ELITE FOUR use the existing admin and trainer portrait styles.
 - **TM05 to TM08** use existing moves: EARTH POWER, THUNDERBOLT, HYPER VOICE and SHADOW BALL.
-- **Every team** uses only the 33 AIMON already in the game.
+- **Every team** above was planned with the first 33 AIMON. The chapter 6-10 AIMON (No. 40-66) are now in the game too, and each chapter's teams and wild AIMON will be updated to use them when that chapter is built (for example SAHRA's ace becomes DUNARCH, and RYKER's becomes RYKARN).
