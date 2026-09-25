@@ -2,7 +2,7 @@
 // The professor's welcome speech and choosing the player's name.
 
 const Intro = {
-  *run() {
+  *run(mode = 'normal') {
     const s = { opaque: true, actors: [] };
     s.draw = (g) => {
       const bands = ['#101830', '#142040', '#182850', '#1c3060', '#203870', '#284080', '#304890', '#3850a0'];
@@ -77,7 +77,7 @@ const Intro = {
       }
       if (yield* Dialog.yesNo(`So your name is ${name}?`)) break;
     }
-    State.newGame(name);
+    State.newGame(name, mode);
 
     yield* fade(hero, 0, 16);
     const rival = actor(TrainerArt.get('rival'), 88, 38);

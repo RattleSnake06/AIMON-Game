@@ -9,7 +9,7 @@ const ITEMS = {
   ultraball: { name: 'ULTRA BALL', pocket: 'balls', price: 1200, ball: 2,
     desc: 'A top-quality ball. Even better at catching AIMON than a GREAT BALL.' },
   rarecandy: { name: 'RARE CANDY', pocket: 'items', candy: true, infinite: true, field: true,
-    desc: 'Raises one AIMON\'s level by 1 instantly. (Test build: it never runs out.)' },
+    desc: 'Raises one AIMON\'s level by 1 instantly. On EASY mode, it never runs out.' },
   potion: { name: 'POTION', pocket: 'items', price: 300, heal: 20,
     desc: 'Restores the HP of one AIMON by 20 points.' },
   superpotion: { name: 'SUPER POTION', pocket: 'items', price: 700, heal: 50,

@@ -146,7 +146,7 @@ const Game = {
 // Jump straight into the game for testing: index.html?debug=route1
 const Debug = {
   start(where) {
-    State.newGame('RED');
+    State.newGame('RED', new URLSearchParams(location.search).get('mode') || 'normal');
     const starter = new URLSearchParams(location.search).get('starter') || 'skylavine';
     State.d.starter = starter;
     State.addMon(new Mon(starter, 7));

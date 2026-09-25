@@ -168,6 +168,7 @@ const Title = {
         UI.window(g, 8, 8, 224, 74);
         const ink = ['#404048', '#d0d0c8'];
         Font.draw(g, 'CONTINUE', 26, 16, ...ink);
+        Font.drawRight(g, DIFFICULTIES[save.difficulty || 'normal'].name, 200, 16, '#5068a0', '#d0d8e8');
         Font.draw(g, 'PLAYER', 34, 32, '#5068a0', '#d0d8e8');
         Font.drawRight(g, save.name, 200, 32, ...ink);
         Font.draw(g, 'TIME', 34, 46, '#5068a0', '#d0d8e8');
@@ -196,7 +197,8 @@ const Title = {
       OW.start();
       yield* Game.fadeIn(20);
     } else {
-      yield* Intro.run();
+      const mode = yield* Difficulty.choose();
+      yield* Intro.run(mode);
     }
   },
 };

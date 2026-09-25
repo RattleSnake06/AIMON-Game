@@ -76,7 +76,8 @@ No build step and no dependencies. Either:
 
 On phones and tablets an on-screen D-pad with A/B/START/SELECT appears.
 Clicking or tapping the game screen also works as A. The game saves to the
-browser's local storage (START → SAVE).
+browser's local storage (START → SAVE). A NEW GAME starts by picking EASY,
+NORMAL or HARD.
 
 To get the whole game as one self-contained HTML file (for sharing or
 hosting anywhere), run `python3 tools/bundle.py`. It writes
@@ -623,11 +624,21 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 
 **Quality-of-life features**
 
-- **RARE CANDY (test build):** there's one in the ITEMS pocket from the start,
-  and it never runs out (×∞). Each one raises an AIMON's level by 1 straight
-  away, with the stat window, any new moves and evolution. After each use
-  the party list stays open, so you can keep pressing A to level up again.
-  Older saves get one when loaded.
+- **Three difficulty modes**, chosen when you start a NEW GAME. The story is
+  exactly the same in all three; only the levels of the AIMON you face
+  change:
+  - **EASY:** wild AIMON and every trainer's AIMON are at 70% of their usual
+    level, and you get a RARE CANDY that never runs out (×∞). Each use
+    raises an AIMON's level by 1 straight away, with the stat window, any
+    new moves and evolution, and the party list stays open so you can keep
+    pressing A.
+  - **NORMAL:** the usual levels. No endless RARE CANDY.
+  - **HARD:** every trainer's AIMON are 5 to 10 levels higher (5 early on,
+    rising to 10 by the late game). Wild AIMON are unchanged. No endless
+    RARE CANDY.
+
+  The mode shows on the CONTINUE screen and the TRAINER CARD, and can't be
+  changed later. Saves from before modes existed load as NORMAL.
 - **Gentler level curve:** from Route 5 on, trainers, GYM LEADERS and wild
   AIMON are 1–2 levels lower than before, and battles give 20% more EXP.
 - **EXP. SHARE** (a key item you can switch on or off): AIMON that sat out a
@@ -756,4 +767,5 @@ Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `resonator`, `route6`, `marshland`, `grove`, `starfall`, `observatory`,
 `shrine`, `shrine2`, `shrine3`, `shrine4`, `victory`, `bramble`, `victory2`,
 `league`, `lobby`, `elite1`, `champion`, `hof`, `tower`, `lighthouse`. Add
-`&starter=moltarock` or `&starter=archepin` to pick the starter.
+`&starter=moltarock` or `&starter=archepin` to pick the starter, and
+`&mode=easy` or `&mode=hard` to pick the difficulty (NORMAL otherwise).

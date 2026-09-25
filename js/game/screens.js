@@ -117,8 +117,9 @@ const TrainerCard = {
       const ink = ['#404048', '#e8d8a8'];
       Font.draw(g, 'TRAINER CARD', 20, 22, '#604010', '#f0e0b0');
       Font.drawRight(g, `IDNo.${U.pad(State.d.id, 5, '0')}`, 220, 22, '#604010', '#f0e0b0');
-      Font.draw(g, `NAME: ${State.name}`, 22, 46, ...ink);
-      Font.draw(g, `MONEY  ${UI.money(State.d.money)}`, 22, 66, ...ink);
+      Font.draw(g, `NAME: ${State.name}`, 22, 44, ...ink);
+      Font.draw(g, `MODE: ${Difficulty.name()}`, 22, 58, ...ink);
+      Font.draw(g, `MONEY  ${UI.money(State.d.money)}`, 22, 72, ...ink);
       Font.draw(g, `AIMONDEX  ${State.flag('got_dex') ? State.caughtCount() : 0}`, 22, 86, ...ink);
       Font.draw(g, `TIME  ${U.formatTime(State.d.frames)}`, 22, 100, ...ink);
       g.drawImage(TrainerArt.get('playerFront'), 158, 44);

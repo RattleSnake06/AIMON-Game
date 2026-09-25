@@ -6,15 +6,16 @@ const SAVE_KEY = 'aimon_save_v1';
 const State = {
   d: null,
 
-  newGame(name) {
+  newGame(name, difficulty = 'normal') {
     this.d = {
       name,
+      difficulty,
       rival: 'KAI',
       id: U.rand(65536),
       money: 3000,
       party: [],
       box: [],
-      bag: { rarecandy: 1, potion: 1 },
+      bag: difficulty === 'easy' ? { rarecandy: 1, potion: 1 } : { potion: 1 },
       flags: {},
       dex: { seen: {}, caught: {} },
       map: 'home2f',
@@ -111,7 +112,11 @@ const State = {
     d.box = (d.box || []).map(Mon.fromJSON);
     d.badges = d.badges || {};
     d.repel = d.repel || 0;
-    d.bag = { rarecandy: 1, ...d.bag };   // test build: endless RARE CANDY
+    // Saves from before difficulty modes existed play on NORMAL. Only EASY
+    // keeps the endless RARE CANDY.
+    d.difficulty = d.difficulty || 'normal';
+    d.bag = d.bag || {};
+    Difficulty.applyCandy(d);
     // Saves from before HM02 FLY existed: WREN's BADGE comes with it now.
     if ((d.badges.spark || (d.flags || {}).badge_spark) && !d.bag.hm02) d.bag.hm02 = 1;
     this.d = d;

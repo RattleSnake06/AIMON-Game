@@ -9,6 +9,9 @@ It uses only the AIMON, mechanics and graphics that already exist.
 
 ---
 
+Every chapter plays the same on EASY, NORMAL and HARD; the modes only change
+the levels of the AIMON you face (see the README).
+
 ## The heart of it
 
 **Premise.** Long ago, VALEMORA tore open. The old texts call the wound the

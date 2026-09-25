@@ -19,8 +19,8 @@ class Battle {
     this.bound = !!opts.bound;   // a wild AIMON that can't be caught
     this.turns = 0;
     this.enemyParty = this.wild
-      ? [new Mon(opts.wild.species, opts.wild.level)]
-      : this.tr.party().map(([s, l, moves]) => new Mon(s, l, moves ? { moves: moves.map((id) => ({ id, pp: MOVES[id].pp })) } : {}));
+      ? [new Mon(opts.wild.species, Difficulty.level(opts.wild.level, false))]
+      : this.tr.party().map(([s, l, moves]) => new Mon(s, Difficulty.level(l, true), moves ? { moves: moves.map((id) => ({ id, pp: MOVES[id].pp })) } : {}));
     const bg = OW.map && OW.map.def.battleBg;
     this.bgKind = (typeof bg === 'function' ? bg() : bg) || (OW.map && OW.map.def.outdoor ? 'grass' : 'indoor');
     this.pi = State.party.findIndex((m) => !m.fainted);

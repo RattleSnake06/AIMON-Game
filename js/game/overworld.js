@@ -502,7 +502,7 @@ const OW = {
       const level = U.randInt(e.min, e.max);
       // REPEL keeps away wild AIMON weaker than your lead.
       const lead = State.party.find((m) => !m.fainted);
-      if (State.d.repel > 0 && lead && level < lead.level) return;
+      if (State.d.repel > 0 && lead && Difficulty.level(level, false) < lead.level) return;
       this.run(Events.wildBattle(e.species, level));
     }
   },
