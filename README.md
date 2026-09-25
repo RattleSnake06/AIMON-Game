@@ -3,7 +3,7 @@
 A small GBA-style monster-catching adventure that runs in the browser. It has
 pixel art, a chiptune soundtrack and turn-based battles, and uses the AIMON
 designs from the design sheets, plus seven originals drawn in code. The story
-currently runs up to the fifth GYM BADGE (chapter 7 of the planned 15; the
+currently runs up to the seventh GYM BADGE (chapter 9 of the planned 15; the
 whole plan is in [docs/STORY.md](docs/STORY.md)).
 
 | | |
@@ -27,6 +27,12 @@ whole plan is in [docs/STORY.md](docs/STORY.md)).
 | ![Route 10's dry brush](docs/screenshots/route10.png) | ![PIP in Sunspire Ruins](docs/screenshots/sunspire.png) |
 | ![The RESONATOR on the DUNESTONE's roots](docs/screenshots/resonator.png) | ![VESPER reading the FIRST SCORE](docs/screenshots/firstscore.png) |
 | ![GYM LEADER SAHRA](docs/screenshots/sahra.png) | ![VESPER reports to the CONDUCTOR](docs/screenshots/epilogue4.png) |
+| ![KAI on the farm road, Route 12](docs/screenshots/route12.png) | ![WREN turns down SONANCE ENERGY](docs/screenshots/meadowfield.png) |
+| ![Meadowfield Farm on the storm night](docs/screenshots/tempest.png) | ![THANE at the TEMPEST ARRAY](docs/screenshots/thane.png) |
+| ![GYM LEADER WREN](docs/screenshots/wren.png) | ![MORROW reports to the CONDUCTOR](docs/screenshots/epilogue5.png) |
+| ![Route 11 in the snow](docs/screenshots/route11.png) | ![Stonepeak Woods](docs/screenshots/stonepeak.png) |
+| ![CANTOR remembers AUGUST VALE](docs/screenshots/cantor.png) | ![MORROW under the great bell](docs/screenshots/belfry.png) |
+| ![GYM LEADER CANTOR](docs/screenshots/cantorbattle.png) | ![A letter signed (R.)](docs/screenshots/letter.png) |
 
 ## Play
 
@@ -245,6 +251,54 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 47. A fourth epilogue: VESPER tells the CONDUCTOR what the wall said.
     "Silence is only the rest between notes."
 
+**Chapter 8: The Windmill**
+
+48. **Route 12** is the farm road south off ROUTE 3: fenced wheat fields
+    (wild AIMON hide in the wheat), hay bales, scarecrows, a duck pond and
+    a rest house. Wild **MOOZLE**, **WINDLING**, VOLTIMP and SKYLARK. **KAI**
+    catches up for rival battle 4: "Mom made me promise to check on you.
+    ...Now I've checked. You're still annoying."
+49. **Meadowfield Farm** has a great windmill whose sails turn all day, a
+    red barn GYM, silos, a MOOZLE pasture and **WREN**, the farmer-inventor
+    WARDEN, who sends a SONANCE ENERGY man packing: the windmill is not for
+    sale. The mart sells **MOOZLE MILK** (heals 100 HP).
+50. **The storm night.** Over supper with WREN and GRANDPA OLLIE, a storm
+    blows in from a clear sky. TEAM DISTORTION has bent the farm's three
+    lightning rods toward the windmill. In the rain, beat the grunt guarding
+    each rod and bend it back upright; every bolt then goes to ground.
+51. **The windmill top.** ADMIN **THANE** is at his **TEMPEST ARRAY**
+    (VOLTVIX, SONARION, STORMGALE). You win, the storm fizzles out and the
+    **MILLSTONE's song is never recorded**. A GRAYHAVEN guard arrests him:
+    "You think the COMMANDER loses to kids? He's lost ONE battle in his
+    life. At the LEAGUE."
+52. **GYM 6: WREN** fights in a barn full of turbines (VOLTVIX, GEODILLO,
+    STORMGALE and **ZEPHYRON**) and gives the **SPARK BADGE** and **TM06
+    THUNDERBOLT**.
+53. A fifth epilogue: MORROW reports that the MILLSTONE is lost. The
+    CONDUCTOR: "Nothing is lost. The child carries a copy now."
+
+**Chapter 9: The Bell of Stonepeak**
+
+54. **Route 11** climbs north from ARCHFORD into the snow, with deep drifts,
+    a frozen pond, snowy ledges, hikers and skiers, UMBRAFANG tracks, and
+    wild **GLACRON**, **NOCTHERYX**, **BELLPUP** and (rarely) UMBRAFANG.
+55. **Stonepeak Woods** is a snowy village around an old bell tower. The
+    great bell rings every hour but one: the hour of silence.
+56. **CANTOR**, the oldest WARDEN, tells you about his brightest pupil, a
+    boy with a cello named **AUGUST VALE**, and his SONARION **ECHO**. He
+    fears the CONDUCTOR is that boy. Then the bell rings at the hour of
+    silence.
+57. **The bell tower.** Chase TEAM DISTORTION up through the bell ropes to
+    the belfry, where ADMIN **MORROW** (HOURGHAST, NOCTUMOTH, UMBRAFANG)
+    stands under the great bell with a recorder. He escapes by warp pad: "The
+    bell rang anyway. I only needed one note."
+58. **GYM 7: CANTOR** fights among the chimes of the CHIME HALL (BELLCHIME,
+    NOCTUMOTH, SONARION and **BELLUMOR**) and gives the **CHORD BADGE** and
+    **TM07 HYPER VOICE**.
+59. **The letter.** A grunt delivers a sealed letter for "the child and the
+    boy": *EMBERPEAK. Tomorrow at dusk. Bring him. (R.)* KAI goes pale. "I
+    know that handwriting." To be continued...
+
 **Gameplay**
 
 - Tile-based movement with walking, running, ledge hops, doors and stairs.
@@ -381,10 +435,12 @@ art/                  the design sheets and the VALEMORA region map
 ```
 
 Later chapters live in their own files next to the originals: `tiles_ext.js`,
-`tiles_ch3.js`, `tiles_ch4.js` and `tiles_ch6.js` (tiles, buildings and
-props), `maps_ch3.js`, `maps_ch4.js`, `maps_ch6.js`, `events_ch3.js`,
-`events_ch4.js` (the chapter 5 story) and `events_ch6.js` (chapters 6 and 7). Evolution is in `evolution.js`, and the DS-style battle
-panels and HP plates are in `battle_ui.js`.
+`tiles_ch3.js`, `tiles_ch4.js`, `tiles_ch6.js` and `tiles_ch8.js` (tiles,
+buildings and props), `maps_ch3.js`, `maps_ch4.js`, `maps_ch6.js`,
+`maps_ch8.js`, `events_ch3.js`, `events_ch4.js` (the chapter 5 story),
+`events_ch6.js` (chapters 6 and 7) and `events_ch8.js` (chapters 8 and 9).
+Evolution is in `evolution.js`, and the DS-style battle panels and HP plates
+are in `battle_ui.js`.
 
 Cutscenes and battles are written as generator functions (`yield* say(...)`,
 `yield* OW.walk(...)`) run by a small coroutine scheduler inside the fixed
@@ -447,5 +503,6 @@ on top.
 Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `route2`, `cave`, `route3`, `grayhaven`, `route5`, `pinecrest`, `cedarwood`,
 `library`, `route4`, `seabreeze`, `lighthouse`, `route8`, `silverfall`, `hq`, `bridge`,
-`cragmoor`, `route9`, `route10`, `sunspire`, `dig`. Add `&starter=moltarock` or
+`cragmoor`, `route9`, `route10`, `sunspire`, `dig`, `route12`, `meadowfield`,
+`windmill`, `route11`, `stonepeak`, `belltower`. Add `&starter=moltarock` or
 `&starter=archepin` to pick the starter.

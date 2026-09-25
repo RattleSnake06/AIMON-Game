@@ -2,7 +2,7 @@
 
 This is the full story of AIMON, from the first morning in Willowbrook to the
 Hall of Fame. It builds on everything that is already in the game. Chapters
-1 to 5 are **built**; chapters 6 to 15 are **planned**. Where a built chapter
+1 to 9 are **built**; chapters 10 to 15 are **planned**. Where a built chapter
 gets a small rewrite to set up something later, the change is listed under
 **Revisions** at the end of that chapter.
 
@@ -265,24 +265,24 @@ lights on.
 50. **GYM 5: LEADER SAHRA (GROUND)**, in a sun-baked arena between fallen pillars: TERRAPIKE 33, HOURGHAST 34, DUNEWALKER 35, DUNARCH 37. **DUNE BADGE** and TM05 EARTH POWER.
 51. **Interlude.** VESPER reports alone to the CONDUCTOR, who brushes off her doubts: "Silence is only the rest between notes, VESPER."
 
-## Chapter 8: The Windmill *(planned)*
+## Chapter 8: The Windmill *(built)*
 *Route 3, Route 12, Meadowfield Farm*
 
 52. On the way back east, **KAI** catches you on Route 12, the farm road: rival battle 4 (GOSKIE 34, SCRAPAW 35, STORMGALE 35, starter 37). "Mom made me promise to check on you. ...Now I've checked. You're still annoying."
 53. **Meadowfield Farm** is famous for its milk and its great windmill. The windmill's ancient grinding stone is the **MILLSTONE**. **WREN** runs the ELECTRIC GYM in the big red barn. SONANCE ENERGY keeps making offers for the windmill, and she keeps saying no.
 54. **The TEMPEST ARRAY.** That night **THANE** brings a storm to overload the MILLSTONE with lightning and rip its song out while the farm's power is down. You and Wren defend the fields against grunts, fix the farm's lightning rods and climb the windmill.
 55. **Battle: THANE** on the windmill balcony: VOLTVIX 36, SONARION 37, STORMGALE 39. You win, the storm fizzles, and **the MILLSTONE's song is never recorded**. THANE is arrested by the farmhands and a Grayhaven guard. Leaving, he says: "You think the COMMANDER loses to kids? He's lost ONE battle in his life. At the LEAGUE."
-56. **GYM 6: LEADER WREN (ELECTRIC)**, a barn full of turbines: VOLTVIX 38, VOLTIMP 38, GEODILLO 39, STORMGALE 41. **SPARK BADGE** and TM06 THUNDERBOLT.
+56. **GYM 6: LEADER WREN (ELECTRIC)**, a barn full of turbines: VOLTVIX 38, GEODILLO 39, STORMGALE 39, ZEPHYRON 41. **SPARK BADGE** and TM06 THUNDERBOLT.
 57. **Interlude.** MORROW to the CONDUCTOR: "The MILLSTONE is lost to us." CONDUCTOR: "Nothing is lost. The child carries a copy now."
 
-## Chapter 9: The Bell of Stonepeak *(planned)*
+## Chapter 9: The Bell of Stonepeak *(built)*
 *Route 11, Stonepeak Woods and the bell tower*
 
 58. **Route 11** climbs north from Archford into snow. Hikers, skiers, and UMBRAFANG tracks in the drifts.
 59. **Stonepeak Woods** is a snowy village under the tallest peak, with an old bell tower whose great bell's clapper is the **BELLSTONE**. **CANTOR**, the oldest WARDEN, is a composer and bell-keeper.
 60. **Cantor's story.** His brightest pupil, a boy called **AUGUST VALE**, played the cello with a SONARION named **ECHO**. When Echo fell silent and died, August became obsessed with the legend that every silenced voice still sings beyond the RIFT. He left to "build the greatest instrument the world has ever seen" and founded SONANCE ENERGY. Cantor has feared for years that the CONDUCTOR is his old student.
 61. **The wrong hour.** **ADMIN MORROW** climbs the tower to ring the bell at the "hour of silence" and record the BELLSTONE. You chase him up the belfry. **Battle: MORROW**: HOURGHAST 40, NOCTUMOTH 41, UMBRAFANG 42. He escapes by warp pad: "The bell rang anyway. I only needed one note." Only part of the BELLSTONE's song is recorded.
-62. **GYM 7: LEADER CANTOR (SOUND)**, fought among the bells: TUNER 42, NOCTUMOTH 43, SONARION 44, SONARION 46. **CHORD BADGE** and TM07 HYPER VOICE.
+62. **GYM 7: LEADER CANTOR (SOUND)**, fought among the bells: BELLCHIME 42, NOCTUMOTH 43, SONARION 44, BELLUMOR 46. **CHORD BADGE** and TM07 HYPER VOICE.
 63. **The challenge.** A grunt leaves a sealed letter for "the child and the boy": *"EMBERPEAK. Tomorrow at dusk. Bring him. (R.)"* KAI goes pale. He knows that handwriting.
 
 ## Chapter 10: The Commander *(planned)*
