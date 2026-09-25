@@ -297,6 +297,11 @@ const SFX = {
     S.osc('sawtooth', 110, t, 1.2, 0.06, b, { vibrato: 6 });
     S.osc('sawtooth', 116, t, 1.2, 0.05, b);
   },
+  // Crystals of ice tinkling and cracking.
+  ice(S, t, b) {
+    for (let i = 0; i < 6; i++) S.osc('triangle', 2093 + (i % 3) * 523, t + i * 0.045, 0.08, 0.07, b);
+    S.noise(t + 0.25, 0.12, 0.12, b, { filter: 'highpass', freq: 5000 });
+  },
   // A great bronze bell: a low strike with fading overtones.
   bell(S, t, b) {
     for (const [f, v, d] of [[196, 0.2, 2.4], [392, 0.1, 1.8], [588, 0.07, 1.3], [932, 0.05, 0.9], [1244, 0.03, 0.6]]) {
@@ -474,6 +479,134 @@ const CRIES = {
     S.osc('sawtooth', 100 * p, t, 0.65, 0.15, b, { slideTo: 65 * p, vibrato: 10 });
     S.noise(t, 0.65, 0.2, b, { filter: 'lowpass', freq: 500, freqTo: 1800 });
     S.noise(t + 0.2, 0.3, 0.06, b, { freq: 5000 });
+  },
+  // Chapters 11-15: new evolutions, the ICE lines and the legendaries.
+  gandergale(S, t, b, p) {
+    S.osc('p25', 330 * p, t, 0.12, 0.14, b, { slideTo: 440 * p });
+    S.osc('p25', 440 * p, t + 0.14, 0.4, 0.14, b, { slideTo: 300 * p, vibrato: 8 });
+    S.noise(t + 0.1, 0.4, 0.06, b, { filter: 'bandpass', freq: 1800 });
+  },
+  hexwraith(S, t, b, p) {
+    S.osc('triangle', 700 * p, t, 0.6, 0.13, b, { slideTo: 240 * p, vibrato: 7 });
+    S.osc('p12', 1400 * p, t + 0.2, 0.4, 0.04, b, { slideTo: 700 * p });
+    S.noise(t + 0.1, 0.6, 0.05, b, { filter: 'highpass', freq: 3500 });
+  },
+  thundervix(S, t, b, p) {
+    S.osc('sawtooth', 600 * p, t, 0.1, 0.12, b, { slideTo: 1100 * p });
+    S.osc('sawtooth', 1000 * p, t + 0.1, 0.35, 0.12, b, { slideTo: 450 * p, vibrato: 16 });
+    S.noise(t, 0.4, 0.12, b, { freq: 6000 });
+  },
+  brawlpaw(S, t, b, p) {
+    S.osc('sawtooth', 300 * p, t, 0.08, 0.14, b, { slideTo: 520 * p });
+    S.osc('sawtooth', 480 * p, t + 0.1, 0.3, 0.14, b, { slideTo: 220 * p, vibrato: 12 });
+    S.noise(t + 0.08, 0.2, 0.1, b, { filter: 'lowpass', freq: 1500 });
+  },
+  quakepike(S, t, b, p) {
+    S.osc('sawtooth', 120 * p, t, 0.6, 0.15, b, { slideTo: 70 * p, vibrato: 8 });
+    S.noise(t, 0.6, 0.2, b, { filter: 'lowpass', freq: 400, freqTo: 1200 });
+  },
+  chillpip(S, t, b, p) {
+    S.osc('p25', 1100 * p, t, 0.07, 0.12, b, { slideTo: 1500 * p });
+    S.osc('p25', 1300 * p, t + 0.09, 0.14, 0.12, b, { slideTo: 1000 * p });
+  },
+  emperice(S, t, b, p) {
+    S.osc('p25', 520 * p, t, 0.14, 0.14, b, { slideTo: 700 * p });
+    S.osc('p25', 660 * p, t + 0.15, 0.4, 0.14, b, { slideTo: 440 * p, vibrato: 6 });
+    S.osc('triangle', 2093 * p, t + 0.1, 0.3, 0.04, b);
+  },
+  frostfawn(S, t, b, p) {
+    S.osc('triangle', 1400 * p, t, 0.1, 0.13, b, { slideTo: 1800 * p });
+    S.osc('triangle', 1700 * p, t + 0.12, 0.25, 0.13, b, { slideTo: 1200 * p, vibrato: 6 });
+  },
+  crystag(S, t, b, p) {
+    S.osc('triangle', 880 * p, t, 0.2, 0.13, b, { slideTo: 1320 * p });
+    S.osc('triangle', 1320 * p, t + 0.2, 0.55, 0.13, b, { slideTo: 660 * p, vibrato: 5 });
+    S.osc('triangle', 2637 * p, t + 0.3, 0.4, 0.04, b);
+  },
+  frostling(S, t, b, p) {
+    S.osc('p50', 260 * p, t, 0.18, 0.13, b, { slideTo: 200 * p });
+    S.noise(t + 0.05, 0.2, 0.08, b, { filter: 'highpass', freq: 4000 });
+  },
+  glaciolem(S, t, b, p) {
+    S.osc('sawtooth', 140 * p, t, 0.55, 0.14, b, { slideTo: 90 * p, vibrato: 6 });
+    S.noise(t + 0.1, 0.5, 0.12, b, { filter: 'bandpass', freq: 3000, freqTo: 800 });
+  },
+  snowkit(S, t, b, p) {
+    S.osc('p12', 1500 * p, t, 0.08, 0.1, b, { slideTo: 2000 * p });
+    S.osc('p12', 1800 * p, t + 0.1, 0.18, 0.1, b, { slideTo: 1400 * p, vibrato: 10 });
+  },
+  blizzara(S, t, b, p) {
+    S.osc('p25', 1000 * p, t, 0.15, 0.12, b, { slideTo: 1500 * p });
+    S.osc('p25', 1400 * p, t + 0.15, 0.45, 0.12, b, { slideTo: 800 * p, vibrato: 9 });
+    S.noise(t, 0.6, 0.07, b, { filter: 'bandpass', freq: 800, freqTo: 3000 });
+  },
+  cygnata(S, t, b, p) {
+    S.osc('sawtooth', 220 * p, t, 0.5, 0.08, b, { vibrato: 5 });
+    S.osc('sawtooth', 330 * p, t + 0.25, 0.5, 0.08, b, { vibrato: 5 });
+    S.osc('p25', 880 * p, t + 0.4, 0.35, 0.1, b, { slideTo: 660 * p });
+  },
+  fernewt(S, t, b, p) {
+    S.osc('p50', 900 * p, t, 0.08, 0.11, b, { slideTo: 1200 * p });
+    S.osc('p50', 1100 * p, t + 0.1, 0.16, 0.11, b, { slideTo: 900 * p });
+  },
+  floraxol(S, t, b, p) {
+    S.osc('p50', 500 * p, t, 0.15, 0.13, b, { slideTo: 700 * p });
+    S.osc('p50', 650 * p, t + 0.16, 0.4, 0.13, b, { slideTo: 420 * p, vibrato: 5 });
+    S.noise(t + 0.2, 0.3, 0.05, b, { filter: 'bandpass', freq: 1200 });
+  },
+  mudbarbel(S, t, b, p) {
+    S.osc('p50', 180 * p, t, 0.2, 0.14, b, { slideTo: 260 * p });
+    S.osc('p50', 240 * p, t + 0.22, 0.3, 0.14, b, { slideTo: 150 * p, vibrato: 7 });
+  },
+  gloamfern(S, t, b, p) {
+    S.osc('triangle', 600 * p, t, 0.7, 0.12, b, { slideTo: 900 * p, vibrato: 4 });
+    S.noise(t + 0.2, 0.5, 0.04, b, { filter: 'bandpass', freq: 2000 });
+  },
+  cometcub(S, t, b, p) {
+    S.osc('p25', 500 * p, t, 0.1, 0.13, b, { slideTo: 800 * p });
+    S.osc('p25', 750 * p, t + 0.12, 0.2, 0.13, b, { slideTo: 500 * p });
+    S.osc('triangle', 2400 * p, t + 0.05, 0.1, 0.04, b);
+  },
+  meteorwolf(S, t, b, p) {
+    S.osc('sawtooth', 220 * p, t, 0.15, 0.14, b, { slideTo: 400 * p });
+    S.osc('sawtooth', 380 * p, t + 0.15, 0.6, 0.14, b, { slideTo: 190 * p, vibrato: 12 });
+    S.noise(t + 0.1, 0.5, 0.1, b, { filter: 'lowpass', freq: 1400 });
+  },
+  abysslure(S, t, b, p) {
+    S.osc('sawtooth', 90 * p, t, 0.6, 0.14, b, { slideTo: 60 * p, vibrato: 4 });
+    S.osc('triangle', 1800 * p, t + 0.3, 0.3, 0.04, b, { slideTo: 2400 * p });
+  },
+  briarlet(S, t, b, p) {
+    S.osc('p25', 800 * p, t, 0.1, 0.12, b, { slideTo: 600 * p });
+    S.noise(t + 0.08, 0.15, 0.08, b, { filter: 'bandpass', freq: 3000 });
+  },
+  briarwild(S, t, b, p) {
+    S.osc('sawtooth', 350 * p, t, 0.12, 0.13, b, { slideTo: 550 * p });
+    S.osc('sawtooth', 500 * p, t + 0.12, 0.4, 0.13, b, { slideTo: 260 * p, vibrato: 10 });
+    S.noise(t + 0.1, 0.35, 0.08, b, { filter: 'bandpass', freq: 2500 });
+  },
+  pebbeat(S, t, b, p) {
+    for (let i = 0; i < 3; i++) S.noise(t + i * 0.1, 0.05, 0.14, b, { filter: 'lowpass', freq: 1200 });
+    S.osc('p50', 400 * p, t + 0.3, 0.12, 0.1, b);
+  },
+  riffstone(S, t, b, p) {
+    S.osc('sawtooth', 196 * p, t, 0.15, 0.1, b);
+    S.osc('sawtooth', 294 * p, t + 0.15, 0.15, 0.1, b);
+    S.osc('sawtooth', 262 * p, t + 0.3, 0.35, 0.1, b, { vibrato: 8 });
+  },
+  ampolith(S, t, b, p) {
+    S.osc('sawtooth', 98 * p, t, 0.7, 0.13, b, { vibrato: 6 });
+    S.osc('sawtooth', 147 * p, t, 0.7, 0.1, b, { vibrato: 6 });
+    S.noise(t, 0.7, 0.16, b, { filter: 'lowpass', freq: 600, freqTo: 2000 });
+  },
+  elegira(S, t, b, p) {
+    for (const [f, d] of [[523, 0], [659, 0.18], [784, 0.36], [1047, 0.54]]) S.osc('triangle', f * p, t + d, 0.9 - d, 0.1, b, { vibrato: 5 });
+    S.noise(t + 0.3, 0.8, 0.04, b, { filter: 'highpass', freq: 4000 });
+  },
+  astralyx(S, t, b, p) {
+    S.osc('sawtooth', 160 * p, t, 0.2, 0.14, b, { slideTo: 320 * p });
+    S.osc('sawtooth', 300 * p, t + 0.2, 0.8, 0.14, b, { slideTo: 110 * p, vibrato: 14 });
+    for (let i = 0; i < 4; i++) S.osc('triangle', (2000 + i * 400) * p, t + 0.3 + i * 0.08, 0.08, 0.04, b);
   },
   rykarn(S, t, b, p) {
     S.osc('sawtooth', 250 * p, t, 0.1, 0.13, b, { slideTo: 450 * p });

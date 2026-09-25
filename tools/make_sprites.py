@@ -71,6 +71,14 @@ for _sheet, _mons in {
     'aimon_sheet_9.webp': 'distortail distortionix specterib phantasmuse moozle bovelle windling zephyron',
     'aimon_sheet_10.webp': 'bellpup bellchime bellumor glacron noctheryx',
     'aimon_sheet_11.webp': 'volcarn pyroclast rykarn',
+    # Chapters 11-14, the ICE lines, the legendaries and new evolutions.
+    'aimon_sheet_12.webp': 'chillpip emperice frostfawn crystag frostling glaciolem snowkit blizzara',
+    'aimon_sheet_13.webp': 'elegira astralyx',
+    'aimon_sheet_14.webp': 'briarlet briarwild pebbeat riffstone ampolith',
+    'aimon_sheet_15.webp': 'cygnata fernewt floraxol mudbarbel',
+    'aimon_sheet_16.webp': 'gloamfern cometcub meteorwolf abysslure',
+    'aimon_sheet_17.webp': 'hexwraith thundervix',
+    'aimon_sheet_18.webp': 'gandergale brawlpaw quakepike',
 }.items():
     for _m in _mons.split():
         SHEETS[_m] = _sheet
@@ -279,6 +287,56 @@ VIEWS.update({
     'volcarn': card((52, 88, 262, 282), (56, 52)),
     'pyroclast': card((358, 352, 528, 458), (64, 50)),
     'rykarn': card((58, 672, 298, 902), (60, 62)),
+})
+
+
+def turnaround(side, back, front, fit, icon=(28, 28), **kw):
+    """A turnaround sheet (side, front and back views): the opponent is the
+    side view, the player's own AIMON the back view, the icon the front."""
+    opts = dict(sat=1.05, tol=40)
+    opts.update(kw)
+    return {
+        'front': dict(box=side, fit=fit, **opts),
+        'back': dict(box=back, fit=fit, **opts),
+        'icon': dict(box=front, fit=icon, **opts),
+    }
+
+
+VIEWS.update({
+    # The ICE lines (sheet 12), drawn as side / front / back turnarounds.
+    'chillpip': turnaround((28, 156, 152, 316), (296, 156, 424, 320), (160, 152, 280, 316), (42, 52), icon=(24, 28)),
+    'emperice': turnaround((24, 340, 158, 552), (296, 364, 428, 552), (160, 352, 290, 552), (54, 62)),
+    'frostfawn': turnaround((600, 140, 748, 332), (912, 136, 1012, 336), (772, 140, 876, 340), (50, 58), icon=(24, 28)),
+    'crystag': turnaround((588, 348, 760, 588), (912, 364, 1036, 584), (772, 352, 904, 596), (60, 64)),
+    'frostling': turnaround((20, 756, 152, 892), (300, 740, 420, 896), (164, 744, 292, 892), (46, 46), icon=(26, 26)),
+    'glaciolem': turnaround((16, 924, 156, 1108), (304, 940, 428, 1116), (152, 932, 302, 1116), (58, 62)),
+    'snowkit': turnaround((608, 720, 748, 908), (896, 728, 1036, 912), (764, 736, 864, 912), (48, 52), icon=(24, 28)),
+    'blizzara': turnaround((584, 928, 760, 1140), (896, 940, 1012, 1148), (760, 940, 894, 1148), (62, 62)),
+    # The legendaries (sheet 13).
+    'elegira': card((32, 144, 728, 952), (64, 64), erase=[(16, 140, 460, 168), (40, 905, 172, 952)]),
+    'astralyx': card((752, 180, 1516, 944), (64, 60), erase=[(780, 912, 910, 960)]),
+    # VICTORY PATH (sheet 14).
+    'briarlet': card((84, 184, 330, 428), (52, 44), icon=(30, 24)),
+    'briarwild': card((568, 84, 1036, 432), (64, 54)),
+    'pebbeat': card((48, 656, 300, 920), (46, 48), icon=(26, 26)),
+    'riffstone': card((456, 572, 804, 924), (58, 58)),
+    'ampolith': card((940, 456, 1492, 980), (64, 58), erase=[(1100, 938, 1230, 985)], specks=0.02),
+    # Chapter 11 (sheet 15).
+    'cygnata': card((300, 110, 756, 524), (58, 60), erase=[(290, 85, 432, 162)]),
+    'fernewt': card((952, 196, 1312, 520), (50, 48), icon=(28, 26)),
+    'floraxol': card((250, 595, 720, 985), (64, 56)),
+    'mudbarbel': card((988, 688, 1448, 996), (60, 44), icon=(30, 22)),
+    # Chapters 11-13 (sheet 16).
+    'gloamfern': card((100, 148, 430, 470), (54, 58)),
+    'cometcub': card((688, 216, 992, 468), (50, 44), icon=(28, 24)),
+    'meteorwolf': card((1092, 80, 1512, 496), (64, 60), erase=[(1080, 78, 1116, 150)]),
+    'abysslure': card((440, 612, 1040, 956), (64, 52), icon=(30, 24)),
+    # New evolutions of early AIMON (sheets 17 and 18).
+    'hexwraith': card((640, 28, 1168, 604), (60, 64)),
+    'thundervix': card((628, 616, 1248, 1156), (64, 58)),
+    'gandergale': card((676, 8, 1156, 400), (64, 54)),
+    'brawlpaw': card((656, 404, 1204, 800), (64, 56)),
+    'quakepike': card((604, 800, 1288, 1192), (64, 50)),
 })
 
 # Views that should be mirrored (the sheets' side views face left, which is

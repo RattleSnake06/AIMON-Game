@@ -38,7 +38,7 @@ const SPECIES = {
   goskie: {
     name: 'GOSKIE', num: 10, types: ['water'],
     base: { hp: 40, atk: 45, def: 38, spa: 40, spd: 38, spe: 56 },
-    catchRate: 255, baseExp: 50, ability: 'KEEN EYE',
+    catchRate: 255, baseExp: 50, ability: 'KEEN EYE', evo: { to: 'gandergale', level: 36 },
     learnset: [[1, 'peck'], [1, 'honk'], [6, 'watergun'], [9, 'quickattack'], [13, 'wingattack'],
       [17, 'aquajet'], [21, 'bubblebeam']],
     dex: {
@@ -111,7 +111,7 @@ const SPECIES = {
   terrapike: {
     name: 'TERRAPIKE', num: 17, types: ['ground'],
     base: { hp: 62, atk: 70, def: 82, spa: 30, spd: 46, spe: 30 },
-    catchRate: 120, baseExp: 70, ability: 'STURDY',
+    catchRate: 120, baseExp: 70, ability: 'STURDY', evo: { to: 'quakepike', level: 36 },
     learnset: [[1, 'tackle'], [1, 'harden'], [5, 'mudslap'], [9, 'rockthrow'], [12, 'bulldoze'], [16, 'rocktomb'], [20, 'takedown']],
     dex: {
       category: 'SPIKESHELL', height: '2\'00"', weight: '88.2 lbs',
@@ -121,7 +121,7 @@ const SPECIES = {
   scrapaw: {
     name: 'SCRAPAW', num: 18, types: ['fighting'],
     base: { hp: 52, atk: 78, def: 46, spa: 30, spd: 42, spe: 66 },
-    catchRate: 120, baseExp: 68, ability: 'INNER FOCUS',
+    catchRate: 120, baseExp: 68, ability: 'INNER FOCUS', evo: { to: 'brawlpaw', level: 36 },
     learnset: [[1, 'scratch'], [1, 'leer'], [5, 'rocksmash'], [9, 'karatechop'], [12, 'doublekick'], [16, 'bulkup'], [20, 'bite']],
     dex: {
       category: 'SCRAPPER', height: '2\'07"', weight: '45.2 lbs',
@@ -131,7 +131,7 @@ const SPECIES = {
   voltvix: {
     name: 'VOLTVIX', num: 19, types: ['electric'],
     base: { hp: 48, atk: 58, def: 42, spa: 72, spd: 48, spe: 84 },
-    catchRate: 45, baseExp: 78, ability: 'STATIC',
+    catchRate: 45, baseExp: 78, ability: 'STATIC', evo: { to: 'thundervix', level: 36 },
     learnset: [[1, 'quickattack'], [1, 'thundershock'], [5, 'tailwhip'], [8, 'thunderwave'], [11, 'spark'],
       [14, 'chargebeam'], [18, 'bite'], [22, 'swift']],
     dex: {
@@ -211,7 +211,7 @@ const SPECIES = {
   wraithling: {
     name: 'WRAITHLING', num: 26, types: ['ghost'],
     base: { hp: 45, atk: 40, def: 52, spa: 72, spd: 66, spe: 60 },
-    catchRate: 90, baseExp: 72, ability: 'CURSED BODY',
+    catchRate: 90, baseExp: 72, ability: 'CURSED BODY', evo: { to: 'hexwraith', level: 36 },
     learnset: [[1, 'astonish'], [1, 'leer'], [5, 'lick'], [9, 'willowisp'], [13, 'nightshade'],
       [18, 'hex'], [24, 'shadowball']],
     dex: {
@@ -753,6 +753,330 @@ const SPECIES = {
     dex: {
       category: 'SILENCER', height: '5\'07"', weight: '137.3 lbs',
       text: 'Its presence alone silences the weak. It is said that when it roars, only the strong can still be heard.',
+    },
+  },
+  // --- Chapters 11-15 ---------------------------------------------------------
+  // New evolutions of early AIMON (all at Lv 36).
+  gandergale: {
+    name: 'GANDERGALE', num: 67, types: ['water', 'flying'],
+    base: { hp: 75, atk: 80, def: 65, spa: 70, spd: 65, spe: 85 },
+    catchRate: 45, baseExp: 172, ability: 'KEEN EYE',
+    learnset: [[1, 'peck'], [1, 'honk'], [1, 'watergun'], [1, 'quickattack'], [13, 'wingattack'], [17, 'aquajet'],
+      [21, 'bubblebeam'], [28, 'aerialace'], [33, 'waterpulse'], [36, 'airslash'], [42, 'aquatail'],
+      [48, 'bravebird'], [54, 'hurricane']],
+    dex: {
+      category: 'GALE GOOSE', height: '4\'03"', weight: '66.1 lbs',
+      text: 'It leads great flocks across VALEMORA every autumn. One beat of its wings can knock a trainer clean off their feet.',
+    },
+  },
+  hexwraith: {
+    name: 'HEXWRAITH', num: 68, types: ['ghost'],
+    base: { hp: 70, atk: 60, def: 70, spa: 115, spd: 95, spe: 80 },
+    catchRate: 45, baseExp: 175, ability: 'CURSED BODY',
+    learnset: [[1, 'astonish'], [1, 'leer'], [1, 'lick'], [9, 'willowisp'], [13, 'nightshade'], [18, 'hex'],
+      [24, 'shadowball'], [30, 'shadowsneak'], [36, 'darkpulse'], [44, 'nastyplot']],
+    dex: {
+      category: 'LANTERN', height: '5\'05"', weight: '12.3 lbs',
+      text: 'It carries a lantern of violet flame through old forests at night. Travelers who follow its light walk in circles until dawn.',
+    },
+  },
+  thundervix: {
+    name: 'THUNDERVIX', num: 69, types: ['electric'],
+    base: { hp: 72, atk: 92, def: 68, spa: 98, spd: 70, spe: 105 },
+    catchRate: 45, baseExp: 178, ability: 'STATIC',
+    learnset: [[1, 'quickattack'], [1, 'thundershock'], [1, 'tailwhip'], [8, 'thunderwave'], [11, 'spark'],
+      [14, 'chargebeam'], [18, 'bite'], [22, 'swift'], [30, 'thunderfang'], [36, 'wildcharge'], [42, 'thunderbolt'],
+      [48, 'crunch']],
+    dex: {
+      category: 'THUNDER FOX', height: '4\'11"', weight: '88.2 lbs',
+      text: 'Lightning crackles through its mane whenever it runs. On stormy nights it howls, and the thunder howls back.',
+    },
+  },
+  brawlpaw: {
+    name: 'BRAWLPAW', num: 70, types: ['fighting'],
+    base: { hp: 85, atk: 120, def: 80, spa: 50, spd: 70, spe: 85 },
+    catchRate: 45, baseExp: 175, ability: 'GUTS',
+    learnset: [[1, 'scratch'], [1, 'leer'], [5, 'rocksmash'], [9, 'karatechop'], [12, 'doublekick'], [16, 'bulkup'],
+      [20, 'bite'], [28, 'brickbreak'], [36, 'crunch'], [44, 'closecombat']],
+    dex: {
+      category: 'BRAWLER', height: '5\'03"', weight: '130.1 lbs',
+      text: 'Its red gauntlets are hardened fur, tougher than stone. It trains by punching boulders until they crack, then naps on the gravel.',
+    },
+  },
+  quakepike: {
+    name: 'QUAKEPIKE', num: 71, types: ['ground'],
+    base: { hp: 95, atk: 110, def: 115, spa: 60, spd: 70, spe: 50 },
+    catchRate: 45, baseExp: 178, ability: 'STURDY',
+    learnset: [[1, 'tackle'], [1, 'harden'], [5, 'mudslap'], [9, 'rockthrow'], [12, 'bulldoze'], [16, 'rocktomb'],
+      [20, 'takedown'], [28, 'rockslide'], [36, 'earthquake'], [42, 'stoneedge'], [48, 'earthpower']],
+    dex: {
+      category: 'QUAKE SHELL', height: '6\'07"', weight: '540.1 lbs',
+      text: 'When it slams its spiked tail down, the ground ripples for miles. The crystals on its back glow hot after every quake.',
+    },
+  },
+  // The ICE lines.
+  chillpip: {
+    name: 'CHILLPIP', num: 72, types: ['ice'],
+    base: { hp: 50, atk: 50, def: 50, spa: 55, spd: 50, spe: 45 },
+    catchRate: 120, baseExp: 62, ability: 'ICE BODY', evo: { to: 'emperice', level: 34 },
+    learnset: [[1, 'peck'], [1, 'growl'], [4, 'powdersnow'], [8, 'quickattack'], [12, 'iceshard'],
+      [16, 'wingattack'], [21, 'icywind'], [26, 'aquajet'], [31, 'aurorabeam']],
+    dex: {
+      category: 'PENGUIN', height: '1\'08"', weight: '17.6 lbs',
+      text: 'It waddles across frozen lakes in long, wobbly lines. The ice crystals on its head grow a little in every snowstorm.',
+    },
+  },
+  emperice: {
+    name: 'EMPERICE', num: 73, types: ['ice'],
+    base: { hp: 90, atk: 85, def: 80, spa: 90, spd: 85, spe: 60 },
+    catchRate: 45, baseExp: 172, ability: 'ICE BODY',
+    learnset: [[1, 'peck'], [1, 'growl'], [1, 'powdersnow'], [1, 'quickattack'], [12, 'iceshard'],
+      [16, 'wingattack'], [21, 'icywind'], [26, 'aquajet'], [31, 'aurorabeam'], [34, 'icebeam'], [40, 'surf'],
+      [46, 'blizzard']],
+    dex: {
+      category: 'EMPEROR', height: '4\'11"', weight: '187.4 lbs',
+      text: 'It rules the frozen coasts, wearing a crown of ice that never melts. One glare from it can freeze a wave mid-crash.',
+    },
+  },
+  frostfawn: {
+    name: 'FROSTFAWN', num: 74, types: ['ice'],
+    base: { hp: 50, atk: 45, def: 45, spa: 65, spd: 60, spe: 50 },
+    catchRate: 120, baseExp: 64, ability: 'SNOW CLOAK', evo: { to: 'crystag', level: 40 },
+    learnset: [[1, 'tackle'], [1, 'growl'], [5, 'powdersnow'], [9, 'tailwhip'], [13, 'iceshard'],
+      [17, 'magicalleaf'], [22, 'icywind'], [27, 'aurorabeam'], [33, 'headbutt'], [38, 'icebeam']],
+    dex: {
+      category: 'FROST FAWN', height: '2\'11"', weight: '41.9 lbs',
+      text: 'Its antlers are made of living ice. Wherever it lies down to sleep, a ring of frost flowers blooms by morning.',
+    },
+  },
+  crystag: {
+    name: 'CRYSTAG', num: 75, types: ['ice'],
+    base: { hp: 85, atk: 75, def: 80, spa: 115, spd: 100, spe: 75 },
+    catchRate: 45, baseExp: 185, ability: 'SNOW CLOAK',
+    learnset: [[1, 'tackle'], [1, 'growl'], [1, 'powdersnow'], [1, 'tailwhip'], [13, 'iceshard'],
+      [17, 'magicalleaf'], [22, 'icywind'], [27, 'aurorabeam'], [33, 'headbutt'], [38, 'icebeam'],
+      [40, 'iciclecrash'], [46, 'blizzard'], [52, 'powergem']],
+    dex: {
+      category: 'GLACIER STAG', height: '6\'03"', weight: '191.8 lbs',
+      text: 'The guardian of the high snowfields. Its serpent tail trails a river of snowflakes, and shards of ice circle its antlers.',
+    },
+  },
+  frostling: {
+    name: 'FROSTLING', num: 76, types: ['ice'],
+    base: { hp: 60, atk: 60, def: 80, spa: 35, spd: 45, spe: 40 },
+    catchRate: 120, baseExp: 64, ability: 'STURDY', evo: { to: 'glaciolem', level: 36 },
+    learnset: [[1, 'tackle'], [1, 'harden'], [5, 'powdersnow'], [9, 'rockthrow'], [13, 'iceshard'],
+      [17, 'defensecurl'], [21, 'rocktomb'], [26, 'icefang'], [31, 'headbutt'], [35, 'rockslide']],
+    dex: {
+      category: 'SNOWBALL', height: '2\'04"', weight: '88.2 lbs',
+      text: 'It hides in snowbanks with only its glowing eyes showing. When startled, it rolls downhill and gathers snow as it goes.',
+    },
+  },
+  glaciolem: {
+    name: 'GLACIOLEM', num: 77, types: ['ice'],
+    base: { hp: 95, atk: 110, def: 130, spa: 45, spd: 70, spe: 50 },
+    catchRate: 45, baseExp: 178, ability: 'STURDY',
+    learnset: [[1, 'tackle'], [1, 'harden'], [1, 'powdersnow'], [1, 'rockthrow'], [13, 'iceshard'],
+      [17, 'defensecurl'], [21, 'rocktomb'], [26, 'icefang'], [31, 'headbutt'], [36, 'iciclecrash'], [42, 'bulkup'],
+      [48, 'stoneedge'], [54, 'earthquake']],
+    dex: {
+      category: 'GLACIER', height: '7\'03"', weight: '881.8 lbs',
+      text: 'A walking glacier. Mountain villages once built their homes in its shadow, trusting it to hold back avalanches with its bare hands.',
+    },
+  },
+  snowkit: {
+    name: 'SNOWKIT', num: 78, types: ['ice'],
+    base: { hp: 45, atk: 50, def: 45, spa: 60, spd: 50, spe: 60 },
+    catchRate: 120, baseExp: 62, ability: 'ICE BODY', evo: { to: 'blizzara', level: 38 },
+    learnset: [[1, 'scratch'], [1, 'tailwhip'], [5, 'powdersnow'], [9, 'quickattack'], [13, 'iceshard'],
+      [17, 'bite'], [21, 'icywind'], [26, 'icefang'], [31, 'aurorabeam'], [35, 'swift']],
+    dex: {
+      category: 'SNOW FOX', height: '2\'00"', weight: '20.9 lbs',
+      text: 'Its tails end in ice crystals that chime softly as it runs. It can play in fresh snow for hours without tiring.',
+    },
+  },
+  blizzara: {
+    name: 'BLIZZARA', num: 79, types: ['ice'],
+    base: { hp: 73, atk: 67, def: 70, spa: 110, spd: 95, spe: 105 },
+    catchRate: 45, baseExp: 182, ability: 'ICE BODY',
+    learnset: [[1, 'scratch'], [1, 'tailwhip'], [1, 'powdersnow'], [1, 'quickattack'], [13, 'iceshard'],
+      [17, 'bite'], [21, 'icywind'], [26, 'icefang'], [31, 'aurorabeam'], [38, 'icebeam'], [44, 'nastyplot'],
+      [50, 'blizzard']],
+    dex: {
+      category: 'BLIZZARD FOX', height: '4\'07"', weight: '70.5 lbs',
+      text: 'A snowstorm follows wherever it goes. Its crystal tails catch the moonlight and scatter it across the snow like stars.',
+    },
+  },
+  // Chapter 11: SONANCE TOWER 4F and the roads around it.
+  cygnata: {
+    name: 'CYGNATA', num: 80, types: ['water', 'sound'],
+    base: { hp: 90, atk: 60, def: 80, spa: 115, spd: 100, spe: 75 },
+    catchRate: 45, baseExp: 190, ability: 'OWN TEMPO',
+    learnset: [[1, 'peck'], [1, 'growl'], [6, 'watergun'], [10, 'echoedvoice'], [15, 'wingattack'],
+      [20, 'bubblebeam'], [26, 'disarmingvoice'], [32, 'waterpulse'], [38, 'hypervoice'], [44, 'surf'],
+      [50, 'boomburst'], [56, 'hydropump']],
+    dex: {
+      category: 'MAESTRO', height: '5\'07"', weight: '67.2 lbs',
+      text: 'It plays a cello of driftwood with its wings, and the sea falls still to listen. Some say its songs carry the voices of the lost.',
+    },
+  },
+  fernewt: {
+    name: 'FERNEWT', num: 81, types: ['grass', 'water'],
+    base: { hp: 50, atk: 55, def: 50, spa: 60, spd: 50, spe: 55 },
+    catchRate: 120, baseExp: 64, ability: 'CHLOROPHYLL', evo: { to: 'floraxol', level: 34 },
+    learnset: [[1, 'tackle'], [1, 'growl'], [4, 'absorb'], [7, 'watergun'], [11, 'razorleaf'], [15, 'bubblebeam'],
+      [20, 'megadrain'], [25, 'waterpulse'], [30, 'magicalleaf']],
+    dex: {
+      category: 'LEAF NEWT', height: '1\'10"', weight: '13.2 lbs',
+      text: 'It naps on lily pads in warm ponds. The pink leaves on its head open wide when it is happy and close tight when it rains.',
+    },
+  },
+  floraxol: {
+    name: 'FLORAXOL', num: 82, types: ['water', 'grass'],
+    base: { hp: 90, atk: 80, def: 85, spa: 95, spd: 90, spe: 70 },
+    catchRate: 45, baseExp: 178, ability: 'CHLOROPHYLL',
+    learnset: [[1, 'tackle'], [1, 'growl'], [1, 'absorb'], [1, 'watergun'], [11, 'razorleaf'], [15, 'bubblebeam'],
+      [20, 'megadrain'], [25, 'waterpulse'], [30, 'magicalleaf'], [34, 'gigadrain'], [40, 'surf'], [46, 'leafblade'],
+      [52, 'hydropump']],
+    dex: {
+      category: 'BLOOM NEWT', height: '7\'02"', weight: '243.6 lbs',
+      text: 'Its leaves spread like a flowering reef. Wherever it swims, lotus blossoms follow and the water turns clear to the bottom.',
+    },
+  },
+  mudbarbel: {
+    name: 'MUDBARBEL', num: 83, types: ['water', 'ground'],
+    base: { hp: 100, atk: 85, def: 85, spa: 60, spd: 70, spe: 60 },
+    catchRate: 75, baseExp: 160, ability: 'HYDRATION',
+    learnset: [[1, 'tackle'], [1, 'mudslap'], [6, 'watergun'], [11, 'bite'], [16, 'bulldoze'], [21, 'bubblebeam'],
+      [27, 'aquatail'], [33, 'earthpower'], [39, 'crunch'], [45, 'earthquake'], [51, 'hydropump']],
+    dex: {
+      category: 'MUDFISH', height: '4\'03"', weight: '150.4 lbs',
+      text: 'It wallows in river mud with only its whiskers showing, feeling for prey. It can stay out of water for days if the mud is wet.',
+    },
+  },
+  // Chapters 12 and 13: the MYSTIC GROVE, STARFALL ISLE and the sea routes.
+  gloamfern: {
+    name: 'GLOAMFERN', num: 84, types: ['ghost', 'grass'],
+    base: { hp: 80, atk: 70, def: 80, spa: 110, spd: 100, spe: 85 },
+    catchRate: 25, baseExp: 200, ability: 'NIGHT VEIL',
+    learnset: [[1, 'astonish'], [1, 'absorb'], [8, 'leafage'], [14, 'hex'], [20, 'megadrain'], [26, 'nightshade'],
+      [32, 'magicalleaf'], [38, 'shadowball'], [44, 'gigadrain'], [50, 'leafblade']],
+    dex: {
+      category: 'GLOAM', height: '4\'01"', weight: '32.0 lbs',
+      text: 'It walks the MYSTIC GROVE only on moonless nights. Its hooves leave glowing moss, and the old trees whisper as it passes.',
+    },
+  },
+  cometcub: {
+    name: 'COMETCUB', num: 85, types: ['rock', 'dark'],
+    base: { hp: 55, atk: 70, def: 55, spa: 45, spd: 45, spe: 60 },
+    catchRate: 90, baseExp: 66, ability: 'STARDUST', evo: { to: 'meteorwolf', level: 38 },
+    learnset: [[1, 'tackle'], [1, 'leer'], [5, 'rockthrow'], [9, 'bite'], [13, 'feintattack'], [18, 'rocktomb'],
+      [23, 'snarl'], [28, 'crunch'], [33, 'rockslide'], [37, 'powergem']],
+    dex: {
+      category: 'COMET', height: '2\'03"', weight: '44.1 lbs',
+      text: 'It is born where a shooting star lands. The star on its tail glows brighter the closer it is to the place it fell.',
+    },
+  },
+  meteorwolf: {
+    name: 'METEORWOLF', num: 86, types: ['rock', 'dark'],
+    base: { hp: 90, atk: 125, def: 95, spa: 60, spd: 75, spe: 90 },
+    catchRate: 45, baseExp: 190, ability: 'STARDUST',
+    learnset: [[1, 'tackle'], [1, 'leer'], [1, 'rockthrow'], [1, 'bite'], [13, 'feintattack'], [18, 'rocktomb'],
+      [23, 'snarl'], [28, 'crunch'], [33, 'rockslide'], [38, 'nightslash'], [44, 'stoneedge'], [50, 'darkpulse']],
+    dex: {
+      category: 'FALLEN STAR', height: '6\'07"', weight: '407.9 lbs',
+      text: 'Its body is armored with pieces of fallen stars. On clear nights it stands on the highest cliff and howls until meteors fall.',
+    },
+  },
+  abysslure: {
+    name: 'ABYSSLURE', num: 87, types: ['water', 'dark'],
+    base: { hp: 85, atk: 105, def: 70, spa: 75, spd: 60, spe: 75 },
+    catchRate: 60, baseExp: 170, ability: 'SWIFT SWIM',
+    learnset: [[1, 'bite'], [1, 'watergun'], [7, 'feintattack'], [12, 'bubblebeam'], [18, 'aquajet'], [24, 'crunch'],
+      [30, 'waterpulse'], [36, 'aquatail'], [42, 'darkpulse'], [48, 'hydropump']],
+    dex: {
+      category: 'ABYSS', height: '5\'03"', weight: '176.4 lbs',
+      text: 'It lurks in the black water around the SUNKEN SHRINE. Sailors who follow the glow of its lure are never seen again.',
+    },
+  },
+  // Chapter 14: BRAMBLEWOOD and VICTORY PATH.
+  briarlet: {
+    name: 'BRIARLET', num: 88, types: ['grass', 'dark'],
+    base: { hp: 50, atk: 60, def: 45, spa: 45, spd: 45, spe: 55 },
+    catchRate: 120, baseExp: 60, ability: 'THORN COAT', evo: { to: 'briarwild', level: 22 },
+    learnset: [[1, 'scratch'], [1, 'leer'], [4, 'leafage'], [8, 'bite'], [12, 'razorleaf'], [16, 'feintattack'],
+      [20, 'seedbomb']],
+    dex: {
+      category: 'BRIAR', height: '1\'08"', weight: '15.4 lbs',
+      text: 'It hides in thorny thickets and nips at anything that reaches in. BRAMBLEWOOD is full of them, and of lost hikers.',
+    },
+  },
+  briarwild: {
+    name: 'BRIARWILD', num: 89, types: ['grass', 'dark'],
+    base: { hp: 75, atk: 105, def: 70, spa: 65, spd: 65, spe: 90 },
+    catchRate: 45, baseExp: 172, ability: 'THORN COAT',
+    learnset: [[1, 'scratch'], [1, 'leer'], [1, 'leafage'], [1, 'bite'], [12, 'razorleaf'], [16, 'feintattack'],
+      [20, 'seedbomb'], [22, 'crunch'], [27, 'leafblade'], [33, 'nightslash'], [39, 'xscissor'], [45, 'darkpulse']],
+    dex: {
+      category: 'THORNBACK', height: '4\'07"', weight: '99.2 lbs',
+      text: 'New briars sprout from its antlers every spring. It stalks the shifting paths of BRAMBLEWOOD, and the forest moves to help it.',
+    },
+  },
+  pebbeat: {
+    name: 'PEBBEAT', num: 90, types: ['rock', 'sound'],
+    base: { hp: 50, atk: 55, def: 65, spa: 45, spd: 40, spe: 35 },
+    catchRate: 120, baseExp: 60, ability: 'PUNK ROCK', evo: { to: 'riffstone', level: 28 },
+    learnset: [[1, 'tackle'], [1, 'growl'], [5, 'rockthrow'], [9, 'sonicboom'], [13, 'harden'], [17, 'echoedvoice'],
+      [21, 'rocktomb'], [25, 'screech']],
+    dex: {
+      category: 'PEBBLE', height: '1\'04"', weight: '44.1 lbs',
+      text: 'It clacks its stony scales together to keep a beat. A band of them sounds like a drumline rolling down the mountain.',
+    },
+  },
+  riffstone: {
+    name: 'RIFFSTONE', num: 91, types: ['rock', 'sound'],
+    base: { hp: 70, atk: 75, def: 90, spa: 70, spd: 55, spe: 50 },
+    catchRate: 90, baseExp: 140, ability: 'PUNK ROCK', evo: { to: 'ampolith', level: 36 },
+    learnset: [[1, 'tackle'], [1, 'growl'], [1, 'rockthrow'], [1, 'sonicboom'], [13, 'harden'], [17, 'echoedvoice'],
+      [21, 'rocktomb'], [25, 'screech'], [28, 'rockslide'], [33, 'hypervoice'], [38, 'powergem']],
+    dex: {
+      category: 'RIFF', height: '3\'03"', weight: '264.6 lbs',
+      text: 'The crystal disc on its shoulder hums whenever it moves. It plays the same riff over and over until the cliffs play it back.',
+    },
+  },
+  ampolith: {
+    name: 'AMPOLITH', num: 92, types: ['rock', 'sound'],
+    base: { hp: 95, atk: 100, def: 115, spa: 100, spd: 70, spe: 50 },
+    catchRate: 45, baseExp: 200, ability: 'PUNK ROCK',
+    learnset: [[1, 'tackle'], [1, 'growl'], [1, 'rockthrow'], [1, 'sonicboom'], [13, 'harden'], [17, 'echoedvoice'],
+      [21, 'rocktomb'], [25, 'screech'], [28, 'rockslide'], [33, 'hypervoice'], [36, 'boomburst'], [42, 'stoneedge'],
+      [48, 'earthquake']],
+    dex: {
+      category: 'AMPLIFIER', height: '8\'02"', weight: '992.1 lbs',
+      text: 'The great speaker on its side can shake a mountain. It guards VICTORY PATH, and only trainers with a loud enough song may pass.',
+    },
+  },
+  // The legendaries.
+  elegira: {
+    name: 'ELEGIRA', num: 93, types: ['sound', 'ghost'],
+    base: { hp: 100, atk: 80, def: 90, spa: 135, spd: 115, spe: 80 },
+    catchRate: 3, baseExp: 300, ability: 'LEVITATE',
+    learnset: [[1, 'echoedvoice'], [1, 'astonish'], [10, 'hex'], [20, 'waterpulse'], [30, 'hypervoice'],
+      [40, 'shadowball'], [50, 'boomburst'], [60, 'nastyplot']],
+    dex: {
+      category: 'RIFT SONG', height: '18\'01"', weight: '385.8 lbs',
+      text: 'It is said to have sung with the first WARDENS when the RIFT was sealed. It sleeps beneath the SUNKEN SHRINE, keeping the last note of their song.',
+    },
+  },
+  astralyx: {
+    name: 'ASTRALYX', num: 94, types: ['dark'],
+    base: { hp: 95, atk: 130, def: 100, spa: 90, spd: 90, spe: 95 },
+    catchRate: 3, baseExp: 300, ability: 'PRESSURE',
+    learnset: [[1, 'bite'], [1, 'leer'], [10, 'feintattack'], [20, 'crunch'], [30, 'nightslash'], [40, 'powergem'],
+      [50, 'darkpulse'], [60, 'stoneedge']],
+    dex: {
+      category: 'STARSTONE', height: '9\'06"', weight: '705.5 lbs',
+      text: 'Its body is stone from the night sky. It walks the MYSTIC GROVE when the stars fall, and every shard it sheds becomes a new star.',
     },
   },
 };

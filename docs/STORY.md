@@ -385,3 +385,12 @@ lights on.
 - **New trainers** reuse existing portraits: grunt, the admins, hiker, worker, scientist, sailor, swimmer, fisher and the other trainer classes. RYKER can use the rival portrait in the COMMANDER's colors. The CONDUCTOR, the late WARDENS and the ELITE FOUR use the existing admin and trainer portrait styles.
 - **TM05 to TM08** use existing moves: EARTH POWER, THUNDERBOLT, HYPER VOICE and SHADOW BALL.
 - **Every team** above was planned with the first 33 AIMON. The chapter 6-10 AIMON (No. 40-66) are now in the game too, and each chapter's teams and wild AIMON will be updated to use them when that chapter is built (for example SAHRA's ace becomes DUNARCH, and RYKER's becomes RYKARN).
+- **The chapter 11-15 AIMON (No. 67-94)** are in the game too, with a new **ICE** type. Where they are meant to go:
+  - SONANCE TOWER 4F (Ch 11): CYGNATA, the swan with the cello;
+  - Route 6 and the Marshland (Ch 12): FERNEWT, FLORAXOL and MUDBARBEL;
+  - the MYSTIC GROVE: GLOAMFERN (moonless nights only) and ASTRALYX, the STARSTONE legendary;
+  - STARFALL ISLE: COMETCUB, and METEORWOLF as NOX's GYM 8 ace;
+  - the sea routes to the SUNKEN SHRINE (Ch 13): ABYSSLURE; ELEGIRA, the RIFT legendary, sleeps in the shrine;
+  - VICTORY PATH (Ch 14): BRIARLET, BRIARWILD, PEBBEAT, RIFFSTONE and AMPOLITH;
+  - the ICE lines (CHILLPIP, FROSTFAWN, FROSTLING, SNOWKIT and their evolutions): the snowy north (ROUTE 11, STONEPEAK) or VICTORY PATH;
+  - the new Lv 36 forms GANDERGALE, HEXWRAITH, THUNDERVIX, BRAWLPAW and QUAKEPIKE: late-game teams, such as CHAMPION KAI's GANDERGALE and BRAWLPAW, and ELITE SHADE's HEXWRAITH.

@@ -348,6 +348,8 @@ const BattleArt = {
       up: [['...w...', '..www..', '.wwwww.', 'www.www', '..www..', '..www..'], { w: '#78b8ff' }],
       bolt: [['....yy', '...yy.', '..yyy.', '.yyyyy', '...yy.', '..yy..', '.yy...', 'yy....'], { y: '#f8e040' }],
       spark: [['y.y', '.w.', 'y.y'], { y: '#f8e040', w: '#ffffff' }],
+      shard: [['...w', '..wb', '.wbB', 'wbB.', 'bB..'], { w: '#ffffff', b: '#a8e8f8', B: '#58b0d8' }],
+      flake: [['.w.w.', 'w.b.w', '.bwb.', 'w.b.w', '.w.w.'], { w: '#ffffff', b: '#a8e8f8' }],
       zzz: [['zzzz', '..z.', '.z..', 'zzzz'], { z: '#d0d8f8' }],
       mud: [['.bb.', 'bBbb', 'bbbb', '.bb.'], { b: '#8a6038', B: '#b08050' }],
       fist: [['.ooo.', 'orrro', 'orrrro', 'orrrro', '.oooo'], { o: '#401818', r: '#e05048' }],
@@ -536,6 +538,18 @@ const BattleFX = {
         }
         yield 14;
         yield* this.burst(b, BattleArt.sprite('drop'), to, 6, 18, 14);
+        break;
+      case 'ice':
+        Sound.sfx('ice');
+        for (let i = 0; i < 6; i++) {
+          Co.start(this.fly(b, BattleArt.sprite('shard'), [from[0], from[1] + (i % 3 - 1) * 6], [to[0] + U.randInt(-8, 8), to[1] + U.randInt(-6, 6)], 14, 6));
+          yield 3;
+        }
+        yield 12;
+        target.tint = '#a8e8f8';
+        yield* all(this.burst(b, BattleArt.sprite('flake'), to, 7, 22, 18), this.impact(b, to),
+          this.tween(18, (t) => { target.tintA = 0.6 * Math.sin(t * Math.PI); }));
+        target.tint = null;
         break;
       case 'fire':
         Sound.sfx('fire');

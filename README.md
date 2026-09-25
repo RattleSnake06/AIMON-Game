@@ -325,8 +325,10 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
 - Menus: AIMONDEX (with entries adapted from the design sheets), party,
   summary pages, bag, trainer card, save and options.
 - **Types:** Normal, Grass, Fire, Water, Flying, Rock, Electric, Ground,
-  Fighting, Bug, Dark, Ghost and a new **Sound** type (strong against Rock
-  and Ghost, weak to Ground and Dark). Immunities work as you'd expect:
+  Fighting, Bug, Dark, Ghost, a new **Sound** type (strong against Rock,
+  Ghost and Ice, weak to Ground and Dark) and **Ice** (strong against Grass,
+  Ground and Flying, weak to Fire, Fighting, Rock and Sound). Immunities work
+  as you'd expect:
   Ground ignores Electric, Flying ignores Ground, and Ghost ignores Normal
   and Fighting (and vice versa).
 - **Evolution:** AIMON that level up in a battle can evolve afterwards. The
@@ -335,8 +337,10 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
   MOLTAROCK → MAGMORN → CALDERON and ARCHEPIN → MARSHHYN → MAELWYRM. KAI's
   starter is evolved too once his team reaches Lv 20. The other evolutions
   so far: TIDEPUP → TIDEFIN (Lv 20), REEFWHIRL → REEFLORD (26), SKYDRIFT
-  → SKYSERAPH (28), VOLTIMP → STORMGALE (24), TUNER → SONARION (32) and
-  CAIRNLING → OBELITH (30).
+  → SKYSERAPH (28), VOLTIMP → STORMGALE (24), TUNER → SONARION (32),
+  CAIRNLING → OBELITH (30), and at Lv 36 GOSKIE → GANDERGALE, WRAITHLING →
+  HEXWRAITH, VOLTVIX → THUNDERVIX, SCRAPAW → BRAWLPAW and TERRAPIKE →
+  QUAKEPIKE.
 - **Original AIMON (No. 33-39)** drawn in code with `tools/pixelart.py`:
   GEODILLO (ROCK/ELECTRIC geode armadillo), HOURGHAST (GHOST/GROUND hourglass
   spirit), NOCTUMOTH (DARK/BUG eclipse moth), MOSSTODON (GRASS/GROUND mossy
@@ -365,6 +369,25 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
   PLUME, FLARE BLITZ, WILD CHARGE, EARTHQUAKE, BRICK BREAK, AURA SPHERE,
   CLOSE COMBAT, X-SCISSOR, AERIAL ACE, HURRICANE, BRAVE BIRD, STONE EDGE,
   NIGHT SLASH and DARK PULSE.
+- **AIMON for chapters 11-15 (No. 67-94)**, also in the AIMONDEX and waiting
+  for their chapters:
+  - new Lv 36 forms of early AIMON: GANDERGALE (WATER/FLYING), HEXWRAITH
+    (GHOST), THUNDERVIX (ELECTRIC), BRAWLPAW (FIGHTING) and QUAKEPIKE
+    (GROUND);
+  - four ICE lines: CHILLPIP → EMPERICE (34), FROSTFAWN → CRYSTAG (40),
+    FROSTLING → GLACIOLEM (36) and SNOWKIT → BLIZZARA (38);
+  - CYGNATA (WATER/SOUND, a swan with a cello), FERNEWT → FLORAXOL (34,
+    GRASS/WATER), MUDBARBEL (WATER/GROUND), GLOAMFERN (GHOST/GRASS, seen only
+    on moonless nights), COMETCUB → METEORWOLF (38, ROCK/DARK, NOX's ace) and
+    ABYSSLURE (WATER/DARK);
+  - for VICTORY PATH: BRIARLET → BRIARWILD (22, GRASS/DARK) and PEBBEAT →
+    RIFFSTONE (28) → AMPOLITH (36, ROCK/SOUND);
+  - two legendaries: ELEGIRA (SOUND/GHOST), who sleeps under the SUNKEN
+    SHRINE, and ASTRALYX (DARK), the STARSTONE legend of the MYSTIC GROVE.
+
+  Eight new ICE moves go with them: POWDER SNOW, ICE SHARD, ICY WIND, ICE
+  FANG, AURORA BEAM, ICE BEAM, ICICLE CRASH and BLIZZARD.
+  [docs/new_aimon_2.png](docs/new_aimon_2.png) shows the whole batch.
 - **Warp pads** in the SONANCE TOWER send you to their linked pad on the same
   floor.
 - New moves include fixed-damage ones (SONIC BOOM, NIGHT SHADE), HEX (twice
@@ -456,10 +479,12 @@ The battle sprites come from two kinds of source:
 - the pixel-art sheets in `art/sheets/`, for everything added in chapters
   2 and 3. Where a sheet shows only one view, the player's side uses the
   same art mirrored so it faces the opponent;
-- the design cards in `art/sheets/aimon_sheet_7.webp` to `_11.webp`, for the
-  starter evolutions and the chapter 6-10 AIMON. Forms without a card of
+- the design cards in `art/sheets/aimon_sheet_7.webp` to `_18.webp`, for the
+  starter evolutions and the AIMON of chapters 6-15. Forms without a card of
   their own come from the small evolution-line pictures. BELLUMOR only has
-  a painted card, so it is cut out along a hand-traced outline.
+  a painted card, so it is cut out along a hand-traced outline. The ICE
+  lines (sheet 12) are drawn as turnarounds, so their battle sprites use the
+  side view for the opponent and the back view for your own AIMON.
 
 The script cuts out each view, removes the background, shrinks it to 64×64,
 reduces it to 15 colours and adds a dark outline:
