@@ -297,6 +297,12 @@ const SFX = {
     S.osc('sawtooth', 110, t, 1.2, 0.06, b, { vibrato: 6 });
     S.osc('sawtooth', 116, t, 1.2, 0.05, b);
   },
+  // A great bronze bell: a low strike with fading overtones.
+  bell(S, t, b) {
+    for (const [f, v, d] of [[196, 0.2, 2.4], [392, 0.1, 1.8], [588, 0.07, 1.3], [932, 0.05, 0.9], [1244, 0.03, 0.6]]) {
+      S.osc('sine', f, t, d, v, b, { sustain: 0.5, release: d * 0.85 });
+    }
+  },
   pad(S, t, b) {
     S.osc('p25', 300, t, 0.18, 0.1, b, { slideTo: 1400 });
     S.osc('p12', 600, t + 0.05, 0.16, 0.06, b, { slideTo: 2200 });

@@ -255,4 +255,6 @@ const TMS = {
   tm03: { move: 'waterpulse', compat: ['water', 'normal', 'ground', 'fighting', 'sound'] },
   tm04: { move: 'rockslide', compat: ['rock', 'ground', 'fighting', 'normal', 'fire', 'water'] },
   tm05: { move: 'earthpower', compat: ['ground', 'rock', 'fire', 'grass', 'electric', 'ghost', 'normal'] },
+  tm06: { move: 'thunderbolt', compat: ['electric', 'water', 'normal', 'flying', 'sound', 'dark'] },
+  tm07: { move: 'hypervoice', compat: ['sound', 'normal', 'ghost', 'dark', 'flying', 'fighting', 'water'] },
 };

@@ -561,3 +561,70 @@ Object.assign(MUSIC, {
     ],
   },
 });
+
+// Chapters 8 and 9: the farm road and MEADOWFIELD FARM, THANE's storm night,
+// the snowy road north, STONEPEAK WOODS and its bell tower.
+Object.assign(MUSIC, {
+  farm: {
+    bpm: 112,
+    ch: [
+      { wave: 'p50', vol: 0.08, vib: true, notes:
+        'G5:2 B5 D6 B5 G5:4 A5:2 B5 | C6:4 B5:2 A5 G5:4 E5:4 | D5:2 G5 B5 G5 A5:4 G5:2 E5 | D5:12 r:4 |'
+        + ' G5:2 B5 D6 E6 D6:4 B5:2 G5 | C6:4 E6:2 D6 C6:4 A5:4 | B5:2 A5 G5 E5 D5:4 F#5:4 | G5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'B4:16 C5 B4 A4 B4 C5 D5 B4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[G2:4 D3]*2 [C3:4 G2]*2 [G2:4 D3]*2 [D2:4 A2]*2 [G2:4 D3]*2 [C3:4 G2]*2 [D2:4 A2]*2 [G2:4 D3]*2' },
+      { wave: 'noise', vol: 0.04, notes: '[k:4 h:2 h:2 s:4 h:2 h:2]*8' },
+    ],
+  },
+  tempest: {
+    bpm: 144,
+    ch: [
+      { wave: 'p25', vol: 0.08, notes:
+        'D5:2 D5 F5 A5 D6:4 C6:2 A5 | Bb5:4 A5:2 G5 F5:4 E5:4 | D5:2 D5 F5 A5 C6:4 Bb5:2 A5 | A5:12 r:4 |'
+        + ' F5:2 F5 A5 C6 F6:4 E6:2 C6 | D6:4 C6:2 Bb5 A5:4 G5:4 | F5:2 E5 D5 E5 F5:4 C#5:4 | D5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[D4:2 A4]*4 [D4:2 G4]*4 [D4:2 A4]*4 [C#4:2 A4]*4 [F4:2 C5]*4 [Bb3:2 F4]*4 [G3:2 D4]*4 [A3:2 E4]*4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[D2:2 D3]*4 [G2:2 G3]*4 [D2:2 D3]*4 [A1:2 A2]*4 [F2:2 F3]*4 [Bb1:2 Bb2]*4 [G1:2 G2]*4 [A1:2 A2]*4' },
+      { wave: 'noise', vol: 0.05, notes: '[k:2 h:2 s:2 h:2 k:2 k:2 s:2 h:2]*8' },
+    ],
+  },
+  snowroad: {
+    bpm: 96,
+    ch: [
+      { wave: 'p50', vol: 0.08, vib: true, notes:
+        'E5:4 G5:2 B5 E6:4 D6:4 | C6:4 B5:2 A5 B5:8 | A5:4 C6:2 E6 D6:4 B5:4 | G5:6 A5:2 B5:8 |'
+        + ' E5:4 G5:2 B5 E6:4 F#6:4 | G6:4 F#6:2 E6 D6:8 | C6:4 B5:2 A5 G5:4 F#5:4 | E5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes: 'B4:16 G4 C5 D5 B4 B4 A4 G4' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[E2:4 B2]*2 [C2:4 G2]*2 [A1:4 E2]*2 [G1:4 D2]*2 [E2:4 B2]*2 [B1:4 F#2]*2 [A1:4 E2]*2 [E2:4 B2]*2' },
+      { wave: 'noise', vol: 0.03, notes: '[h:4 h:4 k:4 h:4]*8' },
+    ],
+  },
+  stonepeak: {
+    bpm: 88,
+    ch: [
+      { wave: 'p25', vol: 0.08, vib: true, notes:
+        'A5:4 C6:4 F6:4 E6:2 D6 | C6:4 A5:4 G5:8 | Bb5:4 D6:4 F6:4 E6:2 D6 | C6:12 r:4 |'
+        + ' A5:4 C6:4 F6:4 G6:2 A6 | Bb6:4 A6:4 G6:8 | F6:2 E6 D6 C6 Bb5:4 E5:4 | F5:12 r:4' },
+      { wave: 'p12', vol: 0.04, notes:
+        '[F4:2 A4 C5 A4]*4 [Bb3:2 D4 F4 D4]*2 [C4:2 E4 G4 E4]*2 [F4:2 A4 C5 A4]*4 [Bb3:2 D4 F4 D4]*2 [C4:2 E4 G4 E4]*2' },
+      { wave: 'tri', vol: 0.15, notes: 'F2:8 C3 F2 C3 Bb1 F2 C2 G2 F2 C3 F2 C3 Bb1 F2 C2 G2' },
+      { wave: 'noise', vol: 0.03, notes: '[k:8 h:4 h:4]*8' },
+    ],
+  },
+  belltower: {
+    bpm: 104,
+    ch: [
+      { wave: 'p50', vol: 0.08, notes:
+        'C5:4 Eb5:4 G5:4 C6:4 | B4:4 D5:4 G5:8 | Ab5:4 G5:4 F5:4 Eb5:4 | D5:12 r:4 |'
+        + ' C5:4 Eb5:4 G5:4 Eb6:4 | D6:4 C6:4 B5:8 | C6:4 G5:4 Ab5:4 B5:4 | C6:12 r:4' },
+      { wave: 'p12', vol: 0.05, notes:
+        '[C6:2 r:6 G5:2 r:6]*2 [G5:2 r:6 D5:2 r:6]*2 [Ab5:2 r:6 Eb5:2 r:6]*2 [G5:2 r:6 B4:2 r:6]*2' },
+      { wave: 'tri', vol: 0.16, notes:
+        '[C2:4 G2]*2 [G1:4 D2]*2 [Ab1:4 Eb2]*2 [G1:4 D2]*2 [C2:4 G2]*2 [G1:4 D2]*2 [Ab1:4 Eb2]*2 [G1:4 G2]*2' },
+      { wave: 'noise', vol: 0.045, notes: '[k:4 h:4 s:4 h:4]*8' },
+    ],
+  },
+});

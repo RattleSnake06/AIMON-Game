@@ -617,9 +617,234 @@ const TRAINERS = {
     ],
     lose: 'Ha! Dug right to the bottom of me. Nobody\'s done that since I was your age.',
   },
+
+  // --- Route 12 ---------------------------------------------------------------------------
+  rival4: {
+    cls: 'RIVAL', name: 'KAI', sprite: 'rival', payout: 80,
+    party: () => [['goskie', 34], ['scrapaw', 35], ['stormgale', 35], [State.rivalStarter(37), 37]],
+    intro: '',
+    lose: 'Five BADGES and you STILL won\'t let me win one?!',
+    win: 'Ha! Told you I\'d been training!',
+  },
+  r12picnicker: {
+    cls: 'PICNICKER', name: 'CLARA', sprite: 'picnicker', payout: 52,
+    party: () => [['windling', 33], ['skylark', 34]],
+    intro: 'I came out for a picnic, but the wind keeps stealing my sandwiches!',
+    lose: 'And now it\'s stolen my win, too.',
+    after: 'WINDLING make power from the wind. The farm down south is full of them.',
+  },
+  r12farmer1: {
+    cls: 'FARMER', name: 'HANK', sprite: 'farmer', payout: 54,
+    party: () => [['moozle', 35], ['voltimp', 34]],
+    intro: 'Mind the wheat! Oh, you\'re on the road. Well then... let\'s battle!',
+    lose: 'Flattened like a hay bale!',
+    after: 'That red barn at MEADOWFIELD\'s the GYM. WREN built half the machines in it herself.',
+  },
+  r12camper: {
+    cls: 'CAMPER', name: 'TOBY', sprite: 'camper', payout: 52,
+    party: () => [['dapplekit', 34], ['skyblade', 35]],
+    intro: 'I\'ve been camping in the tall grass all week. I\'m practically a wild AIMON now!',
+    lose: 'Caught!',
+    after: 'Last night the sky flashed purple over the farm. There wasn\'t a single cloud!',
+  },
+  r12hiker: {
+    cls: 'HIKER', name: 'GUS', sprite: 'hiker', payout: 54,
+    party: () => [['geodillo', 35], ['cairnling', 34]],
+    intro: 'Flat roads make my legs lazy. A battle will wake them up!',
+    lose: 'Legs... still lazy...',
+    after: 'GEODILLO are part ROCK and part ELECTRIC. GROUND moves hit them hard.',
+  },
+  r12farmer2: {
+    cls: 'FARMER', name: 'MAE', sprite: 'farmer', payout: 56,
+    party: () => [['bovelle', 36], ['windling', 35]],
+    intro: 'My BOVELLE could pull a tractor. Let\'s see what it does to your team!',
+    lose: 'Well, butter my biscuits.',
+    after: 'Try the MOOZLE MILK at the farm. It fixes anything. Well, anything but losing.',
+  },
+
+  // --- Meadowfield: the TEMPEST ARRAY -------------------------------------------------------
+  mfgrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 52, music: 'distortion',
+    party: () => [['voltvix', 35], ['distortail', 36]],
+    intro: 'Hands off the rod! Every bolt that hits the mill brings the song closer!',
+    lose: 'Grounded...',
+    after: 'Go ahead, fix it. There are two more, and THANE\'s up top.',
+  },
+  mfgrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 52, music: 'distortion',
+    party: () => [['voltimp', 35], ['hourghast', 36]],
+    intro: 'Out here in the storm? You must really like getting struck by lightning!',
+    lose: 'Zapped!',
+    after: 'This wheat is soaked. My boots are soaked. Everything is soaked.',
+  },
+  mfgrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 52, music: 'distortion',
+    party: () => [['noctumoth', 36], ['stormgale', 35]],
+    intro: 'The old man\'s garden is ours tonight! Bent rods, bright bolts!',
+    lose: 'My bolts... unbright...',
+    after: 'THANE\'s machine up on the windmill pulls the lightning down. The MILLSTONE will scream its song.',
+  },
+  mfgrunt4: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 54, music: 'distortion',
+    party: () => [['distortail', 36], ['geodillo', 36]],
+    intro: 'Nobody goes up the windmill! ADMIN\'s orders!',
+    lose: 'Nobody except you, I guess.',
+    after: 'The door\'s open. But THANE doesn\'t lose twice. ...Does he?',
+  },
+  millgrunt: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 54, music: 'distortion',
+    party: () => [['voltvix', 36], ['specterib', 36]],
+    intro: 'You fixed the rods?! The lightning\'s going to the ground now! Do you know how long we charged that thing?!',
+    lose: 'All that charge... wasted...',
+    after: 'The TEMPEST ARRAY\'s on the top floor. THANE won\'t let it go without a fight.',
+  },
+  thane2: {
+    cls: 'ADMIN', name: 'THANE', sprite: 'thane', payout: 110, music: 'admin',
+    party: () => [
+      ['voltvix', 36, ['thunderbolt', 'thunderfang', 'thunderwave', 'crunch']],
+      ['sonarion', 37, ['hypervoice', 'echoedvoice', 'screech', 'shockwave']],
+      ['stormgale', 39, ['wildcharge', 'thunderfang', 'crunch', 'quickattack']],
+    ],
+    lose: 'Twice?! Twice, by the same KID?!',
+  },
+
+  // --- Meadowfield Gym ------------------------------------------------------------------------
+  mfgym1: {
+    cls: 'FARMER', name: 'JED', sprite: 'farmer', payout: 58,
+    party: () => [['voltimp', 37], ['moozle', 37]],
+    intro: 'Welcome to the barn! Watch your step. The floor bites.',
+    lose: 'Well, I\'ll be milked.',
+    after: 'The turbines run on VOLTIMP laps. Don\'t worry, they love it.',
+  },
+  mfgym2: {
+    cls: 'WORKER', name: 'RIVKA', sprite: 'worker', payout: 58,
+    party: () => [['geodillo', 37], ['windling', 38]],
+    intro: 'I wire the turbines. WREN designs them. You? You\'re about to get shocked.',
+    lose: 'Short circuit!',
+    after: 'WREN\'s ZEPHYRON flies. GROUND moves won\'t touch it. Plan ahead!',
+  },
+  mfgym3: {
+    cls: 'PICNICKER', name: 'DAISY', sprite: 'picnicker', payout: 60,
+    party: () => [['voltvix', 37], ['stormgale', 38]],
+    intro: 'Last stop before WREN! You look like you\'ve had a long night.',
+    lose: 'A long night and a strong team!',
+    after: 'WREN\'s been grinning all morning. I think she\'s been waiting for you.',
+  },
+  wren: {
+    cls: 'LEADER', name: 'WREN', sprite: 'wren', payout: 160, music: 'leader', leader: true,
+    party: () => [
+      ['voltvix', 38, ['thunderbolt', 'thunderwave', 'quickattack', 'bite']],
+      ['geodillo', 39, ['rockslide', 'thunderfang', 'bulldoze', 'harden']],
+      ['stormgale', 39, ['wildcharge', 'thunderfang', 'crunch', 'quickattack']],
+      ['zephyron', 41, ['thunderbolt', 'airslash', 'aerialace', 'thunderwave']],
+    ],
+    lose: 'Whew! That\'s the most fun I\'ve had since I built my first turbine!',
+  },
+
+  // --- Route 11 ------------------------------------------------------------------------------
+  r11hiker1: {
+    cls: 'HIKER', name: 'BRAM', sprite: 'hiker', payout: 60,
+    party: () => [['glacron', 40], ['cairnling', 39]],
+    intro: 'The cold keeps a hiker honest! And a battle keeps him warm!',
+    lose: 'Brr... Now I\'m cold AND beaten.',
+    after: 'Keep to the road when the snow\'s deep. Wild AIMON love the drifts.',
+  },
+  r11skier1: {
+    cls: 'SKIER', name: 'SOL', sprite: 'skier', payout: 60,
+    party: () => [['noctheryx', 40], ['skyblade', 40]],
+    intro: 'Out of the way! ...Oh, you want to battle? Even better!',
+    lose: 'Wiped out!',
+    after: 'NOCTHERYX glide down the slopes at dusk. You never hear them coming.',
+  },
+  r11blackbelt: {
+    cls: 'BLACKBELT', name: 'KENJI', sprite: 'blackbelt', payout: 62,
+    party: () => [['glacron', 41], ['scrapaw', 41]],
+    intro: 'I train barefoot in the snow! HYAH! ...It\'s very cold!',
+    lose: 'My toes... have lost...',
+    after: 'GLACRON challenge anything near their caves. It\'s their way of saying hello.',
+  },
+  r11skier2: {
+    cls: 'SKIER', name: 'ANYA', sprite: 'skier', payout: 62,
+    party: () => [['bellchime', 41], ['glacron', 41]],
+    intro: 'Hear that? The bell\'s ringing up at STONEPEAK. Let\'s make some noise of our own!',
+    lose: 'Out of tune!',
+    after: 'The bell rings every hour. Except one. Everyone up here knows to be quiet then.',
+  },
+  r11hiker2: {
+    cls: 'HIKER', name: 'ODELL', sprite: 'hiker', payout: 64,
+    party: () => [['obelith', 42], ['geodillo', 41]],
+    intro: 'Almost at the top! Show me you earned it!',
+    lose: 'You earned it, all right.',
+    after: 'STONEPEAK WOODS is just past the pines. Mind the ice on the pond.',
+  },
+
+  // --- Stonepeak bell tower -------------------------------------------------------------------
+  towergrunt1: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 56, music: 'distortion',
+    party: () => [['hourghast', 40], ['distortail', 40]],
+    intro: 'The hour of silence! Shhh! ...Now, BATTLE!',
+    lose: 'So much for silence.',
+    after: 'We cut the ropes so nobody could ring it properly. Only MORROW rings it now.',
+  },
+  towergrunt2: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 56, music: 'distortion',
+    party: () => [['noctumoth', 40], ['specterib', 41]],
+    intro: 'One note! That\'s all MORROW needs! You won\'t stop one little note!',
+    lose: 'That was more than one note...',
+    after: 'The bell rings alone at the hour of silence. No other bells, no echoes. Just the BELLSTONE.',
+  },
+  towergrunt3: {
+    cls: 'GRUNT', name: 'TEAM DISTORTION', sprite: 'grunt', payout: 56, music: 'distortion',
+    party: () => [['wraithling', 41], ['noctheryx', 40]],
+    intro: 'The belfry is off-limits! MORROW doesn\'t like to be interrupted!',
+    lose: 'He REALLY doesn\'t like it...',
+    after: 'Go on up. It\'s your funeral. ...That\'s a bell joke.',
+  },
+  morrow2: {
+    cls: 'ADMIN', name: 'MORROW', sprite: 'morrow', payout: 120, music: 'admin',
+    party: () => [
+      ['hourghast', 40, ['shadowball', 'earthpower', 'willowisp', 'hex']],
+      ['noctumoth', 41, ['airslash', 'bugbuzz', 'feintattack', 'stunspore']],
+      ['umbrafang', 42, ['crunch', 'nightslash', 'shadowsneak', 'snarl']],
+    ],
+    lose: 'Tick... tock. Late again, am I? No. Precisely on time.',
+  },
+
+  // --- Chime Hall (Stonepeak Gym) ---------------------------------------------------------------
+  spgym1: {
+    cls: 'MUSICIAN', name: 'ARIA', sprite: 'musician', payout: 62,
+    party: () => [['bellchime', 41], ['specterib', 42]],
+    intro: 'Every chime in this hall is tuned by hand. Don\'t knock any over!',
+    lose: 'A sour note...',
+    after: 'MASTER CANTOR can hear a chime a quarter-tone flat from across the hall.',
+  },
+  spgym2: {
+    cls: 'MEDIUM', name: 'SELENE', sprite: 'medium', payout: 62,
+    party: () => [['phantasmuse', 42]],
+    intro: 'The bells call the spirits, and the spirits sing back. Can you hear them?',
+    lose: 'The spirits... have gone quiet...',
+    after: 'SOUND moves ignore a SOUNDPROOF AIMON. The MASTER\'s bells know it well.',
+  },
+  spgym3: {
+    cls: 'MUSICIAN', name: 'FELIX', sprite: 'musician', payout: 64,
+    party: () => [['sonarion', 42], ['bellchime', 42]],
+    intro: 'The final movement before the MASTER! Let\'s play it fortissimo!',
+    lose: 'Fine. Fine! Pianissimo...',
+    after: 'MASTER CANTOR once taught a boy who played the cello better than anyone. He never says the name.',
+  },
+  cantor: {
+    cls: 'LEADER', name: 'CANTOR', sprite: 'cantor', payout: 180, music: 'leader', leader: true,
+    party: () => [
+      ['bellchime', 42, ['hypervoice', 'disarmingvoice', 'echoedvoice', 'workup']],
+      ['noctumoth', 43, ['bugbuzz', 'airslash', 'feintattack', 'stunspore']],
+      ['sonarion', 44, ['hypervoice', 'screech', 'aerialace', 'crunch']],
+      ['bellumor', 46, ['boomburst', 'disarmingvoice', 'bodyslam', 'workup']],
+    ],
+    lose: 'Bravo. Bravo! Oh, it has been a long time since anyone made these old bells sing like that.',
+  },
 };
 
-// The eight GYM badges. The first five gyms exist so far.
+// The eight GYM badges. The first seven gyms exist so far.
 const BADGES = [
   { id: 'keystone', name: 'KEYSTONE BADGE', leader: 'HOLT', town: 'GRAYHAVEN CITY', type: 'normal',
     colors: ['#a8a0a0', '#686060', '#f8d048'] },
@@ -631,7 +856,9 @@ const BADGES = [
     colors: ['#c09060', '#6a4a28', '#f8e0b0'] },
   { id: 'dune', name: 'DUNE BADGE', leader: 'SAHRA', town: 'SUNSPIRE RUINS', type: 'ground',
     colors: ['#e0b060', '#8a6428', '#f8e8b0'] },
-  { id: 'b6', name: '???', colors: ['#e0c048', '#886820', '#f8f0a0'] },
-  { id: 'b7', name: '???', colors: ['#60b8c8', '#306878', '#c8f0f8'] },
+  { id: 'spark', name: 'SPARK BADGE', leader: 'WREN', town: 'MEADOWFIELD FARM', type: 'electric',
+    colors: ['#e0c048', '#886820', '#f8f0a0'] },
+  { id: 'chord', name: 'CHORD BADGE', leader: 'CANTOR', town: 'STONEPEAK WOODS', type: 'sound',
+    colors: ['#60b8c8', '#306878', '#c8f0f8'] },
   { id: 'b8', name: '???', colors: ['#886860', '#403030', '#e8c8c0'] },
 ];

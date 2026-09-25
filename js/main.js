@@ -161,6 +161,8 @@ const Debug = {
       route8: ['route8', 53, 11], silverfall: ['silverfall', 36, 17], hq: ['hq1', 7, 10], bridge: ['bridge', 9, 2],
       cragmoor: ['cragmoor', 16, 3], route9: ['route9', 2, 6], route10: ['route10', 57, 12],
       sunspire: ['sunspire', 36, 18], dig: ['dig1', 12, 16],
+      route12: ['route12', 12, 2], meadowfield: ['meadowfield', 19, 3], windmill: ['mill1', 4, 7],
+      route11: ['route11', 11, 45], stonepeak: ['stonepeak', 17, 25], belltower: ['tower1', 4, 7],
     };
     const [map, x, y] = spots[where] || spots.willowbrook;
     Object.assign(State.d, { map, x, y, dir: 'down' });

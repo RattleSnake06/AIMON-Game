@@ -345,7 +345,7 @@ Object.assign(Events, {
     yield* say('SAHRA: Five KEYSTONES recorded. RIFTSTONE, ROOTSTONE, TIDESTONE, CRAGSTONE, and now mine.');
     yield* say('SAHRA: But the MILLSTONE hasn\'t been touched yet. It\'s the old grinding stone in the windmill at MEADOWFIELD FARM.');
     yield* say('SAHRA: WREN runs the GYM there. If TEAM DISTORTION wants a sixth song, that\'s where they\'ll go next.');
-    yield* say('SAHRA: MEADOWFIELD is off ROUTE 3, north of the river. I\'ll write to HOLT and the other WARDENS tonight.');
+    yield* say('SAHRA: MEADOWFIELD is down the farm road, ROUTE 12, south off ROUTE 3. I\'ll write to WREN and the other WARDENS tonight.');
     yield* say('SAHRA: Now go on. I\'ve got a wall to finish reading.');
   },
 

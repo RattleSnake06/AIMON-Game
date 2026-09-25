@@ -88,6 +88,19 @@ const TrainerArt = {
       hair: 'hat', hairCol: '#5a4030', hat: '#a89060', shirt: '#c8b080', pants: '#7a6a4a', shoes: '#4a3420', beard: '#8a8078',
       belt: '#5a4028', pose: 'hips',
     });
+    this.sprites.wren = this.wren();
+    this.sprites.cantor = this.cantor();
+    this.sprites.farmer = this.front({
+      hair: 'hat', hairCol: '#6a4428', hat: '#e8c870', shirt: '#c84838', stripes: '#e87060', pants: '#4a6aa0', shoes: '#503828',
+      beard: '#8a6a48', pose: 'hips', wide: true,
+    });
+    this.sprites.skier = this.front({
+      hair: 'cap', hairCol: '#f0c848', cap: '#e04858', shirt: '#38a0e0', stripes: '#f0f0f0', pants: '#383850', shoes: '#f0f0f0',
+      belt: '#202034', pose: 'hips',
+    });
+    this.sprites.musician = this.front({
+      hair: 'long', hairCol: '#383050', shirt: '#f4f0f8', dress: '#6a4a90', shoes: '#302040', beads: '#f0d060',
+    });
     this.sprites.ivy = this.ivy();
     this.sprites.nerissa = this.nerissa();
     this.sprites.playerBack = this.back(false);
@@ -556,6 +569,120 @@ const TrainerArt = {
     p.rows(cx - 6, hy + 2, ['wt', 'tt'], f);
     p.rows(cx + 4, hy + 2, ['tw', 'tt'], f);
     p.rows(cx - 2, hy + 7, ['m...m', '.mmm.'], f);
+    return p.toCanvas();
+  },
+
+  // GYM LEADER WREN of MEADOWFIELD: a young farmer-inventor in overalls, with
+  // goggles on her headband and a big wrench over her shoulder.
+  wren() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const skin = { fill: '#f8d0a8', shade: '#e0a078', hi: '#fff0d8', line: OUT };
+    const denim = style('#4a78c0', { hi: '#78a0e0' });
+    const tee = style('#f8e8a0');
+    const hair = style('#e8883a', { hi: '#f8b060' });
+    // Ponytail swinging out behind.
+    p.poly([[cx + 7, 6], [cx + 17, 8], [cx + 21, 20], [cx + 16, 26], [cx + 13, 16]], hair);
+    // Boots and denim legs.
+    p.rrect(cx - 11, 44, 10, 15, 2, denim);
+    p.rrect(cx + 1, 44, 10, 15, 2, denim);
+    p.rrect(cx - 12, 56, 11, 7, 2, style('#5a3a20'));
+    p.rrect(cx + 1, 56, 11, 7, 2, style('#5a3a20'));
+    // Tee under an overall bib with a lightning-bolt patch.
+    p.rrect(cx - 13, 23, 26, 22, 5, tee);
+    p.rrect(cx - 9, 29, 18, 17, 2, denim);
+    p.line(cx - 8, 23, cx - 7, 29, '#2e5290');
+    p.line(cx + 8, 23, cx + 7, 29, '#2e5290');
+    p.poly([[cx + 1, 31], [cx - 3, 37], [cx, 37], [cx - 2, 42], [cx + 4, 35], [cx + 1, 35], [cx + 3, 31]], style('#f8d030', { line: '#8a6a10' }));
+    // Tool belt.
+    p.rect(cx - 13, 42, 26, 3, style('#6a4428'));
+    p.rect(cx - 12, 40, 4, 6, style('#8a6038'));
+    p.rect(cx + 8, 40, 5, 6, style('#8a6038'));
+    p.set(cx + 10, 39, '#c0c8d0');
+    // Left fist on hip; right hand holding a wrench over the shoulder.
+    p.rrect(cx - 19, 24, 7, 8, 3, tee);
+    p.rrect(cx - 20, 31, 6, 10, 3, skin);
+    p.ellipse(cx - 16, 42, 3.2, 3, skin);
+    const steel = style('#b8c0c8', { shade: '#808890', hi: '#e8f0f8' });
+    p.poly([[cx + 16, 17], [cx + 19, 18], [cx + 26, 5], [cx + 23, 4]], steel);
+    p.poly([[cx + 20, 0], [cx + 29, 1], [cx + 29, 7], [cx + 26, 7], [cx + 25, 4], [cx + 23, 7], [cx + 20, 5]], steel);
+    p.rrect(cx + 12, 24, 7, 8, 3, tee);
+    p.rrect(cx + 14, 17, 6, 12, 3, skin);
+    p.ellipse(cx + 17, 16, 3.2, 3, skin);
+    // Head.
+    const hy = 14;
+    p.rect(cx - 3, 20, 6, 5, skin);
+    p.ellipse(cx, hy, 10, 10.5, skin);
+    p.ellipse(cx - 10, hy + 1, 2, 3, skin);
+    p.ellipse(cx + 10, hy + 1, 2, 3, skin);
+    // Messy fringe, yellow headband and brass goggles pushed up.
+    p.ellipse(cx, hy - 7, 11, 6, hair);
+    p.poly([[cx - 11, hy - 6], [cx - 9, hy + 1], [cx - 6, hy - 3], [cx - 3, hy - 1], [cx, hy - 4], [cx + 4, hy - 1], [cx + 7, hy - 4],
+      [cx + 10, hy + 1], [cx + 11, hy - 6]], hair);
+    p.rect(cx - 11, hy - 8, 22, 3, style('#f8d030'));
+    p.ellipse(cx - 4, hy - 9, 3.4, 3, style('#b08838', { hi: '#e8c870', line: '#3a2810' }));
+    p.ellipse(cx + 4, hy - 9, 3.4, 3, style('#b08838', { hi: '#e8c870', line: '#3a2810' }));
+    p.ellipse(cx - 4, hy - 9, 1.8, 1.6, { fill: '#a8e0f0', line: false });
+    p.ellipse(cx + 4, hy - 9, 1.8, 1.6, { fill: '#a8e0f0', line: false });
+    // Face: bright eyes, freckles, a big grin.
+    const f = { o: OUT, w: '#f8f8f8', t: '#5a8a30', m: '#c85050', r: '#d89060' };
+    p.rows(cx - 6, hy + 1, ['wt', 'tt'], f);
+    p.rows(cx + 4, hy + 1, ['tw', 'tt'], f);
+    p.rows(cx - 8, hy + 4, ['r.r'], f);
+    p.rows(cx + 5, hy + 4, ['r.r'], f);
+    p.rows(cx - 2, hy + 6, ['mmmmm', '.mmm.'], f);
+    return p.toCanvas();
+  },
+
+  // GYM LEADER CANTOR of STONEPEAK: the oldest WARDEN, a composer and
+  // bell-keeper with a shock of white hair, a tailcoat and a baton.
+  cantor() {
+    const p = new Painter(64, 64);
+    const cx = 32;
+    const skin = { fill: '#f0c8a0', shade: '#d09c78', hi: '#fce8d0', line: OUT };
+    const coat = style('#4a3c7c', { hi: '#6a5aa0' });
+    const white = style('#f4f4f8', { shade: '#c8c8d8' });
+    // Coat tails and dark trousers.
+    p.poly([[cx - 13, 40], [cx - 5, 40], [cx - 7, 60], [cx - 16, 58]], coat);
+    p.poly([[cx + 13, 40], [cx + 5, 40], [cx + 7, 60], [cx + 16, 58]], coat);
+    p.rrect(cx - 7, 42, 6, 18, 2, style('#2a2438'));
+    p.rrect(cx + 1, 42, 6, 18, 2, style('#2a2438'));
+    p.ellipse(cx - 5, 61, 5, 2.5, style('#181420'));
+    p.ellipse(cx + 5, 61, 5, 2.5, style('#181420'));
+    // Shirt front, cravat, and the tailcoat with gold trim.
+    p.rrect(cx - 12, 23, 24, 21, 4, white);
+    p.poly([[cx - 12, 24], [cx - 3, 24], [cx - 4, 44], [cx - 13, 44]], coat);
+    p.poly([[cx + 12, 24], [cx + 3, 24], [cx + 4, 44], [cx + 13, 44]], coat);
+    p.line(cx - 3, 25, cx - 4, 43, '#d0b060');
+    p.line(cx + 3, 25, cx + 4, 43, '#d0b060');
+    p.poly([[cx - 3, 23], [cx + 3, 23], [cx + 2, 28], [cx, 30], [cx - 2, 28]], style('#a03848'));
+    // A small silver bell on a chain.
+    p.line(cx - 2, 30, cx, 35, '#c0c0c8');
+    p.poly([[cx - 2, 35], [cx + 2, 35], [cx + 3, 39], [cx - 3, 39]], style('#e0d890', { shade: '#b0a050' }));
+    // Left hand behind his back; right hand raises a baton.
+    p.rrect(cx - 18, 24, 7, 15, 3, coat);
+    p.rrect(cx + 11, 24, 7, 9, 3, coat);
+    p.rrect(cx + 14, 15, 6, 11, 3, coat);
+    p.rect(cx + 14, 14, 6, 2, style('#f4f4f8'));
+    p.ellipse(cx + 17, 12, 3.2, 3, skin);
+    p.line(cx + 18, 11, cx + 25, 1, '#f8f8f0');
+    p.line(cx + 19, 11, cx + 26, 1, '#b8b8b0');
+    // Head: long face, wild white hair, spectacles and a white moustache.
+    const hy = 14;
+    p.rect(cx - 3, 20, 6, 4, skin);
+    p.poly([[cx - 15, hy - 2], [cx - 13, hy - 11], [cx - 6, hy - 16], [cx + 2, hy - 17], [cx + 9, hy - 14], [cx + 15, hy - 7],
+      [cx + 16, hy + 2], [cx + 12, hy + 6], [cx - 12, hy + 6]], style('#f0f0f4', { shade: '#c0c0d0', hi: '#ffffff' }));
+    p.ellipse(cx, hy, 9.5, 10.5, skin);
+    p.ellipse(cx - 9.5, hy + 1, 2, 3, skin);
+    p.ellipse(cx + 9.5, hy + 1, 2, 3, skin);
+    p.ellipse(cx, hy - 8, 7, 3, skin);
+    const f = { o: OUT, g: '#8a8a98', w: '#f8f8f8', b: '#d0d0d8', m: '#f4f4f8', l: '#a07060' };
+    p.rows(cx - 7, hy - 1, ['bbb.'], f);
+    p.rows(cx + 4, hy - 1, ['.bbb'], f);
+    p.rows(cx - 8, hy + 1, ['.ggg....ggg.', 'g.o.gggg.o.g', '.ggg....ggg.'], f);
+    p.poly([[cx - 6, hy + 6], [cx + 6, hy + 6], [cx + 7, hy + 8], [cx + 2, hy + 8], [cx, hy + 7], [cx - 2, hy + 8], [cx - 7, hy + 8]],
+      style('#f4f4f8', { shade: '#c8c8d8' }));
+    p.rows(cx - 1, hy + 9, ['ll'], f);
     return p.toCanvas();
   },
 

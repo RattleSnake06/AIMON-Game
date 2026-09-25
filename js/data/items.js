@@ -42,6 +42,12 @@ const ITEMS = {
     desc: 'Teaches WATER PULSE: a pulsing blast of water. Can be used again and again.' },
   tm05: { name: 'TM05 EARTH POWER', pocket: 'tms', tm: 'earthpower',
     desc: 'Teaches EARTH POWER: the ground erupts under the foe. Can be used again and again.' },
+  tm06: { name: 'TM06 THUNDERBOLT', pocket: 'tms', tm: 'thunderbolt',
+    desc: 'Teaches THUNDERBOLT: a strong jolt that may paralyze the foe. Can be used again and again.' },
+  tm07: { name: 'TM07 HYPER VOICE', pocket: 'tms', tm: 'hypervoice',
+    desc: 'Teaches HYPER VOICE: a powerful sound wave that may lower SP. DEF. Can be used again and again.' },
+  moozlemilk: { name: 'MOOZLE MILK', pocket: 'items', price: 500, heal: 100,
+    desc: 'Fresh milk from MEADOWFIELD FARM. Restores the HP of one AIMON by 100 points.' },
   lindennotes: { name: 'LINDEN\'S NOTES', pocket: 'key',
     desc: 'PROF. LINDEN\'s notes on the KEYSTONES and the CHAMPION\'S OATH, for SAHRA of SUNSPIRE.' },
 };
@@ -54,6 +60,8 @@ const MART_STOCK = {
   silverfall: ['greatball', 'aimonball', 'superpotion', 'revive', 'fullheal', 'parlyzheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
   cragmoor: ['greatball', 'aimonball', 'superpotion', 'potion', 'revive', 'fullheal', 'awakening', 'repel', 'escaperope'],
   sunspire: ['greatball', 'superpotion', 'revive', 'fullheal', 'burnheal', 'parlyzheal', 'awakening', 'repel', 'escaperope'],
+  meadowfield: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'parlyzheal', 'repel', 'escaperope'],
+  stonepeak: ['greatball', 'moozlemilk', 'superpotion', 'revive', 'fullheal', 'awakening', 'burnheal', 'repel', 'escaperope'],
   seabreeze: ['greatball', 'aimonball', 'superpotion', 'potion', 'fullheal', 'parlyzheal', 'repel', 'escaperope', 'revive'],
 };
 

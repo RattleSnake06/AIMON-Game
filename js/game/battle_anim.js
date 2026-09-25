@@ -151,6 +151,118 @@ const BattleArt = {
         g.fillStyle = floor[Math.min(3, Math.floor((y - 43) / 18))];
         g.fillRect(0, y, 240, 1);
       }
+    } else if (kind === 'farm' || kind === 'tempest') {
+      // Wheat fields under a big sky, the windmill on the horizon. At night
+      // in THANE's storm the sky goes black and violet.
+      const night = kind === 'tempest';
+      const sky = night ? ['#1c1a2c', '#221f36', '#282440', '#2e2a4a', '#343054'] : ['#78b8f0', '#88c0f0', '#98c8f0', '#a8d0f0', '#b8d8f0'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      const r = U.seeded(88);
+      if (night) {
+        g.fillStyle = '#3c3860';
+        for (let i = 0; i < 7; i++) Pix.ellipse(g, Math.floor(r() * 240), 6 + Math.floor(r() * 18), 22, 6, '#3c3860');
+        // A fork of lightning.
+        g.fillStyle = '#f0e8ff';
+        let x = 40;
+        for (let y = 0; y < 38; y += 2) {
+          x += Math.round(r() * 4 - 2);
+          g.fillRect(x, y, 2, 2);
+        }
+        g.fillStyle = 'rgba(200,170,255,0.25)';
+        g.fillRect(36, 0, 12, 38);
+      } else {
+        g.fillStyle = '#f4f8fc';
+        for (const [x, y] of [[40, 10], [150, 16], [210, 8]]) {
+          Pix.ellipse(g, x, y, 14, 4, '#f4f8fc');
+          Pix.ellipse(g, x + 8, y - 3, 8, 4, '#f4f8fc');
+        }
+      }
+      // Windmill silhouette.
+      const mill = night ? '#0e0c18' : '#9aa8b8';
+      g.fillStyle = mill;
+      for (let y = 18; y < 42; y++) {
+        const half = 3 + Math.floor((y - 18) / 5);
+        g.fillRect(196 - half, y, half * 2, 1);
+      }
+      g.fillRect(193, 15, 6, 4);
+      for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        for (let k = 2; k < 13; k++) g.fillRect(196 + dx * k, 17 + dy * k, 2, 2);
+      }
+      // Hills and wheat.
+      g.fillStyle = night ? '#1c2a1c' : '#6aa050';
+      for (let x = 0; x < 240; x++) g.fillRect(x, 40 + Math.round(Math.sin(x / 30) * 2), 1, 8);
+      const field = night ? ['#4a4228', '#524a2c', '#5a5230', '#625a34'] : ['#d8b858', '#e0c060', '#e8c868', '#f0d070'];
+      for (let y = 46; y < 112; y++) {
+        g.fillStyle = field[Math.min(3, Math.floor((y - 46) / 17))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = night ? '#6a6038' : '#f8e090';
+      for (let i = 0; i < 40; i++) g.fillRect(Math.floor(r() * 240), 48 + Math.floor(r() * 62), 1, 3);
+      g.fillStyle = night ? '#3a3420' : '#c0a040';
+      for (let i = 0; i < 30; i++) g.fillRect(Math.floor(r() * 240), 48 + Math.floor(r() * 62), 1, 2);
+      if (night) {
+        g.fillStyle = 'rgba(200,210,230,0.45)';
+        for (let i = 0; i < 50; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 112), 1, 4);
+      }
+    } else if (kind === 'snow') {
+      // Pale sky over snowy pines and deep drifts.
+      const sky = ['#b8c8e0', '#c4d2e8', '#d0dcee', '#dce6f4', '#e6eef8'];
+      sky.forEach((col, i) => { g.fillStyle = col; g.fillRect(0, i * 8, 240, 8); });
+      g.fillStyle = '#a8b4c8';
+      for (let x = 0; x < 240; x++) g.fillRect(x, 14 + Math.round(Math.abs(((x + 30) % 120) - 60) / 3), 1, 40);
+      g.fillStyle = '#f4f8fc';
+      for (let x = 0; x < 240; x++) {
+        const top = 14 + Math.round(Math.abs(((x + 30) % 120) - 60) / 3);
+        if (top < 24) g.fillRect(x, top, 1, 24 - top);
+      }
+      const r = U.seeded(33);
+      for (let x = -6; x < 250; x += 13) {
+        const h = 14 + Math.floor(r() * 10);
+        for (let y = 0; y < h; y++) {
+          const w = Math.round((y / h) * 9) + 1;
+          g.fillStyle = y % 4 === 0 ? '#f4f8fc' : '#3c5a58';
+          g.fillRect(x - Math.floor(w / 2), 46 - h + y, w, 1);
+        }
+      }
+      const snow = ['#e4ecf6', '#eaf0f8', '#f0f4fa', '#f6f8fc'];
+      for (let y = 46; y < 112; y++) {
+        g.fillStyle = snow[Math.min(3, Math.floor((y - 46) / 17))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = '#c8d4e6';
+      for (let i = 0; i < 26; i++) g.fillRect(Math.floor(r() * 240), 50 + Math.floor(r() * 60), 6 + Math.floor(r() * 12), 1);
+      g.fillStyle = '#ffffff';
+      for (let i = 0; i < 40; i++) g.fillRect(Math.floor(r() * 240), Math.floor(r() * 112), 1, 1);
+    } else if (kind === 'tower') {
+      // Stone walls of the bell tower, with bells hung in the arches.
+      g.fillStyle = '#6a7284';
+      g.fillRect(0, 0, 240, 112);
+      g.fillStyle = '#7c8496';
+      g.fillRect(0, 0, 240, 40);
+      g.fillStyle = '#5a6272';
+      for (let y = 0; y < 40; y += 6) g.fillRect(0, y, 240, 1);
+      for (let y = 0; y < 40; y += 6) for (let x = (y / 6) % 2 ? 6 : 0; x < 240; x += 12) g.fillRect(x, y, 1, 6);
+      for (const x of [30, 120, 210]) {
+        g.fillStyle = '#2a3040';
+        g.fillRect(x - 12, 6, 24, 34);
+        Pix.ellipse(g, x, 7, 12, 7, '#2a3040');
+        g.fillStyle = '#8a6a30';
+        g.fillRect(x - 1, 6, 2, 8);
+        Pix.ellipse(g, x, 20, 7, 6, '#c8a048');
+        g.fillStyle = '#c8a048';
+        g.fillRect(x - 8, 20, 16, 7);
+        g.fillStyle = '#f0d070';
+        g.fillRect(x - 5, 16, 2, 9);
+      }
+      g.fillStyle = '#3a4252';
+      g.fillRect(0, 40, 240, 3);
+      const floor = ['#8a92a4', '#929aac', '#9aa2b4', '#a2aabc'];
+      for (let y = 43; y < 112; y++) {
+        g.fillStyle = floor[Math.min(3, Math.floor((y - 43) / 18))];
+        g.fillRect(0, y, 240, 1);
+      }
+      g.fillStyle = '#7a8294';
+      for (let y = 52; y < 112; y += 14) g.fillRect(0, y, 240, 1);
     } else if (kind === 'indoor') {
       g.fillStyle = '#c8c8d8';
       g.fillRect(0, 0, 240, 112);
@@ -206,6 +318,10 @@ const BattleArt = {
       storm: ['#80785c', '#9c9474', '#b0a888'],
       desert: ['#b89058', '#d8b478', '#ecd09c'],
       ruins: ['#7a5c34', '#a88a5c', '#c4a678'],
+      farm: ['#a08838', '#c8b058', '#dcc878'],
+      tempest: ['#3a3424', '#524a30', '#665c3c'],
+      snow: ['#a8b8d0', '#d4e0ee', '#eef4fa'],
+      tower: ['#4a5264', '#6a7284', '#848ca0'],
     }[kind] || ['#68a050', '#88c068', '#a8d888'];
     Pix.ellipse(g, rx + 1, ry + 1, rx, ry, rim);
     Pix.ellipse(g, rx + 1, ry, rx - 2, ry - 2, fill);

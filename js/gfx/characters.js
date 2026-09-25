@@ -614,6 +614,12 @@ const PEOPLE = {
   ruinmaniac: { head: 'hat', body: 'tee', pal: { a: '#a89060', A: '#786030', h: '#5a4030', H: '#3a2818', c: '#c8b080', C: '#988050', p: '#7a6a4a', P: '#5a4c30', k: '#4a3420' } },
   apprentice: { head: 'cap', body: 'tee', pal: { a: '#d84838', A: '#a02c20', h: '#3a2418', H: '#241410', c: '#d8c8a0', C: '#a89870', p: '#5a6a48', P: '#3c4a30', k: '#4a3420' } },
   admiral: { head: 'cap', body: 'coat', pal: { a: '#24386a', A: '#141e3c', h: '#d8d8e0', H: '#a0a0b0', c: '#f4f4f4', C: '#c8c8d0', w: '#24386a', W: '#141e3c', p: '#24386a', P: '#141e3c', k: '#202028' } },
+  // Chapters 8 and 9
+  wren: { head: 'band', body: 'tee', pal: { h: '#e8883a', H: '#b0561c', a: '#f8d030', A: '#c09818', c: '#4a78c0', C: '#2e5290', p: '#4a78c0', P: '#2e5290', k: '#5a3a20' } },
+  cantor: { head: 'bald', body: 'coat', pal: { h: '#f0f0f4', H: '#b8b8c8', c: '#5a4a90', C: '#3a2e68', w: '#7a6ab0', W: '#52448a', p: '#3a3448', P: '#241f30', k: '#2a2430' } },
+  farmer: { head: 'hat', body: 'tee', pal: { a: '#e8c870', A: '#b89840', h: '#6a4428', H: '#4a2c18', c: '#c84838', C: '#8a2c20', p: '#4a6aa0', P: '#304a78', k: '#503828' } },
+  skier: { head: 'cap', body: 'tee', pal: { a: '#e04858', A: '#a82838', h: '#f0c848', H: '#b88a20', c: '#38a0e0', C: '#2070b0', p: '#383850', P: '#202034', k: '#f0f0f0' } },
+  musician: { head: 'long', body: 'coat', pal: { h: '#383050', H: '#201830', c: '#f4f0f8', C: '#c8c0d8', w: '#6a4a90', W: '#4a2c6c', p: '#2a2438', P: '#1a1624', k: '#302040' } },
 };
 
 // The AIMON BALL: blue top, white bottom, gold button.

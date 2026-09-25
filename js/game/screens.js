@@ -174,6 +174,9 @@ const BadgeArt = {
       tide: [[12, 0], [17, 7], [21, 13], [19, 19], [12, 23], [5, 19], [3, 13], [7, 7]],
       crag: [[12, 0], [15, 5], [19, 3], [23, 14], [18, 22], [6, 22], [1, 14], [5, 4], [9, 6]],
       dune: [[12, 0], [16, 6], [23, 20], [20, 23], [4, 23], [1, 20], [8, 6]],
+      spark: [[12, 0], [14, 5], [20, 3], [18, 9], [23, 12], [18, 14], [20, 20], [14, 18], [12, 23], [9, 18], [3, 20], [5, 14], [0, 12],
+        [5, 9], [3, 3], [9, 5]],
+      chord: [[12, 0], [16, 2], [18, 8], [19, 15], [23, 19], [23, 22], [1, 22], [1, 19], [5, 15], [6, 8], [8, 2]],
     };
     p.poly(shapes[b.id] || [[7, 1], [16, 1], [22, 7], [22, 16], [16, 22], [7, 22], [1, 16], [1, 7]],
       { fill: main, line: '#202020', shade: dark, hi: Pix.mix(main, '#ffffff', 0.4) });
@@ -181,6 +184,7 @@ const BadgeArt = {
     if (b.id === 'tide') { p.line(7, 16, 10, 14, hi); p.line(10, 14, 14, 16, hi); p.line(14, 16, 17, 14, hi); }
     if (b.id === 'crag') { p.line(4, 15, 8, 18, dark); p.line(16, 19, 20, 15, dark); }
     if (b.id === 'dune') { p.line(4, 20, 9, 17, dark); p.line(9, 17, 14, 19, dark); p.line(14, 19, 20, 16, dark); }
+    if (b.id === 'chord') p.line(3, 20, 20, 20, dark);
     p.ellipse(11.5, 11.5, 6.5, 6.5, { fill: hi, line: '#202020', shade: Pix.shade(hi, 0.75) });
     if (b.leader) {
       // A sliver of the leader's KEYSTONE.
@@ -246,8 +250,10 @@ const REGION = [
   { id: 'sunspire', name: 'SUNSPIRE RUINS', x: 36, y: 71, kind: 'town', desc: 'Sun-bleached ruins of an ancient city in the western dunes. Home of the GROUND-type GYM.' },
   { id: 'route10', name: 'ROUTE 10', x: 50, y: 87, kind: 'route', desc: 'An old caravan road across the dunes, from CEDARWOOD to SUNSPIRE RUINS.' },
   { id: 'route9', name: 'ROUTE 9', x: 140, y: 86, kind: 'route', desc: 'A quiet lakeside road between WILLOWBROOK and CRAGMOOR.' },
-  { id: 'stonepeak', name: 'STONEPEAK WOODS', x: 117, y: 29, kind: 'spot', desc: 'Snowy woods beneath the tallest peak. An old tower watches over them.' },
-  { id: 'meadowfield', name: 'MEADOWFIELD FARM', x: 156, y: 54, kind: 'spot', desc: 'A sprawling farm with a windmill. Its milk is famous.' },
+  { id: 'stonepeak', name: 'STONEPEAK WOODS', x: 117, y: 29, kind: 'town', desc: 'A snowy village beneath the tallest peak, around an old bell tower. Home of the SOUND-type GYM.' },
+  { id: 'route11', name: 'ROUTE 11', x: 116, y: 38, kind: 'route', desc: 'A snowy mountain road north from ARCHFORD to STONEPEAK WOODS.' },
+  { id: 'meadowfield', name: 'MEADOWFIELD FARM', x: 156, y: 54, kind: 'town', desc: 'A sprawling farm with a great windmill. Its milk is famous. Home of the ELECTRIC-type GYM.' },
+  { id: 'route12', name: 'ROUTE 12', x: 155, y: 46, kind: 'route', desc: 'A farm road south from ROUTE 3 to MEADOWFIELD FARM.' },
   { id: 'silverfall', name: 'SILVERFALL CITY', x: 171, y: 76, kind: 'town', desc: 'A city of mills and power plants around a great waterfall. SONANCE ENERGY runs the lights.' },
   { id: 'route8', name: 'ROUTE 8', x: 194, y: 79, kind: 'route', desc: 'A hilly road west from SEABREEZE PORT to SILVERFALL CITY.' },
   { id: 'bridge', name: 'SILVERFALL BRIDGE', x: 161, y: 86, kind: 'route', desc: 'A brand-new bridge over the river, south to CRAGMOOR.' },
@@ -277,6 +283,8 @@ const REGION_ROADS = [
   [[128, 83], [137, 83], [155, 92], [158, 100]],
   [[213, 82], [202, 80], [188, 79], [176, 77]],
   [[169, 79], [164, 84], [157, 90], [152, 94]],
+  [[153, 40], [155, 46], [156, 52]],
+  [[116, 46], [116, 38], [117, 32]],
 ];
 const REGION_SEA = [
   [[38, 97], [31, 102], [27, 106], [20, 107]],
