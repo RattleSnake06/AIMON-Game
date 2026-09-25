@@ -514,41 +514,6 @@ Object.assign(MAPS, {
   },
 
   // ----------------------------------------------------------------- CRAGMOOR GYM
-  gym_cm: {
-    name: '', music: 'gym', floor: 'Ö', theme: 'quarry', battleBg: 'cave', region: 'cragmoor',
-    rows: [
-      'wwwwwwwwwwwwwww',
-      'WWWWWW###WWWWWW',
-      'ÖÖÖÖOÖ###ÖOÖÖÖÖ',
-      'ÖÖOÖÖÖ###ÖÖÖOÖÖ',
-      'ÖOÖÖÖIÖÖÖIÖÖÖOÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ',
-      'ÖÖÖÖLLLLLLLÖÖÖÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖOOOÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ',
-      'ÖOOOOOOOOOÖÖÖÖÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖÖÖOÖ',
-      'ÖOÖÖÖÖÖÖÖÖÖÖÖÖÖ',
-      'ÖÖÖLLLLLLLLLLÖÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ',
-      'ÖÖÖÖÖÖÖÖÖOOOOOÖ',
-      'ÖOOOOOÖÖÖÖÖÖÖÖÖ',
-      'ÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ',
-      'xxxxxxÖMÖxxxxxx',
-    ],
-    buildings: [{ type: 'cragstone', x: 6, y: 1 }],
-    things: [
-      { x: 6, y: 3, script: 'cragstoneInspect' }, { x: 7, y: 3, script: 'cragstoneInspect' }, { x: 8, y: 3, script: 'cragstoneInspect' },
-    ],
-    npcs: [
-      { id: 'cm_tor_gym', person: 'tor', x: 7, y: 4, dir: 'down', move: 'still', script: 'torGym' },
-      { id: 'cm_miner1', person: 'miner', x: 3, y: 13, dir: 'right', move: 'still', trainer: 'cmminer1', sight: 4 },
-      { id: 'cm_hiker', person: 'hiker', x: 12, y: 10, dir: 'left', move: 'still', trainer: 'cmhiker', sight: 4 },
-      { id: 'cm_miner2', person: 'miner', x: 1, y: 5, dir: 'right', move: 'still', trainer: 'cmminer2', sight: 4 },
-      { id: 'cm_guide', person: 'man', x: 9, y: 16, dir: 'left', move: 'still', script: 'gymGuideTor' },
-    ],
-  },
-
   // ------------------------------------------------------------------ houses
   sf_house1: {
     name: '', music: 'home', floor: '_', region: 'silverfall',

@@ -137,11 +137,26 @@ const Party = {
         continue;
       }
       const battle = scr.mode === 'battle' || scr.mode === 'forced';
-      const items = battle ? ['SHIFT', 'SUMMARY', 'CANCEL'] : ['SUMMARY', 'SWITCH', 'CANCEL'];
+      const canFly = scr.mode === 'field' && mon.knows('fly');
+      const items = battle ? ['SHIFT', 'SUMMARY', 'CANCEL'] : [...(canFly ? ['FLY'] : []), 'SUMMARY', 'SWITCH', 'CANCEL'];
       scr.msg = 'Do what with this AIMON?';
       const k = yield* Menu.choose({ items, x: 172, y: 160 - (items.length * 16 + 14) - 2, cancel: items.length - 1 });
       scr.msg = scr.mode === 'forced' ? 'Choose the next AIMON.' : 'Choose an AIMON.';
       const pick = items[k];
+      if (pick === 'FLY') {
+        if (!OW.map.def.outdoor || OW.map.def.noFly) {
+          yield* scr.say('You can\'t FLY indoors!');
+          scr.msg = 'Choose an AIMON.';
+          continue;
+        }
+        const dest = yield* TownMap.open({ fly: true });
+        if (dest) {
+          OW.pendingFly = { to: dest, mon: mon.name };
+          result = 'fly';
+          break;
+        }
+        continue;
+      }
       if (pick === 'SUMMARY') {
         scr.index = yield* Summary.open(i);
       } else if (pick === 'SWITCH') {

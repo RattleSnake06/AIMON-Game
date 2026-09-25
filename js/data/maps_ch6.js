@@ -363,41 +363,6 @@ Object.assign(MAPS, {
   },
 
   // ------------------------------------------------------------------ SUNSPIRE GYM
-  gym_ss: {
-    name: '', music: 'gym', floor: 'Ô', theme: 'ruins', battleBg: 'desert', region: 'sunspire',
-    rows: [
-      'wwwwwwwwwwwwwwwww',
-      'WWWWWWWWWWWWWWWWW',
-      'ÔÔÔÔÔÔÔÜÜÜÔÔÔÔÔÔÔ',
-      'ÔÔÌÔÔÌÔÔÔÔÔÌÔÔÌÔÔ',
-      'ÔÔÌÔÔÌÔÔÔÔÔÌÔÔÌÔÔ',
-      'ÔÔÔÔÔÔÀÀÀÀÀÔÔÔÔÔÔ',
-      'ÔÔÔÔÔÔÀÀÀÀÀÔÔÔÔÔÔ',
-      'ÔÔÔÏÏÏÏÏÔÏÏÏÏÏÔÔÔ',
-      'ÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔ',
-      'ÔÀÀÀÀÀÌÔÔÔÌÀÀÀÀÀÔ',
-      'ÔÀÀÀÀÀÌÔÔÔÌÀÀÀÀÀÔ',
-      'ÔÀÀÀÀÀÌÔÔÔÌÀÀÀÀÀÔ',
-      'ÔÏÏÏÏÏÏÔÏÔÏÏÏÏÏÏÔ',
-      'ÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔ',
-      'ÔÀÀÀÀÀÀÔÔÔÀÀÀÀÀÀÔ',
-      'ÔÀÀÀÀÀÀÔÔÔÀÀÀÀÀÀÔ',
-      'ÔÌÔÔÔÔÔÔÔÔÔÔÔÔÔÌÔ',
-      'ÔÌÔÔÔÔÔÔÔÔÔÔÔÔÔÌÔ',
-      'xxxxxxxxMxxxxxxxx',
-    ],
-    things: [
-      { x: 7, y: 2, script: 'gymRootsInspect' }, { x: 8, y: 2, script: 'gymRootsInspect' }, { x: 9, y: 2, script: 'gymRootsInspect' },
-    ],
-    npcs: [
-      { id: 'ss_sahra_gym', person: 'sahra', x: 8, y: 3, dir: 'down', move: 'still', script: 'sahraGym' },
-      { id: 'ss_gym1', person: 'ruinmaniac', x: 3, y: 13, dir: 'right', move: 'still', trainer: 'ssgym1', sight: 4 },
-      { id: 'ss_gym2', person: 'hiker', x: 13, y: 8, dir: 'left', move: 'still', trainer: 'ssgym2', sight: 5 },
-      { id: 'ss_gym3', person: 'picnicker', x: 12, y: 5, dir: 'left', move: 'still', trainer: 'ssgym3', sight: 4 },
-      { id: 'ss_guide', person: 'man', x: 10, y: 16, dir: 'left', move: 'still', script: 'gymGuideSahra' },
-    ],
-  },
-
   // ------------------------------------------------------------------ houses
   ss_house1: {
     name: '', music: 'home', floor: '-', theme: 'adobe', region: 'sunspire',

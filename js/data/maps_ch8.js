@@ -306,38 +306,6 @@ Object.assign(MAPS, {
   },
 
   // ------------------------------------------------------------------ BARN GYM
-  gym_mf: {
-    name: '', music: 'gym', floor: '_', theme: 'barn', battleBg: 'farm', region: 'meadowfield',
-    rows: [
-      'wwwwwwwwwwwwwww',
-      'WWWWWWWWWWWWWWW',
-      '_èè_È_____È_èè_',
-      '_______________',
-      '____èèè_èèè____',
-      '_______________',
-      '_______________',
-      '_ÈÈÈÈÈ___ÈÈÈÈÈ_',
-      '_______________',
-      '_______________',
-      '_è_ÈÈÈ__ÈÈÈÈ_è_',
-      '_è___________è_',
-      '_______________',
-      '_ÈÈÈÈÈ___ÈÈÈÈÈ_',
-      '_______________',
-      '_è___________è_',
-      '_______M_______',
-    ],
-    npcs: [
-      { id: 'mf_wren_gym', person: 'wren', x: 7, y: 3, dir: 'down', move: 'still', script: 'wrenGym' },
-      { id: 'mf_gym1', person: 'farmer', x: 3, y: 12, dir: 'right', move: 'still', trainer: 'mfgym1', sight: 4 },
-      { id: 'mf_gym2', person: 'worker', x: 12, y: 9, dir: 'left', move: 'still', trainer: 'mfgym2', sight: 5 },
-      { id: 'mf_gym3', person: 'picnicker', x: 2, y: 5, dir: 'right', move: 'still', trainer: 'mfgym3', sight: 5 },
-      { id: 'mf_guide', person: 'man', x: 9, y: 15, dir: 'left', move: 'still', script: 'gymGuideWren' },
-      { id: 'mf_voltimp1', prop: 'mon:voltimp', x: 0, y: 7, move: 'still', text: 'VOLTIMP: Bzzt!\fIt\'s running laps inside the turbine to make power.' },
-      { id: 'mf_voltimp2', prop: 'mon:voltimp', x: 14, y: 13, move: 'still', text: 'VOLTIMP: Bzzzt bzzt!\fIt waves at you mid-spin.' },
-    ],
-  },
-
   // -------------------------------------------------------------------------- ROUTE 11
   route11: {
     name: 'ROUTE 11',
@@ -597,40 +565,6 @@ Object.assign(MAPS, {
   },
 
   // ---------------------------------------------------------------- CHIME HALL (GYM 7)
-  gym_sp: {
-    name: '', music: 'gym', floor: 'î', theme: 'hall', battleBg: 'tower', region: 'stonepeak',
-    rows: [
-      'wwwwwwwwwwwwwww',
-      'WWWWWWWWWWWWWWW',
-      'îìîîîîîîîîîîîìî',
-      'îîîîîîîîîîîîîîî',
-      'îîîìîîîîîîîìîîî',
-      'îîîîîîîîîîîîîîî',
-      'îîîîîîîîîîîîîîî',
-      'îììììîìììîììììî',
-      'îîîîîîîîîîîîîîî',
-      'îîîîîîîîîîîîîîî',
-      'îîîîìììîìììîîîî',
-      'îîîîîîîîîîîîîîî',
-      'îîîîîîîîîîîîîîî',
-      'îìììììîîîìììììî',
-      'îîîîîîîîîîîîîîî',
-      'jîîîîîîîîîîîîîj',
-      'îîîîîîîMîîîîîîî',
-    ],
-    things: [
-      { x: 1, y: 2, text: 'A rack of silver chimes. They ring softly as you pass.' },
-      { x: 13, y: 2, text: 'A rack of silver chimes. They ring softly as you pass.' },
-    ],
-    npcs: [
-      { id: 'sp_cantor_gym', person: 'cantor', x: 7, y: 3, dir: 'down', move: 'still', script: 'cantorGym' },
-      { id: 'sp_gym1', person: 'musician', x: 12, y: 12, dir: 'left', move: 'still', trainer: 'spgym1', sight: 5 },
-      { id: 'sp_gym2', person: 'medium', x: 2, y: 9, dir: 'right', move: 'still', trainer: 'spgym2', sight: 4 },
-      { id: 'sp_gym3', person: 'musician', x: 12, y: 5, dir: 'left', move: 'still', trainer: 'spgym3', sight: 4 },
-      { id: 'sp_guide', person: 'man', x: 9, y: 15, dir: 'left', move: 'still', script: 'gymGuideCantor' },
-    ],
-  },
-
   // ------------------------------------------------------------------ houses
   sp_house1: {
     name: '', music: 'home', floor: '_', region: 'stonepeak',

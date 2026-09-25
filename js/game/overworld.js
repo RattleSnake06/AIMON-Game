@@ -54,6 +54,20 @@ class GameMap {
 
   inside(x, y) { return x >= 0 && y >= 0 && x < this.w && y < this.h; }
 
+  // Change one tile for this visit (a filled pit, say). resetTiles() undoes it.
+  setTile(x, y, ch) {
+    if (this.rows === this.def.rows) this.rows = this.def.rows.slice();
+    const r = this.rows[y];
+    this.rows[y] = r.slice(0, x) + ch + r.slice(x + 1);
+    this.rendered = null;
+  }
+
+  resetTiles() {
+    if (this.rows === this.def.rows) return;
+    this.rows = this.def.rows;
+    this.rendered = null;
+  }
+
   tileAt(x, y) {
     if (!this.inside(x, y)) return this.border;
     return this.rows[y][x];
@@ -188,8 +202,25 @@ const OW = {
     this.player.oy = 0;
     this.player.moving = false;
     this.camOff = { x: 0, y: 0 };
+    // GYM puzzles start fresh each visit (pits unfilled, bells silent).
+    this.map.resetTiles();
+    this.lit = new Set();
+    this.bellSeq = [];
     this.spawnNpcs();
+    if (this.map.def.onLoad) this.map.def.onLoad(this.map);
     this.onMapChanged();
+  },
+
+  // Show or hide the NPCs and props whose showIf/hideIf flags have changed
+  // (gates, doors and blooms in the GYMS), without reloading the map.
+  refreshNpcs() {
+    for (const n of this.map.def.npcs || []) {
+      if (!n.dyn) continue;
+      const vis = this.npcVisible(n);
+      const e = this.npc(n.id);
+      if (vis && !e && !this.entityAt(n.x, n.y)) this.npcs.push(new Entity(n));
+      else if (!vis && e) this.despawn(e);
+    }
   },
 
   // A map's music can depend on the story (a function returning a name).
@@ -342,6 +373,12 @@ const OW = {
       return;
     }
     if (this.busy) return;
+    // After riding a current, land as if the player had just stepped there.
+    if (this.deferStep) {
+      this.deferStep = false;
+      this.onPlayerStep();
+      return;
+    }
     if (p.bumping) p.bumping = 0;
     this.handleInput();
   },
@@ -415,6 +452,11 @@ const OW = {
       this.startMove(p, dir, running ? RUN_FRAMES : WALK_FRAMES);
       this.wasMoving = true;
     } else {
+      const rock = this.entityAt(nx, ny, p);
+      if (rock && rock.def.push && !rock.moving) {
+        this.run(this.pushRock(rock, dir));
+        return;
+      }
       p.bumping = (p.bumping || 0) + 1;
       if (this.bumpSfx <= 0) {
         Sound.sfx('bump');
@@ -442,6 +484,7 @@ const OW = {
       this.run(this.padWarp(pad));
       return;
     }
+    if (this.floorEffect()) return;
     if (this.checkTriggers(false)) return;
     if (this.checkTrainers()) return;
     if (this.encounterCooldown > 0) this.encounterCooldown--;
@@ -458,6 +501,120 @@ const OW = {
       const lead = State.party.find((m) => !m.fainted);
       if (State.d.repel > 0 && lead && level < lead.level) return;
       this.run(Events.wildBattle(e.species, level));
+    }
+  },
+
+  // -- GYM puzzle floors ------------------------------------------------------
+  // Returns true when the tile under the player took over (a current, a
+  // sinkhole, the open sky of the dome...).
+  floorEffect() {
+    const p = this.player;
+    const d = Tiles.def(this.tile(p.x, p.y));
+    if (d.starPath) this.lit.add(`${p.x},${p.y}`);
+    if (d.push && this.canRide(d.push)) {
+      this.run(this.ride());
+      return true;
+    }
+    if (d.sink && this.map.def.sinkTo) {
+      this.run(this.sinkFall());
+      return true;
+    }
+    if (d.fall && this.map.def.fallTo) {
+      this.run(this.voidFall());
+      return true;
+    }
+    if (d.toggle && this.map.def.onSwitch) {
+      this.run(Events[this.map.def.onSwitch](p.x, p.y));
+      return true;
+    }
+    if (d.bell !== undefined && this.map.def.onBell) {
+      this.run(Events[this.map.def.onBell](d.bell, p.x, p.y));
+      return true;
+    }
+    return false;
+  },
+
+  canRide(dir) {
+    const p = this.player;
+    const [dx, dy] = U.dirVec[dir];
+    const nx = p.x + dx;
+    const ny = p.y + dy;
+    return this.map.inside(nx, ny) && !Tiles.def(this.tile(nx, ny)).solid && !this.entityAt(nx, ny, p);
+  },
+
+  // Carried along by a water current until it lets go.
+  *ride() {
+    const p = this.player;
+    Sound.sfx('water');
+    for (let guard = 0; guard < 60; guard++) {
+      const d = Tiles.def(this.tile(p.x, p.y)).push;
+      if (!d || !this.canRide(d)) break;
+      this.startMove(p, d, RUN_FRAMES);
+      yield () => !p.moving;
+    }
+    this.deferStep = true;
+  },
+
+  // Down through a sinkhole to the floor below, landing on the same spot.
+  *sinkFall() {
+    const p = this.player;
+    Sound.sfx('ledge');
+    for (let i = 0; i < 12; i++) {
+      p.oy = i;
+      yield 1;
+    }
+    p.hidden = true;
+    yield* Game.fadeOut(12);
+    p.oy = 0;
+    p.hidden = false;
+    this.loadMap(this.map.def.sinkTo, p.x, p.y, p.dir);
+    Sound.sfx('bump');
+    Game.shake = 6;
+    yield* Game.fadeIn(12);
+  },
+
+  // A step off the hidden path into the open sky: back to the start.
+  *voidFall() {
+    const p = this.player;
+    const [x, y, dir] = this.map.def.fallTo;
+    Sound.sfx('faint');
+    for (let i = 0; i < 10; i++) {
+      p.hidden = i % 2 === 0;
+      yield 3;
+    }
+    yield* Game.fadeOut(16);
+    p.hidden = false;
+    p.x = x;
+    p.y = y;
+    p.dir = dir || 'down';
+    yield* Game.fadeIn(16);
+    const fall = this.map.def.fallText;
+    if (fall && !State.flag(`fell_${this.map.id}`)) {
+      State.setFlag(`fell_${this.map.id}`);
+      yield* say(fall);
+    }
+  },
+
+  // Shove a boulder one tile; it drops into a pit and fills it.
+  *pushRock(rock, dir) {
+    const [dx, dy] = U.dirVec[dir];
+    const bx = rock.x + dx;
+    const by = rock.y + dy;
+    const t = Tiles.def(this.tile(bx, by));
+    if (!this.map.inside(bx, by) || this.entityAt(bx, by) || this.map.warpAt(bx, by) || (t.solid && !t.hole)) {
+      Sound.sfx('bump');
+      yield 10;
+      return;
+    }
+    Sound.sfx('rock');
+    this.startMove(rock, dir, WALK_FRAMES + 4);
+    yield () => !rock.moving;
+    if (t.hole) {
+      Sound.sfx('rumble');
+      Game.shake = 8;
+      this.despawn(rock);
+      this.map.setTile(bx, by, this.map.def.floor);
+      yield 16;
     }
   },
 

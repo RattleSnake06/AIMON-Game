@@ -354,7 +354,9 @@ Object.assign(Events, {
       yield* say('The DUNE BADGE! SAHRA hasn\'t handed one out in months. You should be proud, champ!');
       return;
     }
-    yield* say('Hey, champ-in-the-making! SAHRA\'s GYM is a maze of fallen pillars. Find the gaps and you\'ll find the way.');
+    yield* say('Hey, champ-in-the-making! See SAHRA up on her dais? There\'s no way up from here. Not on foot, anyway.');
+    yield* say('Those sinkholes in the floor drop into the old halls underneath. Every one lands you somewhere different, and the ladders down there lead back up.');
+    yield* say('Only one ladder climbs up beside SAHRA. Keep dropping till you find it!');
     yield* say('Her GROUND types shrug off ELECTRIC moves completely! Hit them with WATER, GRASS or... well, anything that floats.');
   },
 

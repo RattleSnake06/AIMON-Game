@@ -284,6 +284,11 @@ Object.assign(Events, {
   // -- MEADOWFIELD GYM: WREN (GYM 6) -------------------------------------------------------------
   *wrenGym() {
     if (State.flag('badge_spark')) {
+      if (!State.count('hm02')) {
+        yield* say('WREN: Oh! I almost forgot. I meant to give you this with your BADGE.');
+        yield* this.giveFly();
+        return;
+      }
       yield* say('WREN: That SPARK BADGE looks good on you! All charged up.');
       yield* say('WREN: Tell CANTOR I said hi. He used to come to the farm every harvest just to hear the mill hum.');
       return;
@@ -299,10 +304,20 @@ Object.assign(Events, {
     yield* this.awardBadge(5, 'WREN');
     yield* say('WREN: And this! TM06 THUNDERBOLT. My favorite move in the whole world.');
     yield* this.receive('tm06', 1);
+    yield* say('WREN: Oh, and one more thing. You\'ve got a lot of ground left to cover.');
+    yield* this.giveFly();
     yield* say('WREN: Six BADGES... SAHRA says the seventh WARDEN is CANTOR, up in STONEPEAK WOODS. He\'s the oldest of all of us.');
     yield* say('WREN: STONEPEAK is north of ARCHFORD, up ROUTE 11. The road\'s been snowed in, but I called the ARCHFORD road crew this morning. They owe me a favor.');
     yield* say('WREN: CANTOR keeps the great bell in the old tower. SAHRA thinks the bell\'s clapper is a KEYSTONE. The BELLSTONE.');
     yield* say('WREN: If TEAM DISTORTION couldn\'t get my MILLSTONE, they\'ll go after his bell next. Hurry, {PLAYER}!');
+  },
+
+  // HM02 FLY, the SPARK BADGE's reward for going the distance.
+  *giveFly() {
+    yield* this.receive('hm02', 1);
+    yield* say('WREN: HM02 FLY! Teach it to a FLYING AIMON from your BAG.');
+    yield* say('WREN: Then, whenever you\'re outside, pick FLY from your AIMON menu, choose a town on the map, and off you go!');
+    yield* say('WREN: It only goes to towns you\'ve already been to, though. AIMON are clever, but they\'re not psychic.');
   },
 
   *gymGuideWren() {
@@ -310,7 +325,10 @@ Object.assign(Events, {
       yield* say('The SPARK BADGE! You powered right through, champ!');
       return;
     }
-    yield* say('Hey, champ-in-the-making! This barn\'s wired to the rafters. WREN\'s ELECTRIC types hit hard and fast.');
+    yield* say('Hey, champ-in-the-making! This barn\'s wired to the rafters. The gates run on VOLTIMP power!');
+    yield* say('Step on a switch plate and every gate flips: the BLUE ones switch off and the ORANGE ones switch on, or the other way round.');
+    yield* say('The bolt on each plate shows which colour is live right now. Plan your route before you step!');
+    yield* say('WREN\'s ELECTRIC types hit hard and fast.');
     yield* say('GROUND types shrug off ELECTRIC moves. But watch out for her ZEPHYRON: it flies, so GROUND moves can\'t touch it!');
   },
 
@@ -533,7 +551,9 @@ Object.assign(Events, {
       yield* say('The CHORD BADGE! MASTER CANTOR hasn\'t smiled like that in years, champ!');
       return;
     }
-    yield* say('Hey, champ-in-the-making! Listen to that: every chime in this hall is a different note. Beautiful, right?');
+    yield* say('Hey, champ-in-the-making! Listen to that: every bell plate in this hall rings a different note. Beautiful, right?');
+    yield* say('The chime doors only open for the right tune. Read the plaque beside each door, then ring the plates in that order.');
+    yield* say('Ring a wrong note and you start the tune again. No pressure!');
     yield* say('SOUND moves hit hard, but some of the MASTER\'s AIMON are SOUNDPROOF. Bring a mix of moves!');
   },
 

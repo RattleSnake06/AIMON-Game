@@ -182,6 +182,8 @@ const MOVES = {
     desc: 'Whips up a strong gust of wind.' },
   airslash: { name: 'AIR SLASH', type: 'flying', cat: 'special', power: 75, acc: 95, pp: 15, flinch: 30, fx: 'wind',
     desc: 'Slices with a blade of air. May make the foe flinch.' },
+  fly: { name: 'FLY', type: 'flying', cat: 'physical', power: 90, acc: 95, pp: 15, fx: 'wind',
+    desc: 'Soars up and dives at the foe. Outside, it can fly you to any town you\'ve visited.' },
   wingattack: { name: 'WING ATTACK', type: 'flying', cat: 'physical', power: 60, acc: 100, pp: 35, fx: 'wind',
     desc: 'Strikes the foe with wide-spread wings.' },
 
@@ -275,4 +277,6 @@ const TMS = {
   tm06: { move: 'thunderbolt', compat: ['electric', 'water', 'normal', 'flying', 'sound', 'dark'] },
   tm07: { move: 'hypervoice', compat: ['sound', 'normal', 'ghost', 'dark', 'flying', 'fighting', 'water'] },
   tm08: { move: 'shadowball', compat: ['ghost', 'dark', 'normal', 'sound', 'grass', 'water', 'ice', 'bug'] },
+  // HM02 FLY: FLYING types, plus the other AIMON with wings big enough to carry you.
+  hm02: { move: 'fly', compat: ['flying'], also: ['skydrift', 'skyseraph', 'cygnata', 'goskie', 'windling', 'noctumoth'] },
 };

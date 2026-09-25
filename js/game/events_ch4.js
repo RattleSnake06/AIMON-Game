@@ -246,7 +246,9 @@ Object.assign(Events, {
       yield* say('You moved the mountain! Twenty years I\'ve worked here, and I\'ve never seen TOR grin like that.');
       return;
     }
-    yield* say('Hey, champ-in-the-making! CRAGMOOR\'s GYM is a climb. The ledges only go down, so pick your path carefully!');
+    yield* say('Hey, champ-in-the-making! TOR blasted three walls of rock across his GYM. There\'s one pit in each.');
+    yield* say('Push a boulder into a pit and it fills right in. Walk into a boulder to shove it. Mind you don\'t wedge one in a corner!');
+    yield* say('Stuck? Just step outside. The crew puts the boulders back every time you leave.');
     yield* say('TOR\'s ROCK types shrug off NORMAL, FIRE and FLYING hits. Crack them with WATER, GRASS, FIGHTING or GROUND!');
   },
 

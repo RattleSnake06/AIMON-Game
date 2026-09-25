@@ -218,6 +218,15 @@ const Sound = {
     if (fn) fn(this, this.ctx.currentTime + 0.005, this.sfxBus);
   },
 
+  // A single bell-like note (CANTOR's bell plates).
+  chime(freq) {
+    if (!this.ctx || this.muted) return;
+    const t = this.ctx.currentTime + 0.005;
+    for (const [k, v, d] of [[1, 0.16, 1.2], [2, 0.06, 0.8], [3, 0.03, 0.5]]) {
+      this.osc('sine', freq * k, t, d, v, this.sfxBus, { sustain: 0.4, release: d * 0.8 });
+    }
+  },
+
   cry(speciesId, pitch = 1) {
     if (!this.ctx || this.muted) return;
     const fn = CRIES[speciesId];

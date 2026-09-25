@@ -298,6 +298,14 @@ const REGION_SEA = [
   [[76, 125], [70, 131], [62, 135]],
 ];
 
+// Where FLY can take you, and which building you land in front of there
+// (the AIMON CENTRE, or your own front door in WILLOWBROOK).
+const FLY_TOWNS = {
+  willowbrook: 'houseRed', archford: 'centre', grayhaven: 'centre', cedarwood: 'centre', seabreeze: 'centre',
+  silverfall: 'centre', cragmoor: 'centre', sunspire: 'centre', meadowfield: 'centre', stonepeak: 'centre',
+  emberpeak: 'centre', starfall: 'centre',
+};
+
 // Map id -> REGION id (new maps can also set def.region).
 const MAP_REGION = {
   willowbrook: 'willowbrook', home1f: 'willowbrook', home2f: 'willowbrook', rivalhouse: 'willowbrook', lab: 'willowbrook',
@@ -371,11 +379,11 @@ const TownMap = {
   },
 
   // Nearest place in a direction from the current one.
-  step(from, dir) {
+  step(from, dir, places = REGION) {
     const [dx, dy] = U.dirVec[dir];
     let best = null;
     let bestScore = Infinity;
-    for (const r of REGION) {
+    for (const r of places) {
       const vx = r.x - from.x;
       const vy = r.y - from.y;
       const along = vx * dx + vy * dy;
@@ -387,21 +395,41 @@ const TownMap = {
     return best;
   },
 
-  *open() {
+  canFlyTo(r) { return !!FLY_TOWNS[r.id] && State.flag(`visit_${r.id}`); },
+
+  // The landing spot in a town: just outside its CENTRE (or house) door.
+  flySpot(id) {
+    const def = MAPS[id];
+    const b = (def.buildings || []).find((q) => q.type === FLY_TOWNS[id]);
+    const spec = BUILDINGS[b.type];
+    return [id, b.x + spec.door, b.y + spec.h];
+  },
+
+  // opts.fly: pick a town to FLY to. Returns its REGION id, or null.
+  *open(opts = {}) {
     const hereId = this.regionOf(OW.map.id);
     const here = REGION.find((r) => r.id === hereId) || REGION[0];
-    const s = { opaque: true, cur: here, done: false };
+    const fly = !!opts.fly;
+    const places = fly ? REGION.filter((r) => this.canFlyTo(r)) : REGION;
+    const nearest = places.slice().sort((a, b) => Math.hypot(a.x - here.x, a.y - here.y) - Math.hypot(b.x - here.x, b.y - here.y))[0];
+    const s = { opaque: true, cur: fly ? (nearest || here) : here, done: false, pick: null };
     s.update = () => {
+      if (s.asking) return;
       for (const d of ['up', 'down', 'left', 'right']) {
         if (!Input.repeat(d)) continue;
-        const next = this.step(s.cur, d);
+        const next = this.step(s.cur, d, places);
         if (next) { s.cur = next; Sound.sfx('select'); }
       }
-      if (Input.pressed('b') || Input.pressed('a') || Input.pressed('start')) { Sound.sfx('select'); s.done = true; }
+      if (fly && Input.pressed('a') && this.canFlyTo(s.cur)) { Sound.sfx('confirm'); s.asking = true; return; }
+      if (Input.pressed('b') || Input.pressed('start') || (!fly && Input.pressed('a'))) { Sound.sfx('select'); s.done = true; }
     };
     s.draw = (g) => {
       g.drawImage(this.background(), 0, 0);
-      for (const r of REGION) this.drawPlace(g, r, State.flag(`visit_${r.id}`));
+      for (const r of REGION) {
+        if (fly && !this.canFlyTo(r)) g.globalAlpha = 0.45;
+        this.drawPlace(g, r, State.flag(`visit_${r.id}`));
+        g.globalAlpha = 1;
+      }
       const cur = s.cur;
       if (Math.floor(Game.frame / 10) % 2) {
         g.strokeStyle = '#f8f040';
@@ -417,14 +445,25 @@ const TownMap = {
       g.globalAlpha = 0.9;
       UI.window(g, 2, 2, 236, 20, 'dark');
       g.globalAlpha = 1;
-      Font.draw(g, 'VALEMORA', 9, 8, '#b8c8f8', '#303848');
+      Font.draw(g, fly ? 'FLY TO...' : 'VALEMORA', 9, 8, fly ? '#f8e070' : '#b8c8f8', '#303848');
       Font.drawRight(g, cur.name, 231, 8, '#f8f8f8', '#303848');
       const by = cur.y > 104 ? 24 : 122;
       UI.window(g, 2, by, 236, 36);
       Font.wrap(cur.desc, 220).slice(0, 2).forEach((l, i) => Font.draw(g, l, 10, by + 7 + i * 12, '#404048', '#d0d0c8'));
     };
     Game.push(s);
-    yield () => s.done;
+    for (;;) {
+      yield () => s.done || s.asking;
+      if (s.done) break;
+      const yes = yield* Dialog.yesNo(`Fly to ${s.cur.name}?`);
+      Dialog.close();
+      s.asking = false;
+      if (yes) {
+        s.pick = s.cur.id;
+        break;
+      }
+    }
     Game.remove(s);
+    return s.pick;
   },
 };

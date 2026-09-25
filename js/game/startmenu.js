@@ -32,6 +32,12 @@ const StartMenu = {
         yield* Events.fish();
         break;
       }
+      if (OW.pendingFly) {
+        const fly = OW.pendingFly;
+        OW.pendingFly = null;
+        yield* Events.flyTo(fly.to, fly.mon);
+        break;
+      }
       if (r === 'close') break;
     }
   },

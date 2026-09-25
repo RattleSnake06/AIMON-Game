@@ -390,34 +390,6 @@ Object.assign(MAPS, {
     triggers: [{ x: 2, y: 8, w: 14, h: 1, script: 'vesperShowdown' }],
   },
 
-  gym_cw: {
-    name: '', music: 'gym', floor: '3', theme: 'greenhouse', battleBg: 'forest', region: 'cedarwood',
-    rows: [
-      'wwwwwwwwwwwww',
-      'WWWnWWWWWnWWW',
-      '3p333333333p3',
-      '3222233322223',
-      '3333333333333',
-      '3523533353253',
-      '3323333333233',
-      '3523333333253',
-      '3323223223233',
-      '3523333333253',
-      '3323333333233',
-      '3523223223253',
-      '3323333333233',
-      '3333333333333',
-      'p33333333333p',
-      '333333M333333',
-    ],
-    npcs: [
-      { id: 'cw_ivy', person: 'ivy', x: 6, y: 2, dir: 'down', move: 'still', script: 'ivyGym' },
-      { id: 'cw_fern', person: 'gardener', x: 4, y: 10, dir: 'right', move: 'still', trainer: 'fern', sight: 2 },
-      { id: 'cw_rowan', person: 'gardener', x: 8, y: 6, dir: 'left', move: 'still', trainer: 'rowan', sight: 2 },
-      { id: 'cw_guide', person: 'man', x: 8, y: 13, dir: 'down', move: 'still', script: 'gymGuideIvy' },
-    ],
-  },
-
   cw_house1: {
     name: '', music: 'home', floor: '_', region: 'cedarwood',
     rows: ['wwwwwwwww', 'WnWWiWWnW', 'GG______p', '_________', '__cDDc___', '_________', '____M____'],
@@ -729,34 +701,6 @@ Object.assign(MAPS, {
       { id: 'l3_thane', person: 'thane', x: 7, y: 6, dir: 'left', move: 'still', noFace: true, script: 'thaneShowdown', hideIf: 'storm_cleared' },
     ],
     triggers: [{ x: 2, y: 4, w: 1, h: 1, script: 'thaneShowdown' }, { x: 3, y: 3, w: 1, h: 1, script: 'thaneShowdown' }],
-  },
-
-  gym_sb: {
-    name: '', music: 'gym', floor: ']', theme: 'seagym', battleBg: 'beach', region: 'seabreeze',
-    rows: [
-      'wwwwwwwwwwwww',
-      'WWWnWWWWWnWWW',
-      ']]]]]]]]]]]]]',
-      ']~~~~]]]~~~~]',
-      ']~~~~]]]~~~~]',
-      ']~~~~~]~~~~~]',
-      ']~~~~]]]~~~~]',
-      ']~~~~]]]~~~~]',
-      ']]]]]]]]]]]]]',
-      ']~~~~]]]~~~~]',
-      ']~~~~]]]~~~~]',
-      ']~~~~]]]~~~~]',
-      ']~~~~]]]~~~~]',
-      ']]]]]]]]]]]]]',
-      'p]]]]]]]]]]]p',
-      ']]]]]]M]]]]]]',
-    ],
-    npcs: [
-      { id: 'sb_nerissa_gym', person: 'nerissa', x: 6, y: 2, dir: 'down', move: 'still', script: 'nerissaGym' },
-      { id: 'sb_marlo', person: 'sailor', x: 4, y: 8, dir: 'right', move: 'still', trainer: 'marlo', sight: 3 },
-      { id: 'sb_coral', person: 'swimmer', x: 9, y: 13, dir: 'left', move: 'still', trainer: 'coral', sight: 3 },
-      { id: 'sb_guide', person: 'man', x: 10, y: 14, dir: 'left', move: 'still', script: 'gymGuideNerissa' },
-    ],
   },
 
   sb_house1: {

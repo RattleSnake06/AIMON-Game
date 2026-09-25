@@ -687,9 +687,9 @@ Object.assign(Events, {
     const p = OW.player;
     const morrow = OW.npc('o2_morrow');
     if (!morrow) return;
-    yield* OW.walkTo(p, 4, 9);
+    yield* OW.walkTo(p, 2, 13);
     p.dir = 'right';
-    yield* say('At the center of the dome, a fallen star glows on a stone plinth. A man in a dark coat stands before it, an hourglass turning in his hand.');
+    yield* say('The dome\'s floor is open sky: stars below as well as above. Across the dark, a fallen star glows on a stone plinth. A man in a dark coat stands before it, an hourglass turning in his hand.');
     morrow.dir = 'left';
     yield 20;
     yield* say('MORROW: Ah, child. Late, for once.');
@@ -698,7 +698,7 @@ Object.assign(Events, {
     yield* say('MORROW: The CONDUCTOR will find the rest where he always meant to find it. You know where. You carry it.');
     yield* say('MORROW: Time was always on my side.');
     yield* say('MORROW: We will meet again at the end, you and I. Tick... tock.');
-    yield* OW.walkTo(morrow, 12, 3);
+    yield* OW.walkTo(morrow, 10, 4);
     Sound.sfx('pad');
     yield* BattleFX.tween(20, () => { morrow.hidden = !morrow.hidden; });
     OW.despawn(morrow);
@@ -706,10 +706,10 @@ Object.assign(Events, {
     yield 30;
     // VESPER has freed NOX.
     yield* say('Footsteps hurry up the stairs.');
-    const vesper = OW.spawn({ id: 'o2_vesper', person: 'vesper', x: 1, y: 11, dir: 'right' });
-    yield* OW.walkTo(vesper, 2, 9);
-    const nox = OW.spawn({ id: 'o2_nox', person: 'nox', x: 1, y: 11, dir: 'right', script: 'noxGym' });
-    yield* OW.walkTo(nox, 3, 10);
+    const vesper = OW.spawn({ id: 'o2_vesper', person: 'vesper', x: 1, y: 14, dir: 'up' });
+    yield* OW.walkTo(vesper, 1, 12);
+    const nox = OW.spawn({ id: 'o2_nox', person: 'nox', x: 1, y: 14, dir: 'up', script: 'noxGym' });
+    yield* OW.walkTo(nox, 0, 13);
     OW.faceTowards(p, vesper);
     OW.faceTowards(vesper, p);
     yield* say('VESPER: Too late? ...Figures. MORROW\'s never late.');
@@ -719,16 +719,19 @@ Object.assign(Events, {
     yield* say('VESPER: You\'re welcome.');
     yield* say('VESPER: I told you at the grove, kid. I\'m done with them. Consider this me paying back the lighthouse. And the dig site. And... all of it.');
     yield* say('VESPER: Now we\'re even.');
-    yield* this.leave(vesper, 1, 11);
+    yield* this.leave(vesper, 1, 14);
     Sound.sfx('exit');
     State.setFlag('nox_freed');
     State.setFlag('obs_morrow');
     yield* say('NOX: TEAM DISTORTION\'s own VESPER, freeing a WARDEN. The stars really are strange tonight.');
-    yield* OW.walkTo(nox, 7, 8);
-    OW.faceTowards(nox, p);
     yield* say('NOX: They copied the STARSTONE\'s song. But a copy isn\'t a voice. The stone still sings.');
     yield* say('NOX: And you carry seven BADGES. So you know why a trainer climbs all the way up my observatory.');
-    yield* say('NOX: It\'s almost midnight. When you\'re ready, we\'ll battle properly. Under the open dome.');
+    yield* say('NOX: This dome is my GYM. Its floor is open sky, and only one path of stars crosses it.');
+    yield* say('NOX: It\'s almost midnight. Come and find me by the STARSTONE, and we\'ll battle properly. Under the open dome.');
+    yield* say('NOX: If the dark gets the better of you, my chart of THE WANDERER is in the archive downstairs.');
+    yield* OW.walkTo(nox, 8, 7);
+    nox.dir = 'down';
+    yield* say('NOX walked out across the dark as if it were solid ground.');
   },
 
   // -- GYM 8: NOX under the dome ---------------------------------------------------------------

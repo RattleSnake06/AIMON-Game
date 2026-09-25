@@ -290,7 +290,9 @@ Object.assign(Events, {
       yield* say('GUIDE: You beat IVY! Even the greenhouse flowers are cheering for you!');
       return;
     }
-    yield* say('GUIDE: Hey, future champ! IVY uses GRASS types. They\'ll put you to sleep and drain your HP.');
+    yield* say('GUIDE: Hey, future champ! IVY\'s greenhouse is a maze, and her vines are shut tight.');
+    yield* say('GUIDE: See those pink buds? Three of them are asleep somewhere in here. Wake one up and its vine wall withers away!');
+    yield* say('GUIDE: IVY uses GRASS types. They\'ll put you to sleep and drain your HP.');
     yield* say('GUIDE: FIRE, FLYING and BUG moves work great against them. A FLAMBRAMBLE from ROUTE 5 would scorch this place!');
   },
 
@@ -519,7 +521,9 @@ Object.assign(Events, {
       yield* say('GUIDE: You beat the CAPTAIN! The whole port is going to celebrate tonight!');
       return;
     }
-    yield* say('GUIDE: Ahoy, future champ! The CAPTAIN uses WATER types, and every one of them has evolved.');
+    yield* say('GUIDE: Ahoy, future champ! The CAPTAIN built her GYM around the tides. Step into a current and it\'ll carry you!');
+    yield* say('GUIDE: Every current flows one way only. Pick the wrong one and it\'ll wash you right back here. Watch the arrows in the water.');
+    yield* say('GUIDE: The CAPTAIN uses WATER types, and every one of them has evolved.');
     yield* say('GUIDE: GRASS and ELECTRIC moves hit them hard. And watch out for her SKYSERAPH. It\'s faster than the wind!');
   },
 

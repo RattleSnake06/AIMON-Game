@@ -229,8 +229,8 @@ const Bag = {
     const i = yield* Party.open({ mode: 'item', msg: `Teach ${MOVES[mv].name} to which AIMON?` });
     if (i < 0) return false;
     const mon = State.party[i];
-    const compat = (TMS[id] || {}).compat;
-    if (compat && !mon.types.some((t) => compat.includes(t))) {
+    const { compat, also } = TMS[id] || {};
+    if (compat && !mon.types.some((t) => compat.includes(t)) && !(also || []).includes(mon.species)) {
       yield* scr.say(`${mon.name} can't learn ${MOVES[mv].name}.`);
       return false;
     }
