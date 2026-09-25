@@ -53,7 +53,10 @@ HALL OF FAME, the credits and a post-game (the full plot is in
 | ![CHAMPION KAI](docs/screenshots/champkai.png) | ![The HALL OF FAME](docs/screenshots/halloffame.png) |
 | ![RYKER claps from the doorway](docs/screenshots/hofryker.png) | ![The credits: the cedar in bloom](docs/screenshots/credits.png) |
 | ![The FORGOTTEN LIGHTHOUSE, lit again](docs/screenshots/lighthouselit.png) | ![Two extra plates: RYKER is home](docs/screenshots/homecoming.png) |
-| ![THE END](docs/screenshots/theend.png) | |
+| ![THE END](docs/screenshots/theend.png) | ![Your partner has something to say about the snow](docs/screenshots/partner.png) |
+| ![A BATTLE TOWER streak](docs/screenshots/tower.png) | ![Putting on a BATTLE TOWER outfit](docs/screenshots/outfitbag.png) |
+| ![The CONDUCTOR's coat](docs/screenshots/outfit.png) | ![Midnight at the FORGOTTEN LIGHTHOUSE](docs/screenshots/lighthousemidnight.png) |
+| ![MORROW comes home](docs/screenshots/morrowhome.png) | |
 
 ## Play
 
@@ -458,12 +461,39 @@ hosting anywhere), run `python3 tools/bundle.py`. It writes
     (Lv 68-72), ferries from SEABREEZE to every island, **ASTRALYX** at the
     MYSTIC GROVE and **ELEGIRA** sleeping in the heart of the shrine (both
     Lv 70), and an hourglass where MORROW vanished: "Time will tell. (M.)"
+93. **The BATTLE TOWER** stands beside the LEAGUE hall. Battle one randomly
+    built team after another: challengers bring more AIMON (3 up to 6) at
+    higher levels (up to Lv 75) as your streak grows. Your team is healed
+    before every battle, you can rest whenever you like, and only a loss
+    resets the streak. Prizes for wins in a row, each a key item you can
+    WEAR from the BAG to change how you look: **5** the VICTORY OUTFIT (your
+    clothes in black and gold), **10** a TEAM DISTORTION cloak, **20** the
+    CONDUCTOR's coat. TAKE OFF changes you back.
+94. **The FORGOTTEN LIGHTHOUSE** (by ferry from SEABREEZE). VESPER keeps
+    the light now, on parole, but every midnight it goes out for exactly one
+    minute. Read the old keeper's logbook, then wait in the lamp room: the
+    culprit is his HOURGHAST, stuck reliving the minute he was late the
+    night of the great storm. It can't be caught, only calmed. VESPER keeps
+    it company and gives you **TM09 BOOMBURST**.
+95. **MORROW's hourglass.** Take it from the SUNKEN SHRINE and USE it to see
+    where its sand drifts: to the three places MORROW battled you (the
+    SONANCE TOWER archive, the STONEPEAK belfry, the STARFALL dome). A note
+    waits at each, and together they tell his story. At midnight in the
+    lamp room he comes home to his HOURGHAST, battles you one last time and
+    gives you five **SANDGLASS BALLS**, which work better the longer a
+    battle goes on. VESPER and MORROW both stay for rematches.
 
 **Gameplay**
 
 - Tile-based movement with walking, running, ledge hops, doors and stairs.
   Towns and routes join up with no loading screen, and a location banner
   shows when you enter an area.
+- **Your partner walks with you.** The first AIMON in your party that can
+  still battle follows one step behind you everywhere. Now and then it
+  reacts when you arrive somewhere, and if you talk to it, it tells you
+  what it thinks of the place: its HP and status, the weather, the
+  landmark, and how its type feels about snow, sand, lava, sea or forest.
+  Turn it off with OPTION → PARTNER.
 - **Battle screen in the DS style:** the choices sit on a touch-screen-like
   panel, with a big red FIGHT button (showing your AIMON's icon), BAG, RUN
   and AIMON buttons, and a row of party balls for each side. Moves are
@@ -650,7 +680,10 @@ Later chapters live in their own files next to the originals: `tiles_ext.js`,
 `events_ch3.js`, `events_ch4.js` (the chapter 5 story), `events_ch6.js`
 (chapters 6 and 7), `events_ch8.js` (chapters 8 and 9), `events_ch10.js`
 (chapters 10 to 12) and `events_ch13.js` (chapters 13 to 15: the shrine, the
-LEAGUE, the credits, the epilogue and the post-game). The GYM puzzles have their own trio: `tiles_gyms.js`, `maps_gyms.js`
+LEAGUE, the credits, the epilogue and the post-game). The later post-game
+(the BATTLE TOWER, outfits and the FORGOTTEN LIGHTHOUSE) is in
+`tiles_post.js`, `maps_post.js` and `events_post.js`, and the partner that
+follows you is `follower.js`. The GYM puzzles have their own trio: `tiles_gyms.js`, `maps_gyms.js`
 and `events_gyms.js`.
 Evolution is in `evolution.js`, and the DS-style battle panels and HP plates
 are in `battle_ui.js`.
@@ -722,5 +755,5 @@ Other spots: `willowbrook`, `archford`, `lab`, `centre`, `mart`, `home`,
 `windmill`, `route11`, `stonepeak`, `belltower`, `route7`, `emberpeak`, `forge`,
 `resonator`, `route6`, `marshland`, `grove`, `starfall`, `observatory`,
 `shrine`, `shrine2`, `shrine3`, `shrine4`, `victory`, `bramble`, `victory2`,
-`league`, `lobby`, `elite1`, `champion`, `hof`. Add
+`league`, `lobby`, `elite1`, `champion`, `hof`, `tower`, `lighthouse`. Add
 `&starter=moltarock` or `&starter=archepin` to pick the starter.

@@ -169,6 +169,7 @@ const Debug = {
       shrine: ['shrine1', 11, 23], shrine2: ['shrine2', 8, 28], shrine3: ['shrine3', 7, 18], shrine4: ['shrine4', 8, 13],
       victory: ['victory1', 14, 2], bramble: ['bramble', 7, 1], victory2: ['victory2', 11, 2], league: ['league', 10, 9],
       lobby: ['centre_lg', 6, 8], elite1: ['elite1', 6, 11], champion: ['champion', 6, 13], hof: ['halloffame', 5, 7],
+      tower: ['tower_lobby', 6, 7], lighthouse: ['fl_isle', 11, 16],
     };
     const [map, x, y] = spots[where] || spots.willowbrook;
     Object.assign(State.d, { map, x, y, dir: 'down' });

@@ -371,6 +371,9 @@ lights on.
     - Ferries to every island.
     - KAI trains with RYKER and challenges you at the LEAGUE.
     - An hourglass is left at the Sunken Shrine with a note: *"Time will tell. (M.)"*
+    - **The BATTLE TOWER** on the LEAGUE island: win streaks against random teams, with outfits as prizes at 5, 10 and 20 wins (a black-and-gold version of your clothes, a TEAM DISTORTION cloak, the CONDUCTOR's coat).
+    - **The FORGOTTEN LIGHTHOUSE.** VESPER keeps the light on parole, but every midnight it goes out for one minute. The old keeper's HOURGHAST is reliving the minute he was late the night of the great storm; VESPER calms it and keeps it company.
+    - **MORROW's hourglass.** Its sand leads to the three places MORROW battled you, where his notes tell the story: he was the lighthouse keeper, the ferry LARK went down that night with his brother aboard, and he joined the CONDUCTOR to win back one minute. At midnight he comes home to his HOURGHAST and stays on as the second keeper.
 
 ---
 
