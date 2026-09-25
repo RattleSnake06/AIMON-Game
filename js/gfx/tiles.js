@@ -180,7 +180,7 @@ const Tiles = {
         if (!map.def.outdoor && !map.def.cave) { this.drawFloor(g, px, py, map); break; }
         g.drawImage(map.def.cave ? this.caveFloorImg(0) : map.def.ground === 'a' ? this.sandImg(0)
           : map.def.ground === '+' ? this.pavingImg()
-            : this.floors[map.def.ground] ? this.floors[map.def.ground].call(this) : this.grassImg(0), px, py);
+            : map.def.ground === 'Ġ' ? this.floors['Ġ'].call(this) : this.grassImg(0), px, py);
         break;
       // interior
       case 'void': g.fillStyle = '#000'; g.fillRect(px, py, TILE, TILE); break;

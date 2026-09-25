@@ -83,7 +83,7 @@ Object.assign(Tiles.extra, {
 
 // Outdoors at the shrine, lanterns and broken pillars stand on its stone floor.
 {
-  const onShrine = (map) => map.def.outdoor && Tiles.floors[map.def.ground] && map.def.ground !== '.';
+  const onShrine = (map) => map.def.outdoor && map.def.ground === 'Ġ';
   const baseFor = Tiles.groundFor;
   Tiles.groundFor = function groundFor(map, n) {
     return onShrine(map) ? this.floors[map.def.ground].call(this) : baseFor.call(this, map, n);

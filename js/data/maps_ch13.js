@@ -229,7 +229,7 @@ Object.assign(MAPS, {
     things: [
       { x: 7, y: 7, script: 'altarInspect' }, { x: 8, y: 7, script: 'altarInspect' }, { x: 9, y: 7, script: 'altarInspect' },
     ],
-    glows: [{ x: 8, y: 4, r: 40, color: '#b070f8', alpha: 0.4, speed: 8, hideIf: 'shrine_done' }],
+    glows: [{ x: 8, y: 4, r: 26, color: '#b070f8', alpha: 0.3, speed: 8, hideIf: 'rift_closed' }],
     npcs: [
       { id: 's4_rift', prop: 'riftTear', x: 8, y: 5, move: 'still', hideIf: 'shrine_done', dyn: true,
         text: 'A tear in the air itself, violet and humming. Behind it there is... nothing at all.' },

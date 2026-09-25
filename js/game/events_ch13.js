@@ -315,16 +315,19 @@ Object.assign(Events, {
     yield* say('RYKER: The CONDUCTOR\'s been playing for a day and a night without stopping. His fingers are bleeding. He doesn\'t notice.');
     yield* say('RYKER: I told him I\'d hold this door. So I\'m holding it.');
     yield* say('Footsteps pound across the hall behind you.');
-    const kai = yield* this.arrive({ id: 's3_kai_t', person: 'rival' }, p, 'south');
+    const kai = OW.spawn({ id: 's3_kai_t', person: 'rival', x: 7, y: 13, dir: 'up' });
+    kai.emote = 30;
+    yield* OW.walkTo(kai, 7, 9);
+    p.dir = 'down';
     yield* say('KAI: RYKER!');
+    p.dir = 'up';
     ryker.emote = 30;
     Sound.sfx('exclaim');
     yield 30;
     yield* say('KAI: {PLAYER}. Step aside.');
     yield* say('KAI: This one\'s mine.');
-    yield* OW.walk(p, 'left', 1);
+    yield* OW.walkTo(p, 6, 8);
     p.dir = 'right';
-    yield* OW.walkTo(kai, 7, 8);
     yield* OW.walkTo(kai, 7, 7);
     kai.dir = 'up';
     yield* say('RYKER: Little brother. You really think you can...');
@@ -505,6 +508,7 @@ Object.assign(Events, {
     yield* Game.fadeOut(40, '#ffffff');
     const rift = OW.npc('s4_rift');
     if (rift) OW.despawn(rift);
+    State.setFlag('rift_closed');
     Game.shake = 30;
     yield 40;
     yield* Game.fadeIn(60);
@@ -997,7 +1001,7 @@ Object.assign(Events, {
 
   *credits() {
     const p = OW.player;
-    const team = State.party.map((m) => m.name).join('  ');
+    const team = State.party.map((m) => m.name).join(' ');
     const roll = { text: '', credit: ['', ''], start: Game.frame, stars: false };
     roll.draw = (g) => {
       const t = Game.frame - roll.start;
@@ -1017,8 +1021,20 @@ Object.assign(Events, {
       g.fillRect(0, 0, SCREEN_W, 30);
       g.fillRect(0, SCREEN_H - 34, SCREEN_W, 34);
       g.globalAlpha = a;
-      Font.drawCenter(g, State.text(roll.credit[0]), SCREEN_W / 2, 3, '#b8b0d8', '#000');
-      Font.drawCenter(g, State.text(roll.credit[1]).replace('{TEAM}', team), SCREEN_W / 2, 16, '#ffffff', '#000');
+      let [top, names] = roll.credit.map((c) => State.text(c));
+      let topColor = '#b8b0d8';
+      if (names === '{TEAM}') {
+        // A full team won't fit on one line: let it take the label's line too.
+        const lines = Font.wrap(team, 228);
+        if (lines.length > 1) {
+          [top, names] = lines;
+          topColor = '#ffffff';
+        } else {
+          names = team;
+        }
+      }
+      Font.drawCenter(g, top, SCREEN_W / 2, 3, topColor, '#000');
+      Font.drawCenter(g, names, SCREEN_W / 2, 16, '#ffffff', '#000');
       Font.wrap(roll.text, 228).slice(0, 2).forEach((line, i) => Font.drawCenter(g, line, SCREEN_W / 2, SCREEN_H - 30 + i * 13, '#ffffff', '#000'));
       g.globalAlpha = 1;
     };
@@ -1136,7 +1152,7 @@ Object.assign(Events, {
     Game.push(scene);
     yield* Game.fadeIn(40);
     yield 280;
-    scene.text = 'They say a woman in a long coat keeps it now. She is on parole, and she has never once let the light go out.';
+    scene.text = 'A woman in a long coat keeps it now, on parole. She never lets the light go out.';
     yield 300;
     yield* Game.fadeOut(40);
     Game.remove(scene);

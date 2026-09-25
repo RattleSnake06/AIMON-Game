@@ -393,5 +393,6 @@ lights on.
   - Route 6 and the Marshland (Ch 12): FERNEWT, FLORAXOL, MUDBARBEL, BRIARWILD and GANDERGALE, and ABYSSLURE on a fishing line;
   - the MYSTIC GROVE: GLOAMFERN (it's always a moonless night when you visit), HEXWRAITH and BRIARWILD. ASTRALYX, the STARSTONE legendary, is saved for later;
   - STARFALL ISLE: COMETCUB, and METEORWOLF as NOX's GYM 8 ace;
-  - still to come: ELEGIRA, the RIFT legendary, who sleeps in the SUNKEN SHRINE (Ch 13); AMPOLITH and the rest of VICTORY PATH (Ch 14);
+  - the VICTORY PATH and BRAMBLEWOOD FOREST (Ch 14): AMPOLITH, QUAKEPIKE, THUNDERVIX, BRAWLPAW, GANDERGALE, ZEPHYRON, CRYSTAG and AERIALIS, with PEBBEAT drumming in the shifting clearing;
+  - after the story: ELEGIRA, the RIFT legendary, sleeps above the altar at the heart of the SUNKEN SHRINE, and ASTRALYX waits by the MYSTIC GROVE's altar (both Lv 70);
   - the new Lv 36 forms GANDERGALE, HEXWRAITH, THUNDERVIX, BRAWLPAW and QUAKEPIKE: late-game teams, such as CHAMPION KAI's GANDERGALE and BRAWLPAW, and ELITE SHADE's HEXWRAITH.
